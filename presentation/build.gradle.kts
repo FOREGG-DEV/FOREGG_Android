@@ -1,14 +1,17 @@
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    kotlin("android")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
-    namespace = "com.foregg.foregg"
+    namespace = "com.foregg.presentation"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.foregg.foregg"
+        applicationId = "com.foregg.presentation"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -33,15 +36,36 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {
+    implementation(project(":data"))
+    implementation(project(":domain"))
+    implementation(AndroidX.CORE)
+    implementation(AndroidX.APPCOMPAT)
+    implementation(Google.MATERIAL)
+    implementation(AndroidX.CONSTRAINT_LAYOUT)
+    implementation(AndroidX.FRAGMENT_KTX)
+    implementation(AndroidX.NAVIGATION_UI_KTX)
+    implementation(AndroidX.NAVIGATION_FRAGMENT_KTX)
+    implementation(AndroidX.LIFECYCLE_VIEW_MODEL_KTX)
+    implementation(AndroidX.LIFECYCLE_RUNTIME_KTX)
+    implementation(AndroidX.SPLASH)
+    implementation(AndroidX.THREE_TEN)
+    implementation(AndroidX.SWIPE_REFRESH)
 
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    //코루틴
+    implementation(Kotlin.COROUTINES_CORE)
+    implementation(Kotlin.COROUTINES)
+
+    //힐트
+    implementation(Google.HILT_ANDROID)
+    implementation(Google.HILT_CORE)
+    kapt(Google.HILT_COMPILER)
+
+    implementation(KAKAO.AUTH)
+    implementation(Google.GLIDE)
 }
