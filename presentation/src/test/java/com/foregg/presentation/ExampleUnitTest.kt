@@ -1,4 +1,4 @@
-package com.foregg.foregg
+package com.foregg.presentation
 
 import org.junit.Test
 
