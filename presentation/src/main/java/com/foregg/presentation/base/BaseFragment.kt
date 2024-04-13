@@ -63,14 +63,14 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
         override fun handleOnBackPressed() {
             if (navController.currentDestination?.id != navController.graph.startDestinationId) {
                 navController.popBackStack()
-            } else {
-                if (backPressedOnce) {
-                    requireActivity().finish()
-                } else {
-                    backPressedOnce = true
-                    Handler(Looper.getMainLooper()).postDelayed({ backPressedOnce = false }, 2000)
-                }
+                return
             }
+            if(backPressedOnce){
+                requireActivity().finish()
+                return
+            }
+            backPressedOnce = true
+            Handler(Looper.getMainLooper()).postDelayed({ backPressedOnce = false }, 2000)
         }
     }
 

@@ -25,7 +25,6 @@ class MainActivity :
     }
 
     override fun initState() {
-        super.initState()
         repeatOnStarted {
             viewModel.eventFlow.collect {
                 inspectEvent(it as MainActivityEvent)

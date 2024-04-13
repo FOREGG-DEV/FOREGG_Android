@@ -33,13 +33,7 @@ abstract class BaseActivity<B : ViewDataBinding,STATE: PageState, VM: BaseViewMo
     protected abstract fun initView()
 
 
-    protected open fun initState() {
-        repeatOnStarted {
-            launch {
-
-            }
-        }
-    }
+    protected abstract fun initState()
 
     protected fun LifecycleOwner.repeatOnStarted(block: suspend CoroutineScope.() -> Unit) {
         lifecycleScope.launch {
