@@ -2,6 +2,7 @@ package com.foregg.presentation.ui.sign.splash
 
 import android.content.Intent
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.foregg.presentation.PageState
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentSplashBinding
@@ -38,6 +39,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, PageState.Default, Sp
         when(event){
             SplashEvent.GoToSignEvent -> goToSign()
             SplashEvent.GoToMainEvent -> goToMain()
+            SplashEvent.GoToOnboardingEvent -> goToOnboarding()
         }
     }
 
@@ -49,5 +51,10 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, PageState.Default, Sp
 
     private fun goToSign(){
         //TODO 로그인 화면으로 이동
+    }
+
+    private fun goToOnboarding(){
+        val action = SplashFragmentDirections.actionSplashToOnboarding()
+        findNavController().navigate(action)
     }
 }

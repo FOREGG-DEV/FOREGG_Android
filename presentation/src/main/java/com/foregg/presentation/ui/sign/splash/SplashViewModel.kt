@@ -11,7 +11,8 @@ class SplashViewModel @Inject constructor() : BaseViewModel<PageState.Default>()
         get() = TODO("Not yet implemented")
 
     fun checkLogin(){
-        // TODO 내 정보 가져오기 api를 통해 가입된 유저면 Main, 아니라면 sign으로
+        //TODO 내 정보 가져오기 api를 통해 가입된 유저면 Main, 아니라면 sign으로
+        emitEventFlow(SplashEvent.GoToOnboardingEvent)
     }
 
     private fun goToMain(){
