@@ -5,5 +5,6 @@
     <color name="background">#F7F7F7</color>
     <color name="main">#89B5A2</color>
     <color name="main2">#5E8D79</color>
-    <color name="main3">B2D7C7</color>
+    <color name="main3">#B2D7C7</color>
+    <color name="gs_30">#C0C0C0</color>
 </resources>

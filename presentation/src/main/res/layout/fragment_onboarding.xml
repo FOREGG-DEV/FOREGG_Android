@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="vm"
             type="com.foregg.presentation.ui.sign.onBoarding.OnboardingViewModel" />
@@ -29,38 +30,29 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="12dp"
-            android:layout_marginBottom="48dp"
+            android:layout_marginBottom="43dp"
             android:background="#D9D9D9"
-            app:layout_constraintBottom_toTopOf="@id/text_tutorial"
-            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintBottom_toTopOf="@id/indicator_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/img_logo" />
 
-        <TextView
-            android:id="@+id/text_tutorial"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="43dp"
-            android:gravity="center"
-            android:textAppearance="@style/h2"
-            app:layout_constraintBottom_toTopOf="@id/indicator_view"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="여기에 그림에 들어가는 기능에 대한 설명 멘트 두 줄 정도 들어가면 좋을 것 같습니다." />
 
-        <com.zhpan.indicator.IndicatorView
+        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
             android:id="@+id/indicator_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="39dp"
-            android:foregroundGravity="center"
             app:layout_constraintBottom_toTopOf="@id/btn_next"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_marginBottom="39dp"
+            app:dotsColor="@color/gs_30"
+            app:dotsCornerRadius="8dp"
+            app:dotsSize="8dp"
+            app:dotsSpacing="4dp"
+            app:selectedDotColor="@color/main"
+            app:progressMode="false"
+            />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_next"
@@ -70,7 +62,9 @@
             android:background="@drawable/bg_rectangle_filled_white_stroke_main_radius_8"
             android:layout_marginBottom="80dp"
             android:textAppearance="@style/btn"
+            android:onClick="@{()->vm.onClickNext()}"
             android:text="@string/word_next"
+            android:visibility="@{vm.uiState.isLastPage() ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
