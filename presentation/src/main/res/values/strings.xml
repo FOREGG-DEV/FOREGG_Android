@@ -3,4 +3,10 @@
 
     <!-- Words -->
     <string name="word_next">다음</string>
+    <string name="word_female">여성</string>
+    <string name="word_male">남성</string>
+
+    <!-- Sign -->
+    <string name="sign_up">회원가입</string>
+    <string name="sign_choose_gender">본인의 성별을 선택해주세요</string>
 </resources>
