@@ -40,16 +40,55 @@
             app:layout_constraintTop_toTopOf="@id/img_btn_back" />
 
         <TextView
-            android:id="@+id/text_choose_gender"
+            android:id="@+id/text_share_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="191dp"
-            android:text="남성 회원가입"
-            android:textAppearance="@style/h2"
+            android:layout_marginTop="64dp"
+            android:text="@string/sign_share_code"
+            android:textAppearance="@style/h3"
             android:textColor="@color/gs_90"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/include_top_bar" />
+
+        <EditText
+            android:id="@+id/edit_text_share_code"
+            android:layout_marginTop="2dp"
+            android:textAppearance="@style/p2"
+            android:textColor="@color/black"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="14dp"
+            android:layout_width="0dp"
+            app:layout_constraintTop_toBottomOf="@id/text_share_code"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="16dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_8"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            app:layout_constraintTop_toBottomOf="@id/edit_text_share_code"
+            app:layout_constraintStart_toStartOf="@id/edit_text_share_code"
+            android:layout_marginTop="6dp"
+            android:textColor="@color/gs_90"
+            android:textAppearance="@style/p3_l"
+            android:text="@string/sign_share_code_male_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_confirm"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="@drawable/bg_rectangle_filled_white_stroke_main_radius_8"
+            android:layout_marginBottom="80dp"
+            android:onClick="@{()->vm.onClickConfirm()}"
+            android:textAppearance="@style/btn"
+            android:text="@string/word_confirm"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

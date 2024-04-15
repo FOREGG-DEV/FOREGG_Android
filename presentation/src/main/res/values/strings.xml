@@ -5,8 +5,11 @@
     <string name="word_next">다음</string>
     <string name="word_female">여성</string>
     <string name="word_male">남성</string>
+    <string name="word_confirm">확인</string>
 
     <!-- Sign -->
     <string name="sign_up">회원가입</string>
     <string name="sign_choose_gender">본인의 성별을 선택해주세요</string>
+    <string name="sign_share_code">배우자 공유코드</string>
+    <string name="sign_share_code_male_hint">아내에게 받은 공유 코드를 입력해주세요.</string>
 </resources>
