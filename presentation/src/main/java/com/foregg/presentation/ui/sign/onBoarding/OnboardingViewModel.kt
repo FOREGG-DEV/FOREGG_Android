@@ -40,6 +40,7 @@ class OnboardingViewModel @Inject constructor() : BaseViewModel<OnboardingPageSt
 
     fun onClickKaKaoLogin(){
         //TODO 카카오 로그인
+        goToSignUp()
     }
 
     private fun goToMain(){

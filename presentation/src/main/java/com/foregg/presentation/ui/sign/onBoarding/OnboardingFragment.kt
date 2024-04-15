@@ -2,6 +2,7 @@ package com.foregg.presentation.ui.sign.onBoarding
 
 import android.content.Intent
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentOnboardingBinding
 import com.foregg.presentation.ui.MainActivity
@@ -73,6 +74,7 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding, OnboardingPag
     }
 
     private fun goToSignUp(){
-        //TODO 회원가입 화면으로 이동
+        val action = OnboardingFragmentDirections.actionOnboardingToChooseGender()
+        findNavController().navigate(action)
     }
 }

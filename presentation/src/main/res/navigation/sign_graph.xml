@@ -22,5 +22,38 @@
         android:name="com.foregg.presentation.ui.sign.onBoarding.OnboardingFragment"
         android:label="fragment_onboarding"
         tools:layout="@layout/fragment_onboarding">
+
+        <action
+            android:id="@+id/action_onboarding_to_chooseGender"
+            app:destination="@id/chooseGenderFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/chooseGenderFragment"
+        android:name="com.foregg.presentation.ui.sign.signUp.chooseGender.ChooseGenderFragment"
+        android:label="fragment_sign_up_choose_gender"
+        tools:layout="@layout/fragment_sign_up_choose_gender">
+
+        <action
+            android:id="@+id/action_chooseGender_to_female"
+            app:destination="@id/signUpFemaleFragment"/>
+
+        <action
+            android:id="@+id/action_chooseGender_to_male"
+            app:destination="@id/signUpMaleFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/signUpFemaleFragment"
+        android:name="com.foregg.presentation.ui.sign.signUp.female.SignUpFemaleFragment"
+        android:label="fragment_sign_up_female"
+        tools:layout="@layout/fragment_sign_up_female">
+    </fragment>
+
+    <fragment
+        android:id="@+id/signUpMaleFragment"
+        android:name="com.foregg.presentation.ui.sign.signUp.male.SignUpMaleFragment"
+        android:label="fragment_sign_up_male"
+        tools:layout="@layout/fragment_sign_up_male">
     </fragment>
 </navigation>
