@@ -1,12 +1,14 @@
 package com.foregg.presentation.ui.sign.onBoarding
 
 import android.content.Intent
+import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentOnboardingBinding
 import com.foregg.presentation.ui.MainActivity
 import com.foregg.presentation.ui.sign.onBoarding.adapter.OnboardingTutorialAdapter
+import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -52,6 +54,7 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding, OnboardingPag
             OnboardingEvent.GoToSignUpEvent -> goToSignUp()
             OnboardingEvent.GoToMainEvent -> goToMain()
             OnboardingEvent.MoveNextEvent -> moveToNext()
+            OnboardingEvent.KaKaoLoginEvent -> signInKakao()
         }
     }
 
@@ -63,6 +66,32 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding, OnboardingPag
             }
             if(nextItem == (viewPagerTutorial.adapter?.itemCount?.minus(1))){
                 viewModel.updateKaKaoLoginButton()
+            }
+        }
+    }
+
+    private fun signInKakao() {
+        if (UserApiClient.instance.isKakaoTalkLoginAvailable(requireContext())) {
+            signInKakaoApp()
+        } else {
+            signInKakaoEmail()
+        }
+    }
+
+    private fun signInKakaoApp() {
+        UserApiClient.instance.loginWithKakaoTalk(requireContext()) { token, error ->
+            token?.let {
+                Log.d("FOREGG", it.accessToken)
+                goToSignUp()
+            }
+        }
+    }
+
+    private fun signInKakaoEmail() {
+        UserApiClient.instance.loginWithKakaoAccount(requireContext()) { token, error ->
+            token?.let {
+                Log.d("FOREGG", it.accessToken)
+                goToSignUp()
             }
         }
     }
