@@ -17,6 +17,7 @@ class SignUpFemaleViewModel @Inject constructor() : BaseViewModel<SignUpFemalePa
     private val surgeryTypeListStateFlow : MutableStateFlow<List<SurgeryType>> = MutableStateFlow(
         emptyList()
     )
+    private val selectedSurgeryTypeStateFlow : MutableStateFlow<SurgeryType> = MutableStateFlow(SurgeryType.EGG_FREEZING)
     private val progressRoundStateFlow : MutableStateFlow<String> = MutableStateFlow("")
     private val startTreatmentDayStateFlow : MutableStateFlow<String> = MutableStateFlow("")
     private val shareCodeStateFlow : MutableStateFlow<String> = MutableStateFlow("")
@@ -24,6 +25,7 @@ class SignUpFemaleViewModel @Inject constructor() : BaseViewModel<SignUpFemalePa
 
     override val uiState: SignUpFemalePageState = SignUpFemalePageState(
         surgeryTypeList = surgeryTypeListStateFlow.asStateFlow(),
+        selectedSurgeryType = selectedSurgeryTypeStateFlow.asStateFlow(),
         progressRound = progressRoundStateFlow,
         startTreatmentDay = startTreatmentDayStateFlow.asStateFlow(),
         shareCode = shareCodeStateFlow.asStateFlow(),
@@ -45,5 +47,16 @@ class SignUpFemaleViewModel @Inject constructor() : BaseViewModel<SignUpFemalePa
         viewModelScope.launch {
             isExpandStateFlow.update { !isExpandStateFlow.value }
         }
+    }
+
+    fun updateSelectedSurgeryType(type : SurgeryType){
+        viewModelScope.launch {
+            selectedSurgeryTypeStateFlow.update { type }
+        }
+        onClickSpinner()
+    }
+
+    fun onClickCalendar(){
+        emitEventFlow(SignUpFemaleEvent.ShowDatePickerDialogEvent)
     }
 }

@@ -4,4 +4,5 @@ import com.foregg.presentation.Event
 
 sealed class SignUpFemaleEvent : Event {
     object GoToBackEvent : SignUpFemaleEvent()
+    object ShowDatePickerDialogEvent : SignUpFemaleEvent()
 }
