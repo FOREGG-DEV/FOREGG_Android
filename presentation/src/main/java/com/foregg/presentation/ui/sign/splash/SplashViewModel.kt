@@ -1,4 +1,4 @@
-package com.foregg.presentation.ui.splash
+package com.foregg.presentation.ui.sign.splash
 
 import com.foregg.presentation.PageState
 import com.foregg.presentation.base.BaseViewModel

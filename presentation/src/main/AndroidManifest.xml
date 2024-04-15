@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Foregg"
         tools:targetApi="31">
         <activity
-            android:name=".ui.splash.SplashActivity"
+            android:name=".ui.sign.SignActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.App.RemoveSplash"
             android:windowSoftInputMode="adjustPan"

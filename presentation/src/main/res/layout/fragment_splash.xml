@@ -4,7 +4,7 @@
     <data>
         <variable
             name="vm"
-            type="com.foregg.presentation.ui.splash.SplashViewModel" />
+            type="com.foregg.presentation.ui.sign.splash.SplashViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
