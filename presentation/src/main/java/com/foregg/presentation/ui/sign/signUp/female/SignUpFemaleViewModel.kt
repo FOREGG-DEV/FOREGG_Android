@@ -67,7 +67,7 @@ class SignUpFemaleViewModel @Inject constructor(
 
     fun onClickMinus(){
         val round = progressRoundStateFlow.value - 1
-        if(round != 0){
+        if(round != -1){
             updateProgressRound(round)
         }
     }
