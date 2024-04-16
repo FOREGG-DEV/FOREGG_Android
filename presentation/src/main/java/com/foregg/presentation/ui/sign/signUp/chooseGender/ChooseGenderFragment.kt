@@ -2,6 +2,7 @@ package com.foregg.presentation.ui.sign.signUp.chooseGender
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.foregg.presentation.PageState
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentSignUpChooseGenderBinding
@@ -14,6 +15,8 @@ class ChooseGenderFragment : BaseFragment<FragmentSignUpChooseGenderBinding, Pag
 ) {
 
     override val viewModel: ChooseGenderViewModel by viewModels()
+
+    private val chooseGenderFragmentArgs : ChooseGenderFragmentArgs by navArgs()
 
     override fun initView() {
         binding.apply {
@@ -42,7 +45,7 @@ class ChooseGenderFragment : BaseFragment<FragmentSignUpChooseGenderBinding, Pag
     }
 
     private fun goToFemaleSignUp(){
-        val action = ChooseGenderFragmentDirections.actionChooseGenderToFemale()
+        val action = ChooseGenderFragmentDirections.actionChooseGenderToFemale(chooseGenderFragmentArgs.accessToken)
         findNavController().navigate(action)
     }
 

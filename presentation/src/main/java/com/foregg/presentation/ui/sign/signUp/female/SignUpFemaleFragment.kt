@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.foregg.domain.model.enums.SurgeryType
 import com.foregg.presentation.R
@@ -21,6 +22,8 @@ class SignUpFemaleFragment : BaseFragment<FragmentSignUpFemaleBinding, SignUpFem
 
     override val viewModel: SignUpFemaleViewModel by viewModels()
 
+    private val signUpFemaleFragmentArgs : SignUpFemaleFragmentArgs by navArgs()
+
     private val surgeryTypeAdapter : SurgeryTypeAdapter by lazy {
         SurgeryTypeAdapter(object : SurgeryTypeAdapter.SurgeryTypeDelegate{
             override fun onClickType(type: SurgeryType) {
@@ -32,7 +35,7 @@ class SignUpFemaleFragment : BaseFragment<FragmentSignUpFemaleBinding, SignUpFem
 
     private val calendar = Calendar.getInstance()
     private val listener = DatePickerDialog.OnDateSetListener { view, year, month, day ->
-        binding.textStartTreatmentDay.text = "${year}-${month+1}-${day}"
+         viewModel.updateStartTreatmentDay("${year}-${month+1}-${day}")
     }
     private val datePickerDialog : DatePickerDialog by lazy { DatePickerDialog(requireContext(),
         R.style.DatePickerStyle,
@@ -50,7 +53,7 @@ class SignUpFemaleFragment : BaseFragment<FragmentSignUpFemaleBinding, SignUpFem
                 layoutManager = LinearLayoutManager(context)
                 adapter = surgeryTypeAdapter
             }
-            viewModel.getSurgeryType()
+            viewModel.getSurgeryType(signUpFemaleFragmentArgs.accessToken)
         }
     }
 

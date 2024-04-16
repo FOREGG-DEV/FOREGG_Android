@@ -39,7 +39,7 @@ abstract class BaseViewModel<STATE: PageState> : ViewModel() {
         _isLoading.value = false
     }
 
-    protected fun<D : DomainResponse> resultResponse(response: ApiState<D>, successCallback : (D) -> Unit, errorCallback : ((String) -> Unit)? = null){
+    protected fun<D> resultResponse(response: ApiState<D>, successCallback : (D) -> Unit, errorCallback : ((String) -> Unit)? = null){
         when(response){
             is ApiState.Error -> errorCallback?.invoke(response.errorCode)
             ApiState.Loading -> showLoading()

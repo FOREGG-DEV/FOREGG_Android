@@ -51,7 +51,7 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding, OnboardingPag
 
     private fun sortEvent(event: OnboardingEvent){
         when(event){
-            OnboardingEvent.GoToSignUpEvent -> goToSignUp()
+            is OnboardingEvent.GoToSignUpEvent -> goToSignUp(event.token)
             OnboardingEvent.GoToMainEvent -> goToMain()
             OnboardingEvent.MoveNextEvent -> moveToNext()
             OnboardingEvent.KaKaoLoginEvent -> signInKakao()
@@ -100,8 +100,8 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding, OnboardingPag
         requireActivity().finish()
     }
 
-    private fun goToSignUp(){
-        val action = OnboardingFragmentDirections.actionOnboardingToChooseGender()
+    private fun goToSignUp(token : String){
+        val action = OnboardingFragmentDirections.actionOnboardingToChooseGender(token)
         findNavController().navigate(action)
     }
 }

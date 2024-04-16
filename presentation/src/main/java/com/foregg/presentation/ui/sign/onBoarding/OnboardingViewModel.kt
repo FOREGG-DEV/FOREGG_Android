@@ -49,7 +49,7 @@ class OnboardingViewModel @Inject constructor(
     fun login(token : String){
         viewModelScope.launch {
             postLoginUseCase(token).collect{
-                resultResponse(it, { goToMain() }, ::errorFun)
+                resultResponse(it, { goToMain() }, { goToSignUp(token) })
             }
         }
     }
@@ -58,11 +58,7 @@ class OnboardingViewModel @Inject constructor(
         emitEventFlow(OnboardingEvent.GoToMainEvent)
     }
 
-    private fun errorFun(error : String){
-        goToSignUp()
-    }
-
-    private fun goToSignUp(){
-        emitEventFlow(OnboardingEvent.GoToSignUpEvent)
+    private fun goToSignUp(token: String){
+        emitEventFlow(OnboardingEvent.GoToSignUpEvent(token))
     }
 }

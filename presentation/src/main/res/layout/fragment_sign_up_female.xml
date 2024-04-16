@@ -99,25 +99,46 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         
-        <EditText
-            android:id="@+id/edit_text_progress_round"
+        <TextView
+            android:id="@+id/text_progress_round"
             app:layout_constraintTop_toBottomOf="@id/text_progress_round_hint"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp"
-            android:inputType="number"
-            android:enabled="@{vm.uiState.selectedSurgeryType == SurgeryType.THINK_SURGERY ? false : true}"
+            android:clickable="@{vm.uiState.selectedSurgeryType == SurgeryType.THINK_SURGERY ? false : true}"
             android:background="@{vm.uiState.selectedSurgeryType == SurgeryType.THINK_SURGERY ? @drawable/bg_rectangle_filled_gs_10_radius_8 : @drawable/bg_rectangle_filled_white_radius_8}"
             android:layout_marginTop="2dp"
             android:textAppearance="@style/p2"
             android:textColor="@color/black"
+            android:gravity="center"
+            android:text="@{vm.uiState.progressRound}"
             tools:text="24"
             android:paddingVertical="14dp"
             android:layout_width="168dp"
             android:layout_height="wrap_content"/>
 
+        <ImageButton
+            android:id="@+id/img_btn_minus"
+            app:layout_constraintTop_toTopOf="@id/text_progress_round"
+            app:layout_constraintStart_toStartOf="@id/text_progress_round"
+            app:layout_constraintBottom_toBottomOf="@id/text_progress_round"
+            android:background="@drawable/ic_minus_gs_10"
+            android:onClick="@{()->vm.onClickMinus()}"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"/>
+
+        <ImageButton
+            android:id="@+id/img_btn_plus"
+            app:layout_constraintTop_toTopOf="@id/text_progress_round"
+            app:layout_constraintEnd_toEndOf="@id/text_progress_round"
+            app:layout_constraintBottom_toBottomOf="@id/text_progress_round"
+            android:background="@drawable/ic_plus_gs_10"
+            android:onClick="@{()->vm.onClickPlus()}"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"/>
+
         <TextView
-            app:layout_constraintBottom_toBottomOf="@id/edit_text_progress_round"
-            app:layout_constraintStart_toEndOf="@id/edit_text_progress_round"
+            app:layout_constraintBottom_toBottomOf="@id/text_progress_round"
+            app:layout_constraintStart_toEndOf="@id/text_progress_round"
             android:layout_marginStart="8dp"
             android:text="@string/word_round"
             android:textAppearance="@style/h3"
@@ -127,7 +148,7 @@
 
         <TextView
             android:id="@+id/text_start_treatment_day_hint"
-            app:layout_constraintTop_toBottomOf="@id/edit_text_progress_round"
+            app:layout_constraintTop_toBottomOf="@id/text_progress_round"
             android:layout_marginTop="24dp"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp"
@@ -166,7 +187,8 @@
                 app:layout_constraintStart_toEndOf="@id/img_calendar"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="18dp"
+                android:text="@{vm.uiState.startTreatmentDay}"
                 android:textColor="@color/black"
                 android:textAppearance="@style/p2"
                 android:layout_width="wrap_content"
@@ -250,6 +272,7 @@
             android:layout_marginBottom="80dp"
             android:textAppearance="@style/btn"
             android:text="@string/word_confirm"
+            android:onClick="@{()->vm.onClickJoin()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

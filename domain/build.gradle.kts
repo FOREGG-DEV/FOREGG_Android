@@ -13,4 +13,6 @@ dependencies {
     implementation(Kotlin.COROUTINES_CORE)
 
     implementation(Google.HILT_CORE)
+
+    implementation(AndroidX.THREE_TEN)
 }

@@ -34,6 +34,11 @@
         android:label="fragment_sign_up_choose_gender"
         tools:layout="@layout/fragment_sign_up_choose_gender">
 
+        <argument
+            android:name="accessToken"
+            android:defaultValue=""
+            app:argType="string"/>
+
         <action
             android:id="@+id/action_chooseGender_to_female"
             app:destination="@id/signUpFemaleFragment"/>
@@ -48,6 +53,11 @@
         android:name="com.foregg.presentation.ui.sign.signUp.female.SignUpFemaleFragment"
         android:label="fragment_sign_up_female"
         tools:layout="@layout/fragment_sign_up_female">
+
+        <argument
+            android:name="accessToken"
+            android:defaultValue=""
+            app:argType="string"/>
     </fragment>
 
     <fragment

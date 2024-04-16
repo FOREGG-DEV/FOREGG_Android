@@ -4,7 +4,7 @@ import com.foregg.presentation.Event
 
 sealed class OnboardingEvent : Event{
     object GoToMainEvent : OnboardingEvent()
-    object GoToSignUpEvent : OnboardingEvent()
+    data class GoToSignUpEvent(val token : String) : OnboardingEvent()
     object MoveNextEvent : OnboardingEvent()
     object KaKaoLoginEvent : OnboardingEvent()
 }
