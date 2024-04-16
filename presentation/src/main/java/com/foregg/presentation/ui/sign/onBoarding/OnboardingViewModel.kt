@@ -1,6 +1,8 @@
 package com.foregg.presentation.ui.sign.onBoarding
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.foregg.domain.usecase.auth.PostLoginUseCase
 import com.foregg.presentation.PageState
 import com.foregg.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,7 +13,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class OnboardingViewModel @Inject constructor() : BaseViewModel<OnboardingPageState>() {
+class OnboardingViewModel @Inject constructor(
+    private val postLoginUseCase: PostLoginUseCase
+) : BaseViewModel<OnboardingPageState>() {
 
     private val imageListStateFlow : MutableStateFlow<List<String>> = MutableStateFlow(emptyList())
     private val isLastPageStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
@@ -42,8 +46,20 @@ class OnboardingViewModel @Inject constructor() : BaseViewModel<OnboardingPageSt
         emitEventFlow(OnboardingEvent.KaKaoLoginEvent)
     }
 
+    fun login(token : String){
+        viewModelScope.launch {
+            postLoginUseCase(token).collect{
+                resultResponse(it, { goToMain() }, ::errorFun)
+            }
+        }
+    }
+
     private fun goToMain(){
         emitEventFlow(OnboardingEvent.GoToMainEvent)
+    }
+
+    private fun errorFun(error : String){
+        goToSignUp()
     }
 
     private fun goToSignUp(){

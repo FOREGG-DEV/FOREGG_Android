@@ -81,8 +81,7 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding, OnboardingPag
     private fun signInKakaoApp() {
         UserApiClient.instance.loginWithKakaoTalk(requireContext()) { token, error ->
             token?.let {
-                Log.d("FOREGG", it.accessToken)
-                goToSignUp()
+                viewModel.login(token.accessToken)
             }
         }
     }
@@ -90,8 +89,7 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding, OnboardingPag
     private fun signInKakaoEmail() {
         UserApiClient.instance.loginWithKakaoAccount(requireContext()) { token, error ->
             token?.let {
-                Log.d("FOREGG", it.accessToken)
-                goToSignUp()
+                viewModel.login(token.accessToken)
             }
         }
     }
