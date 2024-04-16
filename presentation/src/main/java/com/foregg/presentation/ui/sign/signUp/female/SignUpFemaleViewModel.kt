@@ -7,7 +7,6 @@ import com.foregg.domain.model.request.SignUpWithTokenRequestVo
 import com.foregg.domain.usecase.auth.PostJoinUseCase
 import com.foregg.presentation.base.BaseViewModel
 import com.foregg.presentation.util.ForeggLog
-import com.foregg.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,7 +22,7 @@ class SignUpFemaleViewModel @Inject constructor(
     private val surgeryTypeListStateFlow : MutableStateFlow<List<SurgeryType>> = MutableStateFlow(
         emptyList()
     )
-    private val selectedSurgeryTypeStateFlow : MutableStateFlow<SurgeryType> = MutableStateFlow(SurgeryType.EGG_FREEZING)
+    private val selectedSurgeryTypeStateFlow : MutableStateFlow<SurgeryType> = MutableStateFlow(SurgeryType.체외_수정)
     private val progressRoundStateFlow : MutableStateFlow<Int> = MutableStateFlow(0)
     private val startTreatmentDayStateFlow : MutableStateFlow<String> = MutableStateFlow("")
     private val shareCodeStateFlow : MutableStateFlow<String> = MutableStateFlow("")
@@ -46,7 +45,7 @@ class SignUpFemaleViewModel @Inject constructor(
 
     fun getSurgeryType(token : String){
         accessToken = token
-        val list = listOf(SurgeryType.THINK_SURGERY, SurgeryType.EGG_FREEZING, SurgeryType.IN_VITRO_FERTILIZATION)
+        val list = listOf(SurgeryType.시술_고민_중, SurgeryType.난자_동결, SurgeryType.체외_수정)
         viewModelScope.launch {
             surgeryTypeListStateFlow.update { list }
         }
@@ -99,7 +98,7 @@ class SignUpFemaleViewModel @Inject constructor(
         val request = getRequest()
         viewModelScope.launch {
             postJoinUseCase(request).collect{
-                resultResponse(it, {ForeggLog.D("성공")}, {ForeggLog.D("실패")})
+                resultResponse(it, { ForeggLog.D("성공") }, { ForeggLog.D("실패") })
             }
         }
     }
@@ -109,8 +108,10 @@ class SignUpFemaleViewModel @Inject constructor(
             accessToken = accessToken,
             signUpRequestVo = SignUpRequestVo(
                 surgeryType = selectedSurgeryTypeStateFlow.value,
-                count = progressRoundStateFlow.value,
-                startAt = TimeFormatter.parseToLocalDate(startTreatmentDayStateFlow.value)
+                count = if(selectedSurgeryTypeStateFlow.value == SurgeryType.시술_고민_중) null
+                        else progressRoundStateFlow.value,
+                startAt = if(selectedSurgeryTypeStateFlow.value == SurgeryType.시술_고민_중) null
+                        else startTreatmentDayStateFlow.value
             )
         )
     }

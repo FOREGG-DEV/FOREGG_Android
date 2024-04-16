@@ -1,10 +1,10 @@
 package com.foregg.presentation.ui.sign.onBoarding
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.foregg.data.base.StatusCode
 import com.foregg.domain.usecase.auth.PostLoginUseCase
-import com.foregg.presentation.PageState
 import com.foregg.presentation.base.BaseViewModel
+import com.foregg.presentation.util.ForeggLog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,6 +24,8 @@ class OnboardingViewModel @Inject constructor(
         imageListStateFlow.asStateFlow(),
         isLastPageStateFlow.asStateFlow()
     )
+
+    private lateinit var accessToken : String
 
     fun getTutorialImage(){
         val list = listOf("여기에 그림에 들어가는 기능에 대한 설명 멘트 두 줄 정도 들어가면 좋을 것 같습니다.", "2번", "3번", "4번")
@@ -47,10 +49,18 @@ class OnboardingViewModel @Inject constructor(
     }
 
     fun login(token : String){
+        accessToken = token
         viewModelScope.launch {
             postLoginUseCase(token).collect{
-                resultResponse(it, { goToMain() }, { goToSignUp(token) })
+                resultResponse(it, { goToMain() }, ::handleLoginError)
             }
+        }
+    }
+
+    private fun handleLoginError(error : String){
+        when(error){
+            StatusCode.AUTH.USER_NEED_JOIN -> goToSignUp()
+            else -> ForeggLog.D("알 수 없는 오류")
         }
     }
 
@@ -58,7 +68,7 @@ class OnboardingViewModel @Inject constructor(
         emitEventFlow(OnboardingEvent.GoToMainEvent)
     }
 
-    private fun goToSignUp(token: String){
-        emitEventFlow(OnboardingEvent.GoToSignUpEvent(token))
+    private fun goToSignUp(){
+        emitEventFlow(OnboardingEvent.GoToSignUpEvent(accessToken))
     }
 }

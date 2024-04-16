@@ -104,7 +104,7 @@
             app:layout_constraintTop_toBottomOf="@id/text_progress_round_hint"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp"
-            android:background="@{vm.uiState.selectedSurgeryType == SurgeryType.THINK_SURGERY ? @drawable/bg_rectangle_filled_gs_10_radius_8 : @drawable/bg_rectangle_filled_white_radius_8}"
+            android:background="@{vm.uiState.selectedSurgeryType == SurgeryType.시술_고민_중 ? @drawable/bg_rectangle_filled_gs_10_radius_8 : @drawable/bg_rectangle_filled_white_radius_8}"
             android:layout_marginTop="2dp"
             android:textAppearance="@style/p2"
             android:textColor="@color/black"
@@ -121,7 +121,7 @@
             app:layout_constraintStart_toStartOf="@id/text_progress_round"
             app:layout_constraintBottom_toBottomOf="@id/text_progress_round"
             android:background="@drawable/ic_minus_gs_10"
-            android:clickable="@{vm.uiState.selectedSurgeryType == SurgeryType.THINK_SURGERY ? false : true}"
+            android:clickable="@{vm.uiState.selectedSurgeryType == SurgeryType.시술_고민_중 ? false : true}"
             android:onClick="@{()->vm.onClickMinus()}"
             android:layout_width="wrap_content"
             android:layout_height="0dp"/>
@@ -132,7 +132,7 @@
             app:layout_constraintEnd_toEndOf="@id/text_progress_round"
             app:layout_constraintBottom_toBottomOf="@id/text_progress_round"
             android:background="@drawable/ic_plus_gs_10"
-            android:clickable="@{vm.uiState.selectedSurgeryType == SurgeryType.THINK_SURGERY ? false : true}"
+            android:clickable="@{vm.uiState.selectedSurgeryType == SurgeryType.시술_고민_중 ? false : true}"
             android:onClick="@{()->vm.onClickPlus()}"
             android:layout_width="wrap_content"
             android:layout_height="0dp"/>
@@ -166,9 +166,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="2dp"
-            android:clickable="@{vm.uiState.selectedSurgeryType == SurgeryType.THINK_SURGERY ? false : true}"
+            android:clickable="@{vm.uiState.selectedSurgeryType == SurgeryType.시술_고민_중 ? false : true}"
             android:onClick="@{()->vm.onClickCalendar()}"
-            android:background="@{vm.uiState.selectedSurgeryType == SurgeryType.THINK_SURGERY ? @drawable/bg_rectangle_filled_gs_10_radius_8 : @drawable/bg_rectangle_filled_white_radius_8}"
+            android:background="@{vm.uiState.selectedSurgeryType == SurgeryType.시술_고민_중 ? @drawable/bg_rectangle_filled_gs_10_radius_8 : @drawable/bg_rectangle_filled_white_radius_8}"
             android:layout_width="0dp"
             android:layout_height="wrap_content">
 

@@ -26,7 +26,7 @@ abstract class BaseRepository {
             false -> {
                 val apiResponse: ApiResponse<D> = fromGson(response.errorBody()?.charStream())
                 val data = responseMapper.mapDtoToModel(apiResponse.data)
-                val apiError = ApiState.Error(data, apiResponse.statusCode)
+                val apiError = ApiState.Error(data, apiResponse.code)
                 emit(apiError)
             }
         }
