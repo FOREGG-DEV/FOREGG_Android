@@ -1,6 +1,6 @@
 package com.foregg.data.base
 
 object StatusCode {
-    const val SUCCESS = 200
-    const val ERROR = 400
+    const val SUCCESS = "COMMON200"
+    const val ERROR = "ERROR400"
 }
