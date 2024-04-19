@@ -1,8 +1,12 @@
 package com.foregg.presentation.ui.sign.signUp.female
 
 import android.app.DatePickerDialog
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Intent
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -85,6 +89,7 @@ class SignUpFemaleFragment : BaseFragment<FragmentSignUpFemaleBinding, SignUpFem
             SignUpFemaleEvent.GoToBackEvent -> findNavController().popBackStack()
             SignUpFemaleEvent.ShowDatePickerDialogEvent -> showDatePickerDialog()
             SignUpFemaleEvent.GoToMainEvent -> goToMain()
+            is SignUpFemaleEvent.OnClickCopyCodeEvent -> copyClipBoard(event.code)
         }
     }
 
@@ -104,5 +109,11 @@ class SignUpFemaleFragment : BaseFragment<FragmentSignUpFemaleBinding, SignUpFem
         binding.apply {
             textSurgeryType.text = type.type
         }
+    }
+
+    private fun copyClipBoard(code : String){
+        val clipboard: ClipboardManager = context?.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+        val clip = ClipData.newPlainText("label", code)
+        clipboard.setPrimaryClip(clip)
     }
 }

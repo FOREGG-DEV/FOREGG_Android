@@ -6,4 +6,5 @@ sealed class SignUpFemaleEvent : Event {
     object GoToBackEvent : SignUpFemaleEvent()
     object ShowDatePickerDialogEvent : SignUpFemaleEvent()
     object GoToMainEvent : SignUpFemaleEvent()
+    data class OnClickCopyCodeEvent(val code : String) : SignUpFemaleEvent()
 }

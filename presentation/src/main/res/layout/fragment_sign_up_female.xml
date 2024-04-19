@@ -76,14 +76,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <ImageButton
-                android:id="@+id/img_btn_spinner"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_spinner"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:onClick="@{()->vm.onClickSpinner()}"
-                android:background="@drawable/ic_spinner_gs_10"
+                android:background="@drawable/bg_rectangle_filled_gs_10_right_radius_8"
                 android:layout_width="48dp"
-                android:layout_height="48dp"/>
+                android:layout_height="48dp">
+
+                <ImageView
+                    android:id="@+id/img_spinner"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:background="@{vm.uiState.isExpand() ? @drawable/ic_spinner_active : @drawable/ic_spinner_inactive}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -115,27 +127,52 @@
             android:layout_width="168dp"
             android:layout_height="wrap_content"/>
 
-        <ImageButton
-            android:id="@+id/img_btn_minus"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_minus"
             app:layout_constraintTop_toTopOf="@id/text_progress_round"
             app:layout_constraintStart_toStartOf="@id/text_progress_round"
             app:layout_constraintBottom_toBottomOf="@id/text_progress_round"
-            android:background="@drawable/ic_minus_gs_10"
+            android:background="@drawable/bg_rectangle_filled_gs_10_left_radius_8"
             android:clickable="@{vm.uiState.selectedSurgeryType == SurgeryType.시술_고민_중 ? false : true}"
             android:onClick="@{()->vm.onClickMinus()}"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"/>
+            android:layout_height="0dp">
 
-        <ImageButton
-            android:id="@+id/img_btn_plus"
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/ic_minus"
+                android:layout_marginHorizontal="14dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_plus"
             app:layout_constraintTop_toTopOf="@id/text_progress_round"
             app:layout_constraintEnd_toEndOf="@id/text_progress_round"
             app:layout_constraintBottom_toBottomOf="@id/text_progress_round"
-            android:background="@drawable/ic_plus_gs_10"
+            android:background="@drawable/bg_rectangle_filled_gs_10_right_radius_8"
             android:clickable="@{vm.uiState.selectedSurgeryType == SurgeryType.시술_고민_중 ? false : true}"
             android:onClick="@{()->vm.onClickPlus()}"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"/>
+            android:layout_height="0dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/ic_plus"
+                android:layout_marginHorizontal="14dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             app:layout_constraintBottom_toBottomOf="@id/text_progress_round"
@@ -232,13 +269,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <ImageButton
-                android:id="@+id/img_btn_copy"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_copy"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:background="@drawable/ic_copy_gs_10"
+                android:background="@drawable/bg_rectangle_filled_gs_10_right_radius_8"
                 android:layout_width="48dp"
-                android:layout_height="48dp"/>
+                android:layout_height="48dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/ic_copy"
+                    android:layout_marginHorizontal="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

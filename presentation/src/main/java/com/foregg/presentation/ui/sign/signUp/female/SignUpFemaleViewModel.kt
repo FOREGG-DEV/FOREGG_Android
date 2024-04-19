@@ -137,4 +137,8 @@ class SignUpFemaleViewModel @Inject constructor(
             )
         )
     }
+
+    fun onClickCopy(){
+        emitEventFlow(SignUpFemaleEvent.OnClickCopyCodeEvent(shareCodeStateFlow.value))
+    }
 }
