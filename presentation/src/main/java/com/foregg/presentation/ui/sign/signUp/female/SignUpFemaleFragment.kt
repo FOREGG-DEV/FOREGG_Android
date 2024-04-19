@@ -1,6 +1,7 @@
 package com.foregg.presentation.ui.sign.signUp.female
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -10,6 +11,7 @@ import com.foregg.domain.model.enums.SurgeryType
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentSignUpFemaleBinding
+import com.foregg.presentation.ui.MainActivity
 import com.foregg.presentation.ui.sign.signUp.female.adapter.SurgeryTypeAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -35,8 +37,11 @@ class SignUpFemaleFragment : BaseFragment<FragmentSignUpFemaleBinding, SignUpFem
 
     private val calendar = Calendar.getInstance()
     private val listener = DatePickerDialog.OnDateSetListener { view, year, month, day ->
-         viewModel.updateStartTreatmentDay("${year}-${month+1}-${day}")
+        val formattedMonth = String.format("%02d", month + 1)
+        val formattedDay = String.format("%02d", day)
+        viewModel.updateStartTreatmentDay("$year-$formattedMonth-$formattedDay")
     }
+
     private val datePickerDialog : DatePickerDialog by lazy { DatePickerDialog(requireContext(),
         R.style.DatePickerStyle,
         listener,
@@ -79,7 +84,14 @@ class SignUpFemaleFragment : BaseFragment<FragmentSignUpFemaleBinding, SignUpFem
         when(event){
             SignUpFemaleEvent.GoToBackEvent -> findNavController().popBackStack()
             SignUpFemaleEvent.ShowDatePickerDialogEvent -> showDatePickerDialog()
+            SignUpFemaleEvent.GoToMainEvent -> goToMain()
         }
+    }
+
+    private fun goToMain(){
+        val intent = Intent(requireActivity(), MainActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
     }
 
     private fun showDatePickerDialog(){

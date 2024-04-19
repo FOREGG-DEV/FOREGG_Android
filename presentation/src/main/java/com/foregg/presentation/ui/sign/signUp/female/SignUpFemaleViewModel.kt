@@ -2,9 +2,12 @@ package com.foregg.presentation.ui.sign.signUp.female
 
 import androidx.lifecycle.viewModelScope
 import com.foregg.domain.model.enums.SurgeryType
+import com.foregg.domain.model.request.SaveForeggJwtRequestVo
 import com.foregg.domain.model.request.SignUpRequestVo
 import com.foregg.domain.model.request.SignUpWithTokenRequestVo
+import com.foregg.domain.model.response.SignResponseVo
 import com.foregg.domain.usecase.auth.PostJoinUseCase
+import com.foregg.domain.usecase.jwtToken.SaveForeggAccessTokenAndRefreshTokenUseCase
 import com.foregg.presentation.base.BaseViewModel
 import com.foregg.presentation.util.ForeggLog
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,8 +19,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignUpFemaleViewModel @Inject constructor(
-    private val postJoinUseCase: PostJoinUseCase
+    private val postJoinUseCase: PostJoinUseCase,
+    private val saveForeggAccessTokenAndRefreshTokenUseCase: SaveForeggAccessTokenAndRefreshTokenUseCase
 ) : BaseViewModel<SignUpFemalePageState>() {
+
+    companion object{
+        const val MIN_ROUND = -1
+        const val MAX_ROUND = 100
+    }
 
     private val surgeryTypeListStateFlow : MutableStateFlow<List<SurgeryType>> = MutableStateFlow(
         emptyList()
@@ -66,14 +75,14 @@ class SignUpFemaleViewModel @Inject constructor(
 
     fun onClickMinus(){
         val round = progressRoundStateFlow.value - 1
-        if(round != -1){
+        if(round != MIN_ROUND){
             updateProgressRound(round)
         }
     }
 
     fun onClickPlus(){
         val round = progressRoundStateFlow.value + 1
-        if(round != 100){
+        if(round != MAX_ROUND){
             updateProgressRound(round)
         }
     }
@@ -98,9 +107,22 @@ class SignUpFemaleViewModel @Inject constructor(
         val request = getRequest()
         viewModelScope.launch {
             postJoinUseCase(request).collect{
-                resultResponse(it, { ForeggLog.D("성공") }, { ForeggLog.D("실패") })
+                resultResponse(it, ::handleLoginSuccess) { ForeggLog.D("실패") }
             }
         }
+    }
+
+    private fun handleLoginSuccess(result : SignResponseVo){
+        val request = SaveForeggJwtRequestVo(accessToken = result.accessToken, refreshToken = "")
+        viewModelScope.launch {
+            saveForeggAccessTokenAndRefreshTokenUseCase(request).collect{
+                if(it) goToMain() else ForeggLog.D("저장 실패")
+            }
+        }
+    }
+
+    private fun goToMain(){
+        emitEventFlow(SignUpFemaleEvent.GoToMainEvent)
     }
 
     private fun getRequest() : SignUpWithTokenRequestVo{
