@@ -273,6 +273,7 @@
                 android:id="@+id/constraint_layout_copy"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:onClick="@{()->vm.onClickCopy()}"
                 android:background="@drawable/bg_rectangle_filled_gs_10_right_radius_8"
                 android:layout_width="48dp"
                 android:layout_height="48dp">
