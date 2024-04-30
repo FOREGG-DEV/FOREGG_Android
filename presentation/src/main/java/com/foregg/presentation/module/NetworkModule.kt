@@ -23,7 +23,6 @@ import javax.inject.Singleton
 object NetworkModule {
     @Provides
     @Singleton
-    @NormalOkHttpClient
     fun provideHttpClient(
         loggingInterceptor: HttpLoggingInterceptor
     ): OkHttpClient {
@@ -47,12 +46,12 @@ object NetworkModule {
         val loggingInterceptor = HttpLoggingInterceptor { message ->
             when {
                 !message.isJsonObject() && !message.isJsonArray() ->
-                    Log.d("RETROFIT","CONNECTION INFO -> $message")
+                    Log.d("RETROFIT1","CONNECTION INFO -> $message")
                 else ->  try {
-                    Log.d("RETROFIT", GsonBuilder().setPrettyPrinting().create().toJson(
+                    Log.d("RETROFIT2", GsonBuilder().setPrettyPrinting().create().toJson(
                         JsonParser().parse(message)))
                 } catch (m: JsonSyntaxException) {
-                    Log.d("RETROFIT", message)
+                    Log.d("RETROFIT3", message)
                 }
             }
         }
