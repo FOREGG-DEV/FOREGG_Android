@@ -1,15 +1,14 @@
-package com.foregg.presentation.ui.sign.signUp.female.adapter
+package com.foregg.presentation.ui.common.spinner
 
 import androidx.recyclerview.widget.RecyclerView
-import com.foregg.domain.model.enums.SurgeryType
 import com.foregg.presentation.databinding.IncludeItemSurgeryTypeBinding
 
-class SurgeryTypeViewHolder(
+class CommonSpinnerViewHolder(
     private val binding: IncludeItemSurgeryTypeBinding,
-    private val listener : SurgeryTypeAdapter.SurgeryTypeDelegate
+    private val listener : CommonSpinnerAdapter.CommonSpinnerDelegate
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    private lateinit var type: SurgeryType
+    private lateinit var type: String
 
     init {
         binding.apply {
@@ -19,10 +18,10 @@ class SurgeryTypeViewHolder(
         }
     }
 
-    fun bind(item : SurgeryType) {
+    fun bind(item : String) {
         type = item
         binding.apply {
-            textType.text = item.type
+            textType.text = item
         }
     }
 }

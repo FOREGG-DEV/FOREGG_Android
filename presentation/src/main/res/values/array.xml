@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="surgery_list">
+        <item>시술 고민 중</item>
+        <item>난자 동결</item>
+        <item>체외 수정 (시험관 아기)</item>
+    </string-array>
+</resources>

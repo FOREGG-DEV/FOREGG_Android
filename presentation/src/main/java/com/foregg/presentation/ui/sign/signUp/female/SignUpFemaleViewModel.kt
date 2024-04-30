@@ -28,9 +28,6 @@ class SignUpFemaleViewModel @Inject constructor(
         const val MAX_ROUND = 100
     }
 
-    private val surgeryTypeListStateFlow : MutableStateFlow<List<SurgeryType>> = MutableStateFlow(
-        emptyList()
-    )
     private val selectedSurgeryTypeStateFlow : MutableStateFlow<SurgeryType> = MutableStateFlow(SurgeryType.체외_수정)
     private val progressRoundStateFlow : MutableStateFlow<Int> = MutableStateFlow(0)
     private val startTreatmentDayStateFlow : MutableStateFlow<String> = MutableStateFlow("")
@@ -38,7 +35,6 @@ class SignUpFemaleViewModel @Inject constructor(
     private val isExpandStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     override val uiState: SignUpFemalePageState = SignUpFemalePageState(
-        surgeryTypeList = surgeryTypeListStateFlow.asStateFlow(),
         selectedSurgeryType = selectedSurgeryTypeStateFlow.asStateFlow(),
         progressRound = progressRoundStateFlow.asStateFlow(),
         startTreatmentDay = startTreatmentDayStateFlow.asStateFlow(),
@@ -52,12 +48,8 @@ class SignUpFemaleViewModel @Inject constructor(
         emitEventFlow(SignUpFemaleEvent.GoToBackEvent)
     }
 
-    fun getSurgeryType(token : String){
+    fun setAccessToken(token : String){
         accessToken = token
-        val list = listOf(SurgeryType.시술_고민_중, SurgeryType.난자_동결, SurgeryType.체외_수정)
-        viewModelScope.launch {
-            surgeryTypeListStateFlow.update { list }
-        }
     }
 
     fun onClickSpinner(){
@@ -131,9 +123,9 @@ class SignUpFemaleViewModel @Inject constructor(
             signUpRequestVo = SignUpRequestVo(
                 surgeryType = selectedSurgeryTypeStateFlow.value,
                 count = if(selectedSurgeryTypeStateFlow.value == SurgeryType.시술_고민_중) null
-                        else progressRoundStateFlow.value,
+                else progressRoundStateFlow.value,
                 startAt = if(selectedSurgeryTypeStateFlow.value == SurgeryType.시술_고민_중) null
-                        else startTreatmentDayStateFlow.value
+                else startTreatmentDayStateFlow.value
             )
         )
     }

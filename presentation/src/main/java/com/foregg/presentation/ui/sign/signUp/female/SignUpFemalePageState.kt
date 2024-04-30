@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 data class SignUpFemalePageState(
-    val surgeryTypeList : StateFlow<List<SurgeryType>>,
     val selectedSurgeryType: StateFlow<SurgeryType>,
     val progressRound : StateFlow<Int>,
     val startTreatmentDay : StateFlow<String>,
