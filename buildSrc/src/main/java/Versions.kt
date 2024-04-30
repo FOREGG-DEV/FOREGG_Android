@@ -26,6 +26,7 @@ object Versions {
     /* [ Libraries ] */
     const val RETROFIT = "2.9.0"
     const val OKHTTP = "4.10.0"
+    const val VIEW_PAGER_INDICATOR = "5.0"
 
     /* [ Kakao ] */
     const val KAKAO = "2.11.2"

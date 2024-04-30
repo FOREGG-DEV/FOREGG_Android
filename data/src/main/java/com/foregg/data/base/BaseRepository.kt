@@ -1,7 +1,7 @@
 package com.foregg.data.base
 
+import android.util.Log
 import com.foregg.domain.base.ApiState
-import com.foregg.domain.base.DomainResponse
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.flow.*
@@ -10,7 +10,7 @@ import java.io.Reader
 
 abstract class BaseRepository {
 
-     inline fun <reified D : DataDto, M : DomainResponse> apiLaunch(
+     inline fun <reified D, M> apiLaunch(
          crossinline apiCall: suspend () -> Response<ApiResponse<D>>,
          responseMapper: Mapper.ResponseMapper<D, M>,
     ): Flow<ApiState<M>> = flow {
@@ -26,7 +26,7 @@ abstract class BaseRepository {
             false -> {
                 val apiResponse: ApiResponse<D> = fromGson(response.errorBody()?.charStream())
                 val data = responseMapper.mapDtoToModel(apiResponse.data)
-                val apiError = ApiState.Error(data, apiResponse.statusCode)
+                val apiError = ApiState.Error(data, apiResponse.code)
                 emit(apiError)
             }
         }
@@ -35,7 +35,7 @@ abstract class BaseRepository {
         emit(ApiState.Error(null, StatusCode.ERROR))
     }
 
-    inline fun <reified T:DataDto> fromGson(json: Reader?): ApiResponse<T> {
+    inline fun <reified T> fromGson(json: Reader?): ApiResponse<T> {
         return Gson().fromJson(json, object: TypeToken<ApiResponse<T>>() {}.type)
     }
 }
