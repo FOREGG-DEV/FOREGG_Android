@@ -23,7 +23,7 @@
             app:defaultNavHost="true"
             app:navGraph="@navigation/main_graph"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toTopOf="@id/constraint_layout_bottom_navigation">
         </androidx.fragment.app.FragmentContainerView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
