@@ -43,15 +43,15 @@ class MainActivity :
 
     private fun inspectEvent(event: MainActivityEvent) {
         when (event) {
-            MainActivityEvent.GoToKnotList -> {
-                //navController.navigate(R.id.knotListFragment)
+            MainActivityEvent.GoToCalendar -> {
+                //navController.navigate(R.id.calendarFragment)
             }
 
             MainActivityEvent.GoToMain -> {
-               // navController.navigate(R.id.mainFragment)
+                // navController.navigate(R.id.mainFragment)
             }
 
-            MainActivityEvent.GoToCreateKnot -> {
+            MainActivityEvent.GoToAccount -> {
                 //navController.navigate(R.id.createOrEditKnotFragment)
             }
 
@@ -59,7 +59,7 @@ class MainActivity :
                 //navController.navigate(R.id.profileFragment)
             }
 
-            MainActivityEvent.GoToSetting -> {
+            MainActivityEvent.GoToInfo -> {
                 //navController.navigate(R.id.settingFragment)
             }
         }
@@ -68,10 +68,10 @@ class MainActivity :
     private fun changeBottomNavigationView(id: Int) {
         when (id) {
             //R.id.mainFragment -> viewModel.activeMain()
-            //R.id.knotListFragment -> viewModel.activeKnotList()
+            //R.id.calendarFragment -> viewModel.activeCalendar()
             //R.id.profileFragment -> viewModel.activeProfile()
             //R.id.settingFragment -> viewModel.activieSetting()
-            else -> viewModel.goneNavigation()
+            else -> {}//viewModel.goneNavigation()
         }
     }
 }

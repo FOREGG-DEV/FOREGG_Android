@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="vm"
             type="com.foregg.presentation.ui.MainActivityViewModel" />
@@ -11,7 +12,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/background">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_container_view"
@@ -19,9 +21,180 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:defaultNavHost="true"
+            app:navGraph="@navigation/main_graph"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toTopOf="@id/constraint_layout_bottom_navigation">
         </androidx.fragment.app.FragmentContainerView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:visibility="@{vm.uiState.isOtherPage() ? View.GONE : View.VISIBLE}"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_calendar"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:onClick="@{()->vm.onClickCalendar()}"
+                app:layout_constraintEnd_toStartOf="@id/constraint_layout_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image_view_calendar"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@{vm.uiState.isCalendarPage() ? @drawable/ic_bottom_nav_calendar_active : @drawable/ic_bottom_nav_calendar_inactive}"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"/>
+
+                <TextView
+                    android:id="@+id/text_view_calendar"
+                    app:layout_constraintTop_toBottomOf="@id/image_view_calendar"
+                    app:layout_constraintStart_toStartOf="@id/image_view_calendar"
+                    app:layout_constraintEnd_toEndOf="@id/image_view_calendar"
+                    android:text="@string/word_calendar"
+                    android:textColor="@color/gs_80"
+                    android:textAppearance="@style/p4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_account"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/constraint_layout_calendar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:onClick="@{()->vm.onClickAccount()}"
+                app:layout_constraintEnd_toStartOf="@id/constraint_layout_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image_view_account"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@{vm.uiState.isAccountPage() ? @drawable/ic_bottom_nav_account_active : @drawable/ic_bottom_nav_account_inactive}"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"/>
+
+                <TextView
+                    android:id="@+id/text_view_account"
+                    app:layout_constraintTop_toBottomOf="@id/image_view_account"
+                    app:layout_constraintStart_toStartOf="@id/image_view_account"
+                    app:layout_constraintEnd_toEndOf="@id/image_view_account"
+                    android:text="@string/word_account"
+                    android:textAppearance="@style/p4"
+                    android:textColor="@color/gs_80"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_main"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:onClick="@{()->vm.onClickMain()}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image_view_main"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@{vm.uiState.isMainPage() ? @drawable/ic_bottom_nav_home_active : @drawable/ic_bottom_nav_home_inactive}"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"/>
+
+                <TextView
+                    android:id="@+id/text_view_main"
+                    app:layout_constraintTop_toBottomOf="@id/image_view_main"
+                    app:layout_constraintStart_toStartOf="@id/image_view_main"
+                    app:layout_constraintEnd_toEndOf="@id/image_view_main"
+                    android:text="@string/word_main"
+                    android:textAppearance="@style/p4"
+                    android:textColor="@color/gs_80"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_info"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/constraint_layout_main"
+                app:layout_constraintEnd_toStartOf="@id/constraint_layout_profile"
+                android:onClick="@{()->vm.onClickInfo()}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image_view_info"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@{vm.uiState.isInfoPage() ? @drawable/ic_bottom_nav_info_active : @drawable/ic_bottom_nav_info_inactive}"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"/>
+
+                <TextView
+                    android:id="@+id/text_view_info"
+                    app:layout_constraintTop_toBottomOf="@id/image_view_info"
+                    app:layout_constraintStart_toStartOf="@id/image_view_info"
+                    app:layout_constraintEnd_toEndOf="@id/image_view_info"
+                    android:text="@string/word_info"
+                    android:textAppearance="@style/p4"
+                    android:textColor="@color/gs_80"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_profile"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/constraint_layout_info"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:onClick="@{()->vm.onClickProfile()}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image_view_profile"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@{vm.uiState.isProfilePage() ? @drawable/ic_bottom_nav_profile_active : @drawable/ic_bottom_nav_profile_inactive}"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"/>
+
+                <TextView
+                    android:id="@+id/text_view_profile"
+                    app:layout_constraintTop_toBottomOf="@id/image_view_profile"
+                    app:layout_constraintStart_toStartOf="@id/image_view_profile"
+                    app:layout_constraintEnd_toEndOf="@id/image_view_profile"
+                    android:text="@string/word_profile"
+                    android:textAppearance="@style/p4"
+                    android:textColor="@color/gs_80"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

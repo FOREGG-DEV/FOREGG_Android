@@ -31,7 +31,7 @@ abstract class BaseViewModel<STATE: PageState> : ViewModel() {
         }
     }
 
-    protected fun showLoading(){
+    private fun showLoading(){
         _isLoading.value = true
     }
 
