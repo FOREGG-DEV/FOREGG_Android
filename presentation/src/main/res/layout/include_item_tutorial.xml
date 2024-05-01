@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_tutorial"
+            app:layout_constraintBottom_toTopOf="@id/text_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/main"
+            android:layout_width="0dp"
+            android:layout_marginBottom="48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            android:layout_height="0dp"/>
+
+        <TextView
+            android:id="@+id/text_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textAppearance="@style/h2"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:layout_marginHorizontal="16dp"
+            tools:text="여기에 그림에 들어가는 기능에 대한 설명 멘트 두 줄 정도 들어가면 좋을 것 같습니다."
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

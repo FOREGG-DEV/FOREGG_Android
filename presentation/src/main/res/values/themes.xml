@@ -3,7 +3,20 @@
     <style name="Base.Theme.Foregg" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/background</item>
+        <item name="buttonStyle">@style/Widget.AppCompat.Button.Borderless</item>
     </style>
 
     <style name="Theme.Foregg" parent="Base.Theme.Foregg" />
+
+    <style name="Theme.App.RemoveSplash" parent="Base.Theme.Foregg">
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="DatePickerStyle" parent="Theme.AppCompat.Light.Dialog">
+        <!-- 상단 색 변경 -->
+        <item name="colorAccent">@color/main</item>
+        <!-- 취소/확인버튼 색상 -->
+        <item name="android:textColor">@color/main</item>
+    </style>
 </resources>

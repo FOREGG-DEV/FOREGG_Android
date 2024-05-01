@@ -68,4 +68,6 @@ dependencies {
 
     implementation(KAKAO.AUTH)
     implementation(Google.GLIDE)
+
+    implementation(Libraries.VIEWPAGER_INDICATOR)
 }

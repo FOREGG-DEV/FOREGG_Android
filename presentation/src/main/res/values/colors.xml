@@ -2,4 +2,16 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="background">#F7F7F7</color>
+    <color name="main">#89B5A2</color>
+    <color name="main2">#5E8D79</color>
+    <color name="main3">#B2D7C7</color>
+    <color name="gs_black">#2C2C2C</color>
+    <color name="gs_10">#EAEAEA</color>
+    <color name="gs_30">#C0C0C0</color>
+    <color name="gs_40">#ABABAB</color>
+    <color name="gs_50">#959595</color>
+    <color name="gs_60">#808080</color>
+    <color name="gs_80">#565656</color>
+    <color name="gs_90">#414141</color>
 </resources>

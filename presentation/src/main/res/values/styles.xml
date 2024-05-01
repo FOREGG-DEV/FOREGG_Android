@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!-- Button -->
+    <style name="btn">
+        <item name="android:textSize">24sp</item>
+        <item name="lineHeight">24dp</item>
+        <item name="android:letterSpacing">-0.04</item>
+        <item name="fontFamily">@font/pretendard_bold</item>
+    </style>
+
+    <!-- Heading -->
+    <style name="h1">
+        <item name="android:textSize">24sp</item>
+        <item name="lineHeight">31sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="fontFamily">@font/pretendard_semi_bold</item>
+    </style>
+
+    <style name="h2">
+        <item name="android:textSize">20sp</item>
+        <item name="lineHeight">28sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="fontFamily">@font/pretendard_semi_bold</item>
+    </style>
+
+    <style name="h3">
+        <item name="android:textSize">16sp</item>
+        <item name="lineHeight">22sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="fontFamily">@font/pretendard_semi_bold</item>
+    </style>
+
+    <style name="h4">
+        <item name="android:textSize">14sp</item>
+        <item name="lineHeight">19dp</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="fontFamily">@font/pretendard_semi_bold</item>
+    </style>
+
+    <!-- Paragraph -->
+    <style name="p1">
+        <item name="android:textSize">16sp</item>
+        <item name="lineHeight">22dp</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="fontFamily">@font/pretendard_medium</item>
+    </style>
+
+    <style name="p1_l">
+        <item name="android:textSize">16sp</item>
+        <item name="lineHeight">24dp</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="fontFamily">@font/pretendard_light</item>
+    </style>
+
+    <style name="p2">
+        <item name="android:textSize">14sp</item>
+        <item name="lineHeight">19dp</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="fontFamily">@font/pretendard_medium</item>
+    </style>
+
+    <style name="p3">
+        <item name="android:textSize">12sp</item>
+        <item name="lineHeight">16dp</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="fontFamily">@font/pretendard_medium</item>
+    </style>
+
+    <style name="p3_l">
+        <item name="android:textSize">12sp</item>
+        <item name="lineHeight">16dp</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="fontFamily">@font/pretendard_light</item>
+    </style>
+
+    <style name="p4">
+        <item name="android:textSize">10sp</item>
+        <item name="lineHeight">14dp</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="fontFamily">@font/pretendard_medium</item>
+    </style>
+</resources>
