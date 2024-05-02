@@ -16,7 +16,8 @@
 
     <!-- Sign -->
     <string name="sign_up">회원가입</string>
-    <string name="sign_choose_gender">본인의 성별을 선택해주세요</string>
+    <string name="sign_input_ssn">주민번호 앞 7자리를 적어주세요</string>
+    <string name="sign_ssn_split">-</string>
     <string name="sign_share_code">배우자 공유코드</string>
     <string name="sign_share_code_male_hint">아내에게 받은 공유 코드를 입력해주세요.</string>
     <string name="sign_now_surgery_hint">현재 받고 있는 시술을 선택해주세요.</string>

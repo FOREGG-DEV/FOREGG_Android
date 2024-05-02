@@ -58,6 +58,11 @@
             android:name="accessToken"
             android:defaultValue=""
             app:argType="string"/>
+
+        <argument
+            android:name="ssn"
+            android:defaultValue=""
+            app:argType="string"/>
     </fragment>
 
     <fragment
@@ -65,5 +70,10 @@
         android:name="com.foregg.presentation.ui.sign.signUp.male.SignUpMaleFragment"
         android:label="fragment_sign_up_male"
         tools:layout="@layout/fragment_sign_up_male">
+
+        <argument
+            android:name="ssn"
+            android:defaultValue=""
+            app:argType="string"/>
     </fragment>
 </navigation>
