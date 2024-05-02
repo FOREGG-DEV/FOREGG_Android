@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.widget.AppCompatButton
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.foregg.presentation.R
 import com.foregg.presentation.databinding.CustomTabBarBinding
@@ -56,5 +57,32 @@ class CustomTabBar @JvmOverloads constructor(
             rightTab.text = rightTabText
         }
         typedArray.recycle()
+    }
+
+    fun leftBtnClicked(){
+        leftTab.setBackgroundResource(R.drawable.bg_rectangle_filled_main_radius_8)
+        middleTab.setBackgroundColor(R.drawable.bg_rectangle_filled_white_radius_8)
+        rightTab.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
+        leftTab.setTextColor(ContextCompat.getColor(context, R.color.white))
+        middleTab.setTextColor(ContextCompat.getColor(context, R.color.gs_50))
+        rightTab.setTextColor(ContextCompat.getColor(context, R.color.gs_50))
+    }
+
+    fun middleBtnClicked(){
+        middleTab.setBackgroundResource(R.drawable.bg_rectangle_filled_main_radius_8)
+        leftTab.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
+        rightTab.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
+        leftTab.setTextColor(ContextCompat.getColor(context, R.color.gs_50))
+        middleTab.setTextColor(ContextCompat.getColor(context, R.color.white))
+        rightTab.setTextColor(ContextCompat.getColor(context, R.color.gs_50))
+    }
+
+    fun rightBtnClicked(){
+        rightTab.setBackgroundResource(R.drawable.bg_rectangle_filled_main_radius_8)
+        middleTab.setBackgroundColor(R.drawable.bg_rectangle_filled_white_radius_8)
+        leftTab.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
+        leftTab.setTextColor(ContextCompat.getColor(context, R.color.gs_50))
+        middleTab.setTextColor(ContextCompat.getColor(context, R.color.gs_50))
+        rightTab.setTextColor(ContextCompat.getColor(context, R.color.white))
     }
 }
