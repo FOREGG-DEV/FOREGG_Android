@@ -49,7 +49,7 @@ class ChooseGenderFragment : BaseFragment<FragmentSignUpChooseGenderBinding, Cho
     }
 
     private fun goToFemaleSignUp(ssn : String){
-        val action = ChooseGenderFragmentDirections.actionChooseGenderToFemale(chooseGenderFragmentArgs.accessToken, ssn)
+        val action = ChooseGenderFragmentDirections.actionChooseGenderToFemale(chooseGenderFragmentArgs.accessToken, ssn, chooseGenderFragmentArgs.shareCode)
         findNavController().navigate(action)
     }
 

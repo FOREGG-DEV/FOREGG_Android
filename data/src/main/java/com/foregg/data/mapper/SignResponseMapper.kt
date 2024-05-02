@@ -9,8 +9,9 @@ object SignResponseMapper: Mapper.ResponseMapper<SignResponse, SignResponseVo> {
     override fun mapDtoToModel(type: SignResponse?): SignResponseVo {
         return type?.run {
             SignResponseVo(
-                accessToken = accessToken
+                accessToken = accessToken ?: "",
+                shareCode = spouseCode ?: ""
             )
-        }?: SignResponseVo("")
+        }?: SignResponseVo()
     }
 }

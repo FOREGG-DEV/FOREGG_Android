@@ -5,7 +5,9 @@ import com.google.gson.annotations.SerializedName
 
 data class SignResponse(
     @SerializedName("keycode")
-    val keycode : String ="",
+    val keycode : String? ="",
     @SerializedName("accessToken")
-    val accessToken : String ="",
+    val accessToken : String? ="",
+    @SerializedName("spouseCode")
+    val spouseCode : String? ="",
 ) : DataDto

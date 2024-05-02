@@ -47,16 +47,19 @@ class SignUpFemaleViewModel @Inject constructor(
     )
 
     private lateinit var accessToken : String
+    private lateinit var ssn : String
 
     fun onClickBack(){
         emitEventFlow(SignUpFemaleEvent.GoToBackEvent)
     }
 
-    fun getSurgeryType(token : String){
-        accessToken = token
+    fun getSurgeryType(args: SignUpFemaleFragmentArgs){
+        accessToken = args.accessToken
+        this.ssn = args.ssn
         val list = listOf(SurgeryType.시술_고민_중, SurgeryType.난자_동결, SurgeryType.체외_수정)
         viewModelScope.launch {
             surgeryTypeListStateFlow.update { list }
+            shareCodeStateFlow.update { args.shareCode }
         }
     }
 
@@ -133,7 +136,9 @@ class SignUpFemaleViewModel @Inject constructor(
                 count = if(selectedSurgeryTypeStateFlow.value == SurgeryType.시술_고민_중) null
                         else progressRoundStateFlow.value,
                 startAt = if(selectedSurgeryTypeStateFlow.value == SurgeryType.시술_고민_중) null
-                        else startTreatmentDayStateFlow.value
+                        else startTreatmentDayStateFlow.value,
+                spouseCode = shareCodeStateFlow.value,
+                ssn = ssn
             )
         )
     }
