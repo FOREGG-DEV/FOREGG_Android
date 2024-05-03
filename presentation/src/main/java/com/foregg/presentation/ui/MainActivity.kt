@@ -44,7 +44,7 @@ class MainActivity :
     private fun inspectEvent(event: MainActivityEvent) {
         when (event) {
             MainActivityEvent.GoToCalendar -> {
-                //navController.navigate(R.id.calendarFragment)
+                navController.navigate(R.id.calendarFragment)
             }
 
             MainActivityEvent.GoToMain -> {
@@ -52,7 +52,7 @@ class MainActivity :
             }
 
             MainActivityEvent.GoToAccount -> {
-                //navController.navigate(R.id.createOrEditKnotFragment)
+                navController.navigate(R.id.accountFragment)
             }
 
             MainActivityEvent.GoToProfile -> {
@@ -68,10 +68,10 @@ class MainActivity :
     private fun changeBottomNavigationView(id: Int) {
         when (id) {
             //R.id.mainFragment -> viewModel.activeMain()
-            //R.id.calendarFragment -> viewModel.activeCalendar()
+            R.id.calendarFragment -> viewModel.activeCalendar()
             //R.id.profileFragment -> viewModel.activeProfile()
-            //R.id.settingFragment -> viewModel.activieSetting()
-            else -> {}//viewModel.goneNavigation()
+            R.id.accountFragment -> viewModel.activeAccount()
+            else -> viewModel.goneNavigation()
         }
     }
 }
