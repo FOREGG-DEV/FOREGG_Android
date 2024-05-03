@@ -31,8 +31,13 @@ class SettingTimeViewHolder(
                 updateTime()
             }
             editTextHourTime.addTextChangedListener {
-                if(editTextHourTime.text.toString().isNotEmpty() && editTextHourTime.text.toString().toInt() > MAX_HOUR.toInt()) {
-                    if(textTimeApPm.text == root.context.getString(R.string.calendar_create_edit_time_am)) editTextHourTime.setText(MAX_AM_HOUR) else  editTextHourTime.setText(MAX_HOUR)
+                when(textTimeApPm.text){
+                    root.context.getString(R.string.calendar_create_edit_time_am) -> {
+                        if(editTextHourTime.text.toString().isNotEmpty() && editTextHourTime.text.toString().toInt() > MAX_AM_HOUR.toInt()) editTextHourTime.setText(MAX_AM_HOUR)
+                    }
+                    root.context.getString(R.string.calendar_create_edit_time_pm) -> {
+                        if(editTextHourTime.text.toString().isNotEmpty() && editTextHourTime.text.toString().toInt() > MAX_HOUR.toInt()) editTextHourTime.setText(MAX_HOUR)
+                    }
                 }
                 updateTime()
             }

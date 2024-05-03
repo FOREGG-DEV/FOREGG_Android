@@ -250,7 +250,7 @@ class CreateEditScheduleViewModel @Inject constructor(
 
     private fun checkNotEmpty() : Boolean{
         return classificationStateFlow.value.classificationDetailEditText.isNotEmpty()
-                && (normalDateStateFlow.value.isNotEmpty() || repeatDayStateFlow.value.isNotEmpty())
+                && (normalDateStateFlow.value.isNotEmpty() || (repeatDayStateFlow.value.isNotEmpty() && repeatDayStateFlow.value.isCorrectDay()))
                 && setTimeListStateFlow.value.isNotEmpty()
                 && volumeStateFlow.value.isNotEmpty(classificationStateFlow.value.classification)
     }
