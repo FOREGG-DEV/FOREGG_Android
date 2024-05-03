@@ -32,7 +32,7 @@ class SignUpFemaleFragment : BaseFragment<FragmentSignUpFemaleBinding, SignUpFem
     private val spinnerAdapter : CommonSpinnerAdapter by lazy {
         CommonSpinnerAdapter(object : CommonSpinnerAdapter.CommonSpinnerDelegate{
             override fun onClickType(type: String) {
-                viewModel.updateSelectedSurgeryType(SurgeryType.valueOf(type))
+                viewModel.updateSelectedSurgeryType(SurgeryType.valuesOf(type))
             }
         })
     }
@@ -60,8 +60,8 @@ class SignUpFemaleFragment : BaseFragment<FragmentSignUpFemaleBinding, SignUpFem
                 layoutManager = LinearLayoutManager(context)
                 adapter = spinnerAdapter
             }
-            viewModel.getSurgeryType(signUpFemaleFragmentArgs)
             spinnerAdapter.submitList(resources.getStringArray(R.array.surgery_list).toList())
+            viewModel.getSurgeryType(signUpFemaleFragmentArgs)
         }
     }
 

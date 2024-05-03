@@ -61,7 +61,7 @@ class CustomTabBar @JvmOverloads constructor(
 
     fun leftBtnClicked(){
         leftTab.setBackgroundResource(R.drawable.bg_rectangle_filled_main_radius_8)
-        middleTab.setBackgroundColor(R.drawable.bg_rectangle_filled_white_radius_8)
+        middleTab.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
         rightTab.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
         leftTab.setTextColor(ContextCompat.getColor(context, R.color.white))
         middleTab.setTextColor(ContextCompat.getColor(context, R.color.gs_50))
@@ -79,7 +79,7 @@ class CustomTabBar @JvmOverloads constructor(
 
     fun rightBtnClicked(){
         rightTab.setBackgroundResource(R.drawable.bg_rectangle_filled_main_radius_8)
-        middleTab.setBackgroundColor(R.drawable.bg_rectangle_filled_white_radius_8)
+        middleTab.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
         leftTab.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
         leftTab.setTextColor(ContextCompat.getColor(context, R.color.gs_50))
         middleTab.setTextColor(ContextCompat.getColor(context, R.color.gs_50))
