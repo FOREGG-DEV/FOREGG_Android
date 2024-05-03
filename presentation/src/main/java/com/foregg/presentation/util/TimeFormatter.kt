@@ -98,4 +98,18 @@ object TimeFormatter {
 
         return datesBetween
     }
+
+    fun getDotsDate(dateString : String) : String {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val date = LocalDate.parse(dateString, formatter)
+        val newFormat = DateTimeFormatter.ofPattern("yyyy. MM. dd")
+        return date.format(newFormat)
+    }
+
+    fun getPreviousMonthDate() : String {
+        val today = LocalDate.now()
+        val oneMonthAgo = today.minusMonths(1)
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        return oneMonthAgo.format(formatter)
+    }
 }

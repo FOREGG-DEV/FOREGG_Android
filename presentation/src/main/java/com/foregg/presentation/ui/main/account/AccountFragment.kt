@@ -1,14 +1,15 @@
 package com.foregg.presentation.ui.main.account
 
 import androidx.fragment.app.viewModels
-import com.foregg.presentation.PageState
+import com.foregg.domain.model.enums.AccountTabType
+import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentAccountBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class AccountFragment : BaseFragment<FragmentAccountBinding, PageState.Default, AccountViewModel>(
+class AccountFragment : BaseFragment<FragmentAccountBinding, AccountPageState, AccountViewModel>(
     FragmentAccountBinding::inflate) {
 
     override val viewModel: AccountViewModel by viewModels()
@@ -17,6 +18,8 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, PageState.Default, 
         binding.apply {
             vm = viewModel
 
+            bindTab()
+            viewModel.setView()
         }
     }
 
@@ -28,6 +31,23 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, PageState.Default, 
                 viewModel.eventFlow.collect {
 
                 }
+            }
+        }
+    }
+
+    private fun bindTab(){
+        binding.apply {
+            customTabBar.leftTab.setOnClickListener {
+                customTabBar.leftBtnClicked()
+                viewModel.updateTabType(AccountTabType.ALL)
+            }
+            customTabBar.middleTab.setOnClickListener {
+                customTabBar.middleBtnClicked()
+                viewModel.updateTabType(AccountTabType.ROUND)
+            }
+            customTabBar.rightTab.setOnClickListener {
+                customTabBar.rightBtnClicked()
+                viewModel.updateTabType(AccountTabType.MONTH)
             }
         }
     }

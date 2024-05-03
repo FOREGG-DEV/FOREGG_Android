@@ -69,4 +69,5 @@
     <string name="account_all_expend">총 지출</string>
     <string name="account_subsidy">지원금</string>
     <string name="account_personal">개인</string>
+    <string name="account_round_unit">%d회차</string>
 </resources>
