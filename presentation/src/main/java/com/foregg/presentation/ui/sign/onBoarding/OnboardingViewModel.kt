@@ -2,6 +2,7 @@ package com.foregg.presentation.ui.sign.onBoarding
 
 import androidx.lifecycle.viewModelScope
 import com.foregg.data.base.StatusCode
+import com.foregg.domain.base.ApiState
 import com.foregg.domain.model.request.SaveForeggJwtRequestVo
 import com.foregg.domain.model.response.SignResponseVo
 import com.foregg.domain.usecase.auth.PostLoginUseCase
@@ -58,7 +59,11 @@ class OnboardingViewModel @Inject constructor(
         accessToken = token
         viewModelScope.launch {
             postLoginUseCase(token).collect{
-                resultResponse(it, ::handleLoginSuccess, ::handleLoginError)
+                when(it){
+                    is ApiState.Error -> handleLoginError(it.errorCode, it.data)
+                    else -> {}
+                }
+                resultResponse(it, ::handleLoginSuccess)
             }
         }
     }
@@ -72,9 +77,9 @@ class OnboardingViewModel @Inject constructor(
         }
     }
 
-    private fun handleLoginError(error : String){
+    private fun handleLoginError(error : String, data : SignResponseVo?){
         when(error){
-            StatusCode.AUTH.USER_NEED_JOIN -> goToSignUp()
+            StatusCode.AUTH.USER_NEED_JOIN -> goToSignUp(data?.shareCode ?: "")
             else -> ForeggLog.D("알 수 없는 오류")
         }
     }
@@ -83,7 +88,7 @@ class OnboardingViewModel @Inject constructor(
         emitEventFlow(OnboardingEvent.GoToMainEvent)
     }
 
-    private fun goToSignUp(){
-        emitEventFlow(OnboardingEvent.GoToSignUpEvent(accessToken))
+    private fun goToSignUp(shareCode : String){
+        emitEventFlow(OnboardingEvent.GoToSignUpEvent(accessToken, shareCode))
     }
 }

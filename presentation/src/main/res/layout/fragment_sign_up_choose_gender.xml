@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="vm"
             type="com.foregg.presentation.ui.sign.signUp.chooseGender.ChooseGenderViewModel" />
@@ -23,8 +25,8 @@
             android:layout_height="24dp"
             android:layout_marginStart="28dp"
             android:layout_marginTop="16dp"
-            android:onClick="@{()->vm.onClickBack()}"
             android:background="@drawable/ic_back_arrow_gs_50"
+            android:onClick="@{()->vm.onClickBack()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,93 +42,185 @@
             app:layout_constraintTop_toTopOf="@id/img_btn_back" />
 
         <TextView
-            android:id="@+id/text_choose_gender"
+            android:id="@+id/text_ssn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="191dp"
-            android:text="@string/sign_choose_gender"
-            android:textAppearance="@style/h2"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="64dp"
+            android:text="@string/sign_input_ssn"
+            android:textAppearance="@style/h3"
             android:textColor="@color/gs_90"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/include_top_bar" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraint_layout_female"
+        <EditText
+            android:id="@+id/edit_text_ssn1"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_4"
+            android:gravity="center_horizontal"
+            android:inputType="number"
+            android:maxLength="1"
+            android:paddingVertical="14dp"
+            android:text="@={vm.uiState.ssn1}"
+            android:textAppearance="@style/p2"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@id/text_ssn"
+            app:layout_constraintTop_toBottomOf="@id/text_ssn"
+            tools:text="0" />
+
+        <EditText
+            android:id="@+id/edit_text_ssn2"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_4"
+            android:gravity="center_horizontal"
+            android:inputType="number"
+            android:maxLength="1"
+            android:paddingVertical="14dp"
+            android:text="@={vm.uiState.ssn2}"
+            android:textAppearance="@style/p2"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@id/edit_text_ssn1"
+            app:layout_constraintTop_toBottomOf="@id/text_ssn"
+            tools:text="0" />
+
+        <EditText
+            android:id="@+id/edit_text_ssn3"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_4"
+            android:gravity="center_horizontal"
+            android:inputType="number"
+            android:maxLength="1"
+            android:paddingVertical="14dp"
+            android:text="@={vm.uiState.ssn3}"
+            android:textAppearance="@style/p2"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@id/edit_text_ssn2"
+            app:layout_constraintTop_toBottomOf="@id/text_ssn"
+            tools:text="0" />
+
+        <EditText
+            android:id="@+id/edit_text_ssn4"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_4"
+            android:gravity="center_horizontal"
+            android:inputType="number"
+            android:maxLength="1"
+            android:paddingVertical="14dp"
+            android:text="@={vm.uiState.ssn4}"
+            android:textAppearance="@style/p2"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@id/edit_text_ssn3"
+            app:layout_constraintTop_toBottomOf="@id/text_ssn"
+            tools:text="0" />
+
+        <EditText
+            android:id="@+id/edit_text_ssn5"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_4"
+            android:gravity="center_horizontal"
+            android:inputType="number"
+            android:maxLength="1"
+            android:paddingVertical="14dp"
+            android:text="@={vm.uiState.ssn5}"
+            android:textAppearance="@style/p2"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@id/edit_text_ssn4"
+            app:layout_constraintTop_toBottomOf="@id/text_ssn"
+            tools:text="0" />
+
+        <EditText
+            android:id="@+id/edit_text_ssn6"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_4"
+            android:gravity="center_horizontal"
+            android:inputType="number"
+            android:maxLength="1"
+            android:paddingVertical="14dp"
+            android:text="@={vm.uiState.ssn6}"
+            android:textAppearance="@style/p2"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@id/edit_text_ssn5"
+            app:layout_constraintTop_toBottomOf="@id/text_ssn"
+            tools:text="0" />
+
+        <TextView
+            android:id="@+id/text_split"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="4dp"
-            android:onClick="@{()->vm.onClickFemale()}"
-            android:background="@drawable/bg_rectangle_filled_white_radius_8"
-            app:layout_constraintEnd_toStartOf="@id/constraint_layout_male"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_choose_gender">
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="2dp"
+            android:gravity="center_horizontal"
+            android:text="@string/sign_ssn_split"
+            android:textAppearance="@style/h3"
+            android:textColor="@color/gs_50"
+            app:layout_constraintBottom_toBottomOf="@id/edit_text_ssn6"
+            app:layout_constraintStart_toEndOf="@id/edit_text_ssn6"
+            app:layout_constraintTop_toTopOf="@id/edit_text_ssn6" />
 
-            <ImageView
-                android:id="@+id/img_female"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_marginHorizontal="41dp"
-                android:layout_marginTop="23dp"
-                android:background="@drawable/ic_female"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="15dp"
-                android:text="@string/word_female"
-                android:textAppearance="@style/h2"
-                android:textColor="@color/gs_80"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/img_female" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraint_layout_male"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/edit_text_ssn7"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:onClick="@{()->vm.onClickMale()}"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/bg_rectangle_filled_white_radius_8"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_4"
+            android:gravity="center_horizontal"
+            android:inputType="number"
+            android:maxLength="1"
+            android:paddingVertical="14dp"
+            android:text="@={vm.uiState.ssn7}"
+            android:textAppearance="@style/p2"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@id/text_split"
+            app:layout_constraintTop_toBottomOf="@id/text_ssn"
+            tools:text="0" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_rectangle_filled_gs_10_radius_4"
+            android:gravity="center_horizontal"
+            android:paddingVertical="14dp"
+            android:textAppearance="@style/p2"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/edit_text_ssn7"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/constraint_layout_female"
-            app:layout_constraintTop_toBottomOf="@id/text_choose_gender">
+            app:layout_constraintStart_toEndOf="@id/edit_text_ssn7"
+            app:layout_constraintTop_toTopOf="@id/edit_text_ssn7" />
 
-            <ImageView
-                android:id="@+id/img_male"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_marginHorizontal="41dp"
-                android:layout_marginTop="23dp"
-                android:background="@drawable/ic_male"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="15dp"
-                android:text="@string/word_male"
-                android:textAppearance="@style/h2"
-                android:textColor="@color/gs_80"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/img_male" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_next"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="80dp"
+            android:onClick="@{()->vm.onClickNext()}"
+            android:background="@drawable/bg_rectangle_filled_white_stroke_main_radius_8"
+            android:text="@string/word_next"
+            android:textAppearance="@style/btn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

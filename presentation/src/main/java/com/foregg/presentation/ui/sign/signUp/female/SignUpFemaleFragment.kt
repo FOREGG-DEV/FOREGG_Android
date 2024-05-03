@@ -62,6 +62,7 @@ class SignUpFemaleFragment : BaseFragment<FragmentSignUpFemaleBinding, SignUpFem
             }
             spinnerAdapter.submitList(resources.getStringArray(R.array.surgery_list).toList())
             viewModel.setAccessToken(signUpFemaleFragmentArgs.accessToken)
+            viewModel.getSurgeryType(signUpFemaleFragmentArgs)
         }
     }
 

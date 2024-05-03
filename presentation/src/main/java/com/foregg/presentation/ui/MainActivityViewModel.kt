@@ -12,33 +12,40 @@ import javax.inject.Inject
 @HiltViewModel
 class MainActivityViewModel @Inject constructor() : BaseViewModel<MainActivityPageState>() {
 
+    private val isCalendarPageStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val isAccountPageStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val isMainPageStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(true)
-    private val isKnotListPageStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val isInfoPageStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val isProfilePageStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
-    private val isSettingPageStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val isOtherPageStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     override val uiState: MainActivityPageState = MainActivityPageState(
+        isCalendarPageStateFlow.asStateFlow(),
+        isAccountPageStateFlow.asStateFlow(),
         isMainPageStateFlow.asStateFlow(),
-        isKnotListPageStateFlow.asStateFlow(),
+        isInfoPageStateFlow.asStateFlow(),
         isProfilePageStateFlow.asStateFlow(),
-        isSettingPageStateFlow.asStateFlow(),
         isOtherPageStateFlow.asStateFlow()
     )
+
+    fun onClickCalendar() {
+        activeCalendar()
+        emitEventFlow(MainActivityEvent.GoToCalendar)
+    }
+
+    fun onClickAccount() {
+        activeAccount()
+        emitEventFlow(MainActivityEvent.GoToAccount)
+    }
 
     fun onClickMain() {
         activeMain()
         emitEventFlow(MainActivityEvent.GoToMain)
     }
 
-    fun onClickKnotList() {
-        activeKnotList()
-        emitEventFlow(MainActivityEvent.GoToKnotList)
-    }
-
-    fun onClickCreateKnot() {
-        goneNavigation()
-        emitEventFlow(MainActivityEvent.GoToCreateKnot)
+    fun onClickInfo() {
+        activeInfo()
+        emitEventFlow(MainActivityEvent.GoToInfo)
     }
 
     fun onClickProfile() {
@@ -46,27 +53,35 @@ class MainActivityViewModel @Inject constructor() : BaseViewModel<MainActivityPa
         emitEventFlow(MainActivityEvent.GoToProfile)
     }
 
-    fun onClickSetting() {
-        activieSetting()
-        emitEventFlow(MainActivityEvent.GoToSetting)
+    fun activeCalendar(){
+        viewModelScope.launch {
+            isMainPageStateFlow.update { false }
+            isCalendarPageStateFlow.update { true }
+            isProfilePageStateFlow.update { false }
+            isInfoPageStateFlow.update { false }
+            isAccountPageStateFlow.update { false }
+            isOtherPageStateFlow.update { false }
+        }
+    }
+
+    fun activeAccount(){
+        viewModelScope.launch {
+            isMainPageStateFlow.update { false }
+            isCalendarPageStateFlow.update { false }
+            isProfilePageStateFlow.update { false }
+            isInfoPageStateFlow.update { false }
+            isAccountPageStateFlow.update { true }
+            isOtherPageStateFlow.update { false }
+        }
     }
 
     fun activeMain(){
         viewModelScope.launch {
             isMainPageStateFlow.update { true }
-            isKnotListPageStateFlow.update { false }
+            isCalendarPageStateFlow.update { false }
             isProfilePageStateFlow.update { false }
-            isSettingPageStateFlow.update { false }
-            isOtherPageStateFlow.update { false }
-        }
-    }
-
-    fun activeKnotList(){
-        viewModelScope.launch {
-            isMainPageStateFlow.update { false }
-            isKnotListPageStateFlow.update { true }
-            isProfilePageStateFlow.update { false }
-            isSettingPageStateFlow.update { false }
+            isInfoPageStateFlow.update { false }
+            isAccountPageStateFlow.update { false }
             isOtherPageStateFlow.update { false }
         }
     }
@@ -74,19 +89,21 @@ class MainActivityViewModel @Inject constructor() : BaseViewModel<MainActivityPa
     fun activeProfile(){
         viewModelScope.launch {
             isMainPageStateFlow.update { false }
-            isKnotListPageStateFlow.update { false }
+            isCalendarPageStateFlow.update { false }
             isProfilePageStateFlow.update { true }
-            isSettingPageStateFlow.update { false }
+            isInfoPageStateFlow.update { false }
+            isAccountPageStateFlow.update { false }
             isOtherPageStateFlow.update { false }
         }
     }
 
-    fun activieSetting(){
+    fun activeInfo(){
         viewModelScope.launch {
             isMainPageStateFlow.update { false }
-            isKnotListPageStateFlow.update { false }
+            isCalendarPageStateFlow.update { false }
             isProfilePageStateFlow.update { false }
-            isSettingPageStateFlow.update { true }
+            isInfoPageStateFlow.update { true }
+            isAccountPageStateFlow.update { false }
             isOtherPageStateFlow.update { false }
         }
     }

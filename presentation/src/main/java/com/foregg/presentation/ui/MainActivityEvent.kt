@@ -3,9 +3,9 @@ package com.foregg.presentation.ui
 import com.foregg.presentation.Event
 
 sealed class MainActivityEvent : Event {
+    object GoToCalendar : MainActivityEvent()
+    object GoToAccount : MainActivityEvent()
     object GoToMain : MainActivityEvent()
-    object GoToKnotList : MainActivityEvent()
-    object GoToCreateKnot : MainActivityEvent()
+    object GoToInfo : MainActivityEvent()
     object GoToProfile : MainActivityEvent()
-    object GoToSetting : MainActivityEvent()
 }
