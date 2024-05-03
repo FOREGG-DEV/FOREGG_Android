@@ -4,12 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/onboardingFragment">
+    app:startDestination="@id/calendarFragment">
 
     <fragment
-        android:id="@+id/onboardingFragment"
-        android:name="com.foregg.presentation.ui.sign.onBoarding.OnboardingFragment"
-        android:label="fragment_onboarding"
-        tools:layout="@layout/fragment_onboarding">
+        android:id="@+id/calendarFragment"
+        android:name="com.foregg.presentation.ui.main.calendar.CalendarFragment"
+        android:label="fragment_calendar"
+        tools:layout="@layout/fragment_calendar">
+
     </fragment>
 </navigation>
