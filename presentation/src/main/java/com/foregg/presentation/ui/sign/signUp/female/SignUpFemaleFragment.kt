@@ -62,7 +62,7 @@ class SignUpFemaleFragment : BaseFragment<FragmentSignUpFemaleBinding, SignUpFem
                 layoutManager = LinearLayoutManager(context)
                 adapter = surgeryTypeAdapter
             }
-            viewModel.getSurgeryType(signUpFemaleFragmentArgs.accessToken)
+            viewModel.getSurgeryType(signUpFemaleFragmentArgs)
         }
     }
 

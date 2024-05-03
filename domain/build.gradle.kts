@@ -15,4 +15,8 @@ dependencies {
     implementation(Google.HILT_CORE)
 
     implementation(AndroidX.THREE_TEN)
+
+    //RETROFIT
+    implementation(Libraries.RETROFIT)
+    implementation(Libraries.RETROFIT_CONVERTER_GSON)
 }

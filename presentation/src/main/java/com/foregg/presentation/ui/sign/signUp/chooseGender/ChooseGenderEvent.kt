@@ -4,6 +4,6 @@ import com.foregg.presentation.Event
 
 sealed class ChooseGenderEvent : Event {
     object GoToBackEvent : ChooseGenderEvent()
-    object OnClickFemaleEvent : ChooseGenderEvent()
-    object OnClickMaleEvent : ChooseGenderEvent()
+    data class OnClickFemaleEvent(val ssn : String) : ChooseGenderEvent()
+    data class OnClickMaleEvent(val ssn : String) : ChooseGenderEvent()
 }
