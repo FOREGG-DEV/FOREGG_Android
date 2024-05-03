@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="custom_tab_bar">
+        <attr name="leftText" format="reference|string" />
+        <attr name="middleText" format="reference|string" />
+        <attr name="rightText" format="reference|string" />
+        <attr name="tabCount" format="integer" />
+    </declare-styleable>
+</resources>

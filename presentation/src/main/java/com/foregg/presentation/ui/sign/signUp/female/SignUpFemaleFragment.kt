@@ -6,7 +6,6 @@ import android.content.ClipboardManager
 import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Intent
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -16,7 +15,7 @@ import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentSignUpFemaleBinding
 import com.foregg.presentation.ui.MainActivity
-import com.foregg.presentation.ui.sign.signUp.female.adapter.SurgeryTypeAdapter
+import com.foregg.presentation.ui.common.spinner.CommonSpinnerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.Calendar
@@ -30,11 +29,10 @@ class SignUpFemaleFragment : BaseFragment<FragmentSignUpFemaleBinding, SignUpFem
 
     private val signUpFemaleFragmentArgs : SignUpFemaleFragmentArgs by navArgs()
 
-    private val surgeryTypeAdapter : SurgeryTypeAdapter by lazy {
-        SurgeryTypeAdapter(object : SurgeryTypeAdapter.SurgeryTypeDelegate{
-            override fun onClickType(type: SurgeryType) {
-                setSurgeryType(type)
-                viewModel.updateSelectedSurgeryType(type)
+    private val spinnerAdapter : CommonSpinnerAdapter by lazy {
+        CommonSpinnerAdapter(object : CommonSpinnerAdapter.CommonSpinnerDelegate{
+            override fun onClickType(type: String) {
+                viewModel.updateSelectedSurgeryType(SurgeryType.valueOf(type))
             }
         })
     }
@@ -60,9 +58,10 @@ class SignUpFemaleFragment : BaseFragment<FragmentSignUpFemaleBinding, SignUpFem
 
             recyclerSugeryType.apply {
                 layoutManager = LinearLayoutManager(context)
-                adapter = surgeryTypeAdapter
+                adapter = spinnerAdapter
             }
             viewModel.getSurgeryType(signUpFemaleFragmentArgs)
+            spinnerAdapter.submitList(resources.getStringArray(R.array.surgery_list).toList())
         }
     }
 
@@ -70,12 +69,6 @@ class SignUpFemaleFragment : BaseFragment<FragmentSignUpFemaleBinding, SignUpFem
         super.initStates()
 
         repeatOnStarted(viewLifecycleOwner) {
-            launch {
-                viewModel.uiState.surgeryTypeList.collect{
-                    surgeryTypeAdapter.submitList(it)
-                }
-            }
-
             launch {
                 viewModel.eventFlow.collect {
                     inspectEvent(it as SignUpFemaleEvent)
@@ -103,12 +96,6 @@ class SignUpFemaleFragment : BaseFragment<FragmentSignUpFemaleBinding, SignUpFem
         datePickerDialog.show()
         datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(requireContext(), R.color.main))
         datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(requireContext(), R.color.main))
-    }
-
-    private fun setSurgeryType(type : SurgeryType){
-        binding.apply {
-            textSurgeryType.text = type.type
-        }
     }
 
     private fun copyClipBoard(code : String){

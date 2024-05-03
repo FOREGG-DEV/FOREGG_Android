@@ -28,9 +28,6 @@ class SignUpFemaleViewModel @Inject constructor(
         const val MAX_ROUND = 100
     }
 
-    private val surgeryTypeListStateFlow : MutableStateFlow<List<SurgeryType>> = MutableStateFlow(
-        emptyList()
-    )
     private val selectedSurgeryTypeStateFlow : MutableStateFlow<SurgeryType> = MutableStateFlow(SurgeryType.체외_수정)
     private val progressRoundStateFlow : MutableStateFlow<Int> = MutableStateFlow(0)
     private val startTreatmentDayStateFlow : MutableStateFlow<String> = MutableStateFlow("")
@@ -38,7 +35,6 @@ class SignUpFemaleViewModel @Inject constructor(
     private val isExpandStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     override val uiState: SignUpFemalePageState = SignUpFemalePageState(
-        surgeryTypeList = surgeryTypeListStateFlow.asStateFlow(),
         selectedSurgeryType = selectedSurgeryTypeStateFlow.asStateFlow(),
         progressRound = progressRoundStateFlow.asStateFlow(),
         startTreatmentDay = startTreatmentDayStateFlow.asStateFlow(),
@@ -56,9 +52,7 @@ class SignUpFemaleViewModel @Inject constructor(
     fun getSurgeryType(args: SignUpFemaleFragmentArgs){
         accessToken = args.accessToken
         this.ssn = args.ssn
-        val list = listOf(SurgeryType.시술_고민_중, SurgeryType.난자_동결, SurgeryType.체외_수정)
         viewModelScope.launch {
-            surgeryTypeListStateFlow.update { list }
             shareCodeStateFlow.update { args.shareCode }
         }
     }
