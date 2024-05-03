@@ -7,4 +7,8 @@ object StatusCode {
     object AUTH {
         const val USER_NEED_JOIN = "USER4002"
     }
+
+    object RECORD {
+        const val NO_EXIST_SCHEDULE = "RECORD4001"
+    }
 }

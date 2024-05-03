@@ -6,11 +6,9 @@ import com.foregg.domain.model.enums.DayType
 import com.foregg.domain.model.enums.RecordType
 import com.foregg.domain.model.vo.CalendarDayVo
 import com.foregg.domain.model.vo.ScheduleDetailVo
-import com.foregg.domain.model.vo.ScheduleVo
 import com.foregg.presentation.R
 import com.foregg.presentation.databinding.IncludeItemDayBinding
 import com.foregg.presentation.ui.main.calendar.adapter.CalendarDayAdapter
-import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.TimeFormatter
 import com.foregg.presentation.util.px
 

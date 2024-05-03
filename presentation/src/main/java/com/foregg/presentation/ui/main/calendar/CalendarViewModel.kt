@@ -5,8 +5,8 @@ import com.foregg.data.base.StatusCode
 import com.foregg.domain.model.enums.DayType
 import com.foregg.domain.model.vo.CalendarDayVo
 import com.foregg.domain.model.vo.ScheduleDetailVo
-import com.foregg.domain.usecase.DeleteScheduleUseCase
-import com.foregg.domain.usecase.GetScheduleListUseCase
+import com.foregg.domain.usecase.schedule.DeleteScheduleUseCase
+import com.foregg.domain.usecase.schedule.GetScheduleListUseCase
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseViewModel
 import com.foregg.presentation.util.ForeggLog
