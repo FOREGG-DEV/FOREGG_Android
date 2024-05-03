@@ -15,4 +15,15 @@
         <item>Fri</item>
         <item>Sat</item>
     </string-array>
+
+    <string-array name="injection_list">
+        <item>폴리트롭</item>
+        <item>고날에프</item>
+        <item>퓨레곤</item>
+        <item>고나도핀</item>
+        <item>레코벨</item>
+        <item>벰폴라</item>
+        <item>루베리스</item>
+        <item>퍼고베리스</item>
+    </string-array>
 </resources>

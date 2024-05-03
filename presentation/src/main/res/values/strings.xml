@@ -40,4 +40,25 @@
     <!-- Calendar -->
     <string name="calendar_year_and_month">%d년 %d월</string>
     <string name="calendar_create_dialog_title">일정 분류</string>
+    <string name="calendar_create_edit_time_am">오전</string>
+    <string name="calendar_create_edit_time_pm">오후</string>
+    <string name="calendar_create_schedule_title">일정 추가</string>
+    <string name="calendar_edit_hospital_tab_schedule">일정</string>
+    <string name="calendar_edit_hospital_record_diagnosis">진료 기록</string>
+    <string name="calendar_create_edit_classification">분류</string>
+    <string name="calendar_create_edit_date">날짜</string>
+    <string name="calendar_create_edit_repeat_day_setting">반복 주기 설정</string>
+    <string name="calendar_create_edit_start_day">시작 날짜</string>
+    <string name="calendar_create_edit_end_day">종료 날짜</string>
+    <string name="calendar_create_edit_repeat_week">반복 요일</string>
+    <string name="calendar_create_edit_time">시간</string>
+    <string name="calendar_create_edit_volume">용량</string>
+    <string name="calendar_create_edit_volume_medicine_day">일</string>
+    <string name="calendar_create_edit_volume_medicine_count">정</string>
+    <string name="calendar_create_edit_volume_medicine_repeat">회</string>
+    <string name="calendar_create_edit_volume_injection">ml</string>
+    <string name="calendar_create_edit_memo">메모</string>
+    <string name="calendar_create_edit_medical_record">진료</string>
+    <string name="calendar_create_edit_medical_record_hint">오늘 진료 내용을 기록해보세요</string>
+    <string name="calendar_create_edit_side_effect">부작용</string>
 </resources>
