@@ -61,4 +61,12 @@
     <string name="calendar_create_edit_medical_record">진료</string>
     <string name="calendar_create_edit_medical_record_hint">오늘 진료 내용을 기록해보세요</string>
     <string name="calendar_create_edit_side_effect">부작용</string>
+
+    <!-- account -->
+    <string name="account_all">전체</string>
+    <string name="account_round">회차별</string>
+    <string name="account_month">월별</string>
+    <string name="account_all_expend">총 지출</string>
+    <string name="account_subsidy">지원금</string>
+    <string name="account_personal">개인</string>
 </resources>
