@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.foregg.presentation.ui.main.calendar.CalendarViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_top"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background">
+
+            <include
+                android:id="@+id/include_top_bar"
+                layout="@layout/include_top_bar" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/word_calendar"
+                android:textAppearance="@style/h3"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/include_top_bar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/include_top_bar" />
+
+
+            <ImageButton
+                android:id="@+id/img_btn_add_calendar"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="24dp"
+                android:background="@android:color/transparent"
+                android:onClick="@{()->vm.onClickCreateSchedule()}"
+                android:src="@drawable/ic_add_calendar"
+                app:layout_constraintBottom_toBottomOf="@id/include_top_bar"
+                app:layout_constraintEnd_toEndOf="@id/include_top_bar"
+                app:layout_constraintTop_toTopOf="@id/include_top_bar" />
+
+            <ImageButton
+                android:id="@+id/img_btn_prev_month"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="9dp"
+                android:background="@drawable/ic_arrow_right"
+                android:onClick="@{()->vm.onClickPrevMonth()}"
+                android:scaleX="-1"
+                app:layout_constraintEnd_toStartOf="@id/text_year_and_month"
+                app:layout_constraintTop_toBottomOf="@id/include_top_bar" />
+
+            <TextView
+                android:id="@+id/text_year_and_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.uiState.selectedYearAndMonth}"
+                android:textAppearance="@style/h2"
+                android:textColor="@color/gs_90"
+                app:layout_constraintBottom_toBottomOf="@id/img_btn_next_month"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/img_btn_next_month"
+                tools:text="2024년 3월" />
+
+            <ImageButton
+                android:id="@+id/img_btn_next_month"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/ic_arrow_right"
+                android:onClick="@{()->vm.onClickNextMonth()}"
+                app:layout_constraintStart_toEndOf="@id/text_year_and_month"
+                app:layout_constraintTop_toBottomOf="@id/include_top_bar" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_calendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_rectangle_filled_white_radius_8"
+                android:paddingBottom="12dp"
+                app:layout_constraintTop_toBottomOf="@id/img_btn_next_month">
+
+                <include
+                    android:id="@+id/include_layout_calendar"
+                    layout="@layout/include_calendar" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rectangle_filled_white_top_radius_16"
+            app:behavior_hideable="false"
+            app:behavior_peekHeight="100dp"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+            <TextView
+                android:id="@+id/text_select_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="16dp"
+                android:text="@{vm.uiState.selectedDay}"
+                android:textAppearance="@style/p2"
+                android:textColor="@color/gs_90"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="2024. 03. 21 (목)" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_schedule"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_select_day" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
