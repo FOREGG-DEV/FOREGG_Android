@@ -39,7 +39,7 @@ class CalendarViewModel @Inject constructor(
     private val calendarDayListStateFlow : MutableStateFlow<List<CalendarDayVo>> = MutableStateFlow(
         emptyList()
     )
-    private val selectedDayStateFlow : MutableStateFlow<String> = MutableStateFlow(TimeFormatter.getToday())
+    private val selectedDayStateFlow : MutableStateFlow<String> = MutableStateFlow(TimeFormatter.getDotsDate(TimeFormatter.getToday()))
     private val scheduleListStateFlow : MutableStateFlow<List<ScheduleDetailVo>> = MutableStateFlow(
         emptyList()
     )
@@ -84,7 +84,7 @@ class CalendarViewModel @Inject constructor(
 
     private fun getDayList(list : List<ScheduleDetailVo>) : List<CalendarDayVo> {
         val dayList = getMonthDays(year, month, list)
-        initScheduleList(selectedDayStateFlow.value, dayList)
+        initScheduleList(TimeFormatter.getDashDate(selectedDayStateFlow.value), dayList)
         return getHeadDayList() + dayList
     }
 
@@ -208,13 +208,7 @@ class CalendarViewModel @Inject constructor(
         val repeatScheduleList = list.filter { it.date == null }
         val newList = mutableListOf<ScheduleDetailVo>()
         repeatScheduleList.forEach { vo ->
-            val dateList = TimeFormatter.getDatesBetween(vo.startDate.toString(), vo.endDate.toString())
-            val weekdays = vo.repeatDate?.toList()
-            dateList.forEach {day ->
-                if(isContainDayOfWeek(weekdays, day)){
-                    newList.add(vo.copy(date = day.toString()))
-                }
-            }
+            newList.addAll(TimeFormatter.getDatesBetween(vo))
         }
 
         return normalScheduleList + newList
@@ -238,11 +232,5 @@ class CalendarViewModel @Inject constructor(
             val scheduleListForDay = list.filter { it.date == day.toString() }
             CalendarDayVo(day = day.toString(), dayType = DayType.PREV_NEXT, scheduleList = scheduleListForDay)
         }
-    }
-
-    private fun isContainDayOfWeek(weekdays : List<String>?, day : LocalDate) : Boolean{
-        val dayOfWeekKorean = TimeFormatter.getKoreanDayOfWeek(day.dayOfWeek)
-        return weekdays?.contains(resourceProvider.getString(R.string.word_every_day)) == true ||
-                weekdays?.contains(dayOfWeekKorean) == true
     }
 }
