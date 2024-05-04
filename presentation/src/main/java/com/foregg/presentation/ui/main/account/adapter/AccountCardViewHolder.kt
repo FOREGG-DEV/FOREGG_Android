@@ -21,12 +21,13 @@ class AccountCardViewHolder(
     init {
         binding.apply {
             constraintLayoutCard.setOnClickListener {
-                if(adapter.getSelectMode()) listener.onSelectItem(vo.copy(isSelected = !vo.isSelected))
+                //여러개면 if(adapter.getSelectMode()) listener.onSelectItem(vo.copy(isSelected = !vo.isSelected)) 이걸로 변경
+                if(vo.isSelected) listener.onSelectItem(vo.copy(isSelected = false))
                 else listener.onClickItem(vo)
             }
 
             constraintLayoutCard.setOnLongClickListener {
-                if(adapter.getSelectMode()) return@setOnLongClickListener(true)
+                if(adapter.getSelectMode()) return@setOnLongClickListener(false)
                 adapter.changeMode()
                 listener.onSelectItem(vo.copy(isSelected = !vo.isSelected))
                 return@setOnLongClickListener(true)
