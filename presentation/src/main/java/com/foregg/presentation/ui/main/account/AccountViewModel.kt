@@ -2,6 +2,8 @@ package com.foregg.presentation.ui.main.account
 
 import androidx.lifecycle.viewModelScope
 import com.foregg.domain.model.enums.AccountTabType
+import com.foregg.domain.model.enums.AccountType
+import com.foregg.domain.model.response.AccountResponseVo
 import com.foregg.domain.model.vo.AccountCardVo
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseViewModel
@@ -13,6 +15,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.text.NumberFormat
+import java.util.Locale
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
@@ -60,6 +64,7 @@ class AccountViewModel @Inject constructor(
         month = TimeFormatter.getMonth(today).toInt()
         round = 1
         initDay(today)
+        getAccount()
     }
 
     private fun initDay(date : String){
@@ -69,6 +74,17 @@ class AccountViewModel @Inject constructor(
             endDayStateFlow.update { prevMonthDay }
             updateStartAndEndStateFlow("${TimeFormatter.getDotsDate(prevMonthDay)} - ${TimeFormatter.getDotsDate(date)}")
         }
+    }
+
+    private fun getAccount(){
+        handleGetSuccessAccount(test())
+    }
+
+    private fun handleGetSuccessAccount(result : AccountResponseVo){
+        updateAllExpend(getMoneyFormat(result.allExpendMoney))
+        updateSubsidy(getMoneyFormat(result.subsidyMoney))
+        updatePersonal(getMoneyFormat(result.personalMoney))
+        updateAccountCard(result.accountList)
     }
 
     private fun updateStartAndEndStateFlow(dateText : String){
@@ -143,5 +159,84 @@ class AccountViewModel @Inject constructor(
     private fun prevRound(){
         if(round == 1) return
         round--
+    }
+
+    private fun updateAllExpend(money : String){
+        viewModelScope.launch {
+            allExpendStateFlow.update { money }
+        }
+    }
+
+    private fun updateSubsidy(money : String){
+        viewModelScope.launch {
+            subsidyStateFlow.update { money }
+        }
+    }
+
+    private fun updatePersonal(money : String){
+        viewModelScope.launch {
+            personalStateFlow.update { money }
+        }
+    }
+
+    private fun updateAccountCard(list : List<AccountCardVo>){
+        viewModelScope.launch {
+            accountListStateFlow.update { list }
+        }
+    }
+
+    private fun getMoneyFormat(money : Int) : String {
+        val koreanFormat = NumberFormat.getNumberInstance(Locale("ko"))
+        return resourceProvider.getString(R.string.account_money_unit, koreanFormat.format(money))
+    }
+
+    private fun test() : AccountResponseVo {
+        return AccountResponseVo(
+            allExpendMoney = 141000,
+            subsidyMoney = 78000,
+            personalMoney = 63000,
+            accountList = listOf(
+                AccountCardVo(
+                    id = 1,
+                    date = "2024-05-01",
+                    round = 1,
+                    type = AccountType.PERSONAL_EXPEND,
+                    title = "Groceries",
+                    money = 24800
+                ),
+                AccountCardVo(
+                    id = 2,
+                    date = "2024-05-02",
+                    round = 2,
+                    type = AccountType.SUBSIDY,
+                    title = "Salary",
+                    money = 39000
+                ),
+                AccountCardVo(
+                    id = 3,
+                    date = "2024-05-03",
+                    round = 3,
+                    type = AccountType.PERSONAL_EXPEND,
+                    title = "Dinner",
+                    money = 78000
+                ),
+                AccountCardVo(
+                    id = 4,
+                    date = "2024-05-04",
+                    round = 4,
+                    type = AccountType.SUBSIDY,
+                    title = "Freelance Work",
+                    money = 1200
+                ),
+                AccountCardVo(
+                    id = 5,
+                    date = "2024-05-05",
+                    round = 5,
+                    type = AccountType.PERSONAL_EXPEND,
+                    title = "Movie Tickets",
+                    money = 460000
+                )
+            )
+        )
     }
 }
