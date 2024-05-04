@@ -15,7 +15,9 @@ class AccountCardAdapter(
     private var selectMode = false
 
     interface AccountCardDelegate {
-        fun onClickDay(day : String)
+        fun onClickItem(vo: AccountCardVo)
+        fun onSelectItem(vo: AccountCardVo)
+        fun changeMode(selectMode : Boolean)
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
@@ -31,6 +33,7 @@ class AccountCardAdapter(
     fun getSelectMode() : Boolean = selectMode
     fun changeMode() {
         selectMode = !selectMode
+        listener.changeMode(selectMode)
     }
 }
 

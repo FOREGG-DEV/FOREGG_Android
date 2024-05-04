@@ -40,12 +40,13 @@
                 app:layout_constraintTop_toTopOf="@id/include_top_bar" />
 
             <ImageButton
-                android:id="@+id/img_btn_add_calendar"
+                android:id="@+id/img_btn_add_account"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginEnd="24dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_add_calendar"
+                android:onClick="@{()->vm.onClickCreateOrDeleteBtn()}"
                 app:layout_constraintBottom_toBottomOf="@id/include_top_bar"
                 app:layout_constraintEnd_toEndOf="@id/include_top_bar"
                 app:layout_constraintTop_toTopOf="@id/include_top_bar" />

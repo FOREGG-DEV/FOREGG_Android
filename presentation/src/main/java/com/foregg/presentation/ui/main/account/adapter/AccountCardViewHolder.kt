@@ -2,11 +2,9 @@ package com.foregg.presentation.ui.main.account.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.foregg.domain.model.enums.AccountType
-import com.foregg.domain.model.enums.RecordType
 import com.foregg.domain.model.vo.AccountCardVo
 import com.foregg.presentation.R
 import com.foregg.presentation.databinding.IncludeItemAccountCardBinding
-import com.foregg.presentation.util.ForeggLog
 import java.text.NumberFormat
 import java.util.Locale
 import kotlin.properties.Delegates
@@ -18,16 +16,19 @@ class AccountCardViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     private var id by Delegates.notNull<Long>()
-    private lateinit var type : RecordType
+    private lateinit var vo : AccountCardVo
 
     init {
         binding.apply {
-            root.setOnClickListener {
-                ForeggLog.D("그냥클릭")
+            constraintLayoutCard.setOnClickListener {
+                if(adapter.getSelectMode()) listener.onSelectItem(vo.copy(isSelected = !vo.isSelected))
+                else listener.onClickItem(vo)
             }
 
-            root.setOnLongClickListener {
-                ForeggLog.D("롱클릭")
+            constraintLayoutCard.setOnLongClickListener {
+                if(adapter.getSelectMode()) return@setOnLongClickListener(true)
+                adapter.changeMode()
+                listener.onSelectItem(vo.copy(isSelected = !vo.isSelected))
                 return@setOnLongClickListener(true)
             }
         }
@@ -35,7 +36,10 @@ class AccountCardViewHolder(
 
     fun bind(item : AccountCardVo) {
         id = item.id
+        vo = item
         binding.apply {
+            val res = if(item.isSelected) R.drawable.bg_rectangle_filled_gs_10_radius_8 else R.drawable.bg_rectangle_filled_white_radius_8
+            constraintLayoutCard.setBackgroundResource(res)
             textDate.text = item.date
             textRound.text = root.context.getString(R.string.account_round_unit, item.round)
             setType(item.type)

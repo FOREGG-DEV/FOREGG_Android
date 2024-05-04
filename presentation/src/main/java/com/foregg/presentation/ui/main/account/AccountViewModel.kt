@@ -190,6 +190,21 @@ class AccountViewModel @Inject constructor(
         return resourceProvider.getString(R.string.account_money_unit, koreanFormat.format(money))
     }
 
+    fun updateSelectedCard(item : AccountCardVo){
+        val newList = accountListStateFlow.value.map {
+            if(it.id == item.id) it.copy(isSelected = item.isSelected) else it
+        }
+        updateAccountCard(newList)
+    }
+
+    fun onClickCreateOrDeleteBtn(){
+        emitEventFlow(AccountEvent.OnClickAddOrDeleteBtn)
+    }
+
+    fun onClickDeleteBtn(){
+        //TODO 선택된 애들 골라서 보내기
+    }
+
     private fun test() : AccountResponseVo {
         return AccountResponseVo(
             allExpendMoney = 141000,

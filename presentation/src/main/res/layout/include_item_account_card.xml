@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -70,6 +71,8 @@
             android:singleLine="true"
             android:textAppearance="@style/p2"
             android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@id/text_money"
+            android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="@id/constraint_layout_type"
             app:layout_constraintStart_toEndOf="@id/constraint_layout_type"
             app:layout_constraintTop_toTopOf="@id/constraint_layout_type"

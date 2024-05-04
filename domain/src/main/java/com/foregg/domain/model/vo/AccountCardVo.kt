@@ -9,4 +9,5 @@ data class AccountCardVo(
     val type : AccountType,
     val title : String,
     val money : Int,
+    val isSelected : Boolean = false
 )
