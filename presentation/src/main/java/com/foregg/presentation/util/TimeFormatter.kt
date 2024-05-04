@@ -98,4 +98,12 @@ object TimeFormatter {
 
         return datesBetween
     }
+
+    fun getDotsDate(dateString : String) : String {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val date = LocalDate.parse(dateString, formatter)
+        val newFormat = DateTimeFormatter.ofPattern("yyyy. MM. dd")
+        return date.format(newFormat)
+    }
+
 }

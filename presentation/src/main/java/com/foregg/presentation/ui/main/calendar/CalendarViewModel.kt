@@ -84,7 +84,7 @@ class CalendarViewModel @Inject constructor(
 
     private fun getDayList(list : List<ScheduleDetailVo>) : List<CalendarDayVo> {
         val dayList = getMonthDays(year, month, list)
-        initScheduleList(dayList)
+        initScheduleList(selectedDayStateFlow.value, dayList)
         return getHeadDayList() + dayList
     }
 
@@ -107,6 +107,7 @@ class CalendarViewModel @Inject constructor(
         else{
             month++
         }
+        updateSelectedDay(YearMonth.of(year, month).atDay(1).toString())
         getScheduleList()
     }
 
@@ -118,6 +119,7 @@ class CalendarViewModel @Inject constructor(
         else{
             month--
         }
+        updateSelectedDay(YearMonth.of(year, month).atDay(1).toString())
         getScheduleList()
     }
 
@@ -129,12 +131,12 @@ class CalendarViewModel @Inject constructor(
 
     private fun updateSelectedDay(day : String){
         viewModelScope.launch {
-            selectedDayStateFlow.update { day }
+            selectedDayStateFlow.update { TimeFormatter.getDotsDate(day) }
         }
     }
 
-    private fun initScheduleList(list : List<CalendarDayVo>){
-        val schedule = list.find { it.day == selectedDayStateFlow.value }
+    private fun initScheduleList(day : String, list : List<CalendarDayVo>){
+        val schedule = list.find { it.day == day }
         updateScheduleList(splitRepeatTimesForList(schedule?.scheduleList ?: emptyList()))
     }
 
