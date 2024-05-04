@@ -28,7 +28,7 @@ class SignUpFemaleViewModel @Inject constructor(
         const val MAX_ROUND = 100
     }
 
-    private val selectedSurgeryTypeStateFlow : MutableStateFlow<SurgeryType> = MutableStateFlow(SurgeryType.체외_수정)
+    private val selectedSurgeryTypeStateFlow : MutableStateFlow<SurgeryType> = MutableStateFlow(SurgeryType.IN_VITRO_FERTILIZATION)
     private val progressRoundStateFlow : MutableStateFlow<Int> = MutableStateFlow(0)
     private val startTreatmentDayStateFlow : MutableStateFlow<String> = MutableStateFlow("")
     private val shareCodeStateFlow : MutableStateFlow<String> = MutableStateFlow("")
@@ -127,9 +127,9 @@ class SignUpFemaleViewModel @Inject constructor(
             accessToken = accessToken,
             signUpRequestVo = SignUpRequestVo(
                 surgeryType = selectedSurgeryTypeStateFlow.value,
-                count = if(selectedSurgeryTypeStateFlow.value == SurgeryType.시술_고민_중) null
+                count = if(selectedSurgeryTypeStateFlow.value == SurgeryType.THINK_SURGERY) null
                         else progressRoundStateFlow.value,
-                startAt = if(selectedSurgeryTypeStateFlow.value == SurgeryType.시술_고민_중) null
+                startAt = if(selectedSurgeryTypeStateFlow.value == SurgeryType.THINK_SURGERY) null
                         else startTreatmentDayStateFlow.value,
                 spouseCode = shareCodeStateFlow.value,
                 ssn = ssn
