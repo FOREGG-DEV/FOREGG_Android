@@ -1,8 +1,10 @@
 package com.foregg.presentation.module
 
+import com.foregg.data.repository.AccountRepositoryImpl
 import com.foregg.data.repository.AuthRepositoryImpl
 import com.foregg.data.repository.ForeggJwtRepositoryImpl
 import com.foregg.data.repository.ScheduleRepositoryImpl
+import com.foregg.domain.repository.AccountRepository
 import com.foregg.domain.repository.AuthRepository
 import com.foregg.domain.repository.ForeggJwtRepository
 import com.foregg.domain.repository.ScheduleRepository
@@ -27,4 +29,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesScheduleRepository(repositoryImpl: ScheduleRepositoryImpl): ScheduleRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesAccountRepository(repositoryImpl: AccountRepositoryImpl): AccountRepository
 }
