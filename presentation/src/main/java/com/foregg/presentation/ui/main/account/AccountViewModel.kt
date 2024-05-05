@@ -80,6 +80,15 @@ class AccountViewModel @Inject constructor(
         handleGetSuccessAccount(test())
     }
 
+    private fun getAccountByMonth(){
+        handleGetSuccessAccount(test())
+    }
+
+    private fun getAccountByRound(){
+        handleGetSuccessAccount(test())
+    }
+
+
     private fun handleGetSuccessAccount(result : AccountResponseVo){
         updateAllExpend(getMoneyFormat(result.allExpendMoney))
         updateSubsidy(getMoneyFormat(result.subsidyMoney))
@@ -102,9 +111,18 @@ class AccountViewModel @Inject constructor(
 
     private fun inspectSelectText(type : AccountTabType){
         when(type){
-            AccountTabType.ALL -> updateSelectText("")
-            AccountTabType.ROUND -> updateSelectText(resourceProvider.getString(R.string.account_round_unit, round))
-            AccountTabType.MONTH ->  updateSelectText(resourceProvider.getString(R.string.calendar_year_and_month, year, month))
+            AccountTabType.ALL -> {
+                getAccount()
+                updateSelectText("")
+            }
+            AccountTabType.ROUND -> {
+                getAccountByRound()
+                updateSelectText(resourceProvider.getString(R.string.account_round_unit, round))
+            }
+            AccountTabType.MONTH ->  {
+                getAccountByMonth()
+                updateSelectText(resourceProvider.getString(R.string.calendar_year_and_month, year, month))
+            }
         }
     }
 
