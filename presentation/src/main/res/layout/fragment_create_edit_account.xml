@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="vm"
+            type="com.foregg.presentation.ui.main.account.createOrEdit.AccountCreateEditViewModel" />
+    </data>
+
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -101,6 +107,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:background="@android:color/transparent"
+                    android:onClick="@{()->vm.onClickDatePicker()}"
                     android:src="@drawable/ic_calendar_gs_70"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -111,6 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
+                    android:text="@{vm.uiState.selectDate}"
                     android:textAppearance="@style/p1"
                     android:textColor="@color/gs_80"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -139,6 +147,7 @@
                 android:layout_marginStart="22dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
+                android:text="@={vm.uiState.content}"
                 android:background="@drawable/bg_rectangle_filled_white_radius_4"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="9dp"
@@ -167,11 +176,13 @@
                 android:layout_marginStart="22dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="8dp"
+                android:text="@={vm.uiState.money}"
+                android:maxLength="11"
+                android:afterTextChanged="@{()->vm.onTextChangedMoney()}"
                 android:background="@drawable/bg_rectangle_filled_white_radius_4"
                 android:gravity="end"
                 android:inputType="number"
-                android:minWidth="68dp"
-                android:paddingHorizontal="19dp"
+                android:paddingHorizontal="12dp"
                 android:paddingVertical="9dp"
                 android:textAppearance="@style/p1"
                 android:textColor="@color/gs_80"
@@ -196,7 +207,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:text="@string/account_money"
+                android:text="@string/word_round"
                 android:textAppearance="@style/p1"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@id/text_progress_round"
@@ -208,6 +219,7 @@
                 app:layout_constraintTop_toBottomOf="@id/edit_text_money"
                 app:layout_constraintStart_toEndOf="@id/text_round"
                 android:layout_marginStart="22dp"
+                android:text="@{vm.uiState.round.toString()}"
                 android:background="@drawable/bg_rectangle_filled_white_radius_8"
                 android:layout_marginTop="12dp"
                 android:textAppearance="@style/p2"
@@ -220,6 +232,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_layout_minus"
+                android:onClick="@{()->vm.onClickMinus()}"
                 app:layout_constraintTop_toTopOf="@id/text_progress_round"
                 app:layout_constraintStart_toStartOf="@id/text_progress_round"
                 app:layout_constraintBottom_toBottomOf="@id/text_progress_round"
@@ -242,6 +255,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_layout_plus"
+                android:onClick="@{()->vm.onClickPlus()}"
                 app:layout_constraintTop_toTopOf="@id/text_progress_round"
                 app:layout_constraintEnd_toEndOf="@id/text_progress_round"
                 app:layout_constraintBottom_toBottomOf="@id/text_progress_round"
@@ -290,6 +304,7 @@
                 android:layout_marginStart="22dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="12dp"
+                android:text="@={vm.uiState.memo}"
                 android:background="@drawable/bg_rectangle_filled_white_radius_4"
                 android:paddingVertical="9dp"
                 android:paddingHorizontal="12dp"

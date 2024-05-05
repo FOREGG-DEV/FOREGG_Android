@@ -1,8 +1,10 @@
 package com.foregg.presentation.ui.main.account
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.foregg.domain.model.enums.AccountTabType
+import com.foregg.domain.model.enums.CalendarType
 import com.foregg.domain.model.vo.AccountCardVo
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
@@ -20,7 +22,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountPageState, A
     private val accountCardAdapter : AccountCardAdapter by lazy {
         AccountCardAdapter(object : AccountCardAdapter.AccountCardDelegate{
             override fun onClickItem(vo: AccountCardVo) {
-                goToCreateOrDetail(vo.id)
+                goToCreateOrDetail(vo.id, CalendarType.EDIT)
             }
 
             override fun onSelectItem(vo: AccountCardVo) {
@@ -85,8 +87,9 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountPageState, A
         }
     }
 
-    private fun goToCreateOrDetail(id : Long = -1){
-        //TODO 상세 화면으로 이동
+    private fun goToCreateOrDetail(id : Long = -1, type : CalendarType){
+        val action = AccountFragmentDirections.actionAccountToCreateEdit(id, type)
+        findNavController().navigate(action)
     }
 
     private fun hasSelectedItem(list : List<AccountCardVo>) : Boolean{
@@ -96,7 +99,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountPageState, A
 
     private fun inspectEvent(event: AccountEvent){
         when(event){
-            AccountEvent.OnClickAddOrDeleteBtn -> if(accountCardAdapter.getSelectMode()) viewModel.onClickDeleteBtn() else goToCreateOrDetail()
+            AccountEvent.OnClickAddOrDeleteBtn -> if(accountCardAdapter.getSelectMode()) viewModel.onClickDeleteBtn() else goToCreateOrDetail(type = CalendarType.CREATE)
         }
     }
 }
