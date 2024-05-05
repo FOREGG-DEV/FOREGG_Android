@@ -29,4 +29,10 @@ object ApiModule {
     fun provideScheduleApi(@AuthRetrofit retrofit: Retrofit): ScheduleApi {
         return retrofit.create(ScheduleApi::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideAccountApi(@AuthRetrofit retrofit: Retrofit): AccountApi {
+        return retrofit.create(AccountApi::class.java)
+    }
 }

@@ -18,4 +18,12 @@ object Endpoints {
         const val DETAIL = "$RECORD/{id}/detail"
         const val SCHEDULE_LIST = "schedule"
     }
+
+    object ACCOUNT{
+        private const val LEDGER = "/ledger"
+        const val GET_BY_CONDITION = "$LEDGER/byCondition"
+        const val GET_BY_MONTH = "$LEDGER/byMonth"
+        const val GET_BY_COUNT = "$LEDGER/byCount"
+        const val DELETE = "$LEDGER/{id}/delete"
+    }
 }

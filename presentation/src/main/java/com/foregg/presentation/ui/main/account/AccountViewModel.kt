@@ -3,11 +3,15 @@ package com.foregg.presentation.ui.main.account
 import androidx.lifecycle.viewModelScope
 import com.foregg.domain.model.enums.AccountTabType
 import com.foregg.domain.model.enums.AccountType
+import com.foregg.domain.model.request.AccountGetConditionRequestVo
 import com.foregg.domain.model.response.AccountResponseVo
 import com.foregg.domain.model.vo.AccountCardVo
+import com.foregg.domain.usecase.account.DeleteAccountUseCase
+import com.foregg.domain.usecase.account.GetByConditionAccountUseCase
+import com.foregg.domain.usecase.account.GetByCountAccountUseCase
+import com.foregg.domain.usecase.account.GetByMonthAccountUseCase
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseViewModel
-import com.foregg.presentation.ui.main.calendar.CalendarViewModel
 import com.foregg.presentation.util.ResourceProvider
 import com.foregg.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,7 +26,11 @@ import kotlin.properties.Delegates
 
 @HiltViewModel
 class AccountViewModel @Inject constructor(
-    private val resourceProvider: ResourceProvider
+    private val resourceProvider: ResourceProvider,
+    private val getByConditionAccountUseCase: GetByConditionAccountUseCase,
+    private val getByCountAccountUseCase: GetByCountAccountUseCase,
+    private val getByMonthAccountUseCase: GetByMonthAccountUseCase,
+    private val deleteAccountUseCase: DeleteAccountUseCase
 ) : BaseViewModel<AccountPageState>() {
 
     private val tabTypeStateFlow : MutableStateFlow<AccountTabType> = MutableStateFlow(AccountTabType.ALL)
@@ -64,7 +72,7 @@ class AccountViewModel @Inject constructor(
         month = TimeFormatter.getMonth(today).toInt()
         round = 1
         initDay(today)
-        getAccount()
+        getAccountByCondition()
     }
 
     private fun initDay(date : String){
@@ -76,16 +84,38 @@ class AccountViewModel @Inject constructor(
         }
     }
 
-    private fun getAccount(){
-        handleGetSuccessAccount(test())
+    private fun getAccountByCondition(){
+        val request = AccountGetConditionRequestVo(
+            from = startDayStateFlow.value,
+            to = endDayStateFlow.value
+        )
+        viewModelScope.launch {
+            getByConditionAccountUseCase(request).collect{
+                resultResponse(it, ::handleGetSuccessAccount)
+            }
+        }
     }
 
     private fun getAccountByMonth(){
-        handleGetSuccessAccount(test())
+        val request = getByMonthRequest()
+        viewModelScope.launch {
+            getByMonthAccountUseCase(request).collect{
+                resultResponse(it, ::handleGetSuccessAccount)
+            }
+        }
+    }
+
+    private fun getByMonthRequest() : String{
+        val requestMonth = String.format("%02d", month)
+        return "$year-$requestMonth"
     }
 
     private fun getAccountByRound(){
-        handleGetSuccessAccount(test())
+        viewModelScope.launch {
+            getByCountAccountUseCase(round).collect{
+                resultResponse(it, ::handleGetSuccessAccount)
+            }
+        }
     }
 
 
@@ -112,7 +142,7 @@ class AccountViewModel @Inject constructor(
     private fun inspectSelectText(type : AccountTabType){
         when(type){
             AccountTabType.ALL -> {
-                getAccount()
+                getAccountByCondition()
                 updateSelectText("")
             }
             AccountTabType.ROUND -> {
@@ -220,56 +250,11 @@ class AccountViewModel @Inject constructor(
     }
 
     fun onClickDeleteBtn(){
-        //TODO 선택된 애들 골라서 보내기
-    }
-
-    private fun test() : AccountResponseVo {
-        return AccountResponseVo(
-            allExpendMoney = 141000,
-            subsidyMoney = 78000,
-            personalMoney = 63000,
-            accountList = listOf(
-                AccountCardVo(
-                    id = 1,
-                    date = "2024-05-01",
-                    round = 1,
-                    type = AccountType.PERSONAL_EXPEND,
-                    title = "Groceries",
-                    money = 24800
-                ),
-                AccountCardVo(
-                    id = 2,
-                    date = "2024-05-02",
-                    round = 2,
-                    type = AccountType.SUBSIDY,
-                    title = "Salary",
-                    money = 39000
-                ),
-                AccountCardVo(
-                    id = 3,
-                    date = "2024-05-03",
-                    round = 3,
-                    type = AccountType.PERSONAL_EXPEND,
-                    title = "Dinner",
-                    money = 78000
-                ),
-                AccountCardVo(
-                    id = 4,
-                    date = "2024-05-04",
-                    round = 4,
-                    type = AccountType.SUBSIDY,
-                    title = "Freelance Work",
-                    money = 1200
-                ),
-                AccountCardVo(
-                    id = 5,
-                    date = "2024-05-05",
-                    round = 5,
-                    type = AccountType.PERSONAL_EXPEND,
-                    title = "Movie Tickets",
-                    money = 460000
-                )
-            )
-        )
+        val request = accountListStateFlow.value.find { it.isSelected }?.id ?: -1
+        viewModelScope.launch {
+            deleteAccountUseCase(request).collect{
+                resultResponse(it, {inspectSelectText(tabTypeStateFlow.value)} )
+            }
+        }
     }
 }

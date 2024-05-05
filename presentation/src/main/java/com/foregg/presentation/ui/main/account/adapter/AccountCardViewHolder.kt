@@ -52,7 +52,7 @@ class AccountCardViewHolder(
     private fun setType(type : AccountType){
         binding.apply {
             when(type){
-                AccountType.PERSONAL_EXPEND -> {
+                AccountType.PERSONAL_EXPENSE -> {
                     constraintLayoutType.setBackgroundResource(R.drawable.bg_rectangle_filled_medicine_radius_4)
                     textType.text = root.context.getString(R.string.account_personal)
                     textSmallType.text = root.context.getString(R.string.account_personal)
