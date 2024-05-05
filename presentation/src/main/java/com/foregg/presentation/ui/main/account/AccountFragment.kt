@@ -5,7 +5,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.foregg.domain.model.enums.AccountTabType
 import com.foregg.domain.model.enums.CalendarType
-import com.foregg.domain.model.vo.AccountCardVo
+import com.foregg.domain.model.vo.account.AccountCardVo
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentAccountBinding

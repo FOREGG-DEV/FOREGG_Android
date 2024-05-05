@@ -2,7 +2,7 @@ package com.foregg.presentation.ui.main.account.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.foregg.domain.model.enums.AccountType
-import com.foregg.domain.model.vo.AccountCardVo
+import com.foregg.domain.model.vo.account.AccountCardVo
 import com.foregg.presentation.R
 import com.foregg.presentation.databinding.IncludeItemAccountCardBinding
 import java.text.NumberFormat

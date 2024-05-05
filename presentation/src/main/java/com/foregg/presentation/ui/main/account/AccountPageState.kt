@@ -1,7 +1,7 @@
 package com.foregg.presentation.ui.main.account
 
 import com.foregg.domain.model.enums.AccountTabType
-import com.foregg.domain.model.vo.AccountCardVo
+import com.foregg.domain.model.vo.account.AccountCardVo
 import com.foregg.presentation.PageState
 import kotlinx.coroutines.flow.StateFlow
 

@@ -1,4 +1,4 @@
-package com.foregg.domain.model.request
+package com.foregg.domain.model.request.account
 
 import com.google.gson.annotations.SerializedName
 

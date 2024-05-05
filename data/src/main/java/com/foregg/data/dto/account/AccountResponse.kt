@@ -7,5 +7,5 @@ data class AccountResponse(
     @SerializedName("ledgerSummaryDTO")
     val ledgerSummaryDTO : AccountSummaryResponse = AccountSummaryResponse(),
     @SerializedName("ledgerResponseDTOS")
-    val ledgerResponseDTOS : List<AccountResponseList> = emptyList()
+    val ledgerResponseDTOS : List<AccountResponseListItem> = emptyList()
 ) : DataDto
