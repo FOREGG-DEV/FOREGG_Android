@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="16dp"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <include
+                    android:id="@+id/include_top_bar"
+                    layout="@layout/include_top_bar" />
+
+                <ImageButton
+                    android:id="@+id/img_btn_back"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="28dp"
+                    android:background="@drawable/ic_back_arrow_gs_60"
+                    app:layout_constraintBottom_toBottomOf="@id/include_top_bar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/include_top_bar" />
+
+                <TextView
+                    android:id="@+id/text_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/h3"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@id/include_top_bar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/include_top_bar"
+                    tools:text="가계부 추가" />
+
+                <ImageButton
+                    android:id="@+id/img_btn_complete"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/ic_check_circle"
+                    app:layout_constraintBottom_toBottomOf="@id/include_top_bar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/include_top_bar" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.foregg.presentation.ui.common.CustomTabBar
+                android:id="@+id/custom_tab_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/constraint_layout_top"
+                app:leftText="@string/account_personal_expand"
+                app:rightText="@string/account_subsidy"
+                app:tabCount="2"
+                tools:layout_height="40dp">
+
+            </com.foregg.presentation.ui.common.CustomTabBar>
+
+            <TextView
+                android:id="@+id/text_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:text="@string/calendar_create_edit_date"
+                android:textAppearance="@style/p1"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/constraint_layout_date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/constraint_layout_date" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/bg_rectangle_filled_white_radius_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/text_date"
+                app:layout_constraintTop_toBottomOf="@id/custom_tab_bar">
+
+                <ImageButton
+                    android:id="@+id/img_btn_calendar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_calendar_gs_70"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_normal_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:textAppearance="@style/p1"
+                    android:textColor="@color/gs_80"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/img_btn_calendar"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="2024-03-25" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/text_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:text="@string/account_content"
+                android:textAppearance="@style/p1"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/edit_text_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/edit_text_content" />
+
+            <EditText
+                android:id="@+id/edit_text_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/bg_rectangle_filled_white_radius_4"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="9dp"
+                android:textAppearance="@style/p1"
+                android:textColor="@color/gs_80"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/text_content"
+                app:layout_constraintTop_toBottomOf="@id/constraint_layout_date" />
+
+            <TextView
+                android:id="@+id/text_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:text="@string/account_money"
+                android:textAppearance="@style/p1"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/edit_text_money"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/edit_text_money" />
+
+            <EditText
+                android:id="@+id/edit_text_money"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_rectangle_filled_white_radius_4"
+                android:gravity="end"
+                android:inputType="number"
+                android:minWidth="68dp"
+                android:paddingHorizontal="19dp"
+                android:paddingVertical="9dp"
+                android:textAppearance="@style/p1"
+                android:textColor="@color/gs_80"
+                app:layout_constraintEnd_toStartOf="@id/text_money_unit"
+                app:layout_constraintStart_toEndOf="@id/text_money"
+                app:layout_constraintTop_toBottomOf="@id/edit_text_content"
+                tools:text="123" />
+
+            <TextView
+                android:id="@+id/text_money_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="@string/account_money_unit_text"
+                android:textAppearance="@style/h3"
+                android:textColor="@color/gs_40"
+                app:layout_constraintBottom_toBottomOf="@id/edit_text_money"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/text_round"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:text="@string/account_money"
+                android:textAppearance="@style/p1"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/text_progress_round"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/text_progress_round" />
+
+            <TextView
+                android:id="@+id/text_progress_round"
+                app:layout_constraintTop_toBottomOf="@id/edit_text_money"
+                app:layout_constraintStart_toEndOf="@id/text_round"
+                android:layout_marginStart="22dp"
+                android:background="@drawable/bg_rectangle_filled_white_radius_8"
+                android:layout_marginTop="12dp"
+                android:textAppearance="@style/p2"
+                android:textColor="@color/black"
+                android:gravity="center"
+                tools:text="24"
+                android:paddingVertical="14dp"
+                android:layout_width="168dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_minus"
+                app:layout_constraintTop_toTopOf="@id/text_progress_round"
+                app:layout_constraintStart_toStartOf="@id/text_progress_round"
+                app:layout_constraintBottom_toBottomOf="@id/text_progress_round"
+                android:background="@drawable/bg_rectangle_filled_gs_10_left_radius_8"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/ic_minus"
+                    android:layout_marginHorizontal="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_plus"
+                app:layout_constraintTop_toTopOf="@id/text_progress_round"
+                app:layout_constraintEnd_toEndOf="@id/text_progress_round"
+                app:layout_constraintBottom_toBottomOf="@id/text_progress_round"
+                android:background="@drawable/bg_rectangle_filled_gs_10_right_radius_8"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/ic_plus"
+                    android:layout_marginHorizontal="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                app:layout_constraintBottom_toBottomOf="@id/text_progress_round"
+                app:layout_constraintStart_toEndOf="@id/text_progress_round"
+                android:layout_marginStart="8dp"
+                android:text="@string/word_round"
+                android:textAppearance="@style/h3"
+                android:textColor="@color/gs_40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/text_memo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:text="@string/calendar_create_edit_memo"
+                android:textAppearance="@style/p1"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/edit_text_memo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/edit_text_memo" />
+
+            <EditText
+                android:id="@+id/edit_text_memo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_rectangle_filled_white_radius_4"
+                android:paddingVertical="9dp"
+                android:paddingHorizontal="12dp"
+                android:textAppearance="@style/p1"
+                android:textColor="@color/gs_80"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/text_memo"
+                app:layout_constraintTop_toBottomOf="@id/text_progress_round" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>
