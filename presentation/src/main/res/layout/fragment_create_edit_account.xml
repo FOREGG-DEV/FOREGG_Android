@@ -4,6 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="com.foregg.domain.model.enums.CalendarType" />
+
+        <import type="android.view.View" />
+
         <variable
             name="vm"
             type="com.foregg.presentation.ui.main.account.createOrEdit.AccountCreateEditViewModel" />
@@ -37,6 +42,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginStart="28dp"
+                    android:onClick="@{()->vm.onClickBack()}"
                     android:background="@drawable/ic_back_arrow_gs_60"
                     app:layout_constraintBottom_toBottomOf="@id/include_top_bar"
                     app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +52,7 @@
                     android:id="@+id/text_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{vm.uiState.viewType == CalendarType.CREATE ? @string/account_create_title : @string/word_account}"
                     android:textAppearance="@style/h3"
                     android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="@id/include_top_bar"
@@ -59,8 +66,9 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_marginEnd="24dp"
-                    android:onClick="@{()->vm.onClickUploadBtn()}"
                     android:background="@drawable/ic_check_circle"
+                    android:onClick="@{()->vm.onClickUploadBtn()}"
+                    android:visibility="@{vm.uiState.viewType == CalendarType.CREATE ? View.VISIBLE : (vm.uiState.isChanged ? View.VISIBLE : View.GONE)}"
                     app:layout_constraintBottom_toBottomOf="@id/include_top_bar"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/include_top_bar" />
@@ -119,6 +127,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
+                    android:afterTextChanged="@{()->vm.updateChangedOrigin()}"
                     android:text="@{vm.uiState.selectDate}"
                     android:textAppearance="@style/p1"
                     android:textColor="@color/gs_80"
@@ -148,10 +157,11 @@
                 android:layout_marginStart="22dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
-                android:text="@={vm.uiState.content}"
+                android:afterTextChanged="@{()->vm.updateChangedOrigin()}"
                 android:background="@drawable/bg_rectangle_filled_white_radius_4"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="9dp"
+                android:text="@={vm.uiState.content}"
                 android:textAppearance="@style/p1"
                 android:textColor="@color/gs_80"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -177,14 +187,14 @@
                 android:layout_marginStart="22dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="8dp"
-                android:text="@={vm.uiState.money}"
-                android:maxLength="11"
                 android:afterTextChanged="@{()->vm.onTextChangedMoney()}"
                 android:background="@drawable/bg_rectangle_filled_white_radius_4"
                 android:gravity="end"
                 android:inputType="number"
+                android:maxLength="11"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="9dp"
+                android:text="@={vm.uiState.money}"
                 android:textAppearance="@style/p1"
                 android:textColor="@color/gs_80"
                 app:layout_constraintEnd_toStartOf="@id/text_money_unit"
@@ -217,35 +227,36 @@
 
             <TextView
                 android:id="@+id/text_progress_round"
-                app:layout_constraintTop_toBottomOf="@id/edit_text_money"
-                app:layout_constraintStart_toEndOf="@id/text_round"
+                android:layout_width="168dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="22dp"
-                android:text="@{vm.uiState.round.toString()}"
-                android:background="@drawable/bg_rectangle_filled_white_radius_8"
                 android:layout_marginTop="12dp"
+                android:afterTextChanged="@{()->vm.updateChangedOrigin()}"
+                android:background="@drawable/bg_rectangle_filled_white_radius_8"
+                android:gravity="center"
+                android:paddingVertical="14dp"
+                android:text="@{vm.uiState.round.toString()}"
                 android:textAppearance="@style/p2"
                 android:textColor="@color/black"
-                android:gravity="center"
-                tools:text="24"
-                android:paddingVertical="14dp"
-                android:layout_width="168dp"
-                android:layout_height="wrap_content"/>
+                app:layout_constraintStart_toEndOf="@id/text_round"
+                app:layout_constraintTop_toBottomOf="@id/edit_text_money"
+                tools:text="24" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_layout_minus"
-                android:onClick="@{()->vm.onClickMinus()}"
-                app:layout_constraintTop_toTopOf="@id/text_progress_round"
-                app:layout_constraintStart_toStartOf="@id/text_progress_round"
-                app:layout_constraintBottom_toBottomOf="@id/text_progress_round"
-                android:background="@drawable/bg_rectangle_filled_gs_10_left_radius_8"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp">
+                android:layout_height="0dp"
+                android:background="@drawable/bg_rectangle_filled_gs_10_left_radius_8"
+                android:onClick="@{()->vm.onClickMinus()}"
+                app:layout_constraintBottom_toBottomOf="@id/text_progress_round"
+                app:layout_constraintStart_toStartOf="@id/text_progress_round"
+                app:layout_constraintTop_toTopOf="@id/text_progress_round">
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:background="@drawable/ic_minus"
                     android:layout_marginHorizontal="14dp"
+                    android:background="@drawable/ic_minus"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -256,19 +267,19 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_layout_plus"
-                android:onClick="@{()->vm.onClickPlus()}"
-                app:layout_constraintTop_toTopOf="@id/text_progress_round"
-                app:layout_constraintEnd_toEndOf="@id/text_progress_round"
-                app:layout_constraintBottom_toBottomOf="@id/text_progress_round"
-                android:background="@drawable/bg_rectangle_filled_gs_10_right_radius_8"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp">
+                android:layout_height="0dp"
+                android:background="@drawable/bg_rectangle_filled_gs_10_right_radius_8"
+                android:onClick="@{()->vm.onClickPlus()}"
+                app:layout_constraintBottom_toBottomOf="@id/text_progress_round"
+                app:layout_constraintEnd_toEndOf="@id/text_progress_round"
+                app:layout_constraintTop_toTopOf="@id/text_progress_round">
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:background="@drawable/ic_plus"
                     android:layout_marginHorizontal="14dp"
+                    android:background="@drawable/ic_plus"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -277,14 +288,14 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                app:layout_constraintBottom_toBottomOf="@id/text_progress_round"
-                app:layout_constraintStart_toEndOf="@id/text_progress_round"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="@string/word_round"
                 android:textAppearance="@style/h3"
                 android:textColor="@color/gs_40"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                app:layout_constraintBottom_toBottomOf="@id/text_progress_round"
+                app:layout_constraintStart_toEndOf="@id/text_progress_round" />
 
             <TextView
                 android:id="@+id/text_memo"
@@ -303,12 +314,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="22dp"
-                android:layout_marginEnd="16dp"
                 android:layout_marginTop="12dp"
-                android:text="@={vm.uiState.memo}"
+                android:layout_marginEnd="16dp"
+                android:afterTextChanged="@{()->vm.updateChangedOrigin()}"
                 android:background="@drawable/bg_rectangle_filled_white_radius_4"
-                android:paddingVertical="9dp"
                 android:paddingHorizontal="12dp"
+                android:paddingVertical="9dp"
+                android:text="@={vm.uiState.memo}"
                 android:textAppearance="@style/p1"
                 android:textColor="@color/gs_80"
                 app:layout_constraintEnd_toEndOf="parent"

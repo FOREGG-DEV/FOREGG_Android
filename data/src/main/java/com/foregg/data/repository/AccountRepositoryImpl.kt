@@ -6,7 +6,8 @@ import com.foregg.data.mapper.UnitResponseMapper
 import com.foregg.data.mapper.account.AccountDetailResponseMapper
 import com.foregg.data.mapper.account.AccountItemResponseMapper
 import com.foregg.domain.base.ApiState
-import com.foregg.domain.model.request.account.AccountCreateEditRequestVo
+import com.foregg.domain.model.request.account.AccountCreateRequestVo
+import com.foregg.domain.model.request.account.AccountEditRequestVo
 import com.foregg.domain.model.request.account.AccountGetConditionRequestVo
 import com.foregg.domain.model.response.account.AccountResponseVo
 import com.foregg.domain.model.response.account.AccountDetailResponseVo
@@ -38,11 +39,11 @@ class AccountRepositoryImpl @Inject constructor(
         return apiLaunch(apiCall = { accountApi.getAccountDetail(request) }, AccountDetailResponseMapper )
     }
 
-    override suspend fun createAccount(request: AccountCreateEditRequestVo): Flow<ApiState<Unit>> {
+    override suspend fun createAccount(request: AccountCreateRequestVo): Flow<ApiState<Unit>> {
         return apiLaunch(apiCall = { accountApi.createAccount(request) }, UnitResponseMapper )
     }
 
-    override suspend fun editAccount(request: AccountCreateEditRequestVo): Flow<ApiState<Unit>> {
-        return apiLaunch(apiCall = { accountApi.modifyAccount(request) }, UnitResponseMapper )
+    override suspend fun editAccount(request: AccountEditRequestVo): Flow<ApiState<Unit>> {
+        return apiLaunch(apiCall = { accountApi.modifyAccount(request.id, request.request) }, UnitResponseMapper )
     }
 }

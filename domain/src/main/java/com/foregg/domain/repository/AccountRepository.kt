@@ -1,7 +1,8 @@
 package com.foregg.domain.repository
 
 import com.foregg.domain.base.ApiState
-import com.foregg.domain.model.request.account.AccountCreateEditRequestVo
+import com.foregg.domain.model.request.account.AccountCreateRequestVo
+import com.foregg.domain.model.request.account.AccountEditRequestVo
 import com.foregg.domain.model.request.account.AccountGetConditionRequestVo
 import com.foregg.domain.model.response.account.AccountResponseVo
 import com.foregg.domain.model.response.account.AccountDetailResponseVo
@@ -13,6 +14,6 @@ interface AccountRepository {
     suspend fun getByMonth(request : String) : Flow<ApiState<AccountResponseVo>>
     suspend fun delete(request : Long) : Flow<ApiState<Unit>>
     suspend fun getAccountDetail(request : Long) : Flow<ApiState<AccountDetailResponseVo>>
-    suspend fun createAccount(request : AccountCreateEditRequestVo) : Flow<ApiState<Unit>>
-    suspend fun editAccount(request : AccountCreateEditRequestVo) : Flow<ApiState<Unit>>
+    suspend fun createAccount(request : AccountCreateRequestVo) : Flow<ApiState<Unit>>
+    suspend fun editAccount(request : AccountEditRequestVo) : Flow<ApiState<Unit>>
 }

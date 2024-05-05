@@ -4,7 +4,7 @@ import com.foregg.domain.base.RequestVo
 import com.foregg.domain.model.enums.AccountType
 import com.google.gson.annotations.SerializedName
 
-data class AccountCreateEditRequestVo(
+data class AccountCreateRequestVo(
     @SerializedName("ledgerType")
     val ledgerType : AccountType,
     @SerializedName("date")

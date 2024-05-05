@@ -47,6 +47,18 @@ class AccountCreateEditFragment : BaseFragment<FragmentCreateEditAccountBinding,
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
+                viewModel.uiState.money.collect{
+                    viewModel.updateChangedOrigin()
+                }
+            }
+            launch {
+                viewModel.uiState.tabType.collect{
+                    if(it == AccountType.PERSONAL_EXPENSE) binding.customTabBar.leftBtnClicked()
+                    else binding.customTabBar.rightBtnClicked()
+                    viewModel.updateChangedOrigin()
+                }
+            }
+            launch {
                 viewModel.eventFlow.collect {
                     inspectEvent(it as AccountCreateEditEvent)
                 }
