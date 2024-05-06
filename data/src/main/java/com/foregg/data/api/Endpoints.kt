@@ -32,6 +32,6 @@ object Endpoints {
 
     object PROFILE{
         const val MY_INFO = "/myPage"
-
+        const val MODIFY = "$MY_INFO/modifySurgery"
     }
 }
