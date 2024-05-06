@@ -29,4 +29,9 @@ object Endpoints {
         const val CREATE = "$LEDGER/add"
         const val GET_DETAIL = "$LEDGER/{id}/detail"
     }
+
+    object PROFILE{
+        const val MY_INFO = "/myPage"
+
+    }
 }

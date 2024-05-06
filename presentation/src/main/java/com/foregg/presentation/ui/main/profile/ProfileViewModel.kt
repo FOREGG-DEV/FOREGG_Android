@@ -3,6 +3,7 @@ package com.foregg.presentation.ui.main.profile
 import androidx.lifecycle.viewModelScope
 import com.foregg.domain.model.enums.SurgeryType
 import com.foregg.domain.model.response.profile.ProfileDetailResponseVo
+import com.foregg.domain.usecase.profile.GetMyInfoUseCase
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseViewModel
 import com.foregg.presentation.util.ResourceProvider
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val resourceProvider: ResourceProvider
+    private val resourceProvider: ResourceProvider,
+    private val getMyInfoUseCase: GetMyInfoUseCase
 ) : BaseViewModel<ProfilePageState>() {
 
     private val nickNameStateFlow : MutableStateFlow<String> = MutableStateFlow("")
@@ -33,7 +35,11 @@ class ProfileViewModel @Inject constructor(
     )
 
     fun getMyInfo(){
-        handleSuccessGetMyInfo(getDummy())
+        viewModelScope.launch {
+            getMyInfoUseCase(Unit).collect{
+                resultResponse(it, ::handleSuccessGetMyInfo)
+            }
+        }
     }
 
     private fun handleSuccessGetMyInfo(result : ProfileDetailResponseVo){
@@ -68,15 +74,5 @@ class ProfileViewModel @Inject constructor(
 
     fun onClickPolicy(){
         emitEventFlow(ProfileEvent.GoToPolicyEvent)
-    }
-
-    private fun getDummy() : ProfileDetailResponseVo {
-        return ProfileDetailResponseVo(
-            nickName = "조경석",
-            surgeryType = SurgeryType.EGG_FREEZING,
-            round = 3,
-            startDate = "2024-05-06",
-            spouse = "조남편"
-        )
     }
 }
