@@ -61,4 +61,12 @@
             android:name="type"
             app:argType="com.foregg.domain.model.enums.CalendarType"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.foregg.presentation.ui.main.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile">
+    </fragment>
+
 </navigation>

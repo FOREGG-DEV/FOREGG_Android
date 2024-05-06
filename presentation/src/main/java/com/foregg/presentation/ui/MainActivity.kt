@@ -56,7 +56,7 @@ class MainActivity :
             }
 
             MainActivityEvent.GoToProfile -> {
-                //navController.navigate(R.id.profileFragment)
+                navController.navigate(R.id.profileFragment)
             }
 
             MainActivityEvent.GoToInfo -> {
@@ -69,7 +69,7 @@ class MainActivity :
         when (id) {
             //R.id.mainFragment -> viewModel.activeMain()
             R.id.calendarFragment -> viewModel.activeCalendar()
-            //R.id.profileFragment -> viewModel.activeProfile()
+            R.id.profileFragment -> viewModel.activeProfile()
             R.id.accountFragment -> viewModel.activeAccount()
             else -> viewModel.goneNavigation()
         }

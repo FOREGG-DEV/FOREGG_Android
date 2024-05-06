@@ -80,6 +80,7 @@
     <string name="account_create_title">가계부 추가</string>
     
     <!-- MyPage -->
+    <string name="profile_nickname">%s님의 정보</string>
     <string name="profile_surgery_type">시술 종류</string>
     <string name="profile_surgery_count">시술 회차</string>
     <string name="profile_surgery_start_date">시작 날짜</string>
