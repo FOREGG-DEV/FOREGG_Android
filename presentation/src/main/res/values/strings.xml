@@ -25,6 +25,8 @@
     <string name="word_friday">금</string>
     <string name="word_saturday">토</string>
     <string name="word_sunday">일</string>
+    <string name="word_no">아니요</string>
+    <string name="word_yes">네</string>
 
     <!-- Sign -->
     <string name="sign_up">회원가입</string>
@@ -40,4 +42,5 @@
     <!-- Calendar -->
     <string name="calendar_year_and_month">%d년 %d월</string>
     <string name="calendar_create_dialog_title">일정 분류</string>
+    <string name="calendar_delete_schedule">일정을 삭제하시겠습니까?</string>
 </resources>
