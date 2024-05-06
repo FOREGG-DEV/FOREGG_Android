@@ -70,4 +70,7 @@ dependencies {
     implementation(Google.GLIDE)
 
     implementation(Libraries.VIEWPAGER_INDICATOR)
+
+    //Lottie
+    implementation(Libraries.LOTTIE)
 }
