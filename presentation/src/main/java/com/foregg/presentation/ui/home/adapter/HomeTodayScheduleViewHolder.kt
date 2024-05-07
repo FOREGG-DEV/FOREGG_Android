@@ -15,7 +15,7 @@ class HomeTodayScheduleViewHolder(
             val recordType = item.recordType
 
             scheduleTextContent.text = recordType.type
-            binding.scheduleNameText.text = item.name
+            scheduleNameText.text = item.name
 
             if (item.memo.isBlank()) {
                 binding.scheduleMemoText.visibility = View.GONE
