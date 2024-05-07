@@ -17,6 +17,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.foregg.presentation.PageState
+import com.foregg.presentation.ui.common.LoadingDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -32,12 +33,12 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
     protected val binding
         get() = _binding!!
 
-    //private var loadingView: LoadingDialog? = null
+    private var loadingView: LoadingDialog? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        //loadingView = LoadingDialog(requireContext())
+        loadingView = LoadingDialog(requireContext())
     }
 
     override fun onCreateView(
@@ -81,9 +82,9 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
             launch {
                 viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
                     if (isLoading) {
-                        //loadingView?.show()
+                        loadingView?.show()
                     } else {
-                        //loadingView?.dismiss()
+                        loadingView?.dismiss()
                     }
                 }
             }
