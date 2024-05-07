@@ -1,21 +1,16 @@
 package com.foregg.presentation.ui.home
 
-import android.os.Build
 import android.view.View
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import com.foregg.domain.model.response.HomeRecordResponseVo
-import com.foregg.presentation.Event
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentHomeBinding
 import com.foregg.presentation.ui.home.adapter.HomeTodayScheduleAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.time.LocalDate
+import org.threeten.bp.LocalDate
 
-@RequiresApi(Build.VERSION_CODES.O)
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewModel>(
     FragmentHomeBinding::inflate
