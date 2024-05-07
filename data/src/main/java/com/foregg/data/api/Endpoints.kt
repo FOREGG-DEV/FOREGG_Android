@@ -8,7 +8,7 @@ object Endpoints {
         const val JOIN = "$AUTH/join"
     }
 
-    object RECORD{
+    object RECORD {
         private const val RECORD = "/record"
         const val MODIFY = "$RECORD/{id}/modify"
         const val MEDICAL_RECORD = "$RECORD/{id}/medicalRecord"
@@ -17,5 +17,9 @@ object Endpoints {
         const val DELETE = "$RECORD/{id}/delete"
         const val DETAIL = "$RECORD/{id}/detail"
         const val SCHEDULE_LIST = "schedule"
+    }
+
+    object Home {
+        const val HOME = "/home"
     }
 }
