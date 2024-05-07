@@ -12,4 +12,4 @@ data class HomeRecordResponseVo(
     val name: String,
     @SerializedName("memo")
     val memo: String
-)gi
+)
