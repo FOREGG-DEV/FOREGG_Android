@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.foregg.domain.model.enums.RecordType" />
+        <import type="com.foregg.domain.model.enums.CalendarType" />
+        <import type="com.foregg.domain.model.enums.CalendarTabType" />
+        <import type="android.view.View" />
+        <variable
+            name="vm"
+            type="com.foregg.presentation.ui.main.calendar.createOrEdit.CreateEditScheduleViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="16dp"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <include
+                    android:id="@+id/include_top_bar"
+                    layout="@layout/include_top_bar" />
+
+                <ImageButton
+                    android:id="@+id/img_btn_back"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:onClick="@{()->vm.onClickBack()}"
+                    android:layout_marginStart="28dp"
+                    android:background="@drawable/ic_back_arrow_gs_60"
+                    app:layout_constraintBottom_toBottomOf="@id/include_top_bar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/include_top_bar" />
+
+                <TextView
+                    android:id="@+id/text_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{vm.uiState.viewType == CalendarType.CREATE ? @string/calendar_create_schedule_title : @string/calendar_edit_hospital_tab_schedule}"
+                    android:textAppearance="@style/h3"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@id/include_top_bar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/include_top_bar"
+                    tools:text="일정 추가" />
+
+                <ImageButton
+                    android:id="@+id/img_btn_complete"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="24dp"
+                    android:onClick="@{()->vm.onClickUploadSchedule()}"
+                    android:visibility="@{vm.uiState.viewType == CalendarType.CREATE ? View.VISIBLE : (vm.uiState.isChanged() ? View.VISIBLE : View.GONE)}"
+                    android:background="@drawable/ic_check_circle"
+                    app:layout_constraintBottom_toBottomOf="@id/include_top_bar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/include_top_bar" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.foregg.presentation.ui.common.CustomTabBar
+                android:id="@+id/custom_tab_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{vm.uiState.viewType == CalendarType.EDIT &amp;&amp; vm.uiState.classification.classification == RecordType.HOSPITAL ? View.VISIBLE : View.GONE}"
+                app:layout_constraintTop_toBottomOf="@id/constraint_layout_top"
+                app:leftText="@string/calendar_edit_hospital_tab_schedule"
+                app:rightText="@string/calendar_edit_hospital_record_diagnosis"
+                app:tabCount="2"
+                tools:layout_height="40dp">
+
+            </com.foregg.presentation.ui.common.CustomTabBar>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:visibility="@{vm.uiState.tabType == CalendarTabType.SCHEDULE ? View.VISIBLE : View.GONE}"
+                app:layout_constraintTop_toBottomOf="@id/custom_tab_bar">
+
+                <include
+                    android:id="@+id/include_layout_calendar_schedule"
+                    layout="@layout/include_layout_calendar_schedule"
+                    app:vm="@{vm}" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:visibility="@{vm.uiState.tabType == CalendarTabType.MEDICAL_RECORD ? View.VISIBLE : View.GONE}"
+                app:layout_constraintTop_toBottomOf="@id/custom_tab_bar"
+                tools:visibility="gone">
+
+                <include
+                    android:id="@+id/include_layout_calendar_medical_record"
+                    layout="@layout/include_layout_calendar_medical_record"
+                    app:vm="@{vm}" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

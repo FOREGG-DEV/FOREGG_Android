@@ -22,6 +22,29 @@
         android:name="com.foregg.presentation.ui.main.calendar.CalendarFragment"
         android:label="fragment_calendar"
         tools:layout="@layout/fragment_calendar">
+
+        <action
+            android:id="@+id/action_calendar_to_create_edit"
+            app:destination="@id/createEditScheduleFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/createEditScheduleFragment"
+        android:name="com.foregg.presentation.ui.main.calendar.createOrEdit.CreateEditScheduleFragment"
+        android:label="fragment_create_edit_schedule"
+        tools:layout="@layout/fragment_create_edit_schedule">
+
+        <argument
+            android:name="id"
+            app:argType="long"/>
+
+        <argument
+            android:name="type"
+            app:argType="com.foregg.domain.model.enums.CalendarType"/>
+
+        <argument
+            android:name="schedule_type"
+            app:argType="com.foregg.domain.model.enums.RecordType"/>
     </fragment>
 
 

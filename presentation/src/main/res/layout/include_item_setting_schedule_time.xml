@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_time_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rectangle_filled_gs_10_radius_4"
+            app:layout_constraintEnd_toStartOf="@id/edit_text_hour_time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/text_time_ap_pm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="9dp"
+                android:text="@string/calendar_create_edit_time_am"
+                android:textAppearance="@style/p1"
+                android:textColor="@color/gs_90"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <EditText
+            android:id="@+id/edit_text_hour_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_4"
+            android:gravity="center_horizontal"
+            android:hint="00"
+            android:inputType="number"
+            android:maxLength="2"
+            android:paddingVertical="9dp"
+            android:textAppearance="@style/p1"
+            android:textColor="@color/gs_80"
+            android:textColorHint="@color/gs_50"
+            app:layout_constraintBottom_toBottomOf="@id/constraint_layout_time_type"
+            app:layout_constraintEnd_toEndOf="@id/text_time_split"
+            app:layout_constraintStart_toEndOf="@id/constraint_layout_time_type"
+            app:layout_constraintTop_toTopOf="@id/constraint_layout_time_type" />
+
+        <TextView
+            android:id="@+id/text_time_split"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text=":"
+            android:textAppearance="@style/h3"
+            android:textColor="@color/gs_70"
+            app:layout_constraintBottom_toBottomOf="@id/constraint_layout_time_type"
+            app:layout_constraintEnd_toStartOf="@id/edit_text_minute_time"
+            app:layout_constraintStart_toEndOf="@id/edit_text_hour_time"
+            app:layout_constraintTop_toTopOf="@id/constraint_layout_time_type" />
+
+        <EditText
+            android:id="@+id/edit_text_minute_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_4"
+            android:gravity="center_horizontal"
+            android:hint="00"
+            android:inputType="number"
+            android:maxLength="2"
+            android:paddingVertical="9dp"
+            android:textAppearance="@style/p1"
+            android:textColor="@color/gs_80"
+            android:textColorHint="@color/gs_50"
+            app:layout_constraintEnd_toStartOf="@id/constraint_layout_add_or_minus"
+            app:layout_constraintBottom_toBottomOf="@id/constraint_layout_time_type"
+            app:layout_constraintStart_toEndOf="@id/text_time_split"
+            app:layout_constraintTop_toTopOf="@id/constraint_layout_time_type" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_add_or_minus"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_rectangle_filled_gs_10_radius_4"
+            app:layout_constraintBottom_toBottomOf="@id/constraint_layout_time_type"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/edit_text_minute_time"
+            app:layout_constraintTop_toTopOf="@id/constraint_layout_time_type">
+
+            <ImageView
+                android:id="@+id/img_plus_minus"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/ic_plus"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

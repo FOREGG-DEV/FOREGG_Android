@@ -113,8 +113,8 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding, CalendarPageState
     }
 
     private fun goToCreateSchedule(pageType : CalendarType, type : RecordType = RecordType.MEDICINE, id : Long = -1){
-//        val action = CalendarFragmentDirections.actionCalendarToCreateEdit(type = pageType, scheduleType = type, id = id)
-//        findNavController().navigate(action)
+        val action = CalendarFragmentDirections.actionCalendarToCreateEdit(type = pageType, scheduleType = type, id = id)
+        findNavController().navigate(action)
     }
 
     private fun initializePersistentBottomSheet() {

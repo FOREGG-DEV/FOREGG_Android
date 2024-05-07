@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+        <import type="com.foregg.domain.model.enums.RepeatDayType"/>
+        <import type="com.foregg.domain.model.enums.CalendarDatePickerType"/>
+        <variable
+            name="vm"
+            type="com.foregg.presentation.ui.main.calendar.createOrEdit.CreateEditScheduleViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background">
+
+        <TextView
+            android:id="@+id/text_start_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="31dp"
+            android:text="@string/calendar_create_edit_start_day"
+            android:textAppearance="@style/p3"
+            android:textColor="@color/gs_80"
+            app:layout_constraintBottom_toBottomOf="@id/constraint_layout_start_day"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/constraint_layout_start_day" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_start_day"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/text_start_day"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/img_btn_start_calendar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@android:color/transparent"
+                android:onClick="@{()->vm.onClickDateCalendar(CalendarDatePickerType.START)}"
+                android:src="@drawable/ic_calendar_gs_70"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_selected_start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textAppearance="@style/p1"
+                android:textColor="@color/gs_80"
+                android:afterTextChanged="@{()->vm.updateChangedOrigin()}"
+                android:text="@{vm.uiState.repeatDay.startDate}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_btn_start_calendar"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="2024-03-25" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/text_end_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="31dp"
+            android:text="@string/calendar_create_edit_end_day"
+            android:textAppearance="@style/p3"
+            android:textColor="@color/gs_80"
+            app:layout_constraintBottom_toBottomOf="@id/constraint_layout_end_day"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/constraint_layout_end_day" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_end_day"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/text_start_day"
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_start_day">
+
+            <ImageButton
+                android:id="@+id/img_btn_end_calendar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@android:color/transparent"
+                android:onClick="@{()->vm.onClickDateCalendar(CalendarDatePickerType.END)}"
+                android:src="@drawable/ic_calendar_gs_70"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_selected_end_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textAppearance="@style/p1"
+                android:textColor="@color/gs_80"
+                android:afterTextChanged="@{()->vm.updateChangedOrigin()}"
+                android:text="@{vm.uiState.repeatDay.endDate}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_btn_end_calendar"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="2024-03-25" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/text_repeat_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="31dp"
+            android:text="@string/calendar_create_edit_repeat_week"
+            android:textAppearance="@style/p3"
+            android:textColor="@color/gs_80"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/btn_every_day"
+            app:layout_constraintTop_toTopOf="@id/btn_every_day" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_every_day"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="@{()->vm.onClickRepeatDayBtn(RepeatDayType.EVERY)}"
+            android:background="@{vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.EVERY.week) ? @drawable/bg_rectangle_filled_main_radius_4 : @drawable/bg_rectangle_filled_white_radius_4}"
+            android:text="@string/word_every_day"
+            android:textAppearance="@style/p3"
+            android:textColor="@{vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.EVERY.week) ? @color/white : @color/gs_80}"
+            app:layout_constraintEnd_toStartOf="@id/btn_monday"
+            app:layout_constraintStart_toEndOf="@id/text_repeat_week"
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_end_day" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_monday"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="@{()->vm.onClickRepeatDayBtn(RepeatDayType.MON)}"
+            android:background="@{vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.EVERY.week) || vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.MON.week) ? @drawable/bg_rectangle_filled_white_stroke_main_radius_4 : @drawable/bg_rectangle_filled_white_radius_4}"
+            android:text="@string/word_monday"
+            android:textAppearance="@style/p3"
+            android:textColor="@color/gs_80"
+            app:layout_constraintEnd_toStartOf="@id/btn_tuesday"
+            app:layout_constraintStart_toEndOf="@id/btn_every_day"
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_end_day" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_tuesday"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="@{()->vm.onClickRepeatDayBtn(RepeatDayType.TUE)}"
+            android:background="@{vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.EVERY.week) || vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.TUE.week) ? @drawable/bg_rectangle_filled_white_stroke_main_radius_4 : @drawable/bg_rectangle_filled_white_radius_4}"
+            android:text="@string/word_tuesday"
+            android:textAppearance="@style/p3"
+            android:textColor="@color/gs_80"
+            app:layout_constraintEnd_toStartOf="@id/btn_wednesday"
+            app:layout_constraintStart_toEndOf="@id/btn_monday"
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_end_day" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_wednesday"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:onClick="@{()->vm.onClickRepeatDayBtn(RepeatDayType.WED)}"
+            android:background="@{vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.EVERY.week) || vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.WED.week) ? @drawable/bg_rectangle_filled_white_stroke_main_radius_4 : @drawable/bg_rectangle_filled_white_radius_4}"
+            android:text="@string/word_wednesday"
+            android:textAppearance="@style/p3"
+            android:textColor="@color/gs_80"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_tuesday"
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_end_day" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_thursday"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="@{()->vm.onClickRepeatDayBtn(RepeatDayType.THU)}"
+            android:background="@{vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.EVERY.week) || vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.THU.week) ? @drawable/bg_rectangle_filled_white_stroke_main_radius_4 : @drawable/bg_rectangle_filled_white_radius_4}"
+            android:text="@string/word_thursday"
+            android:textAppearance="@style/p3"
+            android:textColor="@color/gs_80"
+            app:layout_constraintEnd_toStartOf="@id/btn_friday"
+            app:layout_constraintStart_toEndOf="@id/text_repeat_week"
+            app:layout_constraintTop_toBottomOf="@id/btn_every_day" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_friday"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="@{()->vm.onClickRepeatDayBtn(RepeatDayType.FRI)}"
+            android:background="@{vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.EVERY.week) || vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.FRI.week) ? @drawable/bg_rectangle_filled_white_stroke_main_radius_4 : @drawable/bg_rectangle_filled_white_radius_4}"
+            android:text="@string/word_friday"
+            android:textAppearance="@style/p3"
+            android:textColor="@color/gs_80"
+            app:layout_constraintEnd_toStartOf="@id/btn_saturday"
+            app:layout_constraintStart_toEndOf="@id/btn_thursday"
+            app:layout_constraintTop_toBottomOf="@id/btn_every_day" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_saturday"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="@{()->vm.onClickRepeatDayBtn(RepeatDayType.SAT)}"
+            android:background="@{vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.EVERY.week) || vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.SAT.week) ? @drawable/bg_rectangle_filled_white_stroke_main_radius_4 : @drawable/bg_rectangle_filled_white_radius_4}"
+            android:text="@string/word_saturday"
+            android:textAppearance="@style/p3"
+            android:textColor="@color/gs_80"
+            app:layout_constraintEnd_toStartOf="@id/btn_sunday"
+            app:layout_constraintStart_toEndOf="@id/btn_friday"
+            app:layout_constraintTop_toBottomOf="@id/btn_every_day" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_sunday"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:onClick="@{()->vm.onClickRepeatDayBtn(RepeatDayType.SUN)}"
+            android:background="@{vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.EVERY.week) || vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.SUN.week) ? @drawable/bg_rectangle_filled_white_stroke_main_radius_4 : @drawable/bg_rectangle_filled_white_radius_4}"
+            android:text="@string/word_sunday"
+            android:textAppearance="@style/p3"
+            android:textColor="@color/gs_80"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_saturday"
+            app:layout_constraintTop_toBottomOf="@id/btn_every_day" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

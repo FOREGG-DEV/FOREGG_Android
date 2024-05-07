@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.foregg.presentation.ui.main.calendar.createOrEdit.CreateEditScheduleViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/text_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:text="@string/calendar_create_edit_medical_record"
+            android:textAppearance="@style/p1"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/edit_text_record"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edit_text_record" />
+
+        <EditText
+            android:id="@+id/edit_text_record"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_4"
+            android:hint="@string/calendar_create_edit_medical_record_hint"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="9dp"
+            android:afterTextChanged="@{()->vm.updateChangedOrigin()}"
+            android:text="@={vm.uiState.medicalRecord.medicalRecord}"
+            android:textAppearance="@style/p1"
+            android:textColor="@color/gs_80"
+            android:textColorHint="@color/gs_50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/text_record"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_side_effect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="9dp"
+            android:text="@string/calendar_create_edit_side_effect"
+            android:textAppearance="@style/p1"
+            android:textColor="@color/black"
+            android:visibility="@{vm.uiState.medicalRecord.medicalSideEffect.empty ? View.GONE : View.VISIBLE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/recycler_view_time_setting" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_time_setting"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:visibility="@{vm.uiState.medicalRecord.medicalSideEffect.empty ? View.GONE : View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/text_record"
+            app:layout_constraintTop_toBottomOf="@id/edit_text_record" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

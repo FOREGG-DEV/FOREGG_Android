@@ -1,6 +1,8 @@
 package com.foregg.domain.model.vo
 
 import com.foregg.domain.model.enums.RecordType
+import org.threeten.bp.LocalDate
+import org.threeten.bp.format.DateTimeFormatter
 
 data class ClassificationVo(
     val classification : RecordType = RecordType.MEDICINE,
@@ -22,6 +24,12 @@ data class ScheduleRepeatDayVo(
     val isRepeatDay : Boolean = false,
 ){
     fun isNotEmpty() : Boolean = startDate.isNotEmpty() && endDate.isNotEmpty() && repeatDayText.isNotEmpty()
+    fun isCorrectDay() : Boolean{
+        val formatter = DateTimeFormatter.ISO_LOCAL_DATE
+        val start = LocalDate.parse(startDate, formatter)
+        val end = LocalDate.parse(endDate, formatter)
+        return start.isBefore(end) || start.isEqual(end)
+    }
 }
 
 data class VolumeVo(

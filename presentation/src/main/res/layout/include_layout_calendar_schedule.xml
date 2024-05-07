@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.foregg.domain.model.enums.CalendarDatePickerType"/>
+        <import type="com.foregg.domain.model.enums.RecordType"/>
+        <import type="com.foregg.domain.model.enums.CalendarType"/>
+        <import type="android.view.View"/>
+        <variable
+            name="vm"
+            type="com.foregg.presentation.ui.main.calendar.createOrEdit.CreateEditScheduleViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/text_classification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:text="@string/calendar_create_edit_classification"
+            android:textAppearance="@style/p1"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/edit_text_classification"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edit_text_classification" />
+
+        <TextView
+            android:id="@+id/edit_text_classification"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_4"
+            android:paddingVertical="9dp"
+            android:onClick="@{()->vm.onClickClassification()}"
+            android:paddingStart="12dp"
+            android:text="@{vm.uiState.classification.classification.type}"
+            android:clickable="@{vm.uiState.viewType == CalendarType.CREATE ? true : false}"
+            android:textAppearance="@style/p1"
+            android:textColor="@{vm.uiState.viewType == CalendarType.CREATE ? @color/gs_50 : @color/gs_80}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/text_classification"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="약" />
+
+        <TextView
+            android:id="@+id/text_type_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:text="@{vm.uiState.classification.classificationDetailTitleText}"
+            android:textAppearance="@style/p1"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/edit_text_type_detail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edit_text_type_detail" />
+
+        <EditText
+            android:id="@+id/edit_text_type_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_4"
+            android:paddingVertical="9dp"
+            android:paddingStart="12dp"
+            android:text="@={vm.uiState.classification.classificationDetailEditText}"
+            android:enabled="@{vm.uiState.classification.classification == RecordType.INJECTION ? false : true}"
+            android:textAppearance="@style/p1"
+            android:afterTextChanged="@{()->vm.updateChangedOrigin()}"
+            android:textColor="@color/gs_80"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/text_classification"
+            app:layout_constraintTop_toBottomOf="@id/edit_text_classification" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_injection_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:onClick="@{()->vm.onClickInjectionSpinner()}"
+            android:visibility="@{vm.uiState.classification.classification == RecordType.INJECTION ? View.VISIBLE : View.GONE}"
+            android:background="@drawable/bg_rectangle_filled_gs_10_right_radius_4"
+            app:layout_constraintBottom_toBottomOf="@id/edit_text_type_detail"
+            app:layout_constraintEnd_toEndOf="@id/edit_text_type_detail"
+            app:layout_constraintTop_toTopOf="@id/edit_text_type_detail">
+
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginHorizontal="13dp"
+                android:src="@drawable/ic_spinner_inactive"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/text_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:text="@string/calendar_create_edit_date"
+            android:textAppearance="@style/p1"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/constraint_layout_date"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/constraint_layout_date" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/text_classification"
+            app:layout_constraintTop_toBottomOf="@id/edit_text_type_detail">
+
+            <ImageButton
+                android:id="@+id/img_btn_calendar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:visibility="@{vm.uiState.repeatDay.isRepeatDay() ? View.GONE : View.VISIBLE}"
+                android:onClick="@{()->vm.onClickDateCalendar(CalendarDatePickerType.NORMAL)}"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_calendar_gs_70"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_normal_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:visibility="@{vm.uiState.repeatDay.isRepeatDay() ? View.GONE : View.VISIBLE}"
+                android:text="@{vm.uiState.normalDate}"
+                android:textAppearance="@style/p1"
+                android:afterTextChanged="@{()->vm.updateChangedOrigin()}"
+                android:textColor="@color/gs_80"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_btn_calendar"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="2024-03-25" />
+
+            <TextView
+                android:id="@+id/text_repeat_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:textAppearance="@style/p1"
+                android:afterTextChanged="@{()->vm.updateChangedOrigin()}"
+                android:text="@{vm.uiState.repeatDay.repeatDayText}"
+                android:textColor="@{vm.uiState.viewType == CalendarType.CREATE ? @color/gs_50 : @color/gs_80}"
+                android:visibility="@{vm.uiState.repeatDay.isRepeatDay() ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_repeat_day_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="4dp"
+                android:layout_marginEnd="4dp"
+                android:onClick="@{()->vm.onClickSetRepeatDay()}"
+                android:visibility="@{vm.uiState.repeatDay.isRepeatDay() ? View.GONE : View.VISIBLE}"
+                android:background="@drawable/bg_rectangle_filled_main3_radius_4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_marginVertical="5dp"
+                    android:text="@string/calendar_create_edit_repeat_day_setting"
+                    android:textAppearance="@style/p1"
+                    android:textColor="@color/gs_90"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/bg_rectangle_filled_main3_radius_4"
+                android:onClick="@{()->vm.onClickConfirmRepeatDay()}"
+                android:visibility="@{vm.uiState.repeatDay.isRepeatDay() &amp;&amp; vm.uiState.repeatDay.repeatDayText.empty ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_margin="4dp"
+                    android:src="@drawable/ic_check"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:onClick="@{()->vm.onClickCancelRepeatDay()}"
+                android:background="@drawable/bg_rectangle_filled_gs_10_radius_4"
+                android:visibility="@{vm.uiState.repeatDay.isRepeatDay() ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/constraint_layout_check"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_margin="4dp"
+                    android:src="@drawable/ic_cancel"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_include_repeat_day_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:visibility="gone"
+            android:visibility="@{vm.uiState.repeatDay.isRepeatDay() &amp;&amp; vm.uiState.repeatDay.repeatDayText.empty ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_date">
+
+            <include
+                android:id="@+id/include_layout_repeat_day_setting"
+                app:vm="@{vm}"
+                layout="@layout/include_calendar_repeat_day_setting" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/text_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="9dp"
+            android:text="@string/calendar_create_edit_time"
+            android:textAppearance="@style/p1"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/recycler_view_time_setting" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_time_setting"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:paddingBottom="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/text_classification"
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_include_repeat_day_setting" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_volume_medicine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp"
+            android:visibility="@{vm.uiState.classification.classification == RecordType.MEDICINE ? View.VISIBLE : (vm.uiState.classification.classification == RecordType.INJECTION ? View.INVISIBLE : View.GONE)}"
+            app:layout_constraintTop_toBottomOf="@id/recycler_view_time_setting">
+
+            <TextView
+                android:id="@+id/text_volume"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="9dp"
+                android:text="@string/calendar_create_edit_volume"
+                android:textAppearance="@style/p1"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/edit_text_volume_day"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:background="@drawable/bg_rectangle_filled_white_radius_4"
+                android:gravity="center_horizontal"
+                android:paddingVertical="9dp"
+                android:inputType="number"
+                android:afterTextChanged="@{()->vm.updateChangedOrigin()}"
+                android:text="@={vm.uiState.volume.medicineVolumeDay}"
+                android:textAppearance="@style/p1"
+                android:textColor="@color/gs_80"
+                app:layout_constraintStart_toEndOf="@id/text_volume"
+                app:layout_constraintEnd_toStartOf="@id/text_volume_day"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1" />
+
+            <TextView
+                android:id="@+id/text_volume_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/calendar_create_edit_volume_medicine_day"
+                android:textAppearance="@style/p1"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/edit_text_volume_day"
+                app:layout_constraintEnd_toStartOf="@id/edit_text_volume_count"
+                app:layout_constraintStart_toEndOf="@id/edit_text_volume_day"
+                app:layout_constraintTop_toTopOf="@id/edit_text_volume_day" />
+
+            <EditText
+                android:id="@+id/edit_text_volume_count"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="11dp"
+                android:inputType="number"
+                android:background="@drawable/bg_rectangle_filled_white_radius_4"
+                android:gravity="center_horizontal"
+                android:paddingVertical="9dp"
+                android:afterTextChanged="@{()->vm.updateChangedOrigin()}"
+                android:text="@={vm.uiState.volume.medicineVolumeCount}"
+                android:textAppearance="@style/p1"
+                android:textColor="@color/gs_80"
+                app:layout_constraintEnd_toStartOf="@id/text_volume_count"
+                app:layout_constraintStart_toEndOf="@id/text_volume_day"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1" />
+
+            <TextView
+                android:id="@+id/text_volume_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/calendar_create_edit_volume_medicine_count"
+                android:textAppearance="@style/p1"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/edit_text_volume_count"
+                app:layout_constraintEnd_toStartOf="@id/edit_text_volume_repeat"
+                app:layout_constraintStart_toEndOf="@id/edit_text_volume_count"
+                app:layout_constraintTop_toTopOf="@id/edit_text_volume_count" />
+
+            <EditText
+                android:id="@+id/edit_text_volume_repeat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="11dp"
+                android:layout_marginEnd="4dp"
+                android:inputType="number"
+                android:afterTextChanged="@{()->vm.updateChangedOrigin()}"
+                android:text="@={vm.uiState.volume.medicineVolumeRound}"
+                android:background="@drawable/bg_rectangle_filled_white_radius_4"
+                android:gravity="center_horizontal"
+                android:paddingVertical="9dp"
+                android:textAppearance="@style/p1"
+                android:textColor="@color/gs_80"
+                app:layout_constraintEnd_toStartOf="@id/text_volume_repeat"
+                app:layout_constraintStart_toEndOf="@id/text_volume_count"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1" />
+
+            <TextView
+                android:id="@+id/text_volume_repeat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="19dp"
+                android:text="@string/calendar_create_edit_volume_medicine_repeat"
+                android:textAppearance="@style/p1"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/edit_text_volume_count"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/edit_text_volume_count" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_volume_injection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp"
+            android:visibility="@{vm.uiState.classification.classification == RecordType.INJECTION ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toBottomOf="@id/recycler_view_time_setting">
+
+            <TextView
+                android:id="@+id/text_volume_injection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="9dp"
+                android:text="@string/calendar_create_edit_volume"
+                android:textAppearance="@style/p1"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/edit_text_volume_injection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="19dp"
+                android:layout_marginStart="22dp"
+                android:background="@drawable/bg_rectangle_filled_white_radius_4"
+                android:gravity="center_horizontal"
+                android:paddingVertical="9dp"
+                android:inputType="number"
+                android:minWidth="68dp"
+                android:afterTextChanged="@{()->vm.updateChangedOrigin()}"
+                android:text="@={vm.uiState.volume.injectionVolume}"
+                android:textAppearance="@style/p1"
+                android:textColor="@color/gs_80"
+                app:layout_constraintStart_toEndOf="@id/text_volume_injection"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="123" />
+
+            <TextView
+                android:id="@+id/text_volume_injection_ml"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/calendar_create_edit_volume_injection"
+                android:textAppearance="@style/p1"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/edit_text_volume_injection"
+                app:layout_constraintStart_toEndOf="@id/edit_text_volume_injection"
+                app:layout_constraintTop_toTopOf="@id/edit_text_volume_injection" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/text_memo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:text="@string/calendar_create_edit_memo"
+            android:textAppearance="@style/p1"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/edit_text_memo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edit_text_memo" />
+
+        <EditText
+            android:id="@+id/edit_text_memo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_4"
+            android:paddingVertical="9dp"
+            android:paddingStart="12dp"
+            android:afterTextChanged="@{()->vm.updateChangedOrigin()}"
+            android:text="@={vm.uiState.memo}"
+            android:textAppearance="@style/p1"
+            android:textColor="@color/gs_80"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/text_classification"
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_volume_medicine" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_spinner"
+            tools:visibility="gone"
+            android:visibility="@{vm.uiState.isSpinnerExpand() ? View.VISIBLE : View.GONE}"
+            android:background="@drawable/bg_rectangle_filled_white_radius_8"
+            app:layout_constraintTop_toBottomOf="@id/edit_text_type_detail"
+            app:layout_constraintStart_toStartOf="@id/edit_text_type_detail"
+            app:layout_constraintEnd_toEndOf="@id/edit_text_type_detail"
+            android:layout_width="0dp"
+            android:layout_height="222dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
