@@ -78,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="35dp"
-                    android:text="오늘의 일정 텍스트"
+                    android:text="@{vm.formattedText}"
                     android:textSize="20sp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/pretendard_semi_bold"/>
@@ -94,7 +94,7 @@
                     android:id="@+id/today_schedule_empty_text"
                     android:layout_width="285dp"
                     android:layout_height="140dp"
-                    android:visibility="gone"
+                    android:visibility="@{vm.uiState.todayScheduleList.empty ? View.VISIBLE : View.GONE}"
                     android:background="@drawable/bg_rectangle_filled_white_stroke_main_radius_8">
 
                     <TextView
