@@ -1,14 +1,10 @@
 package com.foregg.presentation.util
 
-import com.foregg.domain.model.enums.DayType
-import com.foregg.domain.model.vo.CalendarDayVo
 import com.foregg.domain.model.vo.CreateScheduleTimeVo
 import com.foregg.domain.model.vo.ScheduleDetailVo
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
-import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.temporal.TemporalAdjusters
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -82,27 +78,39 @@ object TimeFormatter {
         }
     }
 
-    //사이 날짜들 구하기
-    fun getDatesBetween(startDate: String, endDate: String): List<LocalDate> {
+    fun getDatesBetween(vo : ScheduleDetailVo): List<ScheduleDetailVo> {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-        val startLocalDate = LocalDate.parse(startDate, formatter)
-        val endLocalDate = LocalDate.parse(endDate, formatter)
+        val startLocalDate = LocalDate.parse(vo.startDate, formatter)
+        val endLocalDate = LocalDate.parse(vo.endDate, formatter)
 
-        val datesBetween = mutableListOf<LocalDate>()
+        val datesBetween = mutableListOf<ScheduleDetailVo>()
         var currentDate = startLocalDate
 
         while (!currentDate.isAfter(endLocalDate)) {
-            datesBetween.add(currentDate)
+            if (isContainDayOfWeek(vo.repeatDate?.toList(), currentDate)) datesBetween.add(vo.copy(date = currentDate.toString()))
             currentDate = currentDate.plusDays(1)
         }
 
         return datesBetween
     }
 
+    private fun isContainDayOfWeek(weekdays : List<String>?, day : LocalDate) : Boolean{
+        val dayOfWeekKorean = getKoreanDayOfWeek(day.dayOfWeek)
+        return weekdays?.contains("매일") == true ||
+                weekdays?.contains(dayOfWeekKorean) == true
+    }
+
     fun getDotsDate(dateString : String) : String {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         val date = LocalDate.parse(dateString, formatter)
         val newFormat = DateTimeFormatter.ofPattern("yyyy. MM. dd")
+        return date.format(newFormat)
+    }
+
+    fun getDashDate(dateString : String) : String {
+        val formatter = DateTimeFormatter.ofPattern("yyyy. MM. dd")
+        val date = LocalDate.parse(dateString, formatter)
+        val newFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         return date.format(newFormat)
     }
 

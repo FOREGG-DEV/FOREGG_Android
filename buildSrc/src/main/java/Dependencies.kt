@@ -38,9 +38,9 @@ object Libraries {
     const val OKHTTP_LOGGING_INTERCEPTOR =
         "com.squareup.okhttp3:logging-interceptor:${Versions.OKHTTP}"
     const val VIEWPAGER_INDICATOR = "com.tbuonomo:dotsindicator:${Versions.VIEW_PAGER_INDICATOR}"
+    const val LOTTIE = "com.airbnb.android:lottie:${Versions.LOTTIE}"
 }
 
 object KAKAO{
     const val AUTH = "com.kakao.sdk:v2-user:${Versions.KAKAO}"
 }
-

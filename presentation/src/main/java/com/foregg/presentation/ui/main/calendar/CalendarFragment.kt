@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.foregg.domain.model.enums.CalendarType
 import com.foregg.domain.model.enums.RecordType
+import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentCalendarBinding
+import com.foregg.presentation.ui.common.CommonDialog
 import com.foregg.presentation.ui.main.calendar.adapter.CalendarDayAdapter
 import com.foregg.presentation.ui.main.calendar.adapter.ScheduleAdapter
 import com.foregg.presentation.ui.main.calendar.dialog.CreateScheduleDialog
@@ -24,6 +26,9 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding, CalendarPageState
 
     @Inject
     lateinit var createScheduleDialog: CreateScheduleDialog
+
+    @Inject
+    lateinit var commonDialog: CommonDialog
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
@@ -48,7 +53,7 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding, CalendarPageState
             }
 
             override fun onClickDelete(id: Long) {
-                viewModel.onClickDelete(id)
+                showDeleteDialog(id)
             }
         })
     }
@@ -119,5 +124,18 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding, CalendarPageState
             recyclerViewSchedule.layoutParams.height = parentHeight / 2
             recyclerViewSchedule.requestLayout()
         }
+    }
+
+    private fun showDeleteDialog(id : Long){
+        commonDialog
+            .setTitle(R.string.calendar_delete_schedule)
+            .setPositiveButton(R.string.word_yes ) {
+                viewModel.onClickDelete(id)
+                commonDialog.dismiss()
+            }
+            .setNegativeButton(R.string.word_no) {
+                commonDialog.dismiss()
+            }
+            .show()
     }
 }
