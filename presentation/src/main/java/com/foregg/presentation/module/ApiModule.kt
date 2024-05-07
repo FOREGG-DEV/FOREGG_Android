@@ -1,9 +1,6 @@
 package com.foregg.presentation.module
 
 import com.foregg.data.api.*
-import com.foregg.data.api.AuthApi
-import com.foregg.data.api.ForeggJwtTokenApi
-import com.foregg.data.api.HomeApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,5 +34,11 @@ object ApiModule {
     @Provides
     fun provideHomeApi(@NormalRetrofit retrofit: Retrofit) : HomeApi {
         return retrofit.create(HomeApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideAccountApi(@AuthRetrofit retrofit: Retrofit): AccountApi {
+        return retrofit.create(AccountApi::class.java)
     }
 }

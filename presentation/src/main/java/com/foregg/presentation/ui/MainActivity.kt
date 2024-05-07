@@ -52,7 +52,7 @@ class MainActivity :
             }
 
             MainActivityEvent.GoToAccount -> {
-                //navController.navigate(R.id.createOrEditKnotFragment)
+                navController.navigate(R.id.accountFragment)
             }
 
             MainActivityEvent.GoToProfile -> {
@@ -70,7 +70,7 @@ class MainActivity :
             R.id.homeFragment -> viewModel.activeMain()
             R.id.calendarFragment -> viewModel.activeCalendar()
             //R.id.profileFragment -> viewModel.activeProfile()
-            //R.id.settingFragment -> viewModel.activieSetting()
+            R.id.accountFragment -> viewModel.activeAccount()
             else -> viewModel.goneNavigation()
         }
     }

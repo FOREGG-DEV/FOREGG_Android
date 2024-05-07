@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.foregg.domain.model.enums.AccountTabType" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.foregg.presentation.ui.main.account.AccountViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/include_top_bar"
+                layout="@layout/include_top_bar" />
+
+            <TextView
+                android:id="@+id/text_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/word_account"
+                android:textAppearance="@style/h3"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/include_top_bar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/include_top_bar" />
+
+            <ImageButton
+                android:id="@+id/img_btn_add_account"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="24dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_add_calendar"
+                android:onClick="@{()->vm.onClickCreateOrDeleteBtn()}"
+                app:layout_constraintBottom_toBottomOf="@id/include_top_bar"
+                app:layout_constraintEnd_toEndOf="@id/include_top_bar"
+                app:layout_constraintTop_toTopOf="@id/include_top_bar" />
+
+            <com.foregg.presentation.ui.common.CustomTabBar
+                android:id="@+id/custom_tab_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingBottom="8dp"
+                app:layout_constraintTop_toBottomOf="@id/include_top_bar"
+                app:leftText="@string/account_all"
+                app:middleText="@string/account_round"
+                app:rightText="@string/account_month"
+                app:tabCount="3">
+
+            </com.foregg.presentation.ui.common.CustomTabBar>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_remote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="@{vm.uiState.tabType == AccountTabType.ALL ? View.GONE : View.VISIBLE}"
+                app:layout_constraintTop_toBottomOf="@id/custom_tab_bar">
+
+                <ImageButton
+                    android:id="@+id/img_btn_prev_month"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="9dp"
+                    android:background="@drawable/ic_arrow_right"
+                    android:onClick="@{()->vm.onClickPrev()}"
+                    android:scaleX="-1"
+                    app:layout_constraintEnd_toStartOf="@id/text_date_or_round"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_date_or_round"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{vm.uiState.selectText}"
+                    android:textAppearance="@style/h2"
+                    android:textColor="@color/gs_90"
+                    app:layout_constraintBottom_toBottomOf="@id/img_btn_next_month"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/img_btn_next_month"
+                    tools:text="2024년 3월" />
+
+                <ImageButton
+                    android:id="@+id/img_btn_next_month"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="9dp"
+                    android:background="@drawable/ic_arrow_right"
+                    android:onClick="@{()->vm.onClickNext()}"
+                    app:layout_constraintStart_toEndOf="@id/text_date_or_round"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_money_statistics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_rectangle_filled_white_radius_8"
+                android:paddingBottom="12dp"
+                app:layout_constraintTop_toBottomOf="@id/constraint_layout_remote">
+
+                <TextView
+                    android:id="@+id/text_start_end_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:text="@{vm.uiState.startAndEnd}"
+                    android:textAppearance="@style/h4"
+                    android:textColor="@color/gs_70"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="2024. 03. 21 - 2024. 04. 27" />
+
+                <ImageButton
+                    android:id="@+id/img_btn_filter"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_account_filter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_all_expend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="22dp"
+                    android:text="@string/account_all_expend"
+                    android:textAppearance="@style/h2"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_start_end_date" />
+
+                <TextView
+                    android:id="@+id/text_all_expend_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginEnd="12dp"
+                    android:text="@{vm.uiState.allExpend}"
+                    android:textAppearance="@style/h2"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_start_end_date"
+                    tools:text="141,000원" />
+
+                <TextView
+                    android:id="@+id/text_subsidy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/account_subsidy"
+                    android:textAppearance="@style/h2"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_all_expend_money" />
+
+                <TextView
+                    android:id="@+id/text_subsidy_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="12dp"
+                    android:text="@{vm.uiState.subsidy}"
+                    android:textAppearance="@style/h2"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_all_expend_money"
+                    tools:text="78,000원" />
+
+                <TextView
+                    android:id="@+id/text_personal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/account_personal"
+                    android:textAppearance="@style/h2"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_subsidy" />
+
+                <TextView
+                    android:id="@+id/text_personal_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="12dp"
+                    android:text="@{vm.uiState.personal}"
+                    android:textAppearance="@style/h2"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_subsidy"
+                    tools:text="63,000원" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_account_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/constraint_layout_money_statistics" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>
