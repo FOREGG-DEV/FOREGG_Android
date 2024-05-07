@@ -15,4 +15,9 @@
     <color name="gs_70">#6B6B6B</color>
     <color name="gs_80">#565656</color>
     <color name="gs_90">#414141</color>
+
+    <color name="medicine">#FFD8D5</color>
+    <color name="injection">#D5F1FC</color>
+    <color name="hospital">#E2F7D6</color>
+    <color name="etc">#FEF7CE</color>
 </resources>

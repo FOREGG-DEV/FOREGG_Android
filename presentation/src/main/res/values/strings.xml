@@ -13,6 +13,20 @@
     <string name="word_main">홈</string>
     <string name="word_info">정보</string>
     <string name="word_profile">마이페이지</string>
+    <string name="word_medicine">주사</string>
+    <string name="word_injection">주사</string>
+    <string name="word_hospital">병원</string>
+    <string name="word_etc">기타</string>
+    <string name="word_every_day">매일</string>
+    <string name="word_monday">월</string>
+    <string name="word_tuesday">화</string>
+    <string name="word_wednesday">수</string>
+    <string name="word_thursday">목</string>
+    <string name="word_friday">금</string>
+    <string name="word_saturday">토</string>
+    <string name="word_sunday">일</string>
+    <string name="word_no">아니요</string>
+    <string name="word_yes">네</string>
 
     <!-- Sign -->
     <string name="sign_up">회원가입</string>
@@ -24,4 +38,9 @@
     <string name="sign_progress_round">현재 진행중인 회차를 적어주세요.</string>
     <string name="sign_choose_start_treatment_day">치료 시작 날짜를 선택해주세요.</string>
     <string name="sign_share_code_female_hint">남편 회원가입시 붙여넣기 해주세요.</string>
+
+    <!-- Calendar -->
+    <string name="calendar_year_and_month">%d년 %d월</string>
+    <string name="calendar_create_dialog_title">일정 분류</string>
+    <string name="calendar_delete_schedule">일정을 삭제하시겠습니까?</string>
 </resources>

@@ -1,7 +1,6 @@
 package com.foregg.presentation.module
 
-import com.foregg.data.api.AuthApi
-import com.foregg.data.api.ForeggJwtTokenApi
+import com.foregg.data.api.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,5 +22,11 @@ object ApiModule {
     @Provides
     fun provideAuthTokenApi(@NormalRetrofit retrofit: Retrofit): AuthApi {
         return retrofit.create(AuthApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideScheduleApi(@AuthRetrofit retrofit: Retrofit): ScheduleApi {
+        return retrofit.create(ScheduleApi::class.java)
     }
 }
