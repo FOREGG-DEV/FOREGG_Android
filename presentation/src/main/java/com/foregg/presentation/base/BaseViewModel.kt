@@ -41,10 +41,15 @@ abstract class BaseViewModel<STATE: PageState> : ViewModel() {
 
     protected fun<D> resultResponse(response: ApiState<D>, successCallback : (D) -> Unit, errorCallback : ((String) -> Unit)? = null){
         when(response){
-            is ApiState.Error -> errorCallback?.invoke(response.errorCode)
+            is ApiState.Error -> {
+                errorCallback?.invoke(response.errorCode)
+                endLoading()
+            }
             ApiState.Loading -> showLoading()
-            is ApiState.Success -> successCallback.invoke(response.data)
+            is ApiState.Success -> {
+                successCallback.invoke(response.data)
+                endLoading()
+            }
         }
-        endLoading()
     }
 }

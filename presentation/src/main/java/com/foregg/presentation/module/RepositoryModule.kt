@@ -8,6 +8,8 @@ import com.foregg.domain.repository.AccountRepository
 import com.foregg.domain.repository.AuthRepository
 import com.foregg.domain.repository.ForeggJwtRepository
 import com.foregg.domain.repository.ScheduleRepository
+import com.foregg.data.repository.HomeRepositoryImpl
+import com.foregg.domain.repository.HomeRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -29,6 +31,10 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesScheduleRepository(repositoryImpl: ScheduleRepositoryImpl): ScheduleRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesHomeRepository(repositoryImpl: HomeRepositoryImpl) : HomeRepository
 
     @Singleton
     @Binds
