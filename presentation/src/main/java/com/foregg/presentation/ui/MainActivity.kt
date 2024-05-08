@@ -48,7 +48,7 @@ class MainActivity :
             }
 
             MainActivityEvent.GoToMain -> {
-                // navController.navigate(R.id.mainFragment)
+                 navController.navigate(R.id.homeFragment)
             }
 
             MainActivityEvent.GoToAccount -> {
@@ -67,7 +67,7 @@ class MainActivity :
 
     private fun changeBottomNavigationView(id: Int) {
         when (id) {
-            //R.id.mainFragment -> viewModel.activeMain()
+            R.id.homeFragment -> viewModel.activeMain()
             R.id.calendarFragment -> viewModel.activeCalendar()
             R.id.profileFragment -> viewModel.activeProfile()
             R.id.accountFragment -> viewModel.activeAccount()
