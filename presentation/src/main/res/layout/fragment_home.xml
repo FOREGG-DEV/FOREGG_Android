@@ -8,7 +8,7 @@
         <import type="android.view.View"/>
         <variable
             name="vm"
-            type="com.foregg.presentation.ui.home.HomeViewModel" />
+            type="com.foregg.presentation.ui.main.home.HomeViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView

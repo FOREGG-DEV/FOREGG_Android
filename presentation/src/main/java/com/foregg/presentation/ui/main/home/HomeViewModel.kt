@@ -1,4 +1,4 @@
-package com.foregg.presentation.ui.home
+package com.foregg.presentation.ui.main.home
 
 import androidx.lifecycle.viewModelScope
 import com.foregg.domain.model.response.HomeRecordResponseVo

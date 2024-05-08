@@ -1,4 +1,4 @@
-package com.foregg.presentation.ui.home.adapter
+package com.foregg.presentation.ui.main.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

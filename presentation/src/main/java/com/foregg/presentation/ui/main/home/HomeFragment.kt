@@ -1,4 +1,4 @@
-package com.foregg.presentation.ui.home
+package com.foregg.presentation.ui.main.home
 
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -6,7 +6,7 @@ import com.foregg.domain.model.response.HomeRecordResponseVo
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentHomeBinding
-import com.foregg.presentation.ui.home.adapter.HomeTodayScheduleAdapter
+import com.foregg.presentation.ui.main.home.adapter.HomeTodayScheduleAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate

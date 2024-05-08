@@ -1,4 +1,4 @@
-package com.foregg.presentation.ui.home
+package com.foregg.presentation.ui.main.home
 
 import com.foregg.domain.model.response.HomeRecordResponseVo
 import com.foregg.presentation.PageState
