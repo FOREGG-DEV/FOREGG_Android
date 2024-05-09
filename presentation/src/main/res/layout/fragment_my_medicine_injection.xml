@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.foregg.presentation.ui.main.account.AccountViewModel" />
+            type="com.foregg.presentation.ui.main.profile.myMedicineInjection.MedicineInjectionViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -40,6 +40,7 @@
                 android:layout_height="24dp"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="16dp"
+                android:onClick="@{()->vm.onClickBack()}"
                 android:background="@drawable/ic_back_arrow_gs_50"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
