@@ -1,15 +1,10 @@
 package com.foregg.presentation.util
 
-import com.foregg.domain.model.enums.DayType
-import com.foregg.domain.model.vo.CalendarDayVo
 import com.foregg.domain.model.vo.CreateScheduleTimeVo
 import com.foregg.domain.model.vo.ScheduleDetailVo
-import com.foregg.presentation.R
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
-import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.temporal.TemporalAdjusters
 import java.text.SimpleDateFormat
 import java.util.Locale
 

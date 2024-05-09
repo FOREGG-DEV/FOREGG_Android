@@ -27,6 +27,8 @@
     <string name="word_sunday">일</string>
     <string name="word_no">아니요</string>
     <string name="word_yes">네</string>
+    <string name="word_logo">로고</string>
+    <string name="word_schedule">일정</string>
 
     <!-- Sign -->
     <string name="sign_up">회원가입</string>
@@ -65,6 +67,13 @@
     <string name="calendar_create_edit_medical_record_hint">오늘 진료 내용을 기록해보세요</string>
     <string name="calendar_create_edit_side_effect">부작용</string>
 
+    <!-- Home -->
+    <string name="home_adv_text">광고배너 (자동 슬라이딩)</string>
+    <string name="home_challenge_text">챌린지 도전하기</string>
+    <string name="today_schedule_format">%1$s님의\n%2$s월 %3$s일 일정입니다.</string>
+    <string name="today_schedule_empty_text">오늘은 일정이 없어요.</string>
+
+
     <!-- account -->
     <string name="account_all">전체</string>
     <string name="account_round">회차별</string>
@@ -94,5 +103,6 @@
     <string name="profile_ask">문의사항</string>
     <string name="profile_policy">이용약관</string>
     <string name="profile_empty_spouse">배우자 등록을 해주세요</string>
+    <string name="profile_my_account_setting">계정관리</string>
     <string name="profile_edit_my_info">정보 수정</string>
 </resources>

@@ -75,4 +75,8 @@ class ProfileViewModel @Inject constructor(
     fun onClickPolicy(){
         emitEventFlow(ProfileEvent.GoToPolicyEvent)
     }
+
+    fun onClickAccount(){
+        emitEventFlow(ProfileEvent.GoToAccountSettingEvent)
+    }
 }

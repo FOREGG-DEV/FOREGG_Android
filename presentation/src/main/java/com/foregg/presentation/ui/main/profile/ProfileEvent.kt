@@ -9,4 +9,5 @@ sealed class ProfileEvent : Event {
     object GoToFAQEvent : ProfileEvent()
     object GoToAskEvent : ProfileEvent()
     object GoToPolicyEvent : ProfileEvent()
+    object GoToAccountSettingEvent : ProfileEvent()
 }

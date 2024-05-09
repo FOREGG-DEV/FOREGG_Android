@@ -42,6 +42,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfilePageState, P
             ProfileEvent.GoToFAQEvent -> {}
             ProfileEvent.GoToNoticeEvent -> {}
             ProfileEvent.GoToPolicyEvent -> {}
+            ProfileEvent.GoToAccountSettingEvent -> {}
         }
     }
 
