@@ -29,5 +29,8 @@ object Endpoints {
         const val GET_BY_MONTH = "$LEDGER/byMonth"
         const val GET_BY_COUNT = "$LEDGER/byCount"
         const val DELETE = "$LEDGER/{id}/delete"
+        const val MODIFY = "$LEDGER/{id}/modify"
+        const val CREATE = "$LEDGER/add"
+        const val GET_DETAIL = "$LEDGER/{id}/detail"
     }
 }

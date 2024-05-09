@@ -1,4 +1,4 @@
-package com.foregg.domain.model.vo
+package com.foregg.domain.model.vo.account
 
 import com.foregg.domain.model.enums.AccountType
 

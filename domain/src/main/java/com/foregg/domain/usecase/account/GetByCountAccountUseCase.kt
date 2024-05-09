@@ -2,8 +2,7 @@ package com.foregg.domain.usecase.account
 
 import com.foregg.domain.base.ApiState
 import com.foregg.domain.base.UseCase
-import com.foregg.domain.model.request.AccountGetConditionRequestVo
-import com.foregg.domain.model.response.AccountResponseVo
+import com.foregg.domain.model.response.account.AccountResponseVo
 import com.foregg.domain.repository.AccountRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

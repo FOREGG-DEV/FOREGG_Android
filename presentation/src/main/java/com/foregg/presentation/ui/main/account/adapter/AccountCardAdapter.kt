@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.foregg.domain.model.vo.AccountCardVo
+import com.foregg.domain.model.vo.account.AccountCardVo
 import com.foregg.presentation.databinding.IncludeItemAccountCardBinding
 
 class AccountCardAdapter(

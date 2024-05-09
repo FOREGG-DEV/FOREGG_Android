@@ -1,7 +1,7 @@
-package com.foregg.domain.model.response
+package com.foregg.domain.model.response.account
 
 import com.foregg.domain.base.DomainResponse
-import com.foregg.domain.model.vo.AccountCardVo
+import com.foregg.domain.model.vo.account.AccountCardVo
 
 data class AccountResponseVo(
     val allExpendMoney : Int = 0,
