@@ -84,4 +84,7 @@
     <string name="account_personal">개인</string>
     <string name="account_money_unit">%s원</string>
     <string name="account_round_unit">%d회차</string>
+    
+    <!-- toast -->
+    <string name="toast_clip_share_code">클립보드에 배우자 코드가 복사되었어요!</string>
 </resources>
