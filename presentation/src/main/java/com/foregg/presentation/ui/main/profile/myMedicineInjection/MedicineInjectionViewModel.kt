@@ -2,10 +2,10 @@ package com.foregg.presentation.ui.main.profile.myMedicineInjection
 
 import androidx.lifecycle.viewModelScope
 import com.foregg.domain.model.enums.ProfileMedicineInjectionType
+import com.foregg.domain.model.enums.RecordType
 import com.foregg.domain.model.response.profile.MyMedicineInjectionResponseVo
-import com.foregg.domain.usecase.profile.GetMyInfoUseCase
+import com.foregg.domain.usecase.profile.GetMyMedicineInjectionUseCase
 import com.foregg.presentation.base.BaseViewModel
-import com.foregg.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,6 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MedicineInjectionViewModel @Inject constructor(
+    private val getMyMedicineInjectionUseCase: GetMyMedicineInjectionUseCase
 ) : BaseViewModel<MedicineInjectionPageState>() {
 
     private val tabTypeStateFlow : MutableStateFlow<ProfileMedicineInjectionType> = MutableStateFlow(ProfileMedicineInjectionType.MEDICINE)
@@ -28,7 +29,17 @@ class MedicineInjectionViewModel @Inject constructor(
     )
 
     fun getMyMedicineInjection(){
+        viewModelScope.launch {
+            getMyMedicineInjectionUseCase(tabTypeStateFlow.value.type).collect{
+                resultResponse(it, ::handleSuccessGetMyMedicalInfo)
+            }
+        }
+    }
 
+    private fun handleSuccessGetMyMedicalInfo(result : List<MyMedicineInjectionResponseVo>){
+        viewModelScope.launch {
+            itemListStateFlow.update { result }
+        }
     }
 
     fun onClickTab(type : ProfileMedicineInjectionType){
@@ -39,5 +50,9 @@ class MedicineInjectionViewModel @Inject constructor(
 
     fun onClickBack(){
         emitEventFlow(MedicineInjectionEvent.GoToBackEvent)
+    }
+
+    fun getRecordType() : RecordType{
+        return if(tabTypeStateFlow.value == ProfileMedicineInjectionType.MEDICINE) RecordType.MEDICINE else RecordType.INJECTION
     }
 }

@@ -37,7 +37,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfilePageState, P
     private fun inspectEvent(event: ProfileEvent){
         when(event){
             ProfileEvent.GoToEditProfileEvent -> goToEdit()
-            ProfileEvent.GoToMyMedicineInjectionEvent -> {}
+            ProfileEvent.GoToMyMedicineInjectionEvent -> goToMyMedicineInjection()
             ProfileEvent.GoToAskEvent -> {}
             ProfileEvent.GoToFAQEvent -> {}
             ProfileEvent.GoToNoticeEvent -> {}
@@ -48,6 +48,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfilePageState, P
 
     private fun goToEdit(){
         val action = ProfileFragmentDirections.actionProfileToEdit()
+        findNavController().navigate(action)
+    }
+
+    private fun goToMyMedicineInjection(){
+        val action = ProfileFragmentDirections.actionProfileToMyMedical()
         findNavController().navigate(action)
     }
 }

@@ -3,6 +3,7 @@ package com.foregg.presentation.ui.main.profile.myMedicineInjection
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.foregg.domain.model.enums.CalendarType
 import com.foregg.domain.model.enums.ProfileMedicineInjectionType
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentMyMedicineInjectionBinding
@@ -20,7 +21,7 @@ class MedicineInjectionFragment : BaseFragment<FragmentMyMedicineInjectionBindin
     private val medicineInjectionCardAdapter : MedicineInjectionCardAdapter by lazy {
         MedicineInjectionCardAdapter(object : MedicineInjectionCardAdapter.MedicineInjectionCardDelegate{
             override fun onClickDetail(id: Long) {
-                //
+                goToDetail(id)
             }
         })
     }
@@ -73,5 +74,12 @@ class MedicineInjectionFragment : BaseFragment<FragmentMyMedicineInjectionBindin
                 viewModel.onClickTab(ProfileMedicineInjectionType.INJECTION)
             }
         }
+    }
+
+    private fun goToDetail(id : Long){
+        val recordType = viewModel.getRecordType()
+        val action = MedicineInjectionFragmentDirections.actionMyMedicalToCalendarDetail(id = id, type = CalendarType.EDIT, scheduleType = recordType)
+        findNavController().navigate(action)
+
     }
 }
