@@ -44,4 +44,3 @@ object Libraries {
 object KAKAO{
     const val AUTH = "com.kakao.sdk:v2-user:${Versions.KAKAO}"
 }
-
