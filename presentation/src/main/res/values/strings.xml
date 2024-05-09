@@ -90,4 +90,7 @@
     <string name="account_round_unit_text">회차</string>
     <string name="account_content">내용</string>
     <string name="account_create_title">가계부 추가</string>
+
+    <!-- toast -->
+    <string name="toast_clip_share_code">클립보드에 배우자 코드가 복사되었어요!</string>
 </resources>
