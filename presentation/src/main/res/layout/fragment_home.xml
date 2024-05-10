@@ -161,7 +161,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_right_arrow_gs_50"
-                        android:background="@android:color/transparent"/>
+                        android:background="@android:color/transparent"
+                        android:onClick="@{()->vm.onCLickGoToChallenge()}"/>
 
                 </LinearLayout>
 
@@ -178,7 +179,8 @@
                         android:layout_marginTop="60dp"
                         android:src="@drawable/ic_btn_go_to_challenge"
                         android:background="@android:color/transparent"
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center"
+                        android:onClick="@{()->vm.onCLickGoToChallenge()}"/>
 
                 </FrameLayout>
 

@@ -57,4 +57,8 @@ class HomeViewModel @Inject constructor(
             hasDailyRecordStateFlow.update { false }
         }
     }
+
+    fun onCLickGoToChallenge() {
+        emitEventFlow(HomeEvent.GoToChallengeEvent)
+    }
 }

@@ -38,6 +38,12 @@ object ApiModule {
 
     @Singleton
     @Provides
+    fun provideChallengeApi(@NormalRetrofit retrofit: Retrofit) : ChallengeApi {
+        return retrofit.create(ChallengeApi::class.java)
+    }
+
+    @Singleton
+    @Provides
     fun provideAccountApi(@AuthRetrofit retrofit: Retrofit): AccountApi {
         return retrofit.create(AccountApi::class.java)
     }

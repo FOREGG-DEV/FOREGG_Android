@@ -2,6 +2,7 @@ package com.foregg.presentation.ui.main.home
 
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.foregg.domain.model.response.HomeRecordResponseVo
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
@@ -18,7 +19,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
     override val viewModel: HomeViewModel by viewModels()
 
     private val todayScheduleAdapter = HomeTodayScheduleAdapter()
-    private var todayDate: String = LocalDate.now().toString()
 
     override fun initView() {
         viewModel.initScheduleStates()
@@ -48,16 +48,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
 
     private fun sortEvent(event: HomeEvent) {
         when(event) {
-            HomeEvent.GoToChallengeEvent -> TODO()
+            HomeEvent.GoToChallengeEvent -> goToChallenge()
             HomeEvent.GoToDailyRecordEvent -> TODO()
         }
     }
 
-    private fun extractMonthAndDay(dateString: String): Pair<Int, Int> {
-        val date = LocalDate.parse(dateString)
-        val month = date.monthValue
-        val day = date.dayOfMonth
-
-        return Pair(month, day)
+    private fun goToChallenge() {
+        val action = HomeFragmentDirections.actionHomeToChallege()
+        findNavController().navigate(action)
     }
 }
