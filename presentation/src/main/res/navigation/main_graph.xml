@@ -52,5 +52,32 @@
         android:name="com.foregg.presentation.ui.main.account.AccountFragment"
         android:label="fragment_account"
         tools:layout="@layout/fragment_account">
+
+        <action
+            android:id="@+id/action_account_to_create_edit"
+            app:destination="@id/accountCreateEditFragment"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/accountCreateEditFragment"
+        android:name="com.foregg.presentation.ui.main.account.createOrEdit.AccountCreateEditFragment"
+        android:label="fragment_account_create_edit"
+        tools:layout="@layout/fragment_create_edit_account">
+
+        <argument
+            android:name="id"
+            app:argType="long"/>
+
+        <argument
+            android:name="type"
+            app:argType="com.foregg.domain.model.enums.CalendarType"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.foregg.presentation.ui.main.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile">
+    </fragment>
+
 </navigation>

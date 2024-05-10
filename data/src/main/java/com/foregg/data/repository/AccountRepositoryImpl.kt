@@ -3,10 +3,14 @@ package com.foregg.data.repository
 import com.foregg.data.api.AccountApi
 import com.foregg.data.base.BaseRepository
 import com.foregg.data.mapper.UnitResponseMapper
+import com.foregg.data.mapper.account.AccountDetailResponseMapper
 import com.foregg.data.mapper.account.AccountItemResponseMapper
 import com.foregg.domain.base.ApiState
-import com.foregg.domain.model.request.AccountGetConditionRequestVo
-import com.foregg.domain.model.response.AccountResponseVo
+import com.foregg.domain.model.request.account.AccountCreateRequestVo
+import com.foregg.domain.model.request.account.AccountEditRequestVo
+import com.foregg.domain.model.request.account.AccountGetConditionRequestVo
+import com.foregg.domain.model.response.account.AccountResponseVo
+import com.foregg.domain.model.response.account.AccountDetailResponseVo
 import com.foregg.domain.repository.AccountRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -29,5 +33,17 @@ class AccountRepositoryImpl @Inject constructor(
 
     override suspend fun delete(request: Long): Flow<ApiState<Unit>> {
         return apiLaunch(apiCall = { accountApi.delete(request) }, UnitResponseMapper )
+    }
+
+    override suspend fun getAccountDetail(request: Long): Flow<ApiState<AccountDetailResponseVo>> {
+        return apiLaunch(apiCall = { accountApi.getAccountDetail(request) }, AccountDetailResponseMapper )
+    }
+
+    override suspend fun createAccount(request: AccountCreateRequestVo): Flow<ApiState<Unit>> {
+        return apiLaunch(apiCall = { accountApi.createAccount(request) }, UnitResponseMapper )
+    }
+
+    override suspend fun editAccount(request: AccountEditRequestVo): Flow<ApiState<Unit>> {
+        return apiLaunch(apiCall = { accountApi.modifyAccount(request.id, request.request) }, UnitResponseMapper )
     }
 }

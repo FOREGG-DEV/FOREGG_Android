@@ -4,7 +4,7 @@ import com.foregg.data.base.DataDto
 import com.foregg.domain.model.enums.AccountType
 import com.google.gson.annotations.SerializedName
 
-data class AccountResponseList(
+data class AccountResponseListItem(
     @SerializedName("id")
     val id : Long = -1,
     @SerializedName("ledgerType")

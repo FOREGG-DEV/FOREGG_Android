@@ -2,10 +2,9 @@ package com.foregg.presentation.ui.main.account
 
 import androidx.lifecycle.viewModelScope
 import com.foregg.domain.model.enums.AccountTabType
-import com.foregg.domain.model.enums.AccountType
-import com.foregg.domain.model.request.AccountGetConditionRequestVo
-import com.foregg.domain.model.response.AccountResponseVo
-import com.foregg.domain.model.vo.AccountCardVo
+import com.foregg.domain.model.request.account.AccountGetConditionRequestVo
+import com.foregg.domain.model.response.account.AccountResponseVo
+import com.foregg.domain.model.vo.account.AccountCardVo
 import com.foregg.domain.usecase.account.DeleteAccountUseCase
 import com.foregg.domain.usecase.account.GetByConditionAccountUseCase
 import com.foregg.domain.usecase.account.GetByCountAccountUseCase
@@ -78,8 +77,8 @@ class AccountViewModel @Inject constructor(
     private fun initDay(date : String){
         val prevMonthDay = TimeFormatter.getPreviousMonthDate()
         viewModelScope.launch {
-            startDayStateFlow.update { date }
-            endDayStateFlow.update { prevMonthDay }
+            startDayStateFlow.update { prevMonthDay }
+            endDayStateFlow.update { date }
             updateStartAndEndStateFlow("${TimeFormatter.getDotsDate(prevMonthDay)} - ${TimeFormatter.getDotsDate(date)}")
         }
     }

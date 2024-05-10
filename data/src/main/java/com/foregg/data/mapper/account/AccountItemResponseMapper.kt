@@ -2,8 +2,8 @@ package com.foregg.data.mapper.account
 
 import com.foregg.data.base.Mapper
 import com.foregg.data.dto.account.AccountResponse
-import com.foregg.domain.model.response.AccountResponseVo
-import com.foregg.domain.model.vo.AccountCardVo
+import com.foregg.domain.model.response.account.AccountResponseVo
+import com.foregg.domain.model.vo.account.AccountCardVo
 
 object AccountItemResponseMapper: Mapper.ResponseMapper<AccountResponse, AccountResponseVo> {
     override fun mapDtoToModel(type: AccountResponse?): AccountResponseVo {
