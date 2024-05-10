@@ -11,6 +11,7 @@ import com.foregg.domain.base.DomainResponse
 import com.foregg.presentation.PageState
 import com.foregg.presentation.Event
 import com.foregg.presentation.util.EventFlow
+import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.MutableEventFlow
 import com.foregg.presentation.util.asEventFlow
 import kotlinx.coroutines.launch
