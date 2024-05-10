@@ -6,10 +6,14 @@ import com.foregg.domain.model.request.SaveForeggJwtRequestVo
 import com.foregg.domain.model.request.SignUpRequestVo
 import com.foregg.domain.model.request.SignUpWithTokenRequestVo
 import com.foregg.domain.model.response.SignResponseVo
+import com.foregg.domain.model.response.profile.ProfileDetailResponseVo
+import com.foregg.domain.model.vo.UserVo
 import com.foregg.domain.usecase.auth.PostJoinUseCase
 import com.foregg.domain.usecase.jwtToken.SaveForeggAccessTokenAndRefreshTokenUseCase
+import com.foregg.domain.usecase.profile.GetMyInfoUseCase
 import com.foregg.presentation.base.BaseViewModel
 import com.foregg.presentation.util.ForeggLog
+import com.foregg.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,7 +24,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SignUpFemaleViewModel @Inject constructor(
     private val postJoinUseCase: PostJoinUseCase,
-    private val saveForeggAccessTokenAndRefreshTokenUseCase: SaveForeggAccessTokenAndRefreshTokenUseCase
+    private val saveForeggAccessTokenAndRefreshTokenUseCase: SaveForeggAccessTokenAndRefreshTokenUseCase,
+    private val getMyInfoUseCase: GetMyInfoUseCase
 ) : BaseViewModel<SignUpFemalePageState>() {
 
     companion object{
@@ -106,7 +111,7 @@ class SignUpFemaleViewModel @Inject constructor(
         val request = getRequest()
         viewModelScope.launch {
             postJoinUseCase(request).collect{
-                resultResponse(it, ::handleLoginSuccess) { ForeggLog.D("실패") }
+                resultResponse(it, ::handleLoginSuccess, { ForeggLog.D("실패") })
             }
         }
     }
@@ -115,9 +120,23 @@ class SignUpFemaleViewModel @Inject constructor(
         val request = SaveForeggJwtRequestVo(accessToken = result.accessToken, refreshToken = "")
         viewModelScope.launch {
             saveForeggAccessTokenAndRefreshTokenUseCase(request).collect{
-                if(it) goToMain() else ForeggLog.D("저장 실패")
+                if(it) getMyInfo() else ForeggLog.D("저장 실패")
             }
         }
+    }
+
+    private fun getMyInfo(){
+        viewModelScope.launch {
+            getMyInfoUseCase(Unit).collect{
+                resultResponse(it, ::handleSuccessGetMyInfo, {ForeggLog.D("오류")})
+            }
+        }
+    }
+
+    private fun handleSuccessGetMyInfo(result : ProfileDetailResponseVo){
+        val vo = UserVo(name = result.nickName, ssn = result.ssn, genderType = result.genderType)
+        UserInfo.updateInfo(vo)
+        goToMain()
     }
 
     private fun goToMain(){
