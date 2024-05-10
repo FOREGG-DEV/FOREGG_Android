@@ -39,11 +39,6 @@
             android:defaultValue=""
             app:argType="string"/>
 
-        <argument
-            android:name="shareCode"
-            android:defaultValue=""
-            app:argType="string"/>
-
         <action
             android:id="@+id/action_chooseGender_to_female"
             app:destination="@id/signUpFemaleFragment"/>

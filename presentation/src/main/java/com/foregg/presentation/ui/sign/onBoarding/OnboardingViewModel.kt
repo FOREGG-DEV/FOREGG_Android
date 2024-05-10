@@ -59,11 +59,7 @@ class OnboardingViewModel @Inject constructor(
         accessToken = token
         viewModelScope.launch {
             postLoginUseCase(token).collect{
-                when(it){
-                    is ApiState.Error -> handleLoginError(it.errorCode, it.data)
-                    else -> {}
-                }
-                resultResponse(it, ::handleLoginSuccess)
+                resultResponse(it, ::handleLoginSuccess, ::handleLoginError)
             }
         }
     }
@@ -77,9 +73,9 @@ class OnboardingViewModel @Inject constructor(
         }
     }
 
-    private fun handleLoginError(error : String, data : SignResponseVo?){
+    private fun handleLoginError(error : String){
         when(error){
-            StatusCode.AUTH.USER_NEED_JOIN -> goToSignUp(data?.shareCode ?: "")
+            StatusCode.AUTH.USER_NEED_JOIN -> goToSignUp()
             else -> ForeggLog.D("알 수 없는 오류")
         }
     }
@@ -88,7 +84,7 @@ class OnboardingViewModel @Inject constructor(
         emitEventFlow(OnboardingEvent.GoToMainEvent)
     }
 
-    private fun goToSignUp(shareCode : String){
-        emitEventFlow(OnboardingEvent.GoToSignUpEvent(accessToken, shareCode))
+    private fun goToSignUp(){
+        emitEventFlow(OnboardingEvent.GoToSignUpEvent(accessToken))
     }
 }
