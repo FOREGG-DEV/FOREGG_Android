@@ -5,6 +5,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Intent
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -16,6 +17,7 @@ import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentSignUpFemaleBinding
 import com.foregg.presentation.ui.MainActivity
 import com.foregg.presentation.ui.common.spinner.CommonSpinnerAdapter
+import com.foregg.presentation.util.ForeggToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.Calendar
@@ -102,5 +104,6 @@ class SignUpFemaleFragment : BaseFragment<FragmentSignUpFemaleBinding, SignUpFem
         val clipboard: ClipboardManager = context?.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText("label", code)
         clipboard.setPrimaryClip(clip)
+        ForeggToast.createToast(requireContext(), R.string.toast_clip_share_code, Toast.LENGTH_SHORT).show()
     }
 }

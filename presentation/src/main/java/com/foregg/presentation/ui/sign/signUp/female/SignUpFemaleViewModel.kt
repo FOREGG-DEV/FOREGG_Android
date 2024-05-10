@@ -28,8 +28,9 @@ class SignUpFemaleViewModel @Inject constructor(
         const val MAX_ROUND = 100
     }
 
-    private val selectedSurgeryTypeStateFlow : MutableStateFlow<SurgeryType> = MutableStateFlow(SurgeryType.IN_VITRO_FERTILIZATION)
+    private val selectedSurgeryTypeStateFlow : MutableStateFlow<SurgeryType> = MutableStateFlow(SurgeryType.THINK_SURGERY)
     private val progressRoundStateFlow : MutableStateFlow<Int> = MutableStateFlow(0)
+    private val emptyTextStateFlow : MutableStateFlow<String> = MutableStateFlow("")
     private val startTreatmentDayStateFlow : MutableStateFlow<String> = MutableStateFlow("")
     private val shareCodeStateFlow : MutableStateFlow<String> = MutableStateFlow("")
     private val isExpandStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
@@ -37,6 +38,7 @@ class SignUpFemaleViewModel @Inject constructor(
     override val uiState: SignUpFemalePageState = SignUpFemalePageState(
         selectedSurgeryType = selectedSurgeryTypeStateFlow.asStateFlow(),
         progressRound = progressRoundStateFlow.asStateFlow(),
+        emptyText = emptyTextStateFlow.asStateFlow(),
         startTreatmentDay = startTreatmentDayStateFlow.asStateFlow(),
         shareCode = shareCodeStateFlow.asStateFlow(),
         isExpand = isExpandStateFlow.asStateFlow()
