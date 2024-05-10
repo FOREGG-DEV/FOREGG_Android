@@ -21,8 +21,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
     private val todayScheduleAdapter = HomeTodayScheduleAdapter()
 
     override fun initView() {
-        viewModel.initScheduleStates()
-
         binding.apply {
             vm = viewModel
             todayScheduleViewPager.adapter = todayScheduleAdapter
@@ -44,6 +42,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
                 }
             }
         }
+
+        viewModel.initScheduleStates()
     }
 
     private fun sortEvent(event: HomeEvent) {

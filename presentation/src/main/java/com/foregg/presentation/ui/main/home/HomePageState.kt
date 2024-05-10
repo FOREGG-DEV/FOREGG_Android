@@ -8,5 +8,6 @@ data class HomePageState (
     val hasDailyRecord : StateFlow<Boolean>,
     val userName : StateFlow<String>,
     val todayDate : StateFlow<String>,
-    val todayScheduleList: StateFlow<List<HomeRecordResponseVo>>
+    val todayScheduleList: StateFlow<List<HomeRecordResponseVo>>,
+    val formattedText: StateFlow<String>
 ) : PageState
