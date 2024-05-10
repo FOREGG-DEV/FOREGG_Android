@@ -39,7 +39,7 @@ class HomeViewModel @Inject constructor(
     fun initScheduleStates() {
         viewModelScope.launch {
             getHomeUseCase(Unit).collect {
-                resultResponse(it, ::handleInitScheduleStatesSuccess) { ForeggLog.D("실패") }
+                resultResponse(it, ::handleInitScheduleStatesSuccess, { ForeggLog.D("실패") })
             }
         }
     }

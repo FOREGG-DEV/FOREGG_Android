@@ -106,7 +106,7 @@ class SignUpFemaleViewModel @Inject constructor(
         val request = getRequest()
         viewModelScope.launch {
             postJoinUseCase(request).collect{
-                resultResponse(it, ::handleLoginSuccess) { ForeggLog.D("실패") }
+                resultResponse(it, ::handleLoginSuccess, { ForeggLog.D("실패") })
             }
         }
     }
