@@ -4,6 +4,11 @@ import com.foregg.data.base.DataDto
 import com.google.gson.annotations.SerializedName
 
 data class MyMedicineInjectionResponse(
+    @SerializedName("myPageRecordResponseDTO")
+    val myPageRecordResponseDTO : List<MyMedicineInjectionItemResponse> = emptyList(),
+) : DataDto
+
+data class MyMedicineInjectionItemResponse(
     @SerializedName("id")
     val id : Long = -1,
     @SerializedName("date")
