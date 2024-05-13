@@ -91,6 +91,17 @@
         android:name="com.foregg.presentation.ui.main.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile">
+
+        <action
+            android:id="@+id/action_profile_to_edit"
+            app:destination="@id/editMyInfoFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/editMyInfoFragment"
+        android:name="com.foregg.presentation.ui.main.profile.edit.EditMyInfoFragment"
+        android:label="fragment_edit_my_info"
+        tools:layout="@layout/fragment_edit_my_info">
     </fragment>
 
 </navigation>
