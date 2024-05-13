@@ -1,6 +1,7 @@
 package com.foregg.presentation.ui.main.profile
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,7 +36,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfilePageState, P
 
     private fun inspectEvent(event: ProfileEvent){
         when(event){
-            ProfileEvent.GoToEditProfileEvent -> {}
+            ProfileEvent.GoToEditProfileEvent -> goToEdit()
             ProfileEvent.GoToMyMedicineInjectionEvent -> {}
             ProfileEvent.GoToAskEvent -> {}
             ProfileEvent.GoToFAQEvent -> {}
@@ -43,5 +44,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfilePageState, P
             ProfileEvent.GoToPolicyEvent -> {}
             ProfileEvent.GoToAccountSettingEvent -> {}
         }
+    }
+
+    private fun goToEdit(){
+        val action = ProfileFragmentDirections.actionProfileToEdit()
+        findNavController().navigate(action)
     }
 }
