@@ -1,9 +1,12 @@
 package com.foregg.presentation.ui.sign.signUp.chooseGender
 
+import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.KeyEvent
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -42,14 +45,14 @@ class ChooseGenderFragment : BaseFragment<FragmentSignUpChooseGenderBinding, Cho
 
     private fun inspectEvent(event: ChooseGenderEvent){
         when(event){
-            is ChooseGenderEvent.OnClickFemaleEvent -> goToFemaleSignUp(event.ssn)
+            is ChooseGenderEvent.OnClickFemaleEvent -> goToFemaleSignUp(event.ssn, event.shareCode)
             is ChooseGenderEvent.OnClickMaleEvent -> goToMaleSignUp(event.ssn)
             ChooseGenderEvent.GoToBackEvent -> findNavController().popBackStack()
         }
     }
 
-    private fun goToFemaleSignUp(ssn : String){
-        val action = ChooseGenderFragmentDirections.actionChooseGenderToFemale(chooseGenderFragmentArgs.accessToken, ssn, chooseGenderFragmentArgs.shareCode)
+    private fun goToFemaleSignUp(ssn : String, shareCode : String){
+        val action = ChooseGenderFragmentDirections.actionChooseGenderToFemale(chooseGenderFragmentArgs.accessToken, ssn, shareCode)
         findNavController().navigate(action)
     }
 
@@ -73,6 +76,10 @@ class ChooseGenderFragment : BaseFragment<FragmentSignUpChooseGenderBinding, Cho
             editTextSsn5.setGenericKeyEvent(editTextSsn4)
             editTextSsn6.setGenericKeyEvent(editTextSsn5)
             editTextSsn7.setGenericKeyEvent(editTextSsn6)
+
+            editTextSsn1.requestFocus()
+            val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(editTextSsn1, 0)
         }
     }
 

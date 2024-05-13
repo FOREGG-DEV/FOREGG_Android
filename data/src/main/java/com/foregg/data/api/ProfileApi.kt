@@ -1,6 +1,7 @@
 package com.foregg.data.api
 
 import com.foregg.data.base.ApiResponse
+import com.foregg.data.dto.profile.MyMedicineInjectionItemResponse
 import com.foregg.data.dto.profile.MyMedicineInjectionResponse
 import com.foregg.data.dto.profile.ProfileDetailResponse
 import com.foregg.domain.model.request.profile.EditMyInfoRequestVo
@@ -27,5 +28,5 @@ interface ProfileApi {
     @GET(Endpoints.PROFILE.GET_MEDICAL)
     suspend fun getMyMedicineInjectionInfo(
         @Query(QUERY_SORT) sort : String
-    ) : Response<ApiResponse<List<MyMedicineInjectionResponse>>>
+    ) : Response<ApiResponse<MyMedicineInjectionResponse>>
 }

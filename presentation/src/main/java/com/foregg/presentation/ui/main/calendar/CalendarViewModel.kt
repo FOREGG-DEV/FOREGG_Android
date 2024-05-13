@@ -64,7 +64,7 @@ class CalendarViewModel @Inject constructor(
     private fun getScheduleList(){
         viewModelScope.launch {
             getScheduleListUseCase(getRequest()).collect{
-                resultResponse(it, ::updateCalendar) { ForeggLog.D("에러") }
+                resultResponse(it, ::updateCalendar, { ForeggLog.D("에러") })
             }
         }
     }

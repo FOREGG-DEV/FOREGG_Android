@@ -44,7 +44,8 @@ class MedicineInjectionViewModel @Inject constructor(
 
     fun onClickTab(type : ProfileMedicineInjectionType){
         viewModelScope.launch {
-            tabTypeStateFlow.update { type}
+            tabTypeStateFlow.update { type }
+            getMyMedicineInjection()
         }
     }
 

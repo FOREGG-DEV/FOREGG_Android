@@ -2,10 +2,11 @@ package com.foregg.data.repository
 
 import com.foregg.data.api.AuthApi
 import com.foregg.data.base.BaseRepository
+import com.foregg.data.mapper.ShareCodeResponseMapper
 import com.foregg.data.mapper.SignResponseMapper
-import com.foregg.data.mapper.UnitResponseMapper
 import com.foregg.domain.base.ApiState
 import com.foregg.domain.model.request.SignUpWithTokenRequestVo
+import com.foregg.domain.model.response.ShareCodeResponseVo
 import com.foregg.domain.model.response.SignResponseVo
 import com.foregg.domain.repository.AuthRepository
 import kotlinx.coroutines.flow.Flow
@@ -20,5 +21,9 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun join(request: SignUpWithTokenRequestVo): Flow<ApiState<SignResponseVo>> {
         return apiLaunch(apiCall = { authApi.join(request.accessToken, request.signUpRequestVo)}, SignResponseMapper )
+    }
+
+    override suspend fun getShareCode(): Flow<ApiState<ShareCodeResponseVo>> {
+        return apiLaunch(apiCall = { authApi.getShareCode()}, ShareCodeResponseMapper )
     }
 }

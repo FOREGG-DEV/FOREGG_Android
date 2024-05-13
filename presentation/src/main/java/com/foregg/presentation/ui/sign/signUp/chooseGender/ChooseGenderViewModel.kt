@@ -1,12 +1,18 @@
 package com.foregg.presentation.ui.sign.signUp.chooseGender
 
+import androidx.lifecycle.viewModelScope
+import com.foregg.domain.model.response.ShareCodeResponseVo
+import com.foregg.domain.usecase.auth.GetShareCodeUseCase
 import com.foregg.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ChooseGenderViewModel @Inject constructor() : BaseViewModel<ChooseGenderPageState>() {
+class ChooseGenderViewModel @Inject constructor(
+    private val getShareCodeUseCase: GetShareCodeUseCase
+) : BaseViewModel<ChooseGenderPageState>() {
 
     private val ssn1StateFlow : MutableStateFlow<String> = MutableStateFlow("")
     private val ssn2StateFlow : MutableStateFlow<String> = MutableStateFlow("")
@@ -26,8 +32,8 @@ class ChooseGenderViewModel @Inject constructor() : BaseViewModel<ChooseGenderPa
         ssn7 = ssn7StateFlow,
     )
 
-    private fun goToFemale(){
-        emitEventFlow(ChooseGenderEvent.OnClickFemaleEvent(getSsn()))
+    private fun handleSuccessGetShareCode(result : ShareCodeResponseVo){
+        emitEventFlow(ChooseGenderEvent.OnClickFemaleEvent(ssn = getSsn(), shareCode = result.shareCode))
     }
 
     private fun goToMale(){
@@ -40,7 +46,15 @@ class ChooseGenderViewModel @Inject constructor() : BaseViewModel<ChooseGenderPa
 
     fun onClickNext(){
         if(isEmpty()) return
-        if(ssn7StateFlow.value.toInt() % 2 == 0) goToFemale() else goToMale()
+        if(ssn7StateFlow.value.toInt() % 2 == 0) getShareCode() else goToMale()
+    }
+
+    private fun getShareCode(){
+        viewModelScope.launch {
+            getShareCodeUseCase(Unit).collect{
+                resultResponse(it, ::handleSuccessGetShareCode)
+            }
+        }
     }
 
     private fun getSsn() : String{
