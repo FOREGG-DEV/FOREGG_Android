@@ -20,8 +20,6 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, PageState.Default, Sp
     override fun initView() {
         binding.apply {
             vm = viewModel
-            val keyHash = Utility.getKeyHash(requireContext())
-            Log.d("KAKAO HASH", keyHash)
             viewModel.checkLogin()
         }
     }
@@ -40,9 +38,8 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, PageState.Default, Sp
 
     private fun sortEvent(event: SplashEvent){
         when(event){
-            SplashEvent.GoToSignEvent -> goToSign()
+            SplashEvent.GoToSignEvent -> goToOnboarding()
             SplashEvent.GoToMainEvent -> goToMain()
-            SplashEvent.GoToOnboardingEvent -> goToOnboarding()
         }
     }
 
@@ -50,10 +47,6 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, PageState.Default, Sp
         val intent = Intent(requireActivity(), MainActivity::class.java)
         startActivity(intent)
         requireActivity().finish()
-    }
-
-    private fun goToSign(){
-        //TODO 로그인 화면으로 이동
     }
 
     private fun goToOnboarding(){

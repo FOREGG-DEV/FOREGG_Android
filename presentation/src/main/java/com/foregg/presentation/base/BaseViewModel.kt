@@ -11,6 +11,7 @@ import com.foregg.domain.base.DomainResponse
 import com.foregg.presentation.PageState
 import com.foregg.presentation.Event
 import com.foregg.presentation.util.EventFlow
+import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.MutableEventFlow
 import com.foregg.presentation.util.asEventFlow
 import kotlinx.coroutines.launch
@@ -39,13 +40,13 @@ abstract class BaseViewModel<STATE: PageState> : ViewModel() {
         _isLoading.value = false
     }
 
-    protected fun<D> resultResponse(response: ApiState<D>, successCallback : (D) -> Unit, errorCallback : ((String) -> Unit)? = null){
+    protected fun<D> resultResponse(response: ApiState<D>, successCallback : (D) -> Unit, errorCallback : ((String) -> Unit)? = null, needLoading : Boolean = true){
         when(response){
             is ApiState.Error -> {
                 errorCallback?.invoke(response.errorCode)
                 endLoading()
             }
-            ApiState.Loading -> showLoading()
+            ApiState.Loading -> if(needLoading) showLoading()
             is ApiState.Success -> {
                 successCallback.invoke(response.data)
                 endLoading()
