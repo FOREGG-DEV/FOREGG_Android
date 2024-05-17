@@ -2,6 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <import type="com.foregg.presentation.util.UserInfo"/>
+        <import type="com.foregg.domain.model.enums.GenderType"/>
+        <import type="android.view.View"/>
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -11,6 +17,7 @@
             android:id="@+id/constraint_layout_time_type"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:clickable="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? false : true}"
             android:background="@drawable/bg_rectangle_filled_gs_10_radius_4"
             app:layout_constraintEnd_toStartOf="@id/edit_text_hour_time"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,6 +46,7 @@
             android:background="@drawable/bg_rectangle_filled_white_radius_4"
             android:gravity="center_horizontal"
             android:hint="00"
+            android:enabled="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? false : true}"
             android:inputType="number"
             android:maxLength="2"
             android:paddingVertical="9dp"
@@ -71,6 +79,7 @@
             android:background="@drawable/bg_rectangle_filled_white_radius_4"
             android:gravity="center_horizontal"
             android:hint="00"
+            android:enabled="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? false : true}"
             android:inputType="number"
             android:maxLength="2"
             android:paddingVertical="9dp"
@@ -87,6 +96,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
+            android:visibility="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? View.INVISIBLE : View.VISIBLE}"
             android:background="@drawable/bg_rectangle_filled_gs_10_radius_4"
             app:layout_constraintBottom_toBottomOf="@id/constraint_layout_time_type"
             app:layout_constraintEnd_toEndOf="parent"
