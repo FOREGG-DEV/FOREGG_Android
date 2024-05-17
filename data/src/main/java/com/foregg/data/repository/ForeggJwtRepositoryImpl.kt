@@ -1,8 +1,6 @@
 package com.foregg.data.repository
 
 import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -10,8 +8,8 @@ import com.foregg.data.api.ForeggJwtTokenApi
 import com.foregg.data.base.BaseRepository
 import com.foregg.data.mapper.ForeggJwtResponseMapper
 import com.foregg.domain.base.ApiState
-import com.foregg.domain.model.request.ForeggJwtReIssueRequestVo
-import com.foregg.domain.model.request.SaveForeggJwtRequestVo
+import com.foregg.domain.model.request.sign.ForeggJwtReIssueRequestVo
+import com.foregg.domain.model.request.sign.SaveForeggJwtRequestVo
 import com.foregg.domain.model.response.ForeggJwtResponseVo
 import com.foregg.domain.repository.ForeggJwtRepository
 import dagger.hilt.android.qualifiers.ApplicationContext

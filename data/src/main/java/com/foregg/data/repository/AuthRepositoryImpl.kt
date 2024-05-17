@@ -5,7 +5,8 @@ import com.foregg.data.base.BaseRepository
 import com.foregg.data.mapper.ShareCodeResponseMapper
 import com.foregg.data.mapper.SignResponseMapper
 import com.foregg.domain.base.ApiState
-import com.foregg.domain.model.request.SignUpWithTokenRequestVo
+import com.foregg.domain.model.request.sign.SignUpWithTokenMaleRequestVo
+import com.foregg.domain.model.request.sign.SignUpWithTokenRequestVo
 import com.foregg.domain.model.response.ShareCodeResponseVo
 import com.foregg.domain.model.response.SignResponseVo
 import com.foregg.domain.repository.AuthRepository
@@ -21,6 +22,10 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun join(request: SignUpWithTokenRequestVo): Flow<ApiState<SignResponseVo>> {
         return apiLaunch(apiCall = { authApi.join(request.accessToken, request.signUpRequestVo)}, SignResponseMapper )
+    }
+
+    override suspend fun joinMale(request: SignUpWithTokenMaleRequestVo): Flow<ApiState<SignResponseVo>> {
+        return apiLaunch(apiCall = { authApi.joinMale(request.accessToken, request.signUpMaleRequestVo)}, SignResponseMapper )
     }
 
     override suspend fun getShareCode(): Flow<ApiState<ShareCodeResponseVo>> {

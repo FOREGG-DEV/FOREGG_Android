@@ -59,6 +59,7 @@
             android:paddingHorizontal="12dp"
             android:paddingVertical="14dp"
             android:layout_width="0dp"
+            android:text="@={vm.uiState.shareCode}"
             app:layout_constraintTop_toBottomOf="@id/text_share_code"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

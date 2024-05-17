@@ -2,7 +2,7 @@ package com.foregg.domain.usecase.auth
 
 import com.foregg.domain.base.ApiState
 import com.foregg.domain.base.UseCase
-import com.foregg.domain.model.request.SignUpWithTokenRequestVo
+import com.foregg.domain.model.request.sign.SignUpWithTokenRequestVo
 import com.foregg.domain.model.response.SignResponseVo
 import com.foregg.domain.repository.AuthRepository
 import kotlinx.coroutines.flow.Flow

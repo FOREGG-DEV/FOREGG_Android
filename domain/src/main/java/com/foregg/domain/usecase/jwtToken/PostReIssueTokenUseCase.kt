@@ -2,7 +2,7 @@ package com.foregg.domain.usecase.jwtToken
 
 import com.foregg.domain.base.ApiState
 import com.foregg.domain.base.UseCase
-import com.foregg.domain.model.request.ForeggJwtReIssueRequestVo
+import com.foregg.domain.model.request.sign.ForeggJwtReIssueRequestVo
 import com.foregg.domain.model.response.ForeggJwtResponseVo
 import com.foregg.domain.repository.ForeggJwtRepository
 import kotlinx.coroutines.flow.Flow
