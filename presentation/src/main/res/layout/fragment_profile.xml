@@ -183,6 +183,7 @@
                     app:layout_constraintTop_toTopOf="@id/text_title_spouse" />
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_my_medicine_injection"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_marginHorizontal="12dp"
