@@ -15,6 +15,17 @@
         <action
             android:id="@+id/action_home_to_calendar"
             app:destination="@id/calendarFragment"/>
+
+        <action
+            android:id="@+id/action_home_to_daily_record"
+            app:destination="@id/dailyRecordFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/dailyRecordFragment"
+        android:name="com.foregg.presentation.ui.dailyRecord.DailyRecordFragment"
+        android:label="fragment_daily_record"
+        tools:layout="@layout/fragment_daily_record">
     </fragment>
 
     <fragment
@@ -45,6 +56,9 @@
         <argument
             android:name="schedule_type"
             app:argType="com.foregg.domain.model.enums.RecordType"/>
+        <action
+            android:id="@+id/action_createEditScheduleFragment_self"
+            app:destination="@id/createEditScheduleFragment" />
     </fragment>
 
     <fragment

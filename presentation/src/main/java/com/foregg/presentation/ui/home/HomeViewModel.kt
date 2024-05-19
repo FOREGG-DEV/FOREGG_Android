@@ -55,6 +55,7 @@ class HomeViewModel @Inject constructor(
     fun onClickDailyRecord() {
         viewModelScope.launch {
             hasDailyRecordStateFlow.update { false }
+            emitEventFlow(HomeEvent.GoToDailyRecordEvent)
         }
     }
 }
