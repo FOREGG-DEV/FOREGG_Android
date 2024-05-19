@@ -111,11 +111,13 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
         binding.apply {
             customTabBar.leftTab.setOnClickListener {
                 customTabBar.leftBtnClicked()
+                if (viewModel.uiState.challengeTapType.value == ChallengeTapType.ALL) return@setOnClickListener
                 viewModel.updateTabType()
                 viewModel.getAllChallenge()
             }
             customTabBar.rightTab.setOnClickListener {
                 customTabBar.rightBtnClicked()
+                if (viewModel.uiState.challengeTapType.value == ChallengeTapType.MY) return@setOnClickListener
                 viewModel.updateTabType()
                 viewModel.getMyChallenge()
             }
