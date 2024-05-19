@@ -84,4 +84,7 @@
     <string name="account_personal">개인</string>
     <string name="account_money_unit">%s원</string>
     <string name="account_round_unit">%d회차</string>
+
+    <!--  dailyRecord  -->
+    <string name="daily_record">하루 기록</string>
 </resources>
