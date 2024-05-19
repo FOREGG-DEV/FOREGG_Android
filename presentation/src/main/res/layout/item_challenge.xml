@@ -50,14 +50,10 @@
                 android:textColor="@color/gs_black"
                 android:fontFamily="@font/pretendard_regular"/>
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
-
             <FrameLayout
                 android:layout_width="190dp"
                 android:layout_height="24dp"
+                android:layout_marginTop="17dp"
                 android:layout_gravity="center"
                 android:background="@drawable/bg_rectangle_filled_white_stroke_gs_30_radius_4">
 
