@@ -30,10 +30,10 @@ class ChallengeViewModel @Inject constructor(
     private val getMyChallengeUseCase: GetMyChallengeUseCase
 ): BaseViewModel<ChallengePageState>() {
     private val challengeTapTypeStateFlow: MutableStateFlow<ChallengeTapType> = MutableStateFlow(ChallengeTapType.ALL)
-    private val allItemCountStateFlow: MutableStateFlow<Int> = MutableStateFlow(0)
-    private val currentItemCountStateFlow: MutableStateFlow<Int> = MutableStateFlow(0)
-    private val allMyChallengeItemCountStateFlow: MutableStateFlow<Int> = MutableStateFlow(0)
-    private val currentMyChallengeItemCountStateFlow: MutableStateFlow<Int> = MutableStateFlow(0)
+    private val allItemCountStateFlow: MutableStateFlow<Int> = MutableStateFlow(-1)
+    private val currentItemCountStateFlow: MutableStateFlow<Int> = MutableStateFlow(-1)
+    private val allMyChallengeItemCountStateFlow: MutableStateFlow<Int> = MutableStateFlow(-1)
+    private val currentMyChallengeItemCountStateFlow: MutableStateFlow<Int> = MutableStateFlow(-1)
     private val challengeItemListStateFlow: MutableStateFlow<List<ChallengeCardVo>> = MutableStateFlow(emptyList())
     private val challengeMonthWeekStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val myChallengeListStateFlow: MutableStateFlow<List<MyChallengeListItemVo>> = MutableStateFlow(emptyList())
@@ -78,13 +78,17 @@ class ChallengeViewModel @Inject constructor(
         viewModelScope.launch {
             challengeItemListStateFlow.update { result }
             allItemCountStateFlow.update { result.size }
-            if (allItemCountStateFlow.value != 0) {
+            if (allItemCountStateFlow.value != 0 && currentItemCountStateFlow.value == -1) {
                 currentItemCountStateFlow.update { 1 }
                 setBtnBackground(0)
                 setBtnText(0)
                 setBtnTextColor(0)
+            } else if (allItemCountStateFlow.value == 0) { currentItemCountStateFlow.update { 0 } }
+            else {
+                setBtnBackground(currentItemCountStateFlow.value - 1)
+                setBtnText(currentItemCountStateFlow.value - 1)
+                setBtnTextColor(currentItemCountStateFlow.value - 1)
             }
-            else currentItemCountStateFlow.update { 0 }
         }
     }
 
@@ -101,10 +105,10 @@ class ChallengeViewModel @Inject constructor(
             myChallengeListStateFlow.update { result }
             allMyChallengeItemCountStateFlow.update { result.size }
             if (allMyChallengeItemCountStateFlow.value != 0) {
-                currentMyChallengeItemCountStateFlow.update { 1 }
+                if (currentMyChallengeItemCountStateFlow.value == -1) { currentMyChallengeItemCountStateFlow.update { 1 } }
                 weekOfMonthStateFlow.update { myChallengeListStateFlow.value[0].weekOfMonth }
             }
-            else currentMyChallengeItemCountStateFlow.update { 0 }
+            else if (allMyChallengeItemCountStateFlow.value == 0) { currentMyChallengeItemCountStateFlow.update { 0 } }
         }
     }
 
@@ -209,6 +213,7 @@ class ChallengeViewModel @Inject constructor(
             challengeTapTypeStateFlow.update {
                 if (challengeTapTypeStateFlow.value == ChallengeTapType.ALL) ChallengeTapType.MY else ChallengeTapType.ALL
             }
+            currentItemCountStateFlow.update { 1 }
         }
     }
 
