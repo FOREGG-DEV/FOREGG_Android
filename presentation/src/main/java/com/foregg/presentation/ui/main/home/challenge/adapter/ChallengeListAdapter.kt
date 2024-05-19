@@ -26,10 +26,10 @@ class ChallengeListAdapter : ListAdapter<ChallengeCardVo, RecyclerView.ViewHolde
 
 class ChallengeListDiffCallBack : DiffUtil.ItemCallback<ChallengeCardVo>() {
     override fun areContentsTheSame(oldItem: ChallengeCardVo, newItem: ChallengeCardVo): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem == newItem
     }
 
     override fun areItemsTheSame(oldItem: ChallengeCardVo, newItem: ChallengeCardVo): Boolean {
-        return oldItem == newItem
+        return oldItem.id == newItem.id
     }
 }

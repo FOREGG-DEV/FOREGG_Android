@@ -31,13 +31,13 @@ class MyChallengeListCallBack : DiffUtil.ItemCallback<MyChallengeListItemVo>() {
         oldItem: MyChallengeListItemVo,
         newItem: MyChallengeListItemVo
     ): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem == newItem
     }
 
     override fun areItemsTheSame(
         oldItem: MyChallengeListItemVo,
         newItem: MyChallengeListItemVo
     ): Boolean {
-        return oldItem == newItem
+        return oldItem.id == newItem.id
     }
 }
