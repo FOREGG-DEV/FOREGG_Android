@@ -23,6 +23,10 @@ object Endpoints {
         const val HOME = "/home"
     }
 
+    object DailyRecord {
+        const val DAILY = "/daily"
+    }
+
     object ACCOUNT{
         private const val LEDGER = "/ledger"
         const val GET_BY_CONDITION = "$LEDGER/byCondition"
