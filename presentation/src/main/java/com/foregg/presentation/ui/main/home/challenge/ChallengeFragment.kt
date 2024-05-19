@@ -5,16 +5,21 @@ import androidx.viewpager2.widget.ViewPager2
 import com.foregg.domain.model.enums.ChallengeTapType
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentChallengeBinding
+import com.foregg.presentation.ui.common.CommonDialog
 import com.foregg.presentation.ui.main.home.challenge.adapter.ChallengeListAdapter
 import com.foregg.presentation.ui.main.home.challenge.adapter.MyChallengeListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageState, ChallengeViewModel> (
     FragmentChallengeBinding::inflate
 ) {
     override val viewModel: ChallengeViewModel by viewModels()
+
+    @Inject
+    lateinit var dialog: CommonDialog
 
     private lateinit var challengeListAdapter : ChallengeListAdapter
     private lateinit var myChallengeListAdapter : MyChallengeListAdapter
@@ -23,7 +28,7 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
         binding.apply {
             vm = viewModel
             challengeListAdapter = ChallengeListAdapter()
-            myChallengeListAdapter = MyChallengeListAdapter(viewModel)
+            myChallengeListAdapter = MyChallengeListAdapter(viewModel, dialog)
             viewPagerChallenge.adapter = challengeListAdapter
 
             viewPagerChallenge.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {

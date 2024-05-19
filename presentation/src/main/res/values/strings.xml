@@ -117,5 +117,6 @@
     <string name="challenge_participate_already">참여중인 챌린지예요</string>
     <string name="challenge_participant_count_text">%d명이 함께하고 있어요</string>
     <string name="challenge_month_week">%d월 %d주차</string>
+    <string name="challenge_stop">챌린지를 그만두시겠습니까?</string>
 
 </resources>
