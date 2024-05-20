@@ -3,6 +3,7 @@ package com.foregg.presentation.ui.main.home.challenge
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.foregg.domain.model.enums.ChallengeTapType
+import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentChallengeBinding
 import com.foregg.presentation.ui.common.CommonDialog
@@ -20,30 +21,26 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
 
     @Inject
     lateinit var dialog: CommonDialog
-    private lateinit var challengeListAdapter : ChallengeListAdapter
-    private lateinit var myChallengeListAdapter : MyChallengeListAdapter
+
+    private val challengeListAdapter = ChallengeListAdapter()
+    private val myChallengeListAdapter : MyChallengeListAdapter by lazy {
+        MyChallengeListAdapter(object : MyChallengeListAdapter.DeleteMyChallengeDelegate {
+            override fun showDialog(id: Long) {
+                showDeleteDialog(id)
+            }
+        })
+    }
 
     override fun initView() {
         binding.apply {
             vm = viewModel
-
-            challengeListAdapter = ChallengeListAdapter()
-            myChallengeListAdapter = MyChallengeListAdapter(viewModel, dialog)
-
             viewPagerChallenge.adapter = challengeListAdapter
 
             viewPagerChallenge.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 private var previousPosition = viewPagerChallenge.currentItem
-
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-
-                    if (position > previousPosition) {
-                        viewModel.swipeNextItem()
-                    }
-                    else if (position < previousPosition) {
-                        viewModel.swipePreviousItem()
-                    }
+                    viewModel.swipeItem(position, previousPosition)
                     previousPosition = position
                 }
             })
@@ -69,37 +66,6 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
             }
 
             launch {
-                viewModel.uiState.challengeTapType.collect {
-                    when (it) {
-                        ChallengeTapType.ALL -> {
-                            binding.viewPagerChallenge.adapter = challengeListAdapter
-                        }
-                        ChallengeTapType.MY -> {
-                            binding.viewPagerChallenge.adapter = myChallengeListAdapter
-                        }
-                    }
-                }
-            }
-
-            launch {
-                viewModel.uiState.participateBtnBackground.collect {
-                    binding.btnChallengeParticipate.setBackgroundResource(it)
-                }
-            }
-
-            launch {
-                viewModel.uiState.participateBtnText.collect {
-                    binding.btnChallengeParticipate.text = it
-                }
-            }
-
-            launch {
-                viewModel.uiState.participateBtnTextColor.collect {
-                    binding.btnChallengeParticipate.setTextColor(it)
-                }
-            }
-
-            launch {
                 viewModel.eventFlow.collect {
                     sortEvent(it as ChallengeEvent)
                 }
@@ -108,29 +74,34 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
     }
 
     private fun sortEvent(event: ChallengeEvent) {
-        when(event) {
-            ChallengeEvent.onClickParticipateBtn -> participateChallenge()
-        }
+
     }
 
     private fun bindTab(){
         binding.apply {
             customTabBar.leftTab.setOnClickListener {
-                customTabBar.leftBtnClicked()
-                if (viewModel.uiState.challengeTapType.value == ChallengeTapType.ALL) return@setOnClickListener
-                viewModel.updateTabType()
+                customTabBar.leftBtnClicked{viewModel.updateTabType(ChallengeTapType.ALL) }
                 viewModel.getAllChallenge()
+                binding.viewPagerChallenge.adapter = challengeListAdapter
             }
             customTabBar.rightTab.setOnClickListener {
-                customTabBar.rightBtnClicked()
-                if (viewModel.uiState.challengeTapType.value == ChallengeTapType.MY) return@setOnClickListener
-                viewModel.updateTabType()
+                customTabBar.rightBtnClicked{ viewModel.updateTabType(ChallengeTapType.MY) }
                 viewModel.getMyChallenge()
+                binding.viewPagerChallenge.adapter = myChallengeListAdapter
             }
         }
     }
 
-    private fun participateChallenge() {
-        viewModel.participateChallenge()
+    private fun showDeleteDialog(id: Long) {
+        dialog
+            .setTitle(R.string.challenge_stop)
+            .setPositiveButton(R.string.word_yes) {
+                viewModel.quitChallenge(id)
+                dialog.dismiss()
+            }
+            .setNegativeButton(R.string.word_no) {
+                dialog.dismiss()
+            }
+            .show()
     }
 }

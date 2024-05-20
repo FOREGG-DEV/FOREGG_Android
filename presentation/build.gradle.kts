@@ -64,11 +64,6 @@ dependencies {
     //힐트
     implementation(Google.HILT_ANDROID)
     implementation(Google.HILT_CORE)
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
-    implementation("androidx.fragment:fragment-ktx:1.7.0")
-
     kapt(Google.HILT_COMPILER)
 
     implementation(KAKAO.AUTH)
