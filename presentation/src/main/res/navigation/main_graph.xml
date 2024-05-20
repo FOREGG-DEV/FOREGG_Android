@@ -8,13 +8,26 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.foregg.presentation.ui.home.HomeFragment"
+        android:name="com.foregg.presentation.ui.main.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
 
         <action
             android:id="@+id/action_home_to_calendar"
             app:destination="@id/calendarFragment"/>
+
+        <action
+            android:id="@+id/action_home_to_challege"
+            app:destination="@id/challengeFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/challengeFragment"
+        android:name="com.foregg.presentation.ui.main.home.challenge.ChallengeFragment"
+        android:label="fragment_challenge"
+        tools:layout="@layout/fragment_home">
+
+
     </fragment>
 
     <fragment

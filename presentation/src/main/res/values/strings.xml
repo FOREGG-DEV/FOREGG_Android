@@ -111,5 +111,14 @@
 
     <!-- toast -->
     <string name="toast_clip_share_code">클립보드에 배우자 코드가 복사되었어요!</string>
-    <string name="toast_clipboard_email">클립보드에 메일주소가 복사되었어요!</string>
+
+    <!-- challenge -->
+    <string name="challenge_title">챌린지</string>
+    <string name="challenge_my">나의 챌린지</string>
+    <string name="challenge_item_count_slash">/</string>
+    <string name="challenge_participate">챌린지 참여하기</string>
+    <string name="challenge_participate_already">참여중인 챌린지예요</string>
+    <string name="challenge_participant_count_text">%d명이 함께하고 있어요</string>
+    <string name="challenge_month_week">%d월 %d주차</string>
+    <string name="challenge_stop">챌린지를 그만두시겠습니까?</string>
 </resources>

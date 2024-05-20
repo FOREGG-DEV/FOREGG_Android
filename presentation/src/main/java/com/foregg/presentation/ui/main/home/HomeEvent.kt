@@ -1,4 +1,4 @@
-package com.foregg.presentation.ui.home
+package com.foregg.presentation.ui.main.home
 
 import com.foregg.presentation.Event
 

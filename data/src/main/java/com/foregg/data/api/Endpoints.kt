@@ -24,6 +24,15 @@ object Endpoints {
         const val HOME = "/home"
     }
 
+    object Challenge {
+        private const val CHALLENGE = "/challenge"
+        const val ALL = "$CHALLENGE/all"
+        const val PARTICIPATION = "$CHALLENGE/participation/{id}"
+        const val QUIT = "$CHALLENGE/quit/{id}"
+        const val COMPLETE = "$CHALLENGE/complete/{id}"
+        const val MY = "$CHALLENGE/my"
+    }
+
     object ACCOUNT{
         private const val LEDGER = "/ledger"
         const val GET_BY_CONDITION = "$LEDGER/byCondition"
