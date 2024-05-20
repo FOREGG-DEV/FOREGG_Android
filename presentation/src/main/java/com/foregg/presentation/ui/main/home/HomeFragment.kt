@@ -49,12 +49,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
     private fun sortEvent(event: HomeEvent) {
         when(event) {
             HomeEvent.GoToChallengeEvent -> goToChallenge()
-            HomeEvent.GoToDailyRecordEvent -> TODO()
+            HomeEvent.GoToDailyRecordEvent -> goToDailyRecord()
         }
     }
 
     private fun goToChallenge() {
         val action = HomeFragmentDirections.actionHomeToChallege()
+        findNavController().navigate(action)
+    }
+
+    private fun goToDailyRecord() {
+        val action = HomeFragmentDirections.actionHomeToDailyRecord()
         findNavController().navigate(action)
     }
 }
