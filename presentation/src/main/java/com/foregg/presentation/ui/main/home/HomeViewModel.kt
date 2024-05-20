@@ -48,7 +48,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun handleInitScheduleStatesSuccess(result: HomeResponseVo) {
-        viewModelScope.launch() {
+        viewModelScope.launch {
             userNameStateFlow.update { result.userName }
             todayDateStateFlow.update { result.todayDate }
             todayScheduleStateFlow.update { result.homeRecordResponseVo }
