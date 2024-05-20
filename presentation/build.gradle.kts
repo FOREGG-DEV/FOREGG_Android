@@ -66,6 +66,8 @@ dependencies {
     implementation(Google.HILT_ANDROID)
     implementation(Google.HILT_CORE)
     implementation(Google.FCM)
+    implementation(Google.FCM_KTX)
+
     kapt(Google.HILT_COMPILER)
 
     implementation(KAKAO.AUTH)
