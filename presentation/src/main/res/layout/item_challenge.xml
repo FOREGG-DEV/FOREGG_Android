@@ -34,10 +34,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="하루 1000보 이상 걷기"
-                android:textSize="24sp"
-                android:textColor="@color/gs_black"
-                android:fontFamily="@font/pretendard_bold"/>
+                tools:text="하루 1000보 이상 걷기"
+                android:textAppearance="@style/h1"
+                android:textColor="@color/gs_black" />
 
             <TextView
                 android:id="@+id/challenge_item_container"
@@ -45,10 +44,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="19dp"
                 android:layout_gravity="center"
-                android:text="하루 1000보 이상 걷기"
-                android:textSize="12sp"
-                android:textColor="@color/gs_black"
-                android:fontFamily="@font/pretendard_regular"/>
+                tools:text="하루 1000보 이상 걷기"
+                android:textAppearance="@style/p3_l"
+                android:textColor="@color/gs_black"/>
 
             <FrameLayout
                 android:layout_width="190dp"
@@ -60,7 +58,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     android:paddingHorizontal="8dp"
                     android:orientation="horizontal">
 
@@ -75,7 +73,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="@string/challenge_participant_count_text"/>
+                        android:text="@string/challenge_participant_count_text"
+                        android:textAppearance="@style/p3_l"/>
 
                 </LinearLayout>
 

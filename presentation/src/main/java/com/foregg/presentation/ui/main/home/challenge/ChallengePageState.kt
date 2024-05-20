@@ -13,10 +13,6 @@ data class ChallengePageState (
     val challengeList: StateFlow<List<ChallengeCardVo>>,
     val challengeMonthWeek: StateFlow<String>,
     val myChallengeList: StateFlow<List<MyChallengeListItemVo>>,
-    val allMyChallengeItemCount: StateFlow<Int>,
-    val currentMyChallengeItemCount: StateFlow<Int>,
-    val participateBtnBackground: StateFlow<Int>,
-    val participateBtnText: StateFlow<String>,
-    val participateBtnTextColor: StateFlow<Int>,
     val weekOfMonth: StateFlow<String>,
+    val isParticipate: StateFlow<Boolean>
 ): PageState
