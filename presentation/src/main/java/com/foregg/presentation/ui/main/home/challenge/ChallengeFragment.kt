@@ -21,14 +21,18 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
     @Inject
     lateinit var dialog: CommonDialog
 
-    private lateinit var challengeListAdapter : ChallengeListAdapter
-    private lateinit var myChallengeListAdapter : MyChallengeListAdapter
+    private val challengeListAdapter = ChallengeListAdapter()
+    private val myChallengeListAdapter : MyChallengeListAdapter by lazy {
+        MyChallengeListAdapter(object : MyChallengeListAdapter.DeleteMyChallengeDelegate {
+            override fun deleteChallenge(id: Long) {
+                viewModel.quitChallenge(id)
+            }
+        }, dialog)
+    }
 
     override fun initView() {
         binding.apply {
             vm = viewModel
-            challengeListAdapter = ChallengeListAdapter()
-            myChallengeListAdapter = MyChallengeListAdapter(viewModel, dialog)
             viewPagerChallenge.adapter = challengeListAdapter
 
             viewPagerChallenge.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {

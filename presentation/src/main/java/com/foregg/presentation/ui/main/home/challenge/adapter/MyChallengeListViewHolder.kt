@@ -12,7 +12,7 @@ import javax.inject.Inject
 class MyChallengeListViewHolder(
     private val binding: ItemMyChallengeBinding,
     private val context: Context,
-    private val viewModel: ChallengeViewModel,
+    private val listener: MyChallengeListAdapter.DeleteMyChallengeDelegate,
     private val dialog: CommonDialog
 ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -25,7 +25,7 @@ class MyChallengeListViewHolder(
                 dialog
                     .setTitle(R.string.challenge_stop)
                     .setPositiveButton(R.string.word_yes) {
-                        viewModel.quitChallenge(item.id)
+                        listener.deleteChallenge(item.id)
                         dialog.dismiss()
                     }
                     .setNegativeButton(R.string.word_no) {
