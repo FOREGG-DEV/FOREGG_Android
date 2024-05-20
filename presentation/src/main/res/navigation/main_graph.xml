@@ -82,6 +82,14 @@
         <action
             android:id="@+id/action_profile_to_edit"
             app:destination="@id/editMyInfoFragment"/>
+
+        <action
+            android:id="@+id/action_profile_to_my_medical"
+            app:destination="@id/myMedicineInjectionFragment"/>
+
+        <action
+            android:id="@+id/action_profile_to_ask"
+            app:destination="@id/askFragment"/>
     </fragment>
 
     <fragment
@@ -89,6 +97,24 @@
         android:name="com.foregg.presentation.ui.main.profile.edit.EditMyInfoFragment"
         android:label="fragment_edit_my_info"
         tools:layout="@layout/fragment_edit_my_info">
+    </fragment>
+
+    <fragment
+        android:id="@+id/myMedicineInjectionFragment"
+        android:name="com.foregg.presentation.ui.main.profile.myMedicineInjection.MedicineInjectionFragment"
+        android:label="fragment_my_medicine_injection"
+        tools:layout="@layout/fragment_my_medicine_injection">
+
+        <action
+            android:id="@+id/action_my_medical_to_calendar_detail"
+            app:destination="@id/createEditScheduleFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/askFragment"
+        android:name="com.foregg.presentation.ui.main.profile.ask.AskFragment"
+        android:label="fragment_profile_ask"
+        tools:layout="@layout/fragment_profile_ask">
     </fragment>
 
 </navigation>
