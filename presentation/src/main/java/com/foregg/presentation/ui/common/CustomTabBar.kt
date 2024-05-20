@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.foregg.presentation.R
 import com.foregg.presentation.databinding.CustomTabBarBinding
+import com.foregg.presentation.util.ForeggLog
 
 
 class CustomTabBar @JvmOverloads constructor(
@@ -23,6 +24,10 @@ class CustomTabBar @JvmOverloads constructor(
     private val leftTabText: String?
     private val middleTabText: String?
     private val rightTabText: String?
+
+    private var isLeftTabClicked : Boolean = true
+    private var isMiddleTabClicked : Boolean = false
+    private var isRightTabClicked : Boolean = false
 
     companion object{
         const val TWO_TAB = 2
@@ -59,30 +64,69 @@ class CustomTabBar @JvmOverloads constructor(
         typedArray.recycle()
     }
 
-    fun leftBtnClicked(){
-        leftTab.setBackgroundResource(R.drawable.bg_rectangle_filled_main_radius_8)
-        middleTab.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
-        rightTab.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
-        leftTab.setTextColor(ContextCompat.getColor(context, R.color.white))
-        middleTab.setTextColor(ContextCompat.getColor(context, R.color.gs_50))
-        rightTab.setTextColor(ContextCompat.getColor(context, R.color.gs_50))
+    fun leftBtnClicked(onClickListener: (view: View) -> (Unit)){
+        leftTab.setOnClickListener {
+            if(isLeftTabClicked) return@setOnClickListener
+            leftTab.apply {
+                setBackgroundResource(R.drawable.bg_rectangle_filled_main_radius_8)
+                setTextColor(ContextCompat.getColor(context, R.color.white))
+            }
+            middleTab.apply {
+                setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
+                setTextColor(ContextCompat.getColor(context, R.color.gs_50))
+            }
+            rightTab.apply {
+                setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
+                setTextColor(ContextCompat.getColor(context, R.color.gs_50))
+            }
+            isLeftTabClicked = true
+            isMiddleTabClicked = false
+            isRightTabClicked = false
+            onClickListener(it)
+        }
     }
 
-    fun middleBtnClicked(){
-        middleTab.setBackgroundResource(R.drawable.bg_rectangle_filled_main_radius_8)
-        leftTab.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
-        rightTab.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
-        leftTab.setTextColor(ContextCompat.getColor(context, R.color.gs_50))
-        middleTab.setTextColor(ContextCompat.getColor(context, R.color.white))
-        rightTab.setTextColor(ContextCompat.getColor(context, R.color.gs_50))
+    fun middleBtnClicked(onClickListener: (view: View) -> (Unit)){
+        middleTab.setOnClickListener {
+            if(isMiddleTabClicked) return@setOnClickListener
+            leftTab.apply {
+                setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
+                setTextColor(ContextCompat.getColor(context, R.color.gs_50))
+            }
+            middleTab.apply {
+                setBackgroundResource(R.drawable.bg_rectangle_filled_main_radius_8)
+                setTextColor(ContextCompat.getColor(context, R.color.white))
+            }
+            rightTab.apply {
+                setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
+                setTextColor(ContextCompat.getColor(context, R.color.gs_50))
+            }
+            isLeftTabClicked = false
+            isMiddleTabClicked = true
+            isRightTabClicked = false
+            onClickListener(it)
+        }
     }
 
-    fun rightBtnClicked(){
-        rightTab.setBackgroundResource(R.drawable.bg_rectangle_filled_main_radius_8)
-        middleTab.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
-        leftTab.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
-        leftTab.setTextColor(ContextCompat.getColor(context, R.color.gs_50))
-        middleTab.setTextColor(ContextCompat.getColor(context, R.color.gs_50))
-        rightTab.setTextColor(ContextCompat.getColor(context, R.color.white))
+    fun rightBtnClicked(onClickListener: (view: View) -> (Unit)){
+        rightTab.setOnClickListener {
+            if(isRightTabClicked) return@setOnClickListener
+            leftTab.apply {
+                setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
+                setTextColor(ContextCompat.getColor(context, R.color.gs_50))
+            }
+            middleTab.apply {
+                setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
+                setTextColor(ContextCompat.getColor(context, R.color.gs_50))
+            }
+            rightTab.apply {
+                setBackgroundResource(R.drawable.bg_rectangle_filled_main_radius_8)
+                setTextColor(ContextCompat.getColor(context, R.color.white))
+            }
+            isLeftTabClicked = false
+            isMiddleTabClicked = false
+            isRightTabClicked = true
+            onClickListener(it)
+        }
     }
 }

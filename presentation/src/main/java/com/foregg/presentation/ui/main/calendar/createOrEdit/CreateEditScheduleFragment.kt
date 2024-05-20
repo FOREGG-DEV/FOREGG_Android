@@ -138,14 +138,8 @@ class CreateEditScheduleFragment : BaseFragment<FragmentCreateEditScheduleBindin
 
     private fun bindTab(){
         binding.apply {
-            customTabBar.leftTab.setOnClickListener {
-                customTabBar.leftBtnClicked()
-                viewModel.updateTabType(CalendarTabType.SCHEDULE)
-            }
-            customTabBar.rightTab.setOnClickListener {
-                customTabBar.rightBtnClicked()
-                viewModel.updateTabType(CalendarTabType.MEDICAL_RECORD)
-            }
+            customTabBar.leftBtnClicked { viewModel.updateTabType(CalendarTabType.SCHEDULE) }
+            customTabBar.rightBtnClicked { viewModel.updateTabType(CalendarTabType.MEDICAL_RECORD) }
         }
     }
 }
