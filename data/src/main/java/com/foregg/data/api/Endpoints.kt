@@ -47,5 +47,6 @@ object Endpoints {
     object PROFILE{
         const val MY_INFO = "/myPage"
         const val MODIFY = "$MY_INFO/modifySurgery"
+        const val GET_MEDICAL = "$MY_INFO/medicalInfo"
     }
 }
