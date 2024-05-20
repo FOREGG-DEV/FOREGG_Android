@@ -25,6 +25,7 @@ object Endpoints {
 
     object DailyRecord {
         const val DAILY = "/daily"
+        const val WRITE = "/write"
     }
 
     object ACCOUNT{
