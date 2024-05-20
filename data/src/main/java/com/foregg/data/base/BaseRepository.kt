@@ -36,6 +36,6 @@ abstract class BaseRepository {
     }
 
     inline fun <reified T> fromGson(json: Reader?): ApiResponse<T> {
-        return Gson().fromJson(json, object: TypeToken<ApiResponse<T>>() {}.type)
+        return Gson().fromJson(json, object: TypeToken<ApiResponse<T>>() {}.type) ?: ApiResponse()
     }
 }

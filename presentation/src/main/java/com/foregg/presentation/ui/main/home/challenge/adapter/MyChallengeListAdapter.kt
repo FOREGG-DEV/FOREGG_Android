@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.foregg.domain.model.response.MyChallengeListItemVo
 import com.foregg.presentation.databinding.ItemMyChallengeBinding
+import com.foregg.presentation.ui.common.CommonDialog
 import com.foregg.presentation.ui.main.home.challenge.ChallengeViewModel
 
 class MyChallengeListAdapter(
-    private val viewModel: ChallengeViewModel
+    private val viewModel: ChallengeViewModel,
+    private val dialog: CommonDialog
 ) : ListAdapter<MyChallengeListItemVo, RecyclerView.ViewHolder> (
     MyChallengeListCallBack()
 ){
@@ -22,7 +24,8 @@ class MyChallengeListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = ItemMyChallengeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MyChallengeListViewHolder(binding, parent.context, viewModel)
+
+        return MyChallengeListViewHolder(binding, parent.context, viewModel, dialog)
     }
 }
 

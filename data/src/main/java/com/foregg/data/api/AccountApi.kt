@@ -2,9 +2,14 @@ package com.foregg.data.api
 
 import com.foregg.data.base.ApiResponse
 import com.foregg.data.dto.account.AccountResponse
+import com.foregg.data.dto.account.AccountResponseListItem
+import com.foregg.domain.model.request.account.AccountCreateRequestVo
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -36,5 +41,21 @@ interface AccountApi {
     @DELETE(Endpoints.ACCOUNT.DELETE)
     suspend fun delete(
         @Path(PATH_ID) id : Long,
+    ) : Response<ApiResponse<Unit>>
+
+    @GET(Endpoints.ACCOUNT.GET_DETAIL)
+    suspend fun getAccountDetail(
+        @Path(PATH_ID) id : Long,
+    ) : Response<ApiResponse<AccountResponseListItem>>
+
+    @POST(Endpoints.ACCOUNT.CREATE)
+    suspend fun createAccount(
+        @Body request : AccountCreateRequestVo,
+    ) : Response<ApiResponse<Unit>>
+
+    @PUT(Endpoints.ACCOUNT.MODIFY)
+    suspend fun modifyAccount(
+        @Path(PATH_ID) id : Long,
+        @Body request : AccountCreateRequestVo,
     ) : Response<ApiResponse<Unit>>
 }

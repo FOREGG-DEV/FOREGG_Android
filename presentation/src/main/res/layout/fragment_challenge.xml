@@ -77,6 +77,16 @@
 
             </com.foregg.presentation.ui.common.CustomTabBar>
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/ic_empty_challenge"
+                android:visibility="@{vm.uiState.challengeTapType == ChallengeTapType.MY &amp;&amp; vm.uiState.myChallengeList.empty ? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/custom_tab_bar"/>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/view_pager_frame"
                 android:layout_width="match_parent"

@@ -8,13 +8,17 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.foregg.presentation.ui.home.HomeFragment"
+        android:name="com.foregg.presentation.ui.main.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
 
         <action
             android:id="@+id/action_home_to_calendar"
             app:destination="@id/calendarFragment"/>
+
+        <action
+            android:id="@+id/action_home_to_challege"
+            app:destination="@id/challengeFragment"/>
 
         <action
             android:id="@+id/action_home_to_daily_record"
@@ -26,6 +30,14 @@
         android:name="com.foregg.presentation.ui.dailyRecord.DailyRecordFragment"
         android:label="fragment_daily_record"
         tools:layout="@layout/fragment_daily_record">
+    </fragment>
+
+    <fragment
+        android:id="@+id/challengeFragment"
+        android:name="com.foregg.presentation.ui.main.home.challenge.ChallengeFragment"
+        android:label="fragment_challenge"
+        tools:layout="@layout/fragment_home">
+
     </fragment>
 
     <fragment
@@ -66,5 +78,43 @@
         android:name="com.foregg.presentation.ui.main.account.AccountFragment"
         android:label="fragment_account"
         tools:layout="@layout/fragment_account">
+
+        <action
+            android:id="@+id/action_account_to_create_edit"
+            app:destination="@id/accountCreateEditFragment"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/accountCreateEditFragment"
+        android:name="com.foregg.presentation.ui.main.account.createOrEdit.AccountCreateEditFragment"
+        android:label="fragment_account_create_edit"
+        tools:layout="@layout/fragment_create_edit_account">
+
+        <argument
+            android:name="id"
+            app:argType="long"/>
+
+        <argument
+            android:name="type"
+            app:argType="com.foregg.domain.model.enums.CalendarType"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.foregg.presentation.ui.main.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile">
+
+        <action
+            android:id="@+id/action_profile_to_edit"
+            app:destination="@id/editMyInfoFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/editMyInfoFragment"
+        android:name="com.foregg.presentation.ui.main.profile.edit.EditMyInfoFragment"
+        android:label="fragment_edit_my_info"
+        tools:layout="@layout/fragment_edit_my_info">
+    </fragment>
+
 </navigation>
