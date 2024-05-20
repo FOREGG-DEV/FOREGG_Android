@@ -11,6 +11,7 @@ import com.foregg.domain.usecase.home.challenge.ParticipateChallengeUseCase
 import com.foregg.domain.usecase.home.challenge.QuitChallengeUseCase
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseViewModel
+import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -32,15 +33,11 @@ class ChallengeViewModel @Inject constructor(
     private val challengeTapTypeStateFlow: MutableStateFlow<ChallengeTapType> = MutableStateFlow(ChallengeTapType.ALL)
     private val allItemCountStateFlow: MutableStateFlow<Int> = MutableStateFlow(-1)
     private val currentItemCountStateFlow: MutableStateFlow<Int> = MutableStateFlow(-1)
-    private val allMyChallengeItemCountStateFlow: MutableStateFlow<Int> = MutableStateFlow(-1)
-    private val currentMyChallengeItemCountStateFlow: MutableStateFlow<Int> = MutableStateFlow(-1)
     private val challengeItemListStateFlow: MutableStateFlow<List<ChallengeCardVo>> = MutableStateFlow(emptyList())
     private val challengeMonthWeekStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val myChallengeListStateFlow: MutableStateFlow<List<MyChallengeListItemVo>> = MutableStateFlow(emptyList())
-    private val participateBtnBackgroundStateFlow: MutableStateFlow<Int> = MutableStateFlow(R.drawable.bg_rectangle_filled_main_radius_8)
-    private val participateBtnTextStateFlow: MutableStateFlow<String> = MutableStateFlow(resourceProvider.getString(R.string.challenge_participate))
-    private val participateBtnTextColorStateFlow: MutableStateFlow<Int> = MutableStateFlow(resourceProvider.getColor(R.color.white))
     private val weekOfMonthStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private val isParticipateStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     override val uiState: ChallengePageState = ChallengePageState(
         challengeTapType = challengeTapTypeStateFlow.asStateFlow(),
@@ -49,21 +46,16 @@ class ChallengeViewModel @Inject constructor(
         challengeList = challengeItemListStateFlow.asStateFlow(),
         challengeMonthWeek = challengeMonthWeekStateFlow.asStateFlow(),
         myChallengeList = myChallengeListStateFlow.asStateFlow(),
-        allMyChallengeItemCount = allMyChallengeItemCountStateFlow.asStateFlow(),
-        currentMyChallengeItemCount = currentMyChallengeItemCountStateFlow.asStateFlow(),
-        participateBtnBackground = participateBtnBackgroundStateFlow.asStateFlow(),
-        participateBtnText = participateBtnTextStateFlow.asStateFlow(),
-        participateBtnTextColor = participateBtnTextColorStateFlow.asStateFlow(),
-        weekOfMonth = weekOfMonthStateFlow.asStateFlow()
+        weekOfMonth = weekOfMonthStateFlow.asStateFlow(),
+        isParticipate = isParticipateStateFlow.asStateFlow()
     )
 
     fun setView() {
         getAllChallenge()
-        getMyChallenge()
     }
 
     fun onClickParticipateBtn() {
-        emitEventFlow(ChallengeEvent.onClickParticipateBtn)
+        participateChallenge()
     }
 
     fun getAllChallenge() {
@@ -80,14 +72,11 @@ class ChallengeViewModel @Inject constructor(
             allItemCountStateFlow.update { result.size }
             if (allItemCountStateFlow.value != 0 && currentItemCountStateFlow.value == -1) {
                 currentItemCountStateFlow.update { 1 }
-                setBtnBackground(0)
-                setBtnText(0)
-                setBtnTextColor(0)
-            } else if (allItemCountStateFlow.value == 0) { currentItemCountStateFlow.update { 0 } }
-            else {
-                setBtnBackground(currentItemCountStateFlow.value - 1)
-                setBtnText(currentItemCountStateFlow.value - 1)
-                setBtnTextColor(currentItemCountStateFlow.value - 1)
+                isParticipateStateFlow.update { challengeItemListStateFlow.value[0].ifMine }
+            }
+            else if (allItemCountStateFlow.value == 0) { currentItemCountStateFlow.update { 0 } }
+            else if (allItemCountStateFlow.value != 0 && currentItemCountStateFlow.value != -1){
+                isParticipateStateFlow.update { challengeItemListStateFlow.value[currentItemCountStateFlow.value - 1].ifMine }
             }
         }
     }
@@ -103,16 +92,25 @@ class ChallengeViewModel @Inject constructor(
     private fun handleGetSuccessMyChallenge(result: List<MyChallengeListItemVo>) {
         viewModelScope.launch {
             myChallengeListStateFlow.update { result }
-            allMyChallengeItemCountStateFlow.update { result.size }
-            if (allMyChallengeItemCountStateFlow.value != 0) {
-                if (currentMyChallengeItemCountStateFlow.value == -1) { currentMyChallengeItemCountStateFlow.update { 1 } }
+            allItemCountStateFlow.update { result.size }
+            if (allItemCountStateFlow.value != 0) {
+                if (currentItemCountStateFlow.value == -1) { currentItemCountStateFlow.update { 1 } }
                 weekOfMonthStateFlow.update { myChallengeListStateFlow.value[0].weekOfMonth }
             }
-            else if (allMyChallengeItemCountStateFlow.value == 0) { currentMyChallengeItemCountStateFlow.update { 0 } }
+            else if (allItemCountStateFlow.value == 0) { currentItemCountStateFlow.update { 0 } }
         }
     }
 
-    fun swipeNextItem() {
+    fun swipeItem(position: Int, previousPosition: Int) {
+        if (position > previousPosition) {
+            swipeNextItem()
+        }
+        else if (position < previousPosition) {
+            swipePreviousItem()
+        }
+    }
+
+    private fun swipeNextItem() {
         when(challengeTapTypeStateFlow.value) {
             ChallengeTapType.ALL -> {
                 increaseAllItemCount()
@@ -128,57 +126,19 @@ class ChallengeViewModel @Inject constructor(
             currentItemCountStateFlow.update {
                 if (currentItemCountStateFlow.value < allItemCountStateFlow.value) currentItemCountStateFlow.value + 1 else return@launch
             }
-            setBtnBackground(currentItemCountStateFlow.value - 1)
-            setBtnText(currentItemCountStateFlow.value - 1)
-            setBtnTextColor(currentItemCountStateFlow.value - 1)
+            isParticipateStateFlow.update { challengeItemListStateFlow.value[currentItemCountStateFlow.value - 1].ifMine }
         }
     }
 
     private fun increaseMyItemCount() {
         viewModelScope.launch {
-            currentMyChallengeItemCountStateFlow.update {
-                if (currentMyChallengeItemCountStateFlow.value < allMyChallengeItemCountStateFlow.value) currentMyChallengeItemCountStateFlow.value + 1 else return@launch
+            currentItemCountStateFlow.update {
+                if (currentItemCountStateFlow.value < allItemCountStateFlow.value) currentItemCountStateFlow.value + 1 else return@launch
             }
         }
     }
 
-    private fun setBtnBackground(currentIdx: Int) {
-        viewModelScope.launch {
-            participateBtnBackgroundStateFlow.update {
-                if (challengeItemListStateFlow.value[currentIdx].ifMine) {
-                    R.drawable.bg_rectangle_filled_white_stroke_main_radius_8
-                } else {
-                    R.drawable.bg_rectangle_filled_main_radius_8
-                }
-            }
-        }
-    }
-
-    private fun setBtnText(currentIdx: Int) {
-        viewModelScope.launch {
-            participateBtnTextStateFlow.update {
-                if (challengeItemListStateFlow.value[currentIdx].ifMine) {
-                    resourceProvider.getString(R.string.challenge_participate_already)
-                } else {
-                    resourceProvider.getString(R.string.challenge_participate)
-                }
-            }
-        }
-    }
-
-    private fun setBtnTextColor(currentIdx: Int) {
-        viewModelScope.launch {
-            participateBtnTextColorStateFlow.update {
-                if (challengeItemListStateFlow.value[currentIdx].ifMine) {
-                    resourceProvider.getColor(R.color.gs_70)
-                } else {
-                    resourceProvider.getColor(R.color.white)
-                }
-            }
-        }
-    }
-
-    fun swipePreviousItem() {
+    private fun swipePreviousItem() {
         when(challengeTapTypeStateFlow.value) {
             ChallengeTapType.ALL -> {
                 decreaseAllItemCount()
@@ -194,21 +154,20 @@ class ChallengeViewModel @Inject constructor(
             currentItemCountStateFlow.update {
                 if (currentItemCountStateFlow.value > 1) currentItemCountStateFlow.value - 1 else return@launch
             }
-            setBtnBackground(currentItemCountStateFlow.value - 1)
-            setBtnText(currentItemCountStateFlow.value - 1)
-            setBtnTextColor(currentItemCountStateFlow.value - 1)
+            isParticipateStateFlow.update { challengeItemListStateFlow.value[currentItemCountStateFlow.value - 1].ifMine }
         }
     }
 
     private fun decreaseMyItemCount() {
         viewModelScope.launch {
-            currentMyChallengeItemCountStateFlow.update {
-                if (currentMyChallengeItemCountStateFlow.value > 1) currentMyChallengeItemCountStateFlow.value - 1 else return@launch
+            currentItemCountStateFlow.update {
+                if (currentItemCountStateFlow.value > 1) currentItemCountStateFlow.value - 1 else return@launch
             }
         }
     }
 
-    fun updateTabType() {
+    fun updateTabType(tapType: ChallengeTapType) {
+        if (challengeTapTypeStateFlow.value == tapType) return
         viewModelScope.launch {
             challengeTapTypeStateFlow.update {
                 if (challengeTapTypeStateFlow.value == ChallengeTapType.ALL) ChallengeTapType.MY else ChallengeTapType.ALL
@@ -225,13 +184,9 @@ class ChallengeViewModel @Inject constructor(
 
         viewModelScope.launch {
             participateChallengeUseCase(request = currentItemId).collect {
-                resultResponse(it, ::handleParticipateChallengeSuccess)
+                resultResponse(it, { getAllChallenge() })
             }
         }
-    }
-
-    private fun handleParticipateChallengeSuccess(result: Unit) {
-        getAllChallenge()
     }
 
     fun quitChallenge(id: Long) {
@@ -247,7 +202,7 @@ class ChallengeViewModel @Inject constructor(
     }
 
     fun completeChallenge() {
-        val currentItemId = myChallengeListStateFlow.value[currentMyChallengeItemCountStateFlow.value - 1].id
+        val currentItemId = myChallengeListStateFlow.value[currentItemCountStateFlow.value - 1].id
         viewModelScope.launch {
             completeChallengeUseCase(request = currentItemId).collect {
                 resultResponse(it, ::handleCompleteChallengeSuccess)

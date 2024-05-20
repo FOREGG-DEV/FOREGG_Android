@@ -11,14 +11,13 @@ import com.foregg.presentation.ui.common.CommonDialog
 import com.foregg.presentation.ui.main.home.challenge.ChallengeViewModel
 
 class MyChallengeListAdapter(
-    private val listener: DeleteMyChallengeDelegate,
-    private val dialog: CommonDialog
+    private val listener: DeleteMyChallengeDelegate
 ) : ListAdapter<MyChallengeListItemVo, RecyclerView.ViewHolder> (
     MyChallengeListCallBack()
 ){
 
     interface DeleteMyChallengeDelegate {
-        fun deleteChallenge(id: Long)
+        fun showDialog(id: Long)
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder) {
@@ -28,7 +27,7 @@ class MyChallengeListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = ItemMyChallengeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MyChallengeListViewHolder(binding, parent.context, listener, dialog)
+        return MyChallengeListViewHolder(binding, parent.context, listener)
     }
 }
 
