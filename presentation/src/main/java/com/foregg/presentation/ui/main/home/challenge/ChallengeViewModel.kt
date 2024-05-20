@@ -111,58 +111,20 @@ class ChallengeViewModel @Inject constructor(
     }
 
     private fun swipeNextItem() {
-        when(challengeTapTypeStateFlow.value) {
-            ChallengeTapType.ALL -> {
-                increaseAllItemCount()
-            }
-            ChallengeTapType.MY -> {
-                increaseMyItemCount()
-            }
-        }
-    }
-
-    private fun increaseAllItemCount() {
         viewModelScope.launch {
             currentItemCountStateFlow.update {
                 if (currentItemCountStateFlow.value < allItemCountStateFlow.value) currentItemCountStateFlow.value + 1 else return@launch
             }
-            isParticipateStateFlow.update { challengeItemListStateFlow.value[currentItemCountStateFlow.value - 1].ifMine }
-        }
-    }
-
-    private fun increaseMyItemCount() {
-        viewModelScope.launch {
-            currentItemCountStateFlow.update {
-                if (currentItemCountStateFlow.value < allItemCountStateFlow.value) currentItemCountStateFlow.value + 1 else return@launch
-            }
+            if(challengeTapTypeStateFlow.value == ChallengeTapType.ALL) isParticipateStateFlow.update { challengeItemListStateFlow.value[currentItemCountStateFlow.value - 1].ifMine }
         }
     }
 
     private fun swipePreviousItem() {
-        when(challengeTapTypeStateFlow.value) {
-            ChallengeTapType.ALL -> {
-                decreaseAllItemCount()
-            }
-            ChallengeTapType.MY -> {
-                decreaseMyItemCount()
-            }
-        }
-    }
-
-    private fun decreaseAllItemCount() {
         viewModelScope.launch {
             currentItemCountStateFlow.update {
                 if (currentItemCountStateFlow.value > 1) currentItemCountStateFlow.value - 1 else return@launch
             }
-            isParticipateStateFlow.update { challengeItemListStateFlow.value[currentItemCountStateFlow.value - 1].ifMine }
-        }
-    }
-
-    private fun decreaseMyItemCount() {
-        viewModelScope.launch {
-            currentItemCountStateFlow.update {
-                if (currentItemCountStateFlow.value > 1) currentItemCountStateFlow.value - 1 else return@launch
-            }
+            if(challengeTapTypeStateFlow.value == ChallengeTapType.ALL) isParticipateStateFlow.update { challengeItemListStateFlow.value[currentItemCountStateFlow.value - 1].ifMine }
         }
     }
 
