@@ -64,15 +64,8 @@ class MedicineInjectionFragment : BaseFragment<FragmentMyMedicineInjectionBindin
 
     private fun bindTab(){
         binding.customTabBar.apply {
-            leftTab.setOnClickListener {
-                leftBtnClicked()
-                viewModel.onClickTab(ProfileMedicineInjectionType.MEDICINE)
-
-            }
-            rightTab.setOnClickListener {
-                rightBtnClicked()
-                viewModel.onClickTab(ProfileMedicineInjectionType.INJECTION)
-            }
+            leftBtnClicked { viewModel.onClickTab(ProfileMedicineInjectionType.MEDICINE) }
+            rightBtnClicked { viewModel.onClickTab(ProfileMedicineInjectionType.INJECTION) }
         }
     }
 
