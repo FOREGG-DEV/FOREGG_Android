@@ -57,6 +57,7 @@ dependencies {
     implementation(AndroidX.SPLASH)
     implementation(AndroidX.THREE_TEN)
     implementation(AndroidX.SWIPE_REFRESH)
+    implementation(AndroidX.DATA_STORE_PREFERENCES)
 
     //코루틴
     implementation(Kotlin.COROUTINES_CORE)
