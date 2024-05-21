@@ -1,6 +1,10 @@
 package com.foregg.presentation.ui
 
+import android.content.pm.PackageManager
+import android.os.Build
 import androidx.activity.viewModels
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.foregg.presentation.R
@@ -9,10 +13,14 @@ import com.foregg.presentation.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity :
-    BaseActivity<ActivityMainBinding, MainActivityPageState, MainActivityViewModel>(
+class MainActivity : BaseActivity<ActivityMainBinding, MainActivityPageState, MainActivityViewModel>(
         ActivityMainBinding::inflate
     ) {
+
+    companion object {
+        private const val PERMISSION_REQUEST_CODE = 5000
+    }
+
     override val viewModel: MainActivityViewModel by viewModels()
     private lateinit var navController: NavController
 
@@ -20,6 +28,7 @@ class MainActivity :
 
         binding.apply {
             vm = viewModel
+            permissionCheck()
             initNavigation()
         }
     }
@@ -72,6 +81,22 @@ class MainActivity :
             R.id.profileFragment -> viewModel.activeProfile()
             R.id.accountFragment -> viewModel.activeAccount()
             else -> viewModel.goneNavigation()
+        }
+    }
+
+    private fun permissionCheck() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val permissionCheck = ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.POST_NOTIFICATIONS
+            )
+            if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                    PERMISSION_REQUEST_CODE
+                )
+            }
         }
     }
 }

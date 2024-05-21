@@ -29,26 +29,31 @@ class MainActivityViewModel @Inject constructor() : BaseViewModel<MainActivityPa
     )
 
     fun onClickCalendar() {
+        if(isCalendarPageStateFlow.value) return
         activeCalendar()
         emitEventFlow(MainActivityEvent.GoToCalendar)
     }
 
     fun onClickAccount() {
+        if(isAccountPageStateFlow.value) return
         activeAccount()
         emitEventFlow(MainActivityEvent.GoToAccount)
     }
 
     fun onClickMain() {
+        if(isMainPageStateFlow.value) return
         activeMain()
         emitEventFlow(MainActivityEvent.GoToMain)
     }
 
     fun onClickInfo() {
+        if(isInfoPageStateFlow.value) return
         activeInfo()
         emitEventFlow(MainActivityEvent.GoToInfo)
     }
 
     fun onClickProfile() {
+        if(isProfilePageStateFlow.value) return
         activeProfile()
         emitEventFlow(MainActivityEvent.GoToProfile)
     }
