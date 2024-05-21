@@ -11,6 +11,7 @@ import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseActivity
 import com.foregg.presentation.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding, MainActivityPageState, MainActivityViewModel>(
@@ -35,8 +36,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityPageState, Ma
 
     override fun initState() {
         repeatOnStarted {
-            viewModel.eventFlow.collect {
-                inspectEvent(it as MainActivityEvent)
+            launch {
+                viewModel.eventFlow.collect {
+                    inspectEvent(it as MainActivityEvent)
+                }
+            }
+            launch {
+
             }
         }
     }

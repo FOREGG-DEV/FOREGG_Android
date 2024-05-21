@@ -5,6 +5,7 @@
 
     <data>
         <import type="android.view.View"/>
+        <import type="com.foregg.presentation.util.ForeggNotification"/>
         <variable
             name="vm"
             type="com.foregg.presentation.ui.MainActivityViewModel" />
@@ -49,7 +50,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:background="@{vm.uiState.isCalendarPage() ? @drawable/ic_bottom_nav_calendar_active : @drawable/ic_bottom_nav_calendar_inactive}"
+                    android:background="@{vm.uiState.isCalendarPage() ? @drawable/ic_bottom_nav_calendar_active : (ForeggNotification.INSTANCE.calendarNotificationStateFlow.booleanValue() == true ? @drawable/ic_bottom_nav_calendar_noti : @drawable/ic_bottom_nav_calendar_inactive)}"
                     android:layout_width="32dp"
                     android:layout_height="32dp"/>
 
@@ -81,7 +82,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:background="@{vm.uiState.isAccountPage() ? @drawable/ic_bottom_nav_account_active : @drawable/ic_bottom_nav_account_inactive}"
+                    android:background="@{vm.uiState.isAccountPage() ? @drawable/ic_bottom_nav_account_active : (ForeggNotification.INSTANCE.ledgerNotificationStateFlow.booleanValue() == true ? @drawable/ic_bottom_nav_account_noti : @drawable/ic_bottom_nav_account_inactive)}"
                     android:layout_width="32dp"
                     android:layout_height="32dp"/>
 
