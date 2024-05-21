@@ -68,6 +68,8 @@ dependencies {
     implementation(Google.HILT_CORE)
     implementation(Google.FCM)
     implementation(Google.FCM_KTX)
+    implementation("com.google.firebase:firebase-analytics:21.2.0")
+
 
     kapt(Google.HILT_COMPILER)
 

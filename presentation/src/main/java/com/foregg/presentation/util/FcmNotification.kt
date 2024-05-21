@@ -39,6 +39,7 @@ class FcmNotification @Inject constructor() : FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
+        if(message.data.isEmpty()) return
         val type = NotificationType.valuesOf(message.data[TYPE] ?: "")
         when(type){
             NotificationType.INJECTION_FEMALE -> {} //sendNotification(message.data)
@@ -87,11 +88,11 @@ class FcmNotification @Inject constructor() : FirebaseMessagingService() {
 
 
     private fun saveFlags(key : Preferences.Key<Boolean>, type: NotificationType) {
-        ForeggNotification.updateNoty(applicationContext, type, true)
         CoroutineScope(Dispatchers.IO).launch {
             applicationContext.dataStore.edit { preferences ->
                 preferences[key] = true
             }
+            ForeggNotification.updateNoty(applicationContext, type, true)
         }
 
     }

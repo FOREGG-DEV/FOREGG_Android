@@ -3,6 +3,7 @@ package com.foregg.presentation
 import android.app.Application
 import com.foregg.presentation.util.ForeggNotification
 import com.foregg.presentation.util.KAKAO_NATIVE_KEY
+import com.google.firebase.FirebaseApp
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.kakao.sdk.common.KakaoSdk
 import dagger.hilt.android.HiltAndroidApp
@@ -19,5 +20,6 @@ class ForeggApp : Application() {
         CoroutineScope(Dispatchers.IO).launch {
             ForeggNotification.init(applicationContext)
         }
+        FirebaseApp.initializeApp(this);
     }
 }

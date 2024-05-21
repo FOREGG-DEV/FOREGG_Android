@@ -24,16 +24,44 @@ object ForeggNotification {
     }
 
     fun updateNoty(context: Context, type : NotificationType, value : Boolean) {
-        val key = when(type){
-            NotificationType.TODAY_RECORD_MALE -> PreferenceKeys.KEY_TODAY_RECORD
-            NotificationType.CALENDAR -> PreferenceKeys.KEY_CALENDAR
-            NotificationType.LEDGER -> PreferenceKeys.KEY_LEDGER
-            else -> PreferenceKeys.KEY_NOTHING
+        var key = PreferenceKeys.KEY_NOTHING
+        when(type){
+            NotificationType.TODAY_RECORD_MALE -> {
+                updateTodayRecordNotification(value)
+                key = PreferenceKeys.KEY_TODAY_RECORD
+            }
+            NotificationType.CALENDAR -> {
+                updateCalendarNotification(value)
+                key = PreferenceKeys.KEY_CALENDAR
+            }
+            NotificationType.LEDGER -> {
+                updateLedgerNotification(value)
+                key = PreferenceKeys.KEY_LEDGER
+            }
+            else -> {}
         }
         CoroutineScope(Dispatchers.IO).launch {
             context.dataStore.edit { preferences ->
                 preferences[key] = value
             }
+        }
+    }
+
+    private fun updateCalendarNotification(value : Boolean){
+        CoroutineScope(Dispatchers.IO).launch {
+            calendarNotificationStateFlow.update { value }
+        }
+    }
+
+    private fun updateLedgerNotification(value : Boolean){
+        CoroutineScope(Dispatchers.IO).launch {
+            ledgerNotificationStateFlow.update { value }
+        }
+    }
+
+    private fun updateTodayRecordNotification(value : Boolean){
+        CoroutineScope(Dispatchers.IO).launch {
+            todayRecordNotificationStateFlow.update { value }
         }
     }
 }
