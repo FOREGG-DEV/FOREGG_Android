@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.foregg.presentation.ui.main.profile.myMedicineInjection.MedicineInjectionViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/include_top_bar"
+                layout="@layout/include_top_bar" />
+
+            <TextView
+                android:id="@+id/text_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/profile_my_medicine_injection"
+                android:textAppearance="@style/h3"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/include_top_bar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/include_top_bar" />
+
+            <ImageButton
+                android:id="@+id/img_btn_back"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="16dp"
+                android:onClick="@{()->vm.onClickBack()}"
+                android:background="@drawable/ic_back_arrow_gs_50"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.foregg.presentation.ui.common.CustomTabBar
+                android:id="@+id/custom_tab_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/include_top_bar"
+                app:leftText="@string/word_medicine"
+                app:rightText="@string/word_injection"
+                app:tabCount="2">
+            </com.foregg.presentation.ui.common.CustomTabBar>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_medicine_injection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/custom_tab_bar" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

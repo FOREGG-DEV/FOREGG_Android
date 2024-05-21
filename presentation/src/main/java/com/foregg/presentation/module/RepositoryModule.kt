@@ -2,6 +2,7 @@ package com.foregg.presentation.module
 
 import com.foregg.data.repository.AccountRepositoryImpl
 import com.foregg.data.repository.AuthRepositoryImpl
+import com.foregg.data.repository.ChallengeRepositoryImpl
 import com.foregg.data.repository.ForeggJwtRepositoryImpl
 import com.foregg.data.repository.ProfileRepositoryImpl
 import com.foregg.data.repository.ScheduleRepositoryImpl
@@ -11,6 +12,7 @@ import com.foregg.domain.repository.ForeggJwtRepository
 import com.foregg.domain.repository.ProfileRepository
 import com.foregg.domain.repository.ScheduleRepository
 import com.foregg.data.repository.HomeRepositoryImpl
+import com.foregg.domain.repository.ChallengeRepository
 import com.foregg.domain.repository.HomeRepository
 import dagger.Binds
 import dagger.Module
@@ -37,6 +39,10 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesHomeRepository(repositoryImpl: HomeRepositoryImpl) : HomeRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesChallengeRepository(repositoryImpl: ChallengeRepositoryImpl) : ChallengeRepository
 
     @Singleton
     @Binds
