@@ -111,6 +111,7 @@
 
     <!-- toast -->
     <string name="toast_clip_share_code">클립보드에 배우자 코드가 복사되었어요!</string>
+    <string name="toast_clipboard_email">클립보드에 메일주소가 복사되었어요!</string>
 
     <!-- challenge -->
     <string name="challenge_title">챌린지</string>

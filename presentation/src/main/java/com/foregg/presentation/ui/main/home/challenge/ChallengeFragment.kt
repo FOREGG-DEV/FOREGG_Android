@@ -26,7 +26,7 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
     private val myChallengeListAdapter : MyChallengeListAdapter by lazy {
         MyChallengeListAdapter(object : MyChallengeListAdapter.DeleteMyChallengeDelegate {
             override fun showDialog(id: Long) {
-                showDialog(id)
+                showDeleteDialog(id)
             }
         })
     }
@@ -78,15 +78,13 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
     }
 
     private fun bindTab(){
-        binding.apply {
-            customTabBar.leftTab.setOnClickListener {
-                customTabBar.leftBtnClicked()
+        binding.customTabBar.apply {
+            leftBtnClicked {
                 viewModel.updateTabType(ChallengeTapType.ALL)
                 viewModel.getAllChallenge()
                 binding.viewPagerChallenge.adapter = challengeListAdapter
             }
-            customTabBar.rightTab.setOnClickListener {
-                customTabBar.rightBtnClicked()
+            rightBtnClicked {
                 viewModel.updateTabType(ChallengeTapType.MY)
                 viewModel.getMyChallenge()
                 binding.viewPagerChallenge.adapter = myChallengeListAdapter
@@ -94,7 +92,7 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
         }
     }
 
-    private fun showDialog(id: Long) {
+    private fun showDeleteDialog(id: Long) {
         dialog
             .setTitle(R.string.challenge_stop)
             .setPositiveButton(R.string.word_yes) {
