@@ -15,5 +15,5 @@ data class DailyRecordResponseItem(
     @SerializedName("date")
     val date: String = "",
     @SerializedName("emotionType")
-    val emotionType: EmotionType = EmotionType.DEFAULT
+    val emotionType: EmotionType? = EmotionType.DEFAULT
 ): DataDto
