@@ -120,4 +120,11 @@ object TimeFormatter {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         return oneMonthAgo.format(formatter)
     }
+
+    fun getPreviousThreeMonthDate() : String {
+        val today = LocalDate.now()
+        val oneMonthAgo = today.minusMonths(3)
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        return oneMonthAgo.format(formatter)
+    }
 }

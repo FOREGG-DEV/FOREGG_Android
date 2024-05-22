@@ -256,4 +256,8 @@ class AccountViewModel @Inject constructor(
             }
         }
     }
+
+    fun onClickChangeDate(){
+        emitEventFlow(AccountEvent.ShowBottomSheetEvent(startDayStateFlow.value, endDayStateFlow.value))
+    }
 }
