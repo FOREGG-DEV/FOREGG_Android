@@ -88,12 +88,23 @@
     <string name="account_money_unit">%s원</string>
     <string name="account_money_unit_text">원</string>
     <string name="account_round_unit">%d회차</string>
-
-    <!--  dailyRecord  -->
-    <string name="daily_record">하루 기록</string>
     <string name="account_round_unit_text">회차</string>
     <string name="account_content">내용</string>
     <string name="account_create_title">가계부 추가</string>
+
+    <!--  dailyRecord  -->
+    <string name="daily_record">하루 기록</string>
+    <string name="daily_record_adverse_effect">부작용</string>
+
+    <!--  CreateDailyRecord  -->
+    <string name="create_daily_record_text">%s님\n오늘 하루 어떠셨나요?</string>
+    <string name="create_daily_record_edit_text_hint">오늘의 컨디션과 감정에 대해 기록해주세요</string>
+    
+    <!--  createAdverseEffect  -->
+    <string name="create_adverse_effect_text">%s님\n오늘 주사, 약 부작용은 없으셨나요?</string>
+    <string name="create_adverse_effect_no_adverse_effect">부작용 없어요</string>
+    <string name="create_adverse_effect_yes_adverse_effect">부작용 있어요</string>
+    <string name="create_adverse_effect_edit_text_hint">어떤 부작용이 있는지 자세히 적어주세요</string>
 
     <!-- MyPage -->
     <string name="profile_nickname">%s님의 정보</string>
