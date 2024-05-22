@@ -104,8 +104,9 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountPageState, A
     }
 
     private fun showBottomSheet(startDay : String, endDay : String){
-        AccountDatePickBottomSheet.newInstance(startDay, endDay) { _, _ ->
-            ForeggLog.D("하이쓰")
+        AccountDatePickBottomSheet.newInstance(startDay, endDay) { start, end ->
+            viewModel.initDay(start, end)
+            viewModel.getAccountByCondition()
         }.show(parentFragmentManager, "")
     }
 }
