@@ -78,14 +78,14 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
     }
 
     private fun bindTab(){
-        binding.apply {
-            customTabBar.leftTab.setOnClickListener {
-                customTabBar.leftBtnClicked{viewModel.updateTabType(ChallengeTapType.ALL) }
+        binding.customTabBar.apply {
+            leftBtnClicked {
+                viewModel.updateTabType(ChallengeTapType.ALL)
                 viewModel.getAllChallenge()
                 binding.viewPagerChallenge.adapter = challengeListAdapter
             }
-            customTabBar.rightTab.setOnClickListener {
-                customTabBar.rightBtnClicked{ viewModel.updateTabType(ChallengeTapType.MY) }
+            rightBtnClicked {
+                viewModel.updateTabType(ChallengeTapType.MY)
                 viewModel.getMyChallenge()
                 binding.viewPagerChallenge.adapter = myChallengeListAdapter
             }
