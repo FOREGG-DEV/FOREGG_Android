@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="vm"
+            type="com.foregg.presentation.ui.dailyRecord.createDailyRecord.CreateDailyRecordViewModel"/>
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background">
+
+            <include
+                android:id="@+id/include_top_bar"
+                layout="@layout/include_top_bar" />
+
+            <ImageButton
+                android:id="@+id/btn_close"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="28dp"
+                android:src="@drawable/ic_cancel"
+                android:background="@android:color/transparent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/include_top_bar"
+                app:layout_constraintBottom_toBottomOf="@id/include_top_bar"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/daily_record"
+                android:textAppearance="@style/h3"
+                android:textColor="@color/gs_black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/include_top_bar"
+                app:layout_constraintBottom_toBottomOf="@id/include_top_bar"/>
+
+            <TextView
+                android:id="@+id/create_daily_record_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@{vm.uiState.questionText}"
+                android:textAppearance="@style/h1"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/include_top_bar"/>
+
+            <LinearLayout
+                android:id="@+id/emotion_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginHorizontal="16dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/create_daily_record_text">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:onClick="@{()->vm.onClickBtnWorst()}"
+                    android:src="@{vm.uiState.isWorstEmotion ? @drawable/ic_emotion_worst_selected : @drawable/ic_emotion_worst_unselected}"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:onClick="@{()->vm.onClickBtnBad()}"
+                    android:src="@{vm.uiState.isBadEmotion ? @drawable/ic_emotion_bad_selected : @drawable/ic_emotion_bad_unselected}"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:onClick="@{()->vm.onClickBtnSoSo()}"
+                    android:src="@{vm.uiState.isSoSoEmotion ? @drawable/ic_emotion_soso_selected : @drawable/ic_emotion_soso_unselected}"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:onClick="@{()->vm.onClickBtnSmile()}"
+                    android:src="@{vm.uiState.isSmileEmotion ? @drawable/ic_emotion_smile_selected : @drawable/ic_emotion_smile_unselected}"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:onClick="@{()->vm.onClickBtnPerfect()}"
+                    android:src="@{vm.uiState.isPerfectEmotion ? @drawable/ic_emotion_perfect_selected : @drawable/ic_emotion_perfect_unselected}"/>
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/edit_text_frame"
+                android:layout_width="match_parent"
+                android:layout_height="173dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginHorizontal="16dp"
+                android:background="@drawable/bg_rectangle_filled_white_radius_8"
+                app:layout_constraintTop_toBottomOf="@id/emotion_layout">
+
+                <EditText
+                    android:id="@+id/edit_text_daily_record"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:inputType="textMultiLine"
+                    android:background="@null"
+                    android:scrollHorizontally="false"
+                    android:hint="@string/create_daily_record_edit_text_hint"
+                    android:textAppearance="@style/p2"/>
+
+            </FrameLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_create_adverse_effect"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="201dp"
+                android:background="@drawable/bg_rectangle_filled_white_stroke_main_radius_8"
+                android:text="@string/word_next"
+                android:textAppearance="@style/h1"
+                android:onClick="@{()->vm.onClickBtnNext()}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_text_frame"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>
