@@ -133,27 +133,20 @@
 
             </LinearLayout>
 
-            <FrameLayout
-                android:id="@+id/edit_text_frame"
+            <EditText
+                android:id="@+id/edit_text_side_effect"
                 android:layout_width="match_parent"
-                android:layout_height="173dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginHorizontal="16dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:padding="16dp"
+                android:minHeight="173dp"
+                android:inputType="textMultiLine"
                 android:background="@drawable/bg_rectangle_filled_white_radius_8"
-                app:layout_constraintTop_toBottomOf="@id/btn_adverse_effect_layout">
-
-                <EditText
-                    android:id="@+id/edit_text_side_effect"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:inputType="textMultiLine"
-                    android:background="@null"
-                    android:scrollHorizontally="false"
-                    android:hint="@string/create_adverse_effect_edit_text_hint"
-                    android:textAppearance="@style/p2"/>
-
-            </FrameLayout>
+                android:scrollHorizontally="false"
+                android:hint="@string/create_adverse_effect_edit_text_hint"
+                android:textAppearance="@style/p2"
+                android:gravity="top|start"
+                app:layout_constraintTop_toBottomOf="@id/btn_adverse_effect_layout"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_create_adverse_effect"
@@ -167,7 +160,13 @@
                 android:onClick="@{()->vm.onClickBtnNext()}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edit_text_frame"/>
+                app:layout_constraintTop_toBottomOf="@id/edit_text_side_effect"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                app:layout_constraintTop_toBottomOf="@id/btn_create_adverse_effect"/>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
