@@ -68,7 +68,8 @@
                                 android:layout_marginStart="4dp"
                                 android:layout_gravity="bottom"
                                 tools:text="2024.04.20"
-                                android:textAppearance="@style/p4"/>
+                                android:textAppearance="@style/p4"
+                                android:textColor="@color/gs_70"/>
 
                             <Space
                                 android:layout_width="0dp"
@@ -88,7 +89,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            tools:text="dd\ndd\ndd\n\ddddddd\ndd"/>
+                            tools:text="dd\ndd\ndd\n\ddddddd\ndd"
+                            android:textColor="@color/gs_80"
+                            android:textAppearance="@style/p1"/>
 
                     </LinearLayout>
 
