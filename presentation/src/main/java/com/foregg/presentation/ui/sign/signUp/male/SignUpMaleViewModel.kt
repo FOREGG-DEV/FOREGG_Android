@@ -53,7 +53,7 @@ class SignUpMaleViewModel @Inject constructor(
     }
 
     private fun handleJoinSuccess(result : SignResponseVo){
-        val request = SaveForeggJwtRequestVo(accessToken = result.accessToken, refreshToken = "")
+        val request = SaveForeggJwtRequestVo(accessToken = result.accessToken, refreshToken = result.refreshToken)
         viewModelScope.launch {
             saveForeggAccessTokenAndRefreshTokenUseCase(request).collect{
                 if(it) getMyInfo() else ForeggLog.D("저장 실패")

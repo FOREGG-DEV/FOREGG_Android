@@ -1,7 +1,7 @@
 package com.foregg.domain.repository
 
 import com.foregg.domain.base.ApiState
-import com.foregg.domain.model.request.SaveForeggJwtRequestVo
+import com.foregg.domain.model.request.sign.SaveForeggJwtRequestVo
 import com.foregg.domain.model.response.ForeggJwtResponseVo
 import kotlinx.coroutines.flow.Flow
 

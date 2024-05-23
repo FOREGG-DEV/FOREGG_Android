@@ -8,8 +8,6 @@ import com.foregg.data.api.ForeggJwtTokenApi
 import com.foregg.data.base.BaseRepository
 import com.foregg.data.mapper.ForeggJwtResponseMapper
 import com.foregg.domain.base.ApiState
-import com.foregg.domain.model.request.SaveForeggJwtRequestVo
-import com.foregg.domain.model.request.sign.ForeggJwtReIssueRequestVo
 import com.foregg.domain.model.request.sign.SaveForeggJwtRequestVo
 import com.foregg.domain.model.response.ForeggJwtResponseVo
 import com.foregg.domain.repository.ForeggJwtRepository
