@@ -10,6 +10,7 @@ object SignResponseMapper: Mapper.ResponseMapper<SignResponse, SignResponseVo> {
         return type?.run {
             SignResponseVo(
                 accessToken = accessToken ?: "",
+                refreshToken = refreshToken ?: "",
                 shareCode = spouseCode ?: ""
             )
         }?: SignResponseVo()
