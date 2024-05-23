@@ -2,8 +2,8 @@ package com.foregg.presentation.module
 
 import android.util.Log
 import com.foregg.domain.base.ApiState
-import com.foregg.domain.model.request.ForeggJwtReIssueRequestVo
-import com.foregg.domain.model.request.SaveForeggJwtRequestVo
+import com.foregg.domain.model.request.sign.ForeggJwtReIssueRequestVo
+import com.foregg.domain.model.request.sign.SaveForeggJwtRequestVo
 import com.foregg.domain.model.response.ForeggJwtResponseVo
 import com.foregg.domain.usecase.jwtToken.GetForeggAccessTokenUseCase
 import com.foregg.domain.usecase.jwtToken.GetFroeggRefreshTokenUseCase

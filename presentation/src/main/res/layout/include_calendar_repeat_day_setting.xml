@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-
     <data>
+        <import type="com.foregg.presentation.util.UserInfo"/>
+        <import type="com.foregg.domain.model.enums.GenderType"/>
         <import type="com.foregg.domain.model.enums.RepeatDayType"/>
         <import type="com.foregg.domain.model.enums.CalendarDatePickerType"/>
         <variable
@@ -46,6 +47,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@android:color/transparent"
+                android:clickable="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? false : true}"
                 android:onClick="@{()->vm.onClickDateCalendar(CalendarDatePickerType.START)}"
                 android:src="@drawable/ic_calendar_gs_70"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -97,6 +99,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@android:color/transparent"
+                android:clickable="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? false : true}"
                 android:onClick="@{()->vm.onClickDateCalendar(CalendarDatePickerType.END)}"
                 android:src="@drawable/ic_calendar_gs_70"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -138,6 +141,7 @@
             android:layout_marginStart="9dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
+            android:clickable="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? false : true}"
             android:onClick="@{()->vm.onClickRepeatDayBtn(RepeatDayType.EVERY)}"
             android:background="@{vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.EVERY.week) ? @drawable/bg_rectangle_filled_main_radius_4 : @drawable/bg_rectangle_filled_white_radius_4}"
             android:text="@string/word_every_day"
@@ -153,6 +157,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
+            android:clickable="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? false : true}"
             android:onClick="@{()->vm.onClickRepeatDayBtn(RepeatDayType.MON)}"
             android:background="@{vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.EVERY.week) || vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.MON.week) ? @drawable/bg_rectangle_filled_white_stroke_main_radius_4 : @drawable/bg_rectangle_filled_white_radius_4}"
             android:text="@string/word_monday"
@@ -168,6 +173,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
+            android:clickable="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? false : true}"
             android:onClick="@{()->vm.onClickRepeatDayBtn(RepeatDayType.TUE)}"
             android:background="@{vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.EVERY.week) || vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.TUE.week) ? @drawable/bg_rectangle_filled_white_stroke_main_radius_4 : @drawable/bg_rectangle_filled_white_radius_4}"
             android:text="@string/word_tuesday"
@@ -183,6 +189,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
+            android:clickable="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? false : true}"
             android:onClick="@{()->vm.onClickRepeatDayBtn(RepeatDayType.WED)}"
             android:background="@{vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.EVERY.week) || vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.WED.week) ? @drawable/bg_rectangle_filled_white_stroke_main_radius_4 : @drawable/bg_rectangle_filled_white_radius_4}"
             android:text="@string/word_wednesday"
@@ -199,6 +206,7 @@
             android:layout_marginStart="9dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:clickable="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? false : true}"
             android:onClick="@{()->vm.onClickRepeatDayBtn(RepeatDayType.THU)}"
             android:background="@{vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.EVERY.week) || vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.THU.week) ? @drawable/bg_rectangle_filled_white_stroke_main_radius_4 : @drawable/bg_rectangle_filled_white_radius_4}"
             android:text="@string/word_thursday"
@@ -214,6 +222,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:clickable="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? false : true}"
             android:onClick="@{()->vm.onClickRepeatDayBtn(RepeatDayType.FRI)}"
             android:background="@{vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.EVERY.week) || vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.FRI.week) ? @drawable/bg_rectangle_filled_white_stroke_main_radius_4 : @drawable/bg_rectangle_filled_white_radius_4}"
             android:text="@string/word_friday"
@@ -229,6 +238,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:clickable="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? false : true}"
             android:onClick="@{()->vm.onClickRepeatDayBtn(RepeatDayType.SAT)}"
             android:background="@{vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.EVERY.week) || vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.SAT.week) ? @drawable/bg_rectangle_filled_white_stroke_main_radius_4 : @drawable/bg_rectangle_filled_white_radius_4}"
             android:text="@string/word_saturday"
@@ -244,6 +254,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
+            android:clickable="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? false : true}"
             android:onClick="@{()->vm.onClickRepeatDayBtn(RepeatDayType.SUN)}"
             android:background="@{vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.EVERY.week) || vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.SUN.week) ? @drawable/bg_rectangle_filled_white_stroke_main_radius_4 : @drawable/bg_rectangle_filled_white_radius_4}"
             android:text="@string/word_sunday"

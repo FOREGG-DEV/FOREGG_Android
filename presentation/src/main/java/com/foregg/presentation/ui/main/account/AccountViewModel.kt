@@ -70,20 +70,19 @@ class AccountViewModel @Inject constructor(
         year = TimeFormatter.getYear(today).toInt()
         month = TimeFormatter.getMonth(today).toInt()
         round = 1
-        initDay(today)
+        initDay(TimeFormatter.getPreviousMonthDate(), today)
         getAccountByCondition()
     }
 
-    private fun initDay(date : String){
-        val prevMonthDay = TimeFormatter.getPreviousMonthDate()
+    fun initDay(start : String, end : String){
         viewModelScope.launch {
-            startDayStateFlow.update { prevMonthDay }
-            endDayStateFlow.update { date }
-            updateStartAndEndStateFlow("${TimeFormatter.getDotsDate(prevMonthDay)} - ${TimeFormatter.getDotsDate(date)}")
+            startDayStateFlow.update { start }
+            endDayStateFlow.update { end }
+            updateStartAndEndStateFlow("${TimeFormatter.getDotsDate(start)} - ${TimeFormatter.getDotsDate(end)}")
         }
     }
 
-    private fun getAccountByCondition(){
+    fun getAccountByCondition(){
         val request = AccountGetConditionRequestVo(
             from = startDayStateFlow.value,
             to = endDayStateFlow.value
@@ -255,5 +254,9 @@ class AccountViewModel @Inject constructor(
                 resultResponse(it, {inspectSelectText(tabTypeStateFlow.value)} )
             }
         }
+    }
+
+    fun onClickChangeDate(){
+        emitEventFlow(AccountEvent.ShowBottomSheetEvent(startDayStateFlow.value, endDayStateFlow.value))
     }
 }

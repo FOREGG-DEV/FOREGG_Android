@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="com.foregg.presentation.util.UserInfo"/>
+        <import type="com.foregg.domain.model.enums.GenderType"/>
         <import type="com.foregg.domain.model.enums.RecordType" />
         <import type="com.foregg.domain.model.enums.CalendarType" />
         <import type="com.foregg.domain.model.enums.CalendarTabType" />
@@ -66,7 +67,7 @@
                     android:layout_height="32dp"
                     android:layout_marginEnd="24dp"
                     android:onClick="@{()->vm.onClickUploadSchedule()}"
-                    android:visibility="@{vm.uiState.viewType == CalendarType.CREATE ? View.VISIBLE : (vm.uiState.isChanged() ? View.VISIBLE : View.GONE)}"
+                    android:visibility="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? View.GONE : (vm.uiState.viewType == CalendarType.CREATE ? View.VISIBLE : (vm.uiState.isChanged() ? View.VISIBLE : View.GONE))}"
                     android:background="@drawable/ic_check_circle"
                     app:layout_constraintBottom_toBottomOf="@id/include_top_bar"
                     app:layout_constraintEnd_toEndOf="parent"

@@ -77,6 +77,11 @@
         tools:layout="@layout/fragment_sign_up_male">
 
         <argument
+            android:name="accessToken"
+            android:defaultValue=""
+            app:argType="string"/>
+
+        <argument
             android:name="ssn"
             android:defaultValue=""
             app:argType="string"/>
