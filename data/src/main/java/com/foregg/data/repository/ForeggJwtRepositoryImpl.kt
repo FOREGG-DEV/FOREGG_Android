@@ -8,7 +8,6 @@ import com.foregg.data.api.ForeggJwtTokenApi
 import com.foregg.data.base.BaseRepository
 import com.foregg.data.mapper.ForeggJwtResponseMapper
 import com.foregg.domain.base.ApiState
-import com.foregg.domain.model.request.sign.ForeggJwtReIssueRequestVo
 import com.foregg.domain.model.request.sign.SaveForeggJwtRequestVo
 import com.foregg.domain.model.response.ForeggJwtResponseVo
 import com.foregg.domain.repository.ForeggJwtRepository
@@ -51,7 +50,7 @@ class ForeggJwtRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun reIssueToken(request: ForeggJwtReIssueRequestVo): Flow<ApiState<ForeggJwtResponseVo>> {
+    override suspend fun reIssueToken(request: String): Flow<ApiState<ForeggJwtResponseVo>> {
         return apiLaunch(apiCall = { plubJwtTokenApi.reIssueToken(request) }, ForeggJwtResponseMapper)
     }
 }

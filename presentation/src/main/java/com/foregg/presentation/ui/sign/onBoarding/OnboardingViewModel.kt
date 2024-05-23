@@ -68,7 +68,7 @@ class OnboardingViewModel @Inject constructor(
     }
 
     private fun handleLoginSuccess(result : SignResponseVo){
-        val request = SaveForeggJwtRequestVo(accessToken = result.accessToken, refreshToken = "")
+        val request = SaveForeggJwtRequestVo(accessToken = result.accessToken, refreshToken = result.refreshToken)
         viewModelScope.launch {
             saveForeggAccessTokenAndRefreshTokenUseCase(request).collect{
                 if(it) getMyInfo() else ForeggLog.D("저장 실패")

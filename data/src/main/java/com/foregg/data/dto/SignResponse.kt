@@ -8,6 +8,8 @@ data class SignResponse(
     val keycode : String? ="",
     @SerializedName("accessToken")
     val accessToken : String? ="",
+    @SerializedName("refreshToken")
+    val refreshToken : String? ="",
     @SerializedName("spouseCode")
     val spouseCode : String? ="",
 ) : DataDto

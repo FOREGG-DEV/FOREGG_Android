@@ -57,9 +57,8 @@ class TokenAuthenticator @Inject constructor(
 
         return if (access != newAccess) true else {
             Log.d("RETROFIT","TokenAuthenticator - authenticate() called / 토큰 만료. 토큰 Refresh 요청: $refresh")
-            val reIssueRequestVo = ForeggJwtReIssueRequestVo(refresh)
             var foreggJwtToken = ForeggJwtResponseVo("", "")
-            postReIssueTokenUseCase(reIssueRequestVo).collect { state ->
+            postReIssueTokenUseCase(refresh).collect { state ->
                 when(state) {
                     is ApiState.Loading -> { }
                     is ApiState.Success -> {
