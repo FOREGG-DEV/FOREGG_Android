@@ -80,6 +80,8 @@ class AccountDatePickBottomSheet : BottomSheetDialogFragment() {
         binding.apply {
             textStartDay.text = startDay
             textEndDay.text = endDay
+            passedStartDay = startDay
+            passedEndDay = endDay
             setListener()
         }
     }
