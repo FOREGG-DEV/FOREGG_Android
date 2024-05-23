@@ -99,6 +99,7 @@
     <string name="profile_surgery_start_date">시작 날짜</string>
     <string name="profile_spouse">배우자</string>
     <string name="profile_my_medicine_injection">나의 약, 주사 정보</string>
+    <string name="profile_spouse_medicine_injection">%s 님의 약, 주사 정보</string>
     <string name="profile_notice">공지사항</string>
     <string name="profile_faq">FAQ</string>
     <string name="profile_ask">문의사항</string>

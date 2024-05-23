@@ -1,7 +1,7 @@
 package com.foregg.domain.usecase.jwtToken
 
 import com.foregg.domain.base.UseCase
-import com.foregg.domain.model.request.SaveForeggJwtRequestVo
+import com.foregg.domain.model.request.sign.SaveForeggJwtRequestVo
 import com.foregg.domain.repository.ForeggJwtRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

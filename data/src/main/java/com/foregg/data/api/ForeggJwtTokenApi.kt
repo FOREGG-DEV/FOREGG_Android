@@ -2,7 +2,7 @@ package com.foregg.data.api
 
 import com.foregg.data.base.ApiResponse
 import com.foregg.data.dto.ForeggJwtResponse
-import com.foregg.domain.model.request.ForeggJwtReIssueRequestVo
+import com.foregg.domain.model.request.sign.ForeggJwtReIssueRequestVo
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST

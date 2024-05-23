@@ -2,9 +2,9 @@ package com.foregg.presentation.ui.sign.signUp.female
 
 import androidx.lifecycle.viewModelScope
 import com.foregg.domain.model.enums.SurgeryType
-import com.foregg.domain.model.request.SaveForeggJwtRequestVo
-import com.foregg.domain.model.request.SignUpRequestVo
-import com.foregg.domain.model.request.SignUpWithTokenRequestVo
+import com.foregg.domain.model.request.sign.SaveForeggJwtRequestVo
+import com.foregg.domain.model.request.sign.SignUpRequestVo
+import com.foregg.domain.model.request.sign.SignUpWithTokenRequestVo
 import com.foregg.domain.model.response.SignResponseVo
 import com.foregg.domain.model.response.profile.ProfileDetailResponseVo
 import com.foregg.domain.model.vo.UserVo
@@ -143,7 +143,7 @@ class SignUpFemaleViewModel @Inject constructor(
         emitEventFlow(SignUpFemaleEvent.GoToMainEvent)
     }
 
-    private fun getRequest() : SignUpWithTokenRequestVo{
+    private fun getRequest() : SignUpWithTokenRequestVo {
         return SignUpWithTokenRequestVo(
             accessToken = accessToken,
             signUpRequestVo = SignUpRequestVo(
