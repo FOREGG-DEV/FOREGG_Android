@@ -25,6 +25,7 @@ import com.foregg.domain.usecase.schedule.PutModifyScheduleUseCase
 import com.foregg.presentation.base.BaseViewModel
 import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.TimeFormatter
+import com.foregg.presentation.util.toList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -374,7 +375,10 @@ class CreateEditScheduleViewModel @Inject constructor(
             onClickSetRepeatDay()
             updateStartDate(result.startDate!!)
             updateEndDate(result.endDate!!)
-            result.repeatDate?.let { updateRepeatDayText(it) }
+            result.repeatDate?.let {
+                updateRepeatDayText(it)
+                it.toList().forEach { day -> onClickRepeatDayBtn(RepeatDayType.valuesOf(day)) }
+            }
         }
     }
 
@@ -439,9 +443,6 @@ class CreateEditScheduleViewModel @Inject constructor(
     }
 
     private fun checkMedicalSideEffectChanged() : Boolean{
-        ForeggLog.D(originMedicalRecord.medicalRecord)
-        ForeggLog.D(medicalRecordStateFlow.value.medicalRecord)
-        ForeggLog.D((originMedicalRecord.medicalRecord != medicalRecordStateFlow.value.medicalRecord).toString())
         return if(originDetail.recordType == RecordType.HOSPITAL){
             originMedicalRecord.medicalRecord != medicalRecordStateFlow.value.medicalRecord
         }

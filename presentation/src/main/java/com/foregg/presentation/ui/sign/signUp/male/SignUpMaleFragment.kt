@@ -1,10 +1,13 @@
 package com.foregg.presentation.ui.sign.signUp.male
 
+import android.content.Intent
 import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentSignUpMaleBinding
+import com.foregg.presentation.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -15,9 +18,12 @@ class SignUpMaleFragment : BaseFragment<FragmentSignUpMaleBinding, SignUpMalePag
 
     override val viewModel: SignUpMaleViewModel by viewModels()
 
+    private val signUpMaleFragmentArgs : SignUpMaleFragmentArgs by navArgs()
+
     override fun initView() {
         binding.apply {
             vm = viewModel
+            viewModel.setMaleInfo(signUpMaleFragmentArgs)
         }
     }
 
@@ -41,7 +47,8 @@ class SignUpMaleFragment : BaseFragment<FragmentSignUpMaleBinding, SignUpMalePag
     }
 
     private fun goToMain(){
-        //TODO 메인 화면으로 이동
-        Log.d("TAG", binding.editTextShareCode.text.toString())
+        val intent = Intent(requireActivity(), MainActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
     }
 }
