@@ -1,4 +1,4 @@
-package com.foregg.domain.model.request
+package com.foregg.domain.model.request.sign
 
 import com.foregg.domain.base.RequestVo
 import com.foregg.domain.model.enums.SurgeryType

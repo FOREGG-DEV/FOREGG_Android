@@ -6,7 +6,9 @@ object Endpoints {
         private const val AUTH = "/auth"
         const val LOGIN = "$AUTH/login"
         const val JOIN = "$AUTH/join"
+        const val JOIN_MALE = "$AUTH/husband/join"
         const val GET_SHARE_CODE = "$AUTH/spouseCode"
+        const val RENEWAL = "$AUTH/renewalToken"
     }
 
     object RECORD {

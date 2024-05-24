@@ -2,8 +2,7 @@ package com.foregg.presentation.ui.sign.onBoarding
 
 import androidx.lifecycle.viewModelScope
 import com.foregg.data.base.StatusCode
-import com.foregg.domain.base.ApiState
-import com.foregg.domain.model.request.SaveForeggJwtRequestVo
+import com.foregg.domain.model.request.sign.SaveForeggJwtRequestVo
 import com.foregg.domain.model.response.SignResponseVo
 import com.foregg.domain.model.response.profile.ProfileDetailResponseVo
 import com.foregg.domain.model.vo.UserVo
@@ -16,7 +15,6 @@ import com.foregg.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -70,7 +68,7 @@ class OnboardingViewModel @Inject constructor(
     }
 
     private fun handleLoginSuccess(result : SignResponseVo){
-        val request = SaveForeggJwtRequestVo(accessToken = result.accessToken, refreshToken = "")
+        val request = SaveForeggJwtRequestVo(accessToken = result.accessToken, refreshToken = result.refreshToken)
         viewModelScope.launch {
             saveForeggAccessTokenAndRefreshTokenUseCase(request).collect{
                 if(it) getMyInfo() else ForeggLog.D("저장 실패")
