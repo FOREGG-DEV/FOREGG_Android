@@ -116,11 +116,11 @@ class CreateDailyRecordViewModel @Inject constructor(
             emitEventFlow(CreateDailyRecordEvent.InsufficientEmotionDataEvent)
             return
         } else {
-//            viewModelScope.launch {
-//                postDailyRecordUseCase(request = CreateDailyRecordRequestVo(trueEmotion.second, content)).collect {
-//                    resultResponse(it, { emitEventFlow(CreateDailyRecordEvent.GoToCreateSideEffectEvent) })
-//                }
-//            }
+            viewModelScope.launch {
+                postDailyRecordUseCase(request = CreateDailyRecordRequestVo(trueEmotion.second, content)).collect {
+                    resultResponse(it, { emitEventFlow(CreateDailyRecordEvent.GoToCreateSideEffectEvent) })
+                }
+            }
             emitEventFlow(CreateDailyRecordEvent.GoToCreateSideEffectEvent)
         }
     }
