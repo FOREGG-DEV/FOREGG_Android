@@ -41,7 +41,7 @@ class DailyRecordFragment : BaseFragment<FragmentDailyRecordBinding, DailyRecord
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.dailyRecordList.collect {
-                    dailyRecordAdapter.submitList(it)
+                    dailyRecordAdapter.submitList(it.reversed())
                 }
             }
 
