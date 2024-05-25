@@ -20,9 +20,9 @@ class HomeChallengeViewHolder(
     }
 
     fun bind(item: MyChallengeListItemVo) {
+        itemId = item.id
         binding.apply {
             textChallengeName.text = item.name
-
         }
     }
 }
