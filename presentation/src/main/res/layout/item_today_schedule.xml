@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="285dp"
-        android:layout_height="140dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/bg_rectangle_filled_white_stroke_main_radius_8">
 
         <LinearLayout
@@ -32,9 +33,8 @@
                         android:layout_gravity="center"
                         android:layout_height="wrap_content"
                         android:text="@string/word_schedule"
-                        android:textSize="12sp"
                         android:textColor="@color/black"
-                        android:fontFamily="@font/pretendard_semi_bold"/>
+                        android:textAppearance="@style/p3"/>
 
                 </FrameLayout>
 
@@ -57,19 +57,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="13:00"
+                tools:text="13:00"
                 android:textColor="@color/gs_90"
-                android:textSize="24sp"
-                android:fontFamily="@font/pretendard_bold"/>
+                android:textAppearance="@style/h1"/>
 
             <TextView
                 android:id="@+id/schedule_name_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="의료법인 마리아의료재단"
+                tools:text="의료법인 마리아의료재단"
                 android:textColor="@color/gs_80"
-                android:textSize="14sp"
-                android:fontFamily="@font/pretendard_semi_bold"/>
+                android:textAppearance="@style/p2"/>
 
             <ImageButton
                 android:id="@+id/btn_record_treatment"
@@ -85,10 +83,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:text="메모 텍스트"
+                tools:text="메모 텍스트"
                 android:textColor="@color/gs_70"
-                android:textSize="12sp"
-                android:fontFamily="@font/pretendard_semi_bold"
+                android:textAppearance="@style/p3_l"
                 android:maxLines="2"
                 android:ellipsize="end"/>
 

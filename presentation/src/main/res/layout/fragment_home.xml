@@ -60,6 +60,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_daily_record"
+                    android:background="@android:color/transparent"
                     android:layout_gravity="center"
                     android:onClick="@{()->vm.onClickDailyRecord()}"/>
 
@@ -83,12 +84,19 @@
                     android:textColor="@color/black"
                     android:fontFamily="@font/pretendard_semi_bold"/>
 
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/today_schedule_view_pager"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="140dp"
                     android:layout_marginTop="12dp"
-                    app:layout_constraintTop_toBottomOf="@id/text_today_schedule"/>
+                    android:visibility="@{vm.uiState.todayScheduleList.empty ? View.GONE : View.VISIBLE}">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/today_schedule_view_pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="top"/>
+
+                </FrameLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/today_schedule_empty_text"
