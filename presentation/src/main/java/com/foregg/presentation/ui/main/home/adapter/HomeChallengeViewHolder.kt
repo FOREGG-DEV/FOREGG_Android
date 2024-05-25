@@ -8,12 +8,21 @@ class HomeChallengeViewHolder(
     private val binding: ItemHomeMyChallengeBinding,
     private val listener: HomeChallengeAdapter.HomeChallengeDelegate
 ) : RecyclerView.ViewHolder(binding.root) {
+
+    private var itemId: Long? = null
+
+    init {
+        binding.btnCompleteChallenge.setOnClickListener {
+            itemId?.let { id ->
+                listener.showDialog(id)
+            }
+        }
+    }
+
     fun bind(item: MyChallengeListItemVo) {
         binding.apply {
             textChallengeName.text = item.name
-            btnCompleteChallenge.setOnClickListener {
-                listener.showDialog(item.id)
-            }
+
         }
     }
 }
