@@ -73,7 +73,7 @@
     <string name="home_challenge_text">챌린지 도전하기</string>
     <string name="today_schedule_format">%1$s님의\n%2$s월 %3$s일 일정입니다.</string>
     <string name="today_schedule_empty_text">오늘은 일정이 없어요.</string>
-
+    <string name="home_challenge_complete_dialog_text">오늘의 챌린지 성공하셨나요?</string>
 
     <!-- account -->
     <string name="account_all">전체</string>
