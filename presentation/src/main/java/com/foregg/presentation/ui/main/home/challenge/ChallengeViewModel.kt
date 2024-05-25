@@ -1,6 +1,8 @@
 package com.foregg.presentation.ui.main.home.challenge
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.foregg.domain.model.enums.ChallengeStatusType
 import com.foregg.domain.model.enums.ChallengeTapType
 import com.foregg.domain.model.response.ChallengeCardVo
 import com.foregg.domain.model.response.MyChallengeListItemVo
@@ -13,12 +15,15 @@ import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseViewModel
 import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.ResourceProvider
+import com.foregg.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDate
+import java.sql.Time
 import javax.inject.Inject
 
 @HiltViewModel
@@ -38,6 +43,7 @@ class ChallengeViewModel @Inject constructor(
     private val myChallengeListStateFlow: MutableStateFlow<List<MyChallengeListItemVo>> = MutableStateFlow(emptyList())
     private val weekOfMonthStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val isParticipateStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val btnDayStateFlow: MutableStateFlow<List<ChallengeStatusType>> = MutableStateFlow(List(7) { ChallengeStatusType.DEFAULT })
 
     override val uiState: ChallengePageState = ChallengePageState(
         challengeTapType = challengeTapTypeStateFlow.asStateFlow(),
@@ -47,7 +53,8 @@ class ChallengeViewModel @Inject constructor(
         challengeMonthWeek = challengeMonthWeekStateFlow.asStateFlow(),
         myChallengeList = myChallengeListStateFlow.asStateFlow(),
         weekOfMonth = weekOfMonthStateFlow.asStateFlow(),
-        isParticipate = isParticipateStateFlow.asStateFlow()
+        isParticipate = isParticipateStateFlow.asStateFlow(),
+        btnDayState = btnDayStateFlow.asStateFlow()
     )
 
     fun setView() {
@@ -98,6 +105,41 @@ class ChallengeViewModel @Inject constructor(
                 weekOfMonthStateFlow.update { myChallengeListStateFlow.value[0].weekOfMonth }
             }
             else if (allItemCountStateFlow.value == 0) { currentItemCountStateFlow.update { 0 } }
+            updateBtnDayState(0)
+        }
+    }
+
+    private fun updateBtnDayState(index: Int) {
+        viewModelScope.launch {
+            myChallengeListStateFlow.value[index].successDays?.let { successDays ->
+                val newState = btnDayStateFlow.value.toMutableList()
+                val todayIndex = dayToIndex(TimeFormatter.getKoreanDayOfWeek(LocalDate.now().dayOfWeek))
+                for (i in 0 until todayIndex) {
+                    newState[i] = ChallengeStatusType.FAIL
+                }
+                for (day in successDays) {
+                    val dayIndex = dayToIndex(day)
+                    if (dayIndex > todayIndex) return@let
+                    else if (dayIndex != -1) {
+                        newState[dayIndex] = ChallengeStatusType.SUCCESS
+                    }
+                }
+                if (newState[todayIndex] == ChallengeStatusType.DEFAULT) newState[todayIndex] = ChallengeStatusType.TODAY
+                btnDayStateFlow.update { newState }
+            }
+        }
+    }
+
+    private fun dayToIndex(day: String): Int {
+        return when (day) {
+            "일" -> 0
+            "월" -> 1
+            "화" -> 2
+            "수" -> 3
+            "목" -> 4
+            "금" -> 5
+            "토" -> 6
+            else -> -1
         }
     }
 
@@ -116,6 +158,7 @@ class ChallengeViewModel @Inject constructor(
                 if (currentItemCountStateFlow.value < allItemCountStateFlow.value) currentItemCountStateFlow.value + 1 else return@launch
             }
             if(challengeTapTypeStateFlow.value == ChallengeTapType.ALL) isParticipateStateFlow.update { challengeItemListStateFlow.value[currentItemCountStateFlow.value - 1].ifMine }
+            else if (challengeTapTypeStateFlow.value == ChallengeTapType.MY) updateBtnDayState(currentItemCountStateFlow.value - 1)
         }
     }
 
@@ -125,6 +168,7 @@ class ChallengeViewModel @Inject constructor(
                 if (currentItemCountStateFlow.value > 1) currentItemCountStateFlow.value - 1 else return@launch
             }
             if(challengeTapTypeStateFlow.value == ChallengeTapType.ALL) isParticipateStateFlow.update { challengeItemListStateFlow.value[currentItemCountStateFlow.value - 1].ifMine }
+            else if (challengeTapTypeStateFlow.value == ChallengeTapType.MY) updateBtnDayState(currentItemCountStateFlow.value - 1)
         }
     }
 
@@ -161,6 +205,10 @@ class ChallengeViewModel @Inject constructor(
 
     private fun handleQuitChallengeSuccess(result: Unit) {
         getMyChallenge()
+    }
+
+    fun onClickBtnComplete() {
+        emitEventFlow(ChallengeEvent.OnClickBtnComplete)
     }
 
     fun completeChallenge() {

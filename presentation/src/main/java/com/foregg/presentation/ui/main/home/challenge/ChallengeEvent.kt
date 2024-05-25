@@ -4,4 +4,5 @@ import com.foregg.presentation.Event
 
 sealed class ChallengeEvent: Event {
     object onClickParticipateBtn: ChallengeEvent()
+    object OnClickBtnComplete: ChallengeEvent()
 }

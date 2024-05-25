@@ -1,5 +1,6 @@
 package com.foregg.presentation.ui.main.home.challenge
 
+import com.foregg.domain.model.enums.ChallengeStatusType
 import com.foregg.domain.model.enums.ChallengeTapType
 import com.foregg.domain.model.response.ChallengeCardVo
 import com.foregg.domain.model.response.MyChallengeListItemVo
@@ -14,5 +15,6 @@ data class ChallengePageState (
     val challengeMonthWeek: StateFlow<String>,
     val myChallengeList: StateFlow<List<MyChallengeListItemVo>>,
     val weekOfMonth: StateFlow<String>,
-    val isParticipate: StateFlow<Boolean>
+    val isParticipate: StateFlow<Boolean>,
+    val btnDayState: StateFlow<List<ChallengeStatusType>>
 ): PageState
