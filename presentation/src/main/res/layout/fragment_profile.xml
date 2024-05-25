@@ -213,11 +213,12 @@
 
                 <TextView
                     android:id="@+id/text_notice"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginTop="4dp"
                     android:onClick="@{()->vm.onClickNotice()}"
+                    android:paddingVertical="10dp"
                     android:text="@string/profile_notice"
                     android:textAppearance="@style/p2"
                     android:textColor="@color/black"
@@ -226,11 +227,12 @@
 
                 <TextView
                     android:id="@+id/text_faq"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="28dp"
+                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginTop="8dp"
                     android:onClick="@{()->vm.onClickFAQ()}"
+                    android:paddingVertical="10dp"
                     android:text="@string/profile_faq"
                     android:textAppearance="@style/p2"
                     android:textColor="@color/black"
@@ -239,11 +241,12 @@
 
                 <TextView
                     android:id="@+id/text_ask"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="28dp"
+                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginTop="8dp"
                     android:onClick="@{()->vm.onClickAsk()}"
+                    android:paddingVertical="10dp"
                     android:text="@string/profile_ask"
                     android:textAppearance="@style/p2"
                     android:textColor="@color/black"
@@ -252,11 +255,12 @@
 
                 <TextView
                     android:id="@+id/text_policy"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="28dp"
+                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginTop="8dp"
                     android:onClick="@{()->vm.onClickPolicy()}"
+                    android:paddingVertical="10dp"
                     android:text="@string/profile_policy"
                     android:textAppearance="@style/p2"
                     android:textColor="@color/black"
@@ -271,6 +275,7 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_rectangle_filled_white_radius_8"
+                android:onClick="@{()->vm.onClickAccount()}"
                 android:paddingBottom="14dp"
                 app:layout_constraintTop_toBottomOf="@id/constraint_layout_setting">
 
@@ -281,7 +286,6 @@
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="14dp"
                     android:text="@string/profile_my_account_setting"
-                    android:onClick="@{()->vm.onClickAccount()}"
                     android:textAppearance="@style/p2"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"

@@ -10,4 +10,6 @@ interface ProfileRepository {
     suspend fun getMyInfo() : Flow<ApiState<ProfileDetailResponseVo>>
     suspend fun editMyInfo(request: EditMyInfoRequestVo) : Flow<ApiState<Unit>>
     suspend fun getMyMedicineInjection(request : String) : Flow<ApiState<List<MyMedicineInjectionResponseVo>>>
+    suspend fun logout() : Flow<ApiState<Unit>>
+    suspend fun unRegister() : Flow<ApiState<Unit>>
 }

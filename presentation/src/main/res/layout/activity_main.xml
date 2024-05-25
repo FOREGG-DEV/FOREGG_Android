@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.foregg.domain.model.enums.BottomNavType"/>
         <import type="android.view.View"/>
         <variable
             name="vm"
@@ -30,7 +31,7 @@
             android:id="@+id/constraint_layout_bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="58dp"
-            android:visibility="@{vm.uiState.isOtherPage() ? View.GONE : View.VISIBLE}"
+            android:visibility="@{vm.uiState.pageType == BottomNavType.OTHER ? View.GONE : View.VISIBLE}"
             android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent">
 
@@ -39,6 +40,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                android:clickable="@{vm.uiState.pageType == BottomNavType.CALENDAR ? false : true}"
                 android:onClick="@{()->vm.onClickCalendar()}"
                 app:layout_constraintEnd_toStartOf="@id/constraint_layout_account"
                 android:layout_width="wrap_content"
@@ -49,7 +51,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:background="@{vm.uiState.isCalendarPage() ? @drawable/ic_bottom_nav_calendar_active : @drawable/ic_bottom_nav_calendar_inactive}"
+                    android:background="@{vm.uiState.pageType == BottomNavType.CALENDAR ? @drawable/ic_bottom_nav_calendar_active : @drawable/ic_bottom_nav_calendar_inactive}"
                     android:layout_width="32dp"
                     android:layout_height="32dp"/>
 
@@ -71,6 +73,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/constraint_layout_calendar"
                 app:layout_constraintBottom_toBottomOf="parent"
+                android:clickable="@{vm.uiState.pageType == BottomNavType.ACCOUNT ? false : true}"
                 android:onClick="@{()->vm.onClickAccount()}"
                 app:layout_constraintEnd_toStartOf="@id/constraint_layout_main"
                 android:layout_width="wrap_content"
@@ -81,7 +84,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:background="@{vm.uiState.isAccountPage() ? @drawable/ic_bottom_nav_account_active : @drawable/ic_bottom_nav_account_inactive}"
+                    android:background="@{vm.uiState.pageType == BottomNavType.ACCOUNT ? @drawable/ic_bottom_nav_account_active : @drawable/ic_bottom_nav_account_inactive}"
                     android:layout_width="32dp"
                     android:layout_height="32dp"/>
 
@@ -104,7 +107,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:onClick="@{()->vm.onClickMain()}"
+                android:clickable="@{vm.uiState.pageType == BottomNavType.HOME ? false : true}"
+                android:onClick="@{()->vm.onClickHome()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
@@ -113,7 +117,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:background="@{vm.uiState.isMainPage() ? @drawable/ic_bottom_nav_home_active : @drawable/ic_bottom_nav_home_inactive}"
+                    android:background="@{vm.uiState.pageType == BottomNavType.HOME ? @drawable/ic_bottom_nav_home_active : @drawable/ic_bottom_nav_home_inactive}"
                     android:layout_width="32dp"
                     android:layout_height="32dp"/>
 
@@ -136,6 +140,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/constraint_layout_main"
                 app:layout_constraintEnd_toStartOf="@id/constraint_layout_profile"
+                android:clickable="@{vm.uiState.pageType == BottomNavType.INFO ? false : true}"
                 android:onClick="@{()->vm.onClickInfo()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -145,7 +150,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:background="@{vm.uiState.isInfoPage() ? @drawable/ic_bottom_nav_info_active : @drawable/ic_bottom_nav_info_inactive}"
+                    android:background="@{vm.uiState.pageType == BottomNavType.INFO ? @drawable/ic_bottom_nav_info_active : @drawable/ic_bottom_nav_info_inactive}"
                     android:layout_width="32dp"
                     android:layout_height="32dp"/>
 
@@ -168,6 +173,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/constraint_layout_info"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:clickable="@{vm.uiState.pageType == BottomNavType.PROFILE ? false : true}"
                 android:onClick="@{()->vm.onClickProfile()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -177,7 +183,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:background="@{vm.uiState.isProfilePage() ? @drawable/ic_bottom_nav_profile_active : @drawable/ic_bottom_nav_profile_inactive}"
+                    android:background="@{vm.uiState.pageType == BottomNavType.PROFILE ? @drawable/ic_bottom_nav_profile_active : @drawable/ic_bottom_nav_profile_inactive}"
                     android:layout_width="32dp"
                     android:layout_height="32dp"/>
 

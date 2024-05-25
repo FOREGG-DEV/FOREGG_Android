@@ -50,7 +50,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfilePageState, P
             ProfileEvent.GoToFAQEvent -> {}
             ProfileEvent.GoToNoticeEvent -> {}
             ProfileEvent.GoToPolicyEvent -> {}
-            ProfileEvent.GoToAccountSettingEvent -> {}
+            ProfileEvent.GoToAccountSettingEvent -> goToAccount()
         }
     }
 
@@ -66,6 +66,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfilePageState, P
 
     private fun goToAsk(){
         val action = ProfileFragmentDirections.actionProfileToAsk()
+        findNavController().navigate(action)
+    }
+
+    private fun goToAccount(){
+        val action = ProfileFragmentDirections.actionProfileToAccount()
         findNavController().navigate(action)
     }
 

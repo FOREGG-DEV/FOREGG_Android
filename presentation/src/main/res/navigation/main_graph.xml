@@ -103,6 +103,10 @@
         <action
             android:id="@+id/action_profile_to_ask"
             app:destination="@id/askFragment"/>
+
+        <action
+            android:id="@+id/action_profile_to_account"
+            app:destination="@id/profileAccountFragment"/>
     </fragment>
 
     <fragment
@@ -128,6 +132,13 @@
         android:name="com.foregg.presentation.ui.main.profile.ask.AskFragment"
         android:label="fragment_profile_ask"
         tools:layout="@layout/fragment_profile_ask">
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileAccountFragment"
+        android:name="com.foregg.presentation.ui.main.profile.account.ProfileAccountFragment"
+        android:label="fragment_profile_account"
+        tools:layout="@layout/fragment_profile_account">
     </fragment>
 
 </navigation>
