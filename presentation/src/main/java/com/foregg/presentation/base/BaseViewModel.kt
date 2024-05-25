@@ -46,12 +46,8 @@ abstract class BaseViewModel<STATE: PageState> : ViewModel() {
                 errorCallback?.invoke(response.errorCode)
                 endLoading()
             }
-            ApiState.Loading -> if(needLoading) {
-                ForeggLog.D("로딩 호출")
-                showLoading()
-            }
+            ApiState.Loading -> if(needLoading) showLoading()
             is ApiState.Success -> {
-                ForeggLog.D("로딩 종료 ${response.data}")
                 successCallback.invoke(response.data)
                 endLoading()
             }
