@@ -53,9 +53,8 @@ class AccountCreateEditFragment : BaseFragment<FragmentCreateEditAccountBinding,
             }
             launch {
                 viewModel.uiState.tabType.collect{
-                    if(it == AccountType.PERSONAL_EXPENSE) binding.customTabBar.leftBtnClicked()
-                    else binding.customTabBar.rightBtnClicked()
-                    viewModel.updateChangedOrigin()
+                    if(it == AccountType.PERSONAL_EXPENSE) binding.customTabBar.leftBtnClicked { viewModel.updateChangedOrigin() }
+                    else binding.customTabBar.rightBtnClicked { viewModel.updateChangedOrigin() }
                 }
             }
             launch {
@@ -86,15 +85,8 @@ class AccountCreateEditFragment : BaseFragment<FragmentCreateEditAccountBinding,
 
     private fun bindTab(){
         binding.apply {
-            customTabBar.leftTab.setOnClickListener {
-                customTabBar.leftBtnClicked()
-                viewModel.setTabType(AccountType.PERSONAL_EXPENSE)
-            }
-
-            customTabBar.rightTab.setOnClickListener {
-                customTabBar.rightBtnClicked()
-                viewModel.setTabType(AccountType.SUBSIDY)
-            }
+            customTabBar.leftBtnClicked { viewModel.setTabType(AccountType.PERSONAL_EXPENSE) }
+            customTabBar.rightBtnClicked { viewModel.setTabType(AccountType.SUBSIDY) }
         }
     }
 

@@ -2,8 +2,8 @@ package com.foregg.presentation.module
 
 import android.util.Log
 import com.foregg.domain.base.ApiState
-import com.foregg.domain.model.request.ForeggJwtReIssueRequestVo
-import com.foregg.domain.model.request.SaveForeggJwtRequestVo
+import com.foregg.domain.model.request.sign.ForeggJwtReIssueRequestVo
+import com.foregg.domain.model.request.sign.SaveForeggJwtRequestVo
 import com.foregg.domain.model.response.ForeggJwtResponseVo
 import com.foregg.domain.usecase.jwtToken.GetForeggAccessTokenUseCase
 import com.foregg.domain.usecase.jwtToken.GetFroeggRefreshTokenUseCase
@@ -57,9 +57,8 @@ class TokenAuthenticator @Inject constructor(
 
         return if (access != newAccess) true else {
             Log.d("RETROFIT","TokenAuthenticator - authenticate() called / 토큰 만료. 토큰 Refresh 요청: $refresh")
-            val reIssueRequestVo = ForeggJwtReIssueRequestVo(refresh)
             var foreggJwtToken = ForeggJwtResponseVo("", "")
-            postReIssueTokenUseCase(reIssueRequestVo).collect { state ->
+            postReIssueTokenUseCase(refresh).collect { state ->
                 when(state) {
                     is ApiState.Loading -> { }
                     is ApiState.Success -> {

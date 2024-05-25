@@ -25,6 +25,7 @@ import com.foregg.domain.usecase.schedule.PutModifyScheduleUseCase
 import com.foregg.presentation.base.BaseViewModel
 import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.TimeFormatter
+import com.foregg.presentation.util.toList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -259,7 +260,7 @@ class CreateEditScheduleViewModel @Inject constructor(
         val request = getDetailRequest()
         viewModelScope.launch {
             postAddScheduleUseCase(request).collect{
-                resultResponse(it, { onClickBack() } ) {ForeggLog.D("오류")}
+                resultResponse(it, { onClickBack() } , {ForeggLog.D("오류")})
             }
         }
     }
@@ -269,7 +270,7 @@ class CreateEditScheduleViewModel @Inject constructor(
         val request = getModifyDetailRequest()
         viewModelScope.launch {
             putModifyScheduleUseCase(request).collect{
-                resultResponse(it, { onClickBack() } ) {ForeggLog.D("오류")}
+                resultResponse(it, { onClickBack() }, {ForeggLog.D("오류")} )
             }
         }
     }
@@ -278,7 +279,7 @@ class CreateEditScheduleViewModel @Inject constructor(
         val request = AddMedicalRecordRequestVo(id = id, request = AddMedicalRecordRequest(medicalRecord = medicalRecordStateFlow.value.medicalRecord))
         viewModelScope.launch {
             postUpdateSideEffectUseCase(request).collect{
-                resultResponse(it, {}) { ForeggLog.D("에러") }
+                resultResponse(it, {}, { ForeggLog.D("에러") })
             }
         }
     }
@@ -374,14 +375,17 @@ class CreateEditScheduleViewModel @Inject constructor(
             onClickSetRepeatDay()
             updateStartDate(result.startDate!!)
             updateEndDate(result.endDate!!)
-            result.repeatDate?.let { updateRepeatDayText(it) }
+            result.repeatDate?.let {
+                updateRepeatDayText(it)
+                it.toList().forEach { day -> onClickRepeatDayBtn(RepeatDayType.valuesOf(day)) }
+            }
         }
     }
 
     private fun getMedicalRecord(){
         viewModelScope.launch {
             getScheduleSideEffectUseCase(id).collect{
-                resultResponse(it, ::handleGetSideEffectSuccess) { ForeggLog.D("ERROR")}
+                resultResponse(it, ::handleGetSideEffectSuccess, { ForeggLog.D("ERROR")})
             }
         }
     }
@@ -439,9 +443,6 @@ class CreateEditScheduleViewModel @Inject constructor(
     }
 
     private fun checkMedicalSideEffectChanged() : Boolean{
-        ForeggLog.D(originMedicalRecord.medicalRecord)
-        ForeggLog.D(medicalRecordStateFlow.value.medicalRecord)
-        ForeggLog.D((originMedicalRecord.medicalRecord != medicalRecordStateFlow.value.medicalRecord).toString())
         return if(originDetail.recordType == RecordType.HOSPITAL){
             originMedicalRecord.medicalRecord != medicalRecordStateFlow.value.medicalRecord
         }

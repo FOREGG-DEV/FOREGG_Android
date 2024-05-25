@@ -45,14 +45,14 @@ class ChooseGenderFragment : BaseFragment<FragmentSignUpChooseGenderBinding, Cho
 
     private fun inspectEvent(event: ChooseGenderEvent){
         when(event){
-            is ChooseGenderEvent.OnClickFemaleEvent -> goToFemaleSignUp(event.ssn)
+            is ChooseGenderEvent.OnClickFemaleEvent -> goToFemaleSignUp(event.ssn, event.shareCode)
             is ChooseGenderEvent.OnClickMaleEvent -> goToMaleSignUp(event.ssn)
             ChooseGenderEvent.GoToBackEvent -> findNavController().popBackStack()
         }
     }
 
-    private fun goToFemaleSignUp(ssn : String){
-        val action = ChooseGenderFragmentDirections.actionChooseGenderToFemale(chooseGenderFragmentArgs.accessToken, ssn, chooseGenderFragmentArgs.shareCode)
+    private fun goToFemaleSignUp(ssn : String, shareCode : String){
+        val action = ChooseGenderFragmentDirections.actionChooseGenderToFemale(chooseGenderFragmentArgs.accessToken, ssn, shareCode)
         findNavController().navigate(action)
     }
 

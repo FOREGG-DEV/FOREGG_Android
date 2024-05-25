@@ -10,6 +10,8 @@ import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentAccountBinding
 import com.foregg.presentation.ui.main.account.adapter.AccountCardAdapter
+import com.foregg.presentation.ui.main.account.bottomSheet.AccountDatePickBottomSheet
+import com.foregg.presentation.util.ForeggLog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -72,16 +74,13 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountPageState, A
 
     private fun bindTab(){
         binding.apply {
-            customTabBar.leftTab.setOnClickListener {
-                customTabBar.leftBtnClicked()
+            customTabBar.leftBtnClicked {
                 viewModel.updateTabType(AccountTabType.ALL)
             }
-            customTabBar.middleTab.setOnClickListener {
-                customTabBar.middleBtnClicked()
+            customTabBar.middleBtnClicked {
                 viewModel.updateTabType(AccountTabType.ROUND)
             }
-            customTabBar.rightTab.setOnClickListener {
-                customTabBar.rightBtnClicked()
+            customTabBar.rightBtnClicked {
                 viewModel.updateTabType(AccountTabType.MONTH)
             }
         }
@@ -100,6 +99,14 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountPageState, A
     private fun inspectEvent(event: AccountEvent){
         when(event){
             AccountEvent.OnClickAddOrDeleteBtn -> if(accountCardAdapter.getSelectMode()) viewModel.onClickDeleteBtn() else goToCreateOrDetail(type = CalendarType.CREATE)
+            is AccountEvent.ShowBottomSheetEvent -> showBottomSheet(event.startDay, event.endDay)
         }
+    }
+
+    private fun showBottomSheet(startDay : String, endDay : String){
+        AccountDatePickBottomSheet.newInstance(startDay, endDay) { start, end ->
+            viewModel.initDay(start, end)
+            viewModel.getAccountByCondition()
+        }.show(parentFragmentManager, "")
     }
 }

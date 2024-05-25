@@ -8,7 +8,7 @@
         <import type="android.view.View"/>
         <variable
             name="vm"
-            type="com.foregg.presentation.ui.home.HomeViewModel" />
+            type="com.foregg.presentation.ui.main.home.HomeViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -78,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="35dp"
-                    android:text="@{vm.formattedText}"
+                    android:text="@{vm.uiState.formattedText}"
                     android:textSize="20sp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/pretendard_semi_bold"/>
@@ -161,7 +161,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_right_arrow_gs_50"
-                        android:background="@android:color/transparent"/>
+                        android:background="@android:color/transparent"
+                        android:onClick="@{()->vm.onCLickGoToChallenge()}"/>
 
                 </LinearLayout>
 
@@ -178,7 +179,8 @@
                         android:layout_marginTop="60dp"
                         android:src="@drawable/ic_btn_go_to_challenge"
                         android:background="@android:color/transparent"
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center"
+                        android:onClick="@{()->vm.onCLickGoToChallenge()}"/>
 
                 </FrameLayout>
 

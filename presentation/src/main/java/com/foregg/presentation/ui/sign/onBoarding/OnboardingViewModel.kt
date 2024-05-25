@@ -2,17 +2,19 @@ package com.foregg.presentation.ui.sign.onBoarding
 
 import androidx.lifecycle.viewModelScope
 import com.foregg.data.base.StatusCode
-import com.foregg.domain.base.ApiState
-import com.foregg.domain.model.request.SaveForeggJwtRequestVo
+import com.foregg.domain.model.request.sign.SaveForeggJwtRequestVo
 import com.foregg.domain.model.response.SignResponseVo
+import com.foregg.domain.model.response.profile.ProfileDetailResponseVo
+import com.foregg.domain.model.vo.UserVo
 import com.foregg.domain.usecase.auth.PostLoginUseCase
 import com.foregg.domain.usecase.jwtToken.SaveForeggAccessTokenAndRefreshTokenUseCase
+import com.foregg.domain.usecase.profile.GetMyInfoUseCase
 import com.foregg.presentation.base.BaseViewModel
 import com.foregg.presentation.util.ForeggLog
+import com.foregg.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,7 +22,8 @@ import javax.inject.Inject
 @HiltViewModel
 class OnboardingViewModel @Inject constructor(
     private val postLoginUseCase: PostLoginUseCase,
-    private val saveForeggAccessTokenAndRefreshTokenUseCase: SaveForeggAccessTokenAndRefreshTokenUseCase
+    private val saveForeggAccessTokenAndRefreshTokenUseCase: SaveForeggAccessTokenAndRefreshTokenUseCase,
+    private val getMyInfoUseCase: GetMyInfoUseCase
 ) : BaseViewModel<OnboardingPageState>() {
 
     private val imageListStateFlow : MutableStateFlow<List<String>> = MutableStateFlow(emptyList())
@@ -59,27 +62,37 @@ class OnboardingViewModel @Inject constructor(
         accessToken = token
         viewModelScope.launch {
             postLoginUseCase(token).collect{
-                when(it){
-                    is ApiState.Error -> handleLoginError(it.errorCode, it.data)
-                    else -> {}
-                }
-                resultResponse(it, ::handleLoginSuccess)
+                resultResponse(it, ::handleLoginSuccess, ::handleLoginError)
             }
         }
     }
 
     private fun handleLoginSuccess(result : SignResponseVo){
-        val request = SaveForeggJwtRequestVo(accessToken = result.accessToken, refreshToken = "")
+        val request = SaveForeggJwtRequestVo(accessToken = result.accessToken, refreshToken = result.refreshToken)
         viewModelScope.launch {
             saveForeggAccessTokenAndRefreshTokenUseCase(request).collect{
-                if(it) goToMain() else ForeggLog.D("저장 실패")
+                if(it) getMyInfo() else ForeggLog.D("저장 실패")
             }
         }
     }
 
-    private fun handleLoginError(error : String, data : SignResponseVo?){
+    private fun getMyInfo(){
+        viewModelScope.launch {
+            getMyInfoUseCase(Unit).collect{
+                resultResponse(it, ::handleSuccessGetMyInfo, {ForeggLog.D("오류")})
+            }
+        }
+    }
+
+    private fun handleSuccessGetMyInfo(result : ProfileDetailResponseVo){
+        val vo = UserVo(name = result.nickName, ssn = result.ssn, genderType = result.genderType)
+        UserInfo.updateInfo(vo)
+        goToMain()
+    }
+
+    private fun handleLoginError(error : String){
         when(error){
-            StatusCode.AUTH.USER_NEED_JOIN -> goToSignUp(data?.shareCode ?: "")
+            StatusCode.AUTH.USER_NEED_JOIN -> goToSignUp()
             else -> ForeggLog.D("알 수 없는 오류")
         }
     }
@@ -88,7 +101,7 @@ class OnboardingViewModel @Inject constructor(
         emitEventFlow(OnboardingEvent.GoToMainEvent)
     }
 
-    private fun goToSignUp(shareCode : String){
-        emitEventFlow(OnboardingEvent.GoToSignUpEvent(accessToken, shareCode))
+    private fun goToSignUp(){
+        emitEventFlow(OnboardingEvent.GoToSignUpEvent(accessToken))
     }
 }

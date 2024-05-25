@@ -6,6 +6,9 @@ object Endpoints {
         private const val AUTH = "/auth"
         const val LOGIN = "$AUTH/login"
         const val JOIN = "$AUTH/join"
+        const val JOIN_MALE = "$AUTH/husband/join"
+        const val GET_SHARE_CODE = "$AUTH/spouseCode"
+        const val RENEWAL = "$AUTH/renewalToken"
     }
 
     object RECORD {
@@ -21,6 +24,15 @@ object Endpoints {
 
     object Home {
         const val HOME = "/home"
+    }
+
+    object Challenge {
+        private const val CHALLENGE = "/challenge"
+        const val ALL = "$CHALLENGE/all"
+        const val PARTICIPATION = "$CHALLENGE/participation/{id}"
+        const val QUIT = "$CHALLENGE/quit/{id}"
+        const val COMPLETE = "$CHALLENGE/complete/{id}"
+        const val MY = "$CHALLENGE/my"
     }
 
     object ACCOUNT{
