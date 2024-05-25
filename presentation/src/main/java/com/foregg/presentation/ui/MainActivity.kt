@@ -29,8 +29,8 @@ class MainActivity :
     override fun initState() {
         repeatOnStarted {
             launch {
-                viewModel.uiState.pageType.collect{
-                    navigatePage(it)
+                viewModel.eventFlow.collect{
+                    inspectEvent(it as MainActivityEvent)
                 }
             }
         }
@@ -45,14 +45,13 @@ class MainActivity :
         }
     }
 
-    private fun navigatePage(type : BottomNavType){
-        when(type){
-            BottomNavType.CALENDAR -> navController.navigate(R.id.calendarFragment)
-            BottomNavType.ACCOUNT -> navController.navigate(R.id.accountFragment)
-            BottomNavType.HOME -> navController.navigate(R.id.homeFragment)
-            BottomNavType.INFO -> {}
-            BottomNavType.PROFILE -> navController.navigate(R.id.profileFragment)
-            BottomNavType.OTHER -> {}
+    private fun inspectEvent(event: MainActivityEvent) {
+        when (event) {
+            MainActivityEvent.GoToCalendar -> navController.navigate(R.id.calendarFragment)
+            MainActivityEvent.GoToMain -> navController.navigate(R.id.homeFragment)
+            MainActivityEvent.GoToAccount -> navController.navigate(R.id.accountFragment)
+            MainActivityEvent.GoToProfile -> navController.navigate(R.id.profileFragment)
+            MainActivityEvent.GoToInfo -> {}
         }
     }
 

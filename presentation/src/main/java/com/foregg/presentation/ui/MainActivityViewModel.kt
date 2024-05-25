@@ -13,11 +13,31 @@ import javax.inject.Inject
 @HiltViewModel
 class MainActivityViewModel @Inject constructor() : BaseViewModel<MainActivityPageState>() {
 
-    private val pageTypeStateFlow : MutableStateFlow<BottomNavType> = MutableStateFlow(BottomNavType.HOME)
+    private val pageTypeStateFlow : MutableStateFlow<BottomNavType> = MutableStateFlow(BottomNavType.FIRST)
 
     override val uiState: MainActivityPageState = MainActivityPageState(
         pageType = pageTypeStateFlow.asStateFlow()
     )
+
+    fun onClickCalendar() {
+        emitEventFlow(MainActivityEvent.GoToCalendar)
+    }
+
+    fun onClickAccount() {
+        emitEventFlow(MainActivityEvent.GoToAccount)
+    }
+
+    fun onClickHome() {
+        emitEventFlow(MainActivityEvent.GoToMain)
+    }
+
+    fun onClickInfo() {
+        emitEventFlow(MainActivityEvent.GoToInfo)
+    }
+
+    fun onClickProfile() {
+        emitEventFlow(MainActivityEvent.GoToProfile)
+    }
 
     fun updatePageType(type : BottomNavType){
         viewModelScope.launch {
