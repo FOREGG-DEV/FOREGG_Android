@@ -82,8 +82,7 @@ class ProfileAccountFragment : BaseFragment<FragmentProfileAccountBinding, PageS
             .setTitle(R.string.profile_logout_complete_dialog)
             .setPositiveButton(R.string.word_confirm){
                 commonDialog.dismiss()
-                val intent = Intent(requireActivity(), SignActivity::class.java)
-                startActivity(intent)
+                startActivity(Intent(requireActivity(), SignActivity::class.java))
                 requireActivity().finish()
             }
             .show()
@@ -94,8 +93,7 @@ class ProfileAccountFragment : BaseFragment<FragmentProfileAccountBinding, PageS
             .setTitle(R.string.profile_unregister_complete_dialog)
             .setPositiveButton(R.string.word_confirm){
                 commonDialog.dismiss()
-                val intent = Intent(requireActivity(), SignActivity::class.java)
-                startActivity(intent)
+                startActivity(Intent(requireActivity(), SignActivity::class.java))
                 requireActivity().finish()
             }
             .show()
