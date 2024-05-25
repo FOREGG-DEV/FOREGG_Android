@@ -40,6 +40,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                android:clickable="@{vm.uiState.pageType == BottomNavType.CALENDAR ? false : true}"
                 android:onClick="@{()->vm.onClickCalendar()}"
                 app:layout_constraintEnd_toStartOf="@id/constraint_layout_account"
                 android:layout_width="wrap_content"
@@ -72,6 +73,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/constraint_layout_calendar"
                 app:layout_constraintBottom_toBottomOf="parent"
+                android:clickable="@{vm.uiState.pageType == BottomNavType.ACCOUNT ? false : true}"
                 android:onClick="@{()->vm.onClickAccount()}"
                 app:layout_constraintEnd_toStartOf="@id/constraint_layout_main"
                 android:layout_width="wrap_content"
@@ -105,6 +107,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:clickable="@{vm.uiState.pageType == BottomNavType.HOME ? false : true}"
                 android:onClick="@{()->vm.onClickHome()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -137,6 +140,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/constraint_layout_main"
                 app:layout_constraintEnd_toStartOf="@id/constraint_layout_profile"
+                android:clickable="@{vm.uiState.pageType == BottomNavType.INFO ? false : true}"
                 android:onClick="@{()->vm.onClickInfo()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -169,6 +173,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/constraint_layout_info"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:clickable="@{vm.uiState.pageType == BottomNavType.PROFILE ? false : true}"
                 android:onClick="@{()->vm.onClickProfile()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
