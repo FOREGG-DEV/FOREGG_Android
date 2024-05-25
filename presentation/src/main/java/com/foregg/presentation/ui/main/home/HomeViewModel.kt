@@ -51,8 +51,23 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             userNameStateFlow.update { result.userName }
             todayDateStateFlow.update { result.todayDate }
-            todayScheduleStateFlow.update { result.homeRecordResponseVo }
+            todayScheduleStateFlow.update { splitTodayScheduleByRepeatedTime(result.homeRecordResponseVo) }
             formattedTextStateFlow.update { resourceProvider.getString(R.string.today_schedule_format, userNameStateFlow.value, month, day) }
+        }
+    }
+
+    private fun splitTodayScheduleByRepeatedTime(currentList: List<HomeRecordResponseVo>): List<HomeRecordResponseVo> {
+        val newList = mutableListOf<HomeRecordResponseVo>()
+        for(list in currentList) {
+            val subList = splitListItem(list)
+            newList.addAll(subList)
+        }
+        return newList.sortedBy { it.times.first() }
+    }
+
+    private fun splitListItem(list: HomeRecordResponseVo): List<HomeRecordResponseVo> {
+        return list.times.map { repeatTime ->
+            list.copy(times = listOf(repeatTime))
         }
     }
 
