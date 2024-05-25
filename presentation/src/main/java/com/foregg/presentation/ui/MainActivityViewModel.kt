@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainActivityViewModel @Inject constructor() : BaseViewModel<MainActivityPageState>() {
 
-    private val pageTypeStateFlow : MutableStateFlow<BottomNavType> = MutableStateFlow(BottomNavType.FIRST)
+    private val pageTypeStateFlow : MutableStateFlow<BottomNavType> = MutableStateFlow(BottomNavType.HOME)
 
     override val uiState: MainActivityPageState = MainActivityPageState(
         pageType = pageTypeStateFlow.asStateFlow()
