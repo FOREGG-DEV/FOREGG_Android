@@ -1,21 +1,13 @@
 package com.foregg.presentation.ui.dailyRecord
 
 import androidx.fragment.app.viewModels
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.foregg.domain.model.enums.DailyConditionType
 import com.foregg.domain.model.enums.DailyRecordTabType
-import com.foregg.domain.model.vo.DailyRecordResponseItemVo
-import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentDailyRecordBinding
 import com.foregg.presentation.ui.dailyRecord.adapter.DailyRecordAdapter
-import com.foregg.presentation.util.ForeggLog
+import com.foregg.presentation.ui.dailyRecord.adapter.SideEffectAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -24,14 +16,16 @@ class DailyRecordFragment : BaseFragment<FragmentDailyRecordBinding, DailyRecord
     FragmentDailyRecordBinding::inflate
 ) {
     private val dailyRecordAdapter = DailyRecordAdapter()
+    private val sideEffectAdapter = SideEffectAdapter()
 
     override val viewModel: DailyRecordViewModel by viewModels()
     override fun initView() {
         binding.apply {
             vm = viewModel
-            recordRecyclerView.adapter = dailyRecordAdapter
+            recordRecyclerView.adapter = sideEffectAdapter
             recordRecyclerView.layoutManager = LinearLayoutManager(context)
         }
+        viewModel.setView()
         bindTab()
     }
 
@@ -42,6 +36,12 @@ class DailyRecordFragment : BaseFragment<FragmentDailyRecordBinding, DailyRecord
             launch {
                 viewModel.uiState.dailyRecordList.collect {
                     dailyRecordAdapter.submitList(it.reversed())
+                }
+            }
+
+            launch {
+                viewModel.uiState.sideEffectList.collect {
+                    sideEffectAdapter.submitList(it.reversed())
                 }
             }
 
@@ -68,6 +68,7 @@ class DailyRecordFragment : BaseFragment<FragmentDailyRecordBinding, DailyRecord
     private fun sortEvent(event: DailyRecordEvent) {
         when(event) {
             DailyRecordEvent.GoToCreateDailyRecordEvent -> goToCreateDailyRecord()
+            DailyRecordEvent.OnClickBtnClose -> findNavController().popBackStack()
         }
     }
 

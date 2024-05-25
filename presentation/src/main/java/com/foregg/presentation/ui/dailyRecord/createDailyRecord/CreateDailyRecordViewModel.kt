@@ -121,7 +121,10 @@ class CreateDailyRecordViewModel @Inject constructor(
                     resultResponse(it, { emitEventFlow(CreateDailyRecordEvent.GoToCreateSideEffectEvent) })
                 }
             }
-            emitEventFlow(CreateDailyRecordEvent.GoToCreateSideEffectEvent)
         }
+    }
+
+    fun onClickBtnClose() {
+        emitEventFlow(CreateDailyRecordEvent.OnClickBtnClose)
     }
 }

@@ -36,6 +36,7 @@ class CreateDailyRecordFragment : BaseFragment<FragmentCreateDailyRecordBinding,
             CreateDailyRecordEvent.GoToCreateSideEffectEvent -> goToCreateSideEffect()
             CreateDailyRecordEvent.GetDailyRecordDataEvent -> getEditTextContent()
             CreateDailyRecordEvent.InsufficientEmotionDataEvent -> ForeggToast.createToast(requireContext(), "오늘의 감정을 선택해주세요.",Toast.LENGTH_SHORT).show()
+            CreateDailyRecordEvent.OnClickBtnClose -> findNavController().popBackStack()
         }
     }
 
@@ -52,6 +53,7 @@ class CreateDailyRecordFragment : BaseFragment<FragmentCreateDailyRecordBinding,
 
     private fun goToCreateSideEffect() {
         val action = CreateDailyRecordFragmentDirections.createDailyRecordToCreateSideEffect()
+        findNavController().popBackStack()
         findNavController().navigate(action)
     }
 }

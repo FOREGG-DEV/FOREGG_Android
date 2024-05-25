@@ -69,12 +69,12 @@ class CreateSideEffectViewModel @Inject constructor(
     private fun createSideEffect() {
         viewModelScope.launch {
             postSideEffectUseCase(request = CreateSideEffectRequestVo(recordAdverseEffectTextStateFlow.value)).collect {
-                resultResponse(it, { popFragment() })
+                resultResponse(it, { onClickBtnClose() })
             }
         }
     }
 
-    private fun popFragment() {
+    fun onClickBtnClose() {
         emitEventFlow(CreateSideEffectEvent.PopCreateSideFragment)
     }
 }

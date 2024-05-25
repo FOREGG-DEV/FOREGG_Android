@@ -31,6 +31,7 @@
                 android:layout_marginStart="28dp"
                 android:src="@drawable/ic_cancel"
                 android:background="@android:color/transparent"
+                android:onClick="@{()->vm.onClickBtnClose()}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/include_top_bar"
                 app:layout_constraintBottom_toBottomOf="@id/include_top_bar"/>

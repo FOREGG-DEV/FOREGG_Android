@@ -6,4 +6,5 @@ sealed class CreateDailyRecordEvent: Event {
     object GoToCreateSideEffectEvent: CreateDailyRecordEvent()
     object GetDailyRecordDataEvent: CreateDailyRecordEvent()
     object InsufficientEmotionDataEvent: CreateDailyRecordEvent()
+    object OnClickBtnClose: CreateDailyRecordEvent()
 }
