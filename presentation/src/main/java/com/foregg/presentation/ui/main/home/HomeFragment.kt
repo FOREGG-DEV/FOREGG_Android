@@ -3,6 +3,7 @@ package com.foregg.presentation.ui.main.home
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.foregg.domain.model.response.HomeRecordResponseVo
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
@@ -24,6 +25,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
         binding.apply {
             vm = viewModel
             todayScheduleViewPager.adapter = todayScheduleAdapter
+            todayScheduleViewPager.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         }
     }
 
