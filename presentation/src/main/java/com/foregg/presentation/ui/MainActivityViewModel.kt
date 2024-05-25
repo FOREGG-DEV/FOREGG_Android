@@ -1,6 +1,7 @@
 package com.foregg.presentation.ui
 
 import androidx.lifecycle.viewModelScope
+import com.foregg.domain.model.enums.BottomNavType
 import com.foregg.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,105 +13,15 @@ import javax.inject.Inject
 @HiltViewModel
 class MainActivityViewModel @Inject constructor() : BaseViewModel<MainActivityPageState>() {
 
-    private val isCalendarPageStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
-    private val isAccountPageStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
-    private val isMainPageStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(true)
-    private val isInfoPageStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
-    private val isProfilePageStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
-    private val isOtherPageStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val pageTypeStateFlow : MutableStateFlow<BottomNavType> = MutableStateFlow(BottomNavType.HOME)
 
     override val uiState: MainActivityPageState = MainActivityPageState(
-        isCalendarPageStateFlow.asStateFlow(),
-        isAccountPageStateFlow.asStateFlow(),
-        isMainPageStateFlow.asStateFlow(),
-        isInfoPageStateFlow.asStateFlow(),
-        isProfilePageStateFlow.asStateFlow(),
-        isOtherPageStateFlow.asStateFlow()
+        pageType = pageTypeStateFlow.asStateFlow()
     )
 
-    fun onClickCalendar() {
-        activeCalendar()
-        emitEventFlow(MainActivityEvent.GoToCalendar)
-    }
-
-    fun onClickAccount() {
-        activeAccount()
-        emitEventFlow(MainActivityEvent.GoToAccount)
-    }
-
-    fun onClickMain() {
-        activeMain()
-        emitEventFlow(MainActivityEvent.GoToMain)
-    }
-
-    fun onClickInfo() {
-        activeInfo()
-        emitEventFlow(MainActivityEvent.GoToInfo)
-    }
-
-    fun onClickProfile() {
-        activeProfile()
-        emitEventFlow(MainActivityEvent.GoToProfile)
-    }
-
-    fun activeCalendar(){
+    fun updatePageType(type : BottomNavType){
         viewModelScope.launch {
-            isMainPageStateFlow.update { false }
-            isCalendarPageStateFlow.update { true }
-            isProfilePageStateFlow.update { false }
-            isInfoPageStateFlow.update { false }
-            isAccountPageStateFlow.update { false }
-            isOtherPageStateFlow.update { false }
-        }
-    }
-
-    fun activeAccount(){
-        viewModelScope.launch {
-            isMainPageStateFlow.update { false }
-            isCalendarPageStateFlow.update { false }
-            isProfilePageStateFlow.update { false }
-            isInfoPageStateFlow.update { false }
-            isAccountPageStateFlow.update { true }
-            isOtherPageStateFlow.update { false }
-        }
-    }
-
-    fun activeMain(){
-        viewModelScope.launch {
-            isMainPageStateFlow.update { true }
-            isCalendarPageStateFlow.update { false }
-            isProfilePageStateFlow.update { false }
-            isInfoPageStateFlow.update { false }
-            isAccountPageStateFlow.update { false }
-            isOtherPageStateFlow.update { false }
-        }
-    }
-
-    fun activeProfile(){
-        viewModelScope.launch {
-            isMainPageStateFlow.update { false }
-            isCalendarPageStateFlow.update { false }
-            isProfilePageStateFlow.update { true }
-            isInfoPageStateFlow.update { false }
-            isAccountPageStateFlow.update { false }
-            isOtherPageStateFlow.update { false }
-        }
-    }
-
-    fun activeInfo(){
-        viewModelScope.launch {
-            isMainPageStateFlow.update { false }
-            isCalendarPageStateFlow.update { false }
-            isProfilePageStateFlow.update { false }
-            isInfoPageStateFlow.update { true }
-            isAccountPageStateFlow.update { false }
-            isOtherPageStateFlow.update { false }
-        }
-    }
-
-    fun goneNavigation(){
-        viewModelScope.launch {
-            isOtherPageStateFlow.update { true }
+            pageTypeStateFlow.update { type }
         }
     }
 }
