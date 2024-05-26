@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName
 
 data class SideEffectResponseListItem(
     @SerializedName("content")
-    val content: String,
+    val content: String = "",
     @SerializedName("date")
-    val date: String,
+    val date: String = "",
     @SerializedName("id")
-    val id: Long
+    val id: Long = -1
 ): DataDto
