@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:padding="12dp"
+        android:background="@drawable/bg_rectangle_filled_white_radius_8"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/gs_30"/>
+
+        <TextView
+            android:id="@+id/text_challenge_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            tools:text="매일 물 3잔 이상 마시기"
+            android:textAppearance="@style/h3"
+            android:gravity="center"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/btn_complete_challenge"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_btn_complete_challenge"/>
+
+    </LinearLayout>
+
+</layout>

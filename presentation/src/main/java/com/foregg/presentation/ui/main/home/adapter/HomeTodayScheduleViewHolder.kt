@@ -16,29 +16,30 @@ class HomeTodayScheduleViewHolder(
 
             scheduleTextContent.text = recordType.type
             scheduleNameText.text = item.name
+            scheduleTimeText.text = item.times.first()
 
             if (item.memo.isBlank()) {
-                binding.scheduleMemoText.visibility = View.GONE
+                scheduleMemoText.visibility = View.GONE
             } else {
-                binding.scheduleMemoText.text = item.memo
+                scheduleMemoText.text = item.memo
             }
 
             when(recordType) {
                 RecordType.MEDICINE -> {
                     scheduleContentLayout.setBackgroundResource(R.drawable.bg_rectangle_filled_medicine_radius_4)
-                    binding.btnRecordTreatment.visibility = View.VISIBLE
+                    btnRecordTreatment.visibility = View.GONE
                 }
                 RecordType.INJECTION -> {
                     scheduleContentLayout.setBackgroundResource(R.drawable.bg_rectangle_filled_injection_radius_4)
-                    binding.btnRecordTreatment.visibility = View.GONE
+                    btnRecordTreatment.visibility = View.GONE
                 }
                 RecordType.HOSPITAL -> {
                     scheduleContentLayout.setBackgroundResource(R.drawable.bg_rectangle_filled_hospital_radius_4)
-                    binding.btnRecordTreatment.visibility = View.GONE
+                    btnRecordTreatment.visibility = View.VISIBLE
                 }
                 RecordType.ETC -> {
                     scheduleContentLayout.setBackgroundResource(R.drawable.bg_rectangle_filled_personal_radius_4)
-                    binding.btnRecordTreatment.visibility = View.GONE
+                    btnRecordTreatment.visibility = View.GONE
                 }
             }
         }

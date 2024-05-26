@@ -9,6 +9,8 @@ data class HomeRecordResponseVo(
     val id: Long,
     @SerializedName("recordType")
     val recordType: RecordType,
+    @SerializedName("times")
+    val times: List<String>,
     @SerializedName("name")
     val name: String,
     @SerializedName("memo")

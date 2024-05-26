@@ -88,6 +88,7 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
     private fun sortEvent(event: ChallengeEvent) {
         when(event) {
             ChallengeEvent.OnClickBtnBack -> findNavController().popBackStack()
+            ChallengeEvent.OnClickBtnComplete -> TODO()
         }
     }
 
