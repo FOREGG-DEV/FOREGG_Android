@@ -6,12 +6,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="4dp"
         android:layout_marginHorizontal="16dp"
-        android:background="@drawable/bg_rectangle_filled_white_radius_8">
+        android:background="@drawable/bg_rectangle_filled_white_radius_8"
+        android:paddingVertical="4dp">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_left"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginStart="4dp"
@@ -26,6 +27,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_middle"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
@@ -40,6 +42,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_right"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
