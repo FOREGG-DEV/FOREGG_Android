@@ -37,18 +37,7 @@ class CreateSideEffectFragment : BaseFragment<FragmentCreateSideEffectBinding, C
     private fun sortEvent(event: CreateSideEffectEvent) {
         when(event) {
             CreateSideEffectEvent.PopCreateSideFragment -> findNavController().popBackStack()
-            CreateSideEffectEvent.GetStringContent -> updateSideEffectText()
+            CreateSideEffectEvent.InSufficientTextEvent -> ForeggToast.createToast(requireContext(), "부작용을 입력해주세요.", Toast.LENGTH_SHORT).show()
         }
-    }
-
-    private fun updateSideEffectText() {
-        val content = binding.editTextSideEffect.text.toString()
-
-        if (content.isEmpty()) {
-            ForeggToast.createToast(requireContext(), "부작용을 입력해주세요.", Toast.LENGTH_SHORT)
-            return
-        }
-
-        viewModel.updateRecordAdverseEffectText(content)
     }
 }

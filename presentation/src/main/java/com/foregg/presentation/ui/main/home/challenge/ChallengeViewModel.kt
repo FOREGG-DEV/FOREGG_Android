@@ -223,4 +223,8 @@ class ChallengeViewModel @Inject constructor(
     private fun handleCompleteChallengeSuccess(result: Unit) {
         //TODO 각 챌린지에 대해 일요일 ~ 토요일 중 어느 요일에 성공을 했는지, 오늘은 무슨 요일인지 데이터 필요
     }
+
+    fun onClickBtnBack() {
+        emitEventFlow(ChallengeEvent.OnClickBtnBack)
+    }
 }

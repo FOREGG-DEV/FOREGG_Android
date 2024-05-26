@@ -78,6 +78,20 @@ class CommonDialog@Inject constructor(@ActivityContext private val context: Cont
         return this
     }
 
+    fun showOnlyPositiveBtn() : CommonDialog {
+        binding.btnNegative.apply {
+            visibility = View.GONE
+        }
+        return this
+    }
+
+    fun showOnlyNegativeBtn() : CommonDialog {
+        binding.btnNegative.apply {
+            visibility = View.GONE
+        }
+        return this
+    }
+
     fun show() {
         dialog = builder.create()
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

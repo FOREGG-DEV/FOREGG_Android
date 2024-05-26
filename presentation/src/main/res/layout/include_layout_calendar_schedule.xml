@@ -214,7 +214,7 @@
                 android:layout_margin="4dp"
                 android:background="@drawable/bg_rectangle_filled_main3_radius_4"
                 android:onClick="@{()->vm.onClickConfirmRepeatDay()}"
-                android:visibility="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? View.GONE : (vm.uiState.repeatDay.isRepeatDay() &amp;&amp; vm.uiState.repeatDay.repeatDayText.empty ? View.VISIBLE : View.GONE)}"
+                android:visibility="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? View.GONE : (vm.uiState.repeatDay.showCheckBtn ? View.VISIBLE : View.GONE)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">

@@ -19,10 +19,12 @@ class CreateSideEffectViewModel @Inject constructor(
     private val resourceProvider: ResourceProvider,
     private val postSideEffectUseCase: PostSideEffectUseCase
 ) : BaseViewModel<CreateSideEffectPageState>() {
-    private val unExistAdverseEffectStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    private val existAdverseEffectStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
+//    private val unExistAdverseEffectStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
+//    private val existAdverseEffectStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val hasSideEffectStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(true)
     private val recordAdverseEffectTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val questionTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private val contentTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
 
     init {
         viewModelScope.launch {
@@ -31,50 +33,32 @@ class CreateSideEffectViewModel @Inject constructor(
     }
 
     override val uiState: CreateSideEffectPageState = CreateSideEffectPageState(
-        unExistAdverseEffect = unExistAdverseEffectStateFlow.asStateFlow(),
-        existAdverseEffect = existAdverseEffectStateFlow.asStateFlow(),
+        hasSideEffect = hasSideEffectStateFlow.asStateFlow(),
         recordAdverseEffectText = recordAdverseEffectTextStateFlow.asStateFlow(),
-        questionText = questionTextStateFlow.asStateFlow()
+        questionText = questionTextStateFlow.asStateFlow(),
+        contentText = contentTextStateFlow
     )
 
-    fun updateUnExistAdverseEffectState() {
+    fun updateHasSideEffectState(value :Boolean) {
         viewModelScope.launch {
-            if (!unExistAdverseEffectStateFlow.value) {
-                unExistAdverseEffectStateFlow.update { true }
-                existAdverseEffectStateFlow.update { false }
-            } else unExistAdverseEffectStateFlow.update { false }
-        }
-    }
-
-    fun updateExistAdverseEffectState() {
-        viewModelScope.launch {
-            if (!existAdverseEffectStateFlow.value) {
-                existAdverseEffectStateFlow.update { true }
-                unExistAdverseEffectStateFlow.update { false }
-            } else existAdverseEffectStateFlow.update { false }
+            hasSideEffectStateFlow.update { value }
         }
     }
 
     fun onClickBtnNext() {
-        emitEventFlow(CreateSideEffectEvent.GetStringContent)
-    }
-
-    fun updateRecordAdverseEffectText(content: String) {
-        viewModelScope.launch {
-            recordAdverseEffectTextStateFlow.update { content }
-        }
-        createSideEffect()
+        if (contentTextStateFlow.value.isEmpty()) emitEventFlow(CreateSideEffectEvent.InSufficientTextEvent)
+        else createSideEffect()
     }
 
     private fun createSideEffect() {
         viewModelScope.launch {
-            postSideEffectUseCase(request = CreateSideEffectRequestVo(recordAdverseEffectTextStateFlow.value)).collect {
-                resultResponse(it, { popFragment() })
+            postSideEffectUseCase(request = CreateSideEffectRequestVo(contentTextStateFlow.value)).collect {
+                resultResponse(it, { onClickBtnClose() })
             }
         }
     }
 
-    private fun popFragment() {
+    fun onClickBtnClose() {
         emitEventFlow(CreateSideEffectEvent.PopCreateSideFragment)
     }
 }

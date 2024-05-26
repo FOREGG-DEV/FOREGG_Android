@@ -4,5 +4,5 @@ import com.foregg.presentation.Event
 
 sealed class CreateSideEffectEvent: Event {
     object PopCreateSideFragment: CreateSideEffectEvent()
-    object GetStringContent: CreateSideEffectEvent()
+    object InSufficientTextEvent: CreateSideEffectEvent()
 }

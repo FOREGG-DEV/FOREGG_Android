@@ -31,6 +31,7 @@
                 android:layout_marginStart="28dp"
                 android:src="@drawable/ic_cancel"
                 android:background="@android:color/transparent"
+                android:onClick="@{()->vm.onClickBtnClose()}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/include_top_bar"
                 app:layout_constraintBottom_toBottomOf="@id/include_top_bar"/>
@@ -83,9 +84,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@{vm.uiState.unExistAdverseEffect ? @drawable/ic_emotion_smile_selected : @drawable/ic_emotion_smile_unselected}"
+                            android:src="@{vm.uiState.hasSideEffect ? @drawable/ic_emotion_smile_unselected : @drawable/ic_emotion_smile_selected}"
                             android:background="@android:color/transparent"
-                            android:onClick="@{()->vm.updateUnExistAdverseEffectState()}"/>
+                            android:onClick="@{()->vm.updateHasSideEffectState(false)}"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -115,9 +116,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@{vm.uiState.existAdverseEffect ? @drawable/ic_emotion_bad_selected : @drawable/ic_emotion_bad_unselected}"
+                            android:src="@{vm.uiState.hasSideEffect ? @drawable/ic_emotion_bad_selected : @drawable/ic_emotion_bad_unselected}"
                             android:background="@android:color/transparent"
-                            android:onClick="@{()->vm.updateExistAdverseEffectState()}"/>
+                            android:onClick="@{()->vm.updateHasSideEffectState(true)}"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -144,6 +145,7 @@
                 android:background="@drawable/bg_rectangle_filled_white_radius_8"
                 android:scrollHorizontally="false"
                 android:hint="@string/create_adverse_effect_edit_text_hint"
+                android:text="@{vm.uiState.contentText}"
                 android:textAppearance="@style/p2"
                 android:gravity="top|start"
                 app:layout_constraintTop_toBottomOf="@id/btn_adverse_effect_layout"/>

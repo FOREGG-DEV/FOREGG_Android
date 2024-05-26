@@ -26,7 +26,7 @@ interface AuthApi {
         @Body request : SignUpRequestVo
     ) : Response<ApiResponse<SignResponse>>
 
-    @POST(Endpoints.AUTH.JOIN)
+    @POST(Endpoints.AUTH.JOIN_MALE)
     suspend fun joinMale(
         @Header(HEADER_TOKEN) accessToken : String,
         @Body request : SignUpMaleRequestVo

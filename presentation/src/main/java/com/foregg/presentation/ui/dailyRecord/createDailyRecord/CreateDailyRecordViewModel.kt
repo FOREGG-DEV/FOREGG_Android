@@ -23,21 +23,15 @@ class CreateDailyRecordViewModel @Inject constructor(
     private val postDailyRecordUseCase: PostDailyRecordUseCase
 ): BaseViewModel<CreateDailyRecordPageState>() {
     private val dailyRecordTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
-    private val isWorstEmotionStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    private val isBadEmotionStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    private val isSoSoEmotionStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    private val isSmileEmotionStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    private val isPerfectEmotionStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val isSelectedEmotionStateFlow: MutableStateFlow<DailyConditionType> = MutableStateFlow(DailyConditionType.DEFAULT)
     private val questionTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private var contentTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
 
     override val uiState: CreateDailyRecordPageState = CreateDailyRecordPageState(
         dailyRecordText = dailyRecordTextStateFlow.asStateFlow(),
-        isWorstEmotion = isWorstEmotionStateFlow.asStateFlow(),
-        isBadEmotion = isBadEmotionStateFlow.asStateFlow(),
-        isSoSoEmotion = isSoSoEmotionStateFlow.asStateFlow(),
-        isSmileEmotion = isSmileEmotionStateFlow.asStateFlow(),
-        isPerfectEmotion = isPerfectEmotionStateFlow.asStateFlow(),
-        questionText = questionTextStateFlow.asStateFlow()
+        questionText = questionTextStateFlow.asStateFlow(),
+        isSelectedEmotion = isSelectedEmotionStateFlow.asStateFlow(),
+        contentText = contentTextStateFlow
     )
 
     init {
@@ -48,80 +42,30 @@ class CreateDailyRecordViewModel @Inject constructor(
         }
     }
 
-    fun onClickBtnWorst() {
-        if (!isWorstEmotionStateFlow.value) {
-            isWorstEmotionStateFlow.update { true }
-            isBadEmotionStateFlow.update { false }
-            isSoSoEmotionStateFlow.update { false }
-            isSmileEmotionStateFlow.update { false }
-            isPerfectEmotionStateFlow.update { false }
-        } else isWorstEmotionStateFlow.update { false }
-    }
-
-    fun onClickBtnBad() {
-        if (!isBadEmotionStateFlow.value) {
-            isWorstEmotionStateFlow.update { false }
-            isBadEmotionStateFlow.update { true }
-            isSoSoEmotionStateFlow.update { false }
-            isSmileEmotionStateFlow.update { false }
-            isPerfectEmotionStateFlow.update { false }
-        } else isBadEmotionStateFlow.update { false }
-    }
-
-    fun onClickBtnSoSo() {
-        if (!isSoSoEmotionStateFlow.value) {
-            isWorstEmotionStateFlow.update { false }
-            isBadEmotionStateFlow.update { false }
-            isSoSoEmotionStateFlow.update { true }
-            isSmileEmotionStateFlow.update { false }
-            isPerfectEmotionStateFlow.update { false }
-        } else isSoSoEmotionStateFlow.update { false }
-    }
-
-    fun onClickBtnSmile() {
-        if (!isSmileEmotionStateFlow.value) {
-            isWorstEmotionStateFlow.update { false }
-            isBadEmotionStateFlow.update { false }
-            isSoSoEmotionStateFlow.update { false }
-            isSmileEmotionStateFlow.update { true }
-            isPerfectEmotionStateFlow.update { false }
-        } else isSmileEmotionStateFlow.update { false }
-    }
-
-    fun onClickBtnPerfect() {
-        if (!isPerfectEmotionStateFlow.value) {
-            isWorstEmotionStateFlow.update { false }
-            isBadEmotionStateFlow.update { false }
-            isSoSoEmotionStateFlow.update { false }
-            isSmileEmotionStateFlow.update { false }
-            isPerfectEmotionStateFlow.update { true }
-        } else isPerfectEmotionStateFlow.update { false }
+    fun onClickBtnDailyCondition(type: DailyConditionType) {
+        viewModelScope.launch {
+            isSelectedEmotionStateFlow.update { type }
+        }
     }
 
     fun onClickBtnNext() {
-        emitEventFlow(CreateDailyRecordEvent.GetDailyRecordDataEvent)
+        createDailyRecord(contentTextStateFlow.value)
     }
 
-    fun createDailyRecord(content: String) {
-        val emotionStateFlows = listOf(
-            isWorstEmotionStateFlow to DailyConditionType.WORST,
-            isBadEmotionStateFlow to DailyConditionType.BAD,
-            isSoSoEmotionStateFlow to DailyConditionType.SOSO,
-            isSmileEmotionStateFlow to DailyConditionType.GOOD,
-            isPerfectEmotionStateFlow to DailyConditionType.PERFECT
-        )
-        val trueEmotion = emotionStateFlows.firstOrNull { it.first.value }
-
-        if (trueEmotion == null) {
+    private fun createDailyRecord(content: String) {
+        if (isSelectedEmotionStateFlow.value == DailyConditionType.DEFAULT) {
             emitEventFlow(CreateDailyRecordEvent.InsufficientEmotionDataEvent)
             return
         } else {
             viewModelScope.launch {
-                postDailyRecordUseCase(request = CreateDailyRecordRequestVo(trueEmotion.second, content)).collect {
+                postDailyRecordUseCase(request = CreateDailyRecordRequestVo(isSelectedEmotionStateFlow.value, content)).collect {
                     resultResponse(it, { emitEventFlow(CreateDailyRecordEvent.GoToCreateSideEffectEvent) })
                 }
             }
-            emitEventFlow(CreateDailyRecordEvent.GoToCreateSideEffectEvent)
         }
+    }
+
+    fun onClickBtnClose() {
+        emitEventFlow(CreateDailyRecordEvent.OnClickBtnClose)
     }
 }

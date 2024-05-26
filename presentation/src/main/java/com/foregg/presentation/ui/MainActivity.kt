@@ -3,10 +3,12 @@ package com.foregg.presentation.ui
 import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.foregg.domain.model.enums.BottomNavType
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseActivity
 import com.foregg.presentation.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity :
@@ -26,8 +28,10 @@ class MainActivity :
 
     override fun initState() {
         repeatOnStarted {
-            viewModel.eventFlow.collect {
-                inspectEvent(it as MainActivityEvent)
+            launch {
+                viewModel.eventFlow.collect{
+                    inspectEvent(it as MainActivityEvent)
+                }
             }
         }
     }
@@ -43,35 +47,21 @@ class MainActivity :
 
     private fun inspectEvent(event: MainActivityEvent) {
         when (event) {
-            MainActivityEvent.GoToCalendar -> {
-                navController.navigate(R.id.calendarFragment)
-            }
-
-            MainActivityEvent.GoToMain -> {
-                 navController.navigate(R.id.homeFragment)
-            }
-
-            MainActivityEvent.GoToAccount -> {
-                navController.navigate(R.id.accountFragment)
-            }
-
-            MainActivityEvent.GoToProfile -> {
-                navController.navigate(R.id.profileFragment)
-            }
-
-            MainActivityEvent.GoToInfo -> {
-                //navController.navigate(R.id.settingFragment)
-            }
+            MainActivityEvent.GoToCalendar -> navController.navigate(R.id.calendarFragment)
+            MainActivityEvent.GoToMain -> navController.navigate(R.id.homeFragment)
+            MainActivityEvent.GoToAccount -> navController.navigate(R.id.accountFragment)
+            MainActivityEvent.GoToProfile -> navController.navigate(R.id.profileFragment)
+            MainActivityEvent.GoToInfo -> {}
         }
     }
 
     private fun changeBottomNavigationView(id: Int) {
         when (id) {
-            R.id.homeFragment -> viewModel.activeMain()
-            R.id.calendarFragment -> viewModel.activeCalendar()
-            R.id.profileFragment -> viewModel.activeProfile()
-            R.id.accountFragment -> viewModel.activeAccount()
-            else -> viewModel.goneNavigation()
+            R.id.homeFragment -> viewModel.updatePageType(BottomNavType.HOME)
+            R.id.calendarFragment -> viewModel.updatePageType(BottomNavType.CALENDAR)
+            R.id.profileFragment -> viewModel.updatePageType(BottomNavType.PROFILE)
+            R.id.accountFragment -> viewModel.updatePageType(BottomNavType.ACCOUNT)
+            else -> viewModel.updatePageType(BottomNavType.OTHER)
         }
     }
 }
