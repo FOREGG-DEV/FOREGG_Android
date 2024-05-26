@@ -29,6 +29,8 @@ class CalendarDayAdapter(
 }
 
 class CalendarDayDiffCallBack : DiffUtil.ItemCallback<CalendarDayVo>() {
-    override fun areItemsTheSame(oldItem: CalendarDayVo, newItem: CalendarDayVo): Boolean = oldItem.day == newItem.day
+    override fun areItemsTheSame(oldItem: CalendarDayVo, newItem: CalendarDayVo): Boolean {
+        return oldItem.day == newItem.day && oldItem.scheduleList == newItem.scheduleList
+    }
     override fun areContentsTheSame(oldItem: CalendarDayVo, newItem: CalendarDayVo): Boolean = oldItem == newItem
 }

@@ -23,6 +23,7 @@ data class ScheduleRepeatDayVo(
     val repeatDayText : String = "",
     val isRepeatDay : Boolean = false,
 ){
+    val showCheckBtn : Boolean = isRepeatDay && repeatDayText.isEmpty()
     fun isNotEmpty() : Boolean = startDate.isNotEmpty() && endDate.isNotEmpty() && repeatDayText.isNotEmpty()
     fun isCorrectDay() : Boolean{
         val formatter = DateTimeFormatter.ISO_LOCAL_DATE

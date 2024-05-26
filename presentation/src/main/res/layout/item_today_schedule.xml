@@ -4,8 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="285dp"
-        android:layout_height="140dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@drawable/bg_rectangle_filled_white_stroke_main_radius_8">
 
         <LinearLayout
