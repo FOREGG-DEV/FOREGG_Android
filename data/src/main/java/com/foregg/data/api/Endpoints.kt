@@ -28,6 +28,13 @@ object Endpoints {
         const val HOME = "/home"
     }
 
+    object DailyRecord {
+        const val DAILY = "/daily"
+        const val WRITE = "$DAILY/write"
+        const val SIDEEFFECT = "$DAILY/sideEffect"
+        const val SIDEEFFECTLIST = "$DAILY/sideEffectList"
+    }
+
     object Challenge {
         private const val CHALLENGE = "/challenge"
         const val ALL = "$CHALLENGE/all"

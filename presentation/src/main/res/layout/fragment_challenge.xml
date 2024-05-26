@@ -36,6 +36,7 @@
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->vm.onClickBtnBack()}"
                     android:src="@drawable/ic_back_arrow_gs_60"
                     android:background="@android:color/transparent"/>
 
@@ -99,6 +100,7 @@
                     android:layout_marginHorizontal="34dp"
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="24dp"
+                    android:clipToPadding="false"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

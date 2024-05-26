@@ -1,6 +1,13 @@
 package com.foregg.presentation.ui.main.home.challenge
 
+import android.graphics.Rect
+import android.view.View
+import androidx.core.view.children
+import androidx.core.view.marginStart
+import androidx.core.view.setPadding
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.foregg.domain.model.enums.ChallengeTapType
 import com.foregg.presentation.R
@@ -9,6 +16,7 @@ import com.foregg.presentation.databinding.FragmentChallengeBinding
 import com.foregg.presentation.ui.common.CommonDialog
 import com.foregg.presentation.ui.main.home.challenge.adapter.ChallengeListAdapter
 import com.foregg.presentation.ui.main.home.challenge.adapter.MyChallengeListAdapter
+import com.foregg.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -34,16 +42,20 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
     override fun initView() {
         binding.apply {
             vm = viewModel
-            viewPagerChallenge.adapter = challengeListAdapter
-
-            viewPagerChallenge.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                private var previousPosition = viewPagerChallenge.currentItem
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    viewModel.swipeItem(position, previousPosition)
-                    previousPosition = position
-                }
-            })
+            viewPagerChallenge.apply {
+                adapter = challengeListAdapter
+                registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                    private var previousPosition = viewPagerChallenge.currentItem
+                    override fun onPageSelected(position: Int) {
+                        super.onPageSelected(position)
+                        viewModel.swipeItem(position, previousPosition)
+                        previousPosition = position
+                    }
+                })
+                setPadding(10, 0, 10, 0)
+                clipToPadding = false
+                offscreenPageLimit = 2
+            }
         }
         bindTab()
         viewModel.setView()
@@ -74,7 +86,9 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
     }
 
     private fun sortEvent(event: ChallengeEvent) {
-
+        when(event) {
+            ChallengeEvent.OnClickBtnBack -> findNavController().popBackStack()
+        }
     }
 
     private fun bindTab(){

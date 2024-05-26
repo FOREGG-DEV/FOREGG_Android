@@ -111,58 +111,20 @@ class ChallengeViewModel @Inject constructor(
     }
 
     private fun swipeNextItem() {
-        when(challengeTapTypeStateFlow.value) {
-            ChallengeTapType.ALL -> {
-                increaseAllItemCount()
-            }
-            ChallengeTapType.MY -> {
-                increaseMyItemCount()
-            }
-        }
-    }
-
-    private fun increaseAllItemCount() {
         viewModelScope.launch {
             currentItemCountStateFlow.update {
                 if (currentItemCountStateFlow.value < allItemCountStateFlow.value) currentItemCountStateFlow.value + 1 else return@launch
             }
-            isParticipateStateFlow.update { challengeItemListStateFlow.value[currentItemCountStateFlow.value - 1].ifMine }
-        }
-    }
-
-    private fun increaseMyItemCount() {
-        viewModelScope.launch {
-            currentItemCountStateFlow.update {
-                if (currentItemCountStateFlow.value < allItemCountStateFlow.value) currentItemCountStateFlow.value + 1 else return@launch
-            }
+            if(challengeTapTypeStateFlow.value == ChallengeTapType.ALL) isParticipateStateFlow.update { challengeItemListStateFlow.value[currentItemCountStateFlow.value - 1].ifMine }
         }
     }
 
     private fun swipePreviousItem() {
-        when(challengeTapTypeStateFlow.value) {
-            ChallengeTapType.ALL -> {
-                decreaseAllItemCount()
-            }
-            ChallengeTapType.MY -> {
-                decreaseMyItemCount()
-            }
-        }
-    }
-
-    private fun decreaseAllItemCount() {
         viewModelScope.launch {
             currentItemCountStateFlow.update {
                 if (currentItemCountStateFlow.value > 1) currentItemCountStateFlow.value - 1 else return@launch
             }
-            isParticipateStateFlow.update { challengeItemListStateFlow.value[currentItemCountStateFlow.value - 1].ifMine }
-        }
-    }
-
-    private fun decreaseMyItemCount() {
-        viewModelScope.launch {
-            currentItemCountStateFlow.update {
-                if (currentItemCountStateFlow.value > 1) currentItemCountStateFlow.value - 1 else return@launch
-            }
+            if(challengeTapTypeStateFlow.value == ChallengeTapType.ALL) isParticipateStateFlow.update { challengeItemListStateFlow.value[currentItemCountStateFlow.value - 1].ifMine }
         }
     }
 
@@ -212,5 +174,9 @@ class ChallengeViewModel @Inject constructor(
 
     private fun handleCompleteChallengeSuccess(result: Unit) {
         //TODO 각 챌린지에 대해 일요일 ~ 토요일 중 어느 요일에 성공을 했는지, 오늘은 무슨 요일인지 데이터 필요
+    }
+
+    fun onClickBtnBack() {
+        emitEventFlow(ChallengeEvent.OnClickBtnBack)
     }
 }
