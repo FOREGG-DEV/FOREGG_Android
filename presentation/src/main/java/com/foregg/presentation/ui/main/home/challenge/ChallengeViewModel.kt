@@ -103,9 +103,9 @@ class ChallengeViewModel @Inject constructor(
             if (allItemCountStateFlow.value != 0) {
                 if (currentItemCountStateFlow.value == -1) { currentItemCountStateFlow.update { 1 } }
                 weekOfMonthStateFlow.update { myChallengeListStateFlow.value[0].weekOfMonth }
+                updateBtnDayState(0)
             }
             else if (allItemCountStateFlow.value == 0) { currentItemCountStateFlow.update { 0 } }
-            updateBtnDayState(0)
         }
     }
 
