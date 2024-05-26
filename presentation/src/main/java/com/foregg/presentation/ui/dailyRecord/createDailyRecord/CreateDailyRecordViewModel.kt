@@ -49,7 +49,8 @@ class CreateDailyRecordViewModel @Inject constructor(
     }
 
     fun onClickBtnNext() {
-        createDailyRecord(contentTextStateFlow.value)
+        if (contentTextStateFlow.value.isEmpty()) emitEventFlow(CreateDailyRecordEvent.InsufficientTextDataEvent)
+        else createDailyRecord(contentTextStateFlow.value)
     }
 
     private fun createDailyRecord(content: String) {

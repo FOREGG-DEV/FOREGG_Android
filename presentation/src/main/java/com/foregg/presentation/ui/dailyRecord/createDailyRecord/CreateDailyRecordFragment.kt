@@ -36,6 +36,7 @@ class CreateDailyRecordFragment : BaseFragment<FragmentCreateDailyRecordBinding,
             CreateDailyRecordEvent.GoToCreateSideEffectEvent -> goToCreateSideEffect()
             CreateDailyRecordEvent.InsufficientEmotionDataEvent -> ForeggToast.createToast(requireContext(), "오늘의 감정을 선택해주세요.",Toast.LENGTH_SHORT).show()
             CreateDailyRecordEvent.OnClickBtnClose -> findNavController().popBackStack()
+            CreateDailyRecordEvent.InsufficientTextDataEvent -> ForeggToast.createToast(requireContext(), "오늘의 컨디션을 입력해주세요.", Toast.LENGTH_SHORT).show()
         }
     }
 
