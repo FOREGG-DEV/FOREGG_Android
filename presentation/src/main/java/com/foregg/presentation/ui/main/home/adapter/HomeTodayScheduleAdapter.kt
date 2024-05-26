@@ -5,13 +5,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.foregg.domain.model.enums.CalendarType
+import com.foregg.domain.model.enums.RecordType
 import com.foregg.domain.model.response.HomeRecordResponseVo
 import com.foregg.presentation.databinding.ItemTodayScheduleBinding
 
 
-class HomeTodayScheduleAdapter : ListAdapter<HomeRecordResponseVo, RecyclerView.ViewHolder>(
+class HomeTodayScheduleAdapter(
+    private val listener: HomeTodayScheduleDelegate
+) : ListAdapter<HomeRecordResponseVo, RecyclerView.ViewHolder>(
     HomeTodayScheduleDiffUtilCallBack()
 ) {
+
+    interface HomeTodayScheduleDelegate {
+        fun onClickRecordTreatment(id: Long, type: CalendarType, recordType: RecordType)
+    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
@@ -21,7 +29,7 @@ class HomeTodayScheduleAdapter : ListAdapter<HomeRecordResponseVo, RecyclerView.
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = ItemTodayScheduleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return HomeTodayScheduleViewHolder(binding)
+        return HomeTodayScheduleViewHolder(binding, listener)
     }
 }
 

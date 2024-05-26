@@ -4,6 +4,8 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.foregg.domain.model.enums.CalendarType
+import com.foregg.domain.model.enums.RecordType
 import com.foregg.domain.model.response.HomeRecordResponseVo
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
@@ -25,7 +27,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
     @Inject
     lateinit var dialog: CommonDialog
 
-    private val todayScheduleAdapter = HomeTodayScheduleAdapter()
+    private val todayScheduleAdapter : HomeTodayScheduleAdapter by lazy {
+        HomeTodayScheduleAdapter(object : HomeTodayScheduleAdapter.HomeTodayScheduleDelegate {
+            override fun onClickRecordTreatment(id: Long, type: CalendarType, recordType: RecordType) {
+                goToCreateEditSchedule(id ,type, recordType)
+            }
+        })
+    }
+
     private val homeChallengeAdapter: HomeChallengeAdapter by lazy {
         HomeChallengeAdapter( object : HomeChallengeAdapter.HomeChallengeDelegate {
             override fun showDialog(id: Long) {
@@ -96,5 +105,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
                 dialog.dismiss()
             }
             .show()
+    }
+
+    private fun goToCreateEditSchedule(id: Long, type: CalendarType, recordType: RecordType) {
+        val action = HomeFragmentDirections.actionHomeToCreateEditSchedule(id = id, type = type, scheduleType = recordType)
+        findNavController().navigate(action)
     }
 }

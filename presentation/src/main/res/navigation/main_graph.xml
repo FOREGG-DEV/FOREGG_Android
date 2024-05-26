@@ -23,6 +23,10 @@
         <action
             android:id="@+id/action_home_to_daily_record"
             app:destination="@id/dailyRecordFragment"/>
+
+        <action
+            android:id="@+id/action_home_to_create_edit_schedule"
+            app:destination="@id/createEditScheduleFragment"/>
     </fragment>
 
     <fragment
