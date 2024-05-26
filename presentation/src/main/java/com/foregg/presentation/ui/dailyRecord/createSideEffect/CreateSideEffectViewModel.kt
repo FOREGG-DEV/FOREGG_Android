@@ -19,8 +19,6 @@ class CreateSideEffectViewModel @Inject constructor(
     private val resourceProvider: ResourceProvider,
     private val postSideEffectUseCase: PostSideEffectUseCase
 ) : BaseViewModel<CreateSideEffectPageState>() {
-//    private val unExistAdverseEffectStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
-//    private val existAdverseEffectStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val hasSideEffectStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(true)
     private val recordAdverseEffectTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val questionTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
