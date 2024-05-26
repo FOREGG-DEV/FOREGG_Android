@@ -56,8 +56,10 @@ class DailyRecordFragment : BaseFragment<FragmentDailyRecordBinding, DailyRecord
     private fun bindTab() {
         binding.apply {
             customTabBar.leftBtnClicked { viewModel.updateTabType(DailyRecordTabType.ADVERSE_EFFECT) }
-            customTabBar.rightBtnClicked { viewModel.updateTabType(DailyRecordTabType.DAILY_RECORD) }
-            binding.recordRecyclerView.adapter = dailyRecordAdapter
+            customTabBar.rightBtnClicked {
+                viewModel.updateTabType(DailyRecordTabType.DAILY_RECORD)
+                binding.recordRecyclerView.adapter = dailyRecordAdapter
+            }
         }
     }
 

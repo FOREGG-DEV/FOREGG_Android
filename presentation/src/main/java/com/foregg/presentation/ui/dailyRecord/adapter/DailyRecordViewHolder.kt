@@ -13,12 +13,13 @@ class DailyRecordViewHolder(
     private val binding: ItemDailyRecordBinding
 ) : RecyclerView.ViewHolder(binding.root){
     fun bind(item: DailyRecordResponseItemVo) {
+        val imageResource = setImageResource(item.dailyConditionType)
+        val husbandImageResource = setImageResource(item.emotionType)
+
         binding.apply {
-            val imageResource = setImageResource(item.dailyConditionType)
-            val husbandImageResource = setImageResource(item.emotionType)
 
             imageViewEmotion.setImageResource(imageResource)
-            imageViewEmotionHusband.setImageResource(husbandImageResource)
+            if (husbandImageResource != -1) imageViewEmotionHusband.setImageResource(husbandImageResource)
 
             if (TimeFormatter.getToday() == item.date) { imageViewLine.setImageResource(R.drawable.ic_today_record_item_line) }
             else imageViewLine.setImageResource(R.drawable.ic_record_item_line)
@@ -35,7 +36,7 @@ class DailyRecordViewHolder(
             DailyConditionType.SOSO -> R.drawable.ic_emotion_soso_selected
             DailyConditionType.GOOD -> R.drawable.ic_emotion_smile_selected
             DailyConditionType.PERFECT -> R.drawable.ic_emotion_perfect_selected
-            DailyConditionType.DEFAULT -> View.GONE
+            DailyConditionType.DEFAULT -> -1
         }
     }
 
@@ -46,7 +47,7 @@ class DailyRecordViewHolder(
             EmotionType.CLAP -> R.drawable.ic_clap
             EmotionType.SAD -> R.drawable.ic_emotion_sad_selected
             EmotionType.SMILE -> R.drawable.ic_emotion_perfect_selected
-            EmotionType.DEFAULT -> View.GONE
+            EmotionType.DEFAULT -> -1
         }
     }
 }

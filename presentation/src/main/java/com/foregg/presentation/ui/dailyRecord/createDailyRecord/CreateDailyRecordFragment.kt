@@ -41,7 +41,6 @@ class CreateDailyRecordFragment : BaseFragment<FragmentCreateDailyRecordBinding,
 
     private fun goToCreateSideEffect() {
         val action = CreateDailyRecordFragmentDirections.createDailyRecordToCreateSideEffect()
-        findNavController().popBackStack()
         findNavController().navigate(action)
     }
 }
