@@ -11,5 +11,6 @@ data class HomePageState (
     val todayDate : StateFlow<String>,
     val todayScheduleList: StateFlow<List<HomeRecordResponseVo>>,
     val formattedText: StateFlow<String>,
-    val challengeList: StateFlow<List<MyChallengeListItemVo>>
+    val challengeList: StateFlow<List<MyChallengeListItemVo>>,
+    val scheduleStartPosition: StateFlow<Int>
 ) : PageState

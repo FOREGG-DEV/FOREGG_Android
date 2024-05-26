@@ -68,6 +68,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
                 }
             }
             launch {
+                viewModel.uiState.scheduleStartPosition.collect {
+                    if (it != 0) binding.todayScheduleViewPager.scrollToPosition(it)
+                }
+            }
+            launch {
                 viewModel.eventFlow.collect {
                     sortEvent(it as HomeEvent)
                 }

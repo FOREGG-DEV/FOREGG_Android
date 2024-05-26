@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.time.LocalDate
+import org.threeten.bp.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,6 +35,7 @@ class HomeViewModel @Inject constructor(
     private val todayScheduleStateFlow: MutableStateFlow<List<HomeRecordResponseVo>> = MutableStateFlow(emptyList())
     private val formattedTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val challengeListStateFlow: MutableStateFlow<List<MyChallengeListItemVo>> = MutableStateFlow(emptyList())
+    private val scheduleStartPositionStateFlow: MutableStateFlow<Int> = MutableStateFlow(0)
     val month = org.threeten.bp.LocalDate.now().monthValue
     val day = org.threeten.bp.LocalDate.now().dayOfMonth
 
@@ -44,7 +45,8 @@ class HomeViewModel @Inject constructor(
         todayDate = todayDateStateFlow.asStateFlow(),
         todayScheduleList = todayScheduleStateFlow.asStateFlow(),
         formattedText = formattedTextStateFlow.asStateFlow(),
-        challengeList = challengeListStateFlow.asStateFlow()
+        challengeList = challengeListStateFlow.asStateFlow(),
+        scheduleStartPosition = scheduleStartPositionStateFlow.asStateFlow()
     )
 
     fun initScheduleStates() {
@@ -74,7 +76,21 @@ class HomeViewModel @Inject constructor(
             todayDateStateFlow.update { result.todayDate }
             todayScheduleStateFlow.update { splitTodayScheduleByRepeatedTime(result.homeRecordResponseVo) }
             formattedTextStateFlow.update { resourceProvider.getString(R.string.today_schedule_format, userNameStateFlow.value, month, day) }
+            if (todayScheduleStateFlow.value.isNotEmpty()) scheduleStartPositionStateFlow.update { calculatePosition(todayScheduleStateFlow.value) }
         }
+    }
+
+    private fun calculatePosition(list: List<HomeRecordResponseVo>): Int {
+        var position = 0
+        val currentTime = org.threeten.bp.LocalTime.now().hour
+        for (i in list.indices) {
+            val time = list[i].times.first().split(":").first().toInt()
+            if (time > currentTime) {
+                position = i
+                break
+            }
+        }
+        return position
     }
 
     private fun updateChallengeList(newList: List<MyChallengeListItemVo>) {
