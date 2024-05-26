@@ -34,21 +34,9 @@ class CreateDailyRecordFragment : BaseFragment<FragmentCreateDailyRecordBinding,
     private fun sortEvent(event: CreateDailyRecordEvent) {
         when(event) {
             CreateDailyRecordEvent.GoToCreateSideEffectEvent -> goToCreateSideEffect()
-            CreateDailyRecordEvent.GetDailyRecordDataEvent -> getEditTextContent()
             CreateDailyRecordEvent.InsufficientEmotionDataEvent -> ForeggToast.createToast(requireContext(), "오늘의 감정을 선택해주세요.",Toast.LENGTH_SHORT).show()
             CreateDailyRecordEvent.OnClickBtnClose -> findNavController().popBackStack()
         }
-    }
-
-    private fun getEditTextContent() {
-        val content = binding.editTextDailyRecord.text.toString()
-
-        if (content.isEmpty()) {
-            ForeggToast.createToast(requireContext(), "내용을 입력해주세요.", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        viewModel.createDailyRecord(content)
     }
 
     private fun goToCreateSideEffect() {

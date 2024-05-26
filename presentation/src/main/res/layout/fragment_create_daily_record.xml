@@ -6,6 +6,7 @@
 
     <data>
         <import type="android.view.View"/>
+        <import type="com.foregg.domain.model.enums.DailyConditionType"/>
         <variable
             name="vm"
             type="com.foregg.presentation.ui.dailyRecord.createDailyRecord.CreateDailyRecordViewModel"/>
@@ -73,8 +74,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:onClick="@{()->vm.onClickBtnWorst()}"
-                    android:src="@{vm.uiState.isWorstEmotion ? @drawable/ic_emotion_worst_selected : @drawable/ic_emotion_worst_unselected}"/>
+                    android:onClick="@{()->vm.onClickBtnDailyCondition(DailyConditionType.WORST)}"
+                    android:src="@{vm.uiState.isSelectedEmotion != DailyConditionType.WORST ? @drawable/ic_emotion_worst_unselected : @drawable/ic_emotion_worst_selected}"/>
 
                 <Space
                     android:layout_width="0dp"
@@ -85,8 +86,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:onClick="@{()->vm.onClickBtnBad()}"
-                    android:src="@{vm.uiState.isBadEmotion ? @drawable/ic_emotion_bad_selected : @drawable/ic_emotion_bad_unselected}"/>
+                    android:onClick="@{()->vm.onClickBtnDailyCondition(DailyConditionType.BAD)}"
+                    android:src="@{vm.uiState.isSelectedEmotion != DailyConditionType.BAD ? @drawable/ic_emotion_bad_unselected : @drawable/ic_emotion_bad_selected}"/>
 
                 <Space
                     android:layout_width="0dp"
@@ -97,8 +98,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:onClick="@{()->vm.onClickBtnSoSo()}"
-                    android:src="@{vm.uiState.isSoSoEmotion ? @drawable/ic_emotion_soso_selected : @drawable/ic_emotion_soso_unselected}"/>
+                    android:onClick="@{()->vm.onClickBtnDailyCondition(DailyConditionType.SOSO)}"
+                    android:src="@{vm.uiState.isSelectedEmotion != DailyConditionType.SOSO ? @drawable/ic_emotion_soso_unselected : @drawable/ic_emotion_soso_selected}"/>
 
                 <Space
                     android:layout_width="0dp"
@@ -109,8 +110,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:onClick="@{()->vm.onClickBtnSmile()}"
-                    android:src="@{vm.uiState.isSmileEmotion ? @drawable/ic_emotion_smile_selected : @drawable/ic_emotion_smile_unselected}"/>
+                    android:onClick="@{()->vm.onClickBtnDailyCondition(DailyConditionType.GOOD)}"
+                    android:src="@{vm.uiState.isSelectedEmotion != DailyConditionType.GOOD ? @drawable/ic_emotion_smile_unselected : @drawable/ic_emotion_smile_selected}"/>
 
                 <Space
                     android:layout_width="0dp"
@@ -121,8 +122,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:onClick="@{()->vm.onClickBtnPerfect()}"
-                    android:src="@{vm.uiState.isPerfectEmotion ? @drawable/ic_emotion_perfect_selected : @drawable/ic_emotion_perfect_unselected}"/>
+                    android:onClick="@{()->vm.onClickBtnDailyCondition(DailyConditionType.PERFECT)}"
+                    android:src="@{vm.uiState.isSelectedEmotion != DailyConditionType.PERFECT ? @drawable/ic_emotion_perfect_unselected : @drawable/ic_emotion_perfect_selected}"/>
 
             </LinearLayout>
 
@@ -144,6 +145,7 @@
                     android:background="@null"
                     android:scrollHorizontally="false"
                     android:hint="@string/create_daily_record_edit_text_hint"
+                    android:text="@{vm.uiState.contentText}"
                     android:textAppearance="@style/p2"/>
 
             </FrameLayout>
