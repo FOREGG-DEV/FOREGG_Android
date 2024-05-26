@@ -48,7 +48,7 @@ class ProfileAccountViewModel @Inject constructor(
     }
 
     private fun handleSuccessUnregister(){
-        emitEventFlow(ProfileAccountEvent.CompleteLogoutEvent)
+        emitEventFlow(ProfileAccountEvent.CompleteUnregisterEvent)
     }
 
     override val uiState: PageState.Default

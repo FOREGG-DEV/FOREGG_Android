@@ -86,6 +86,7 @@ class AccountCreateEditViewModel @Inject constructor(
     fun setTabType(type: AccountType){
         viewModelScope.launch {
             tabTypeStateFlow.update { type }
+            updateChangedOrigin()
         }
     }
 

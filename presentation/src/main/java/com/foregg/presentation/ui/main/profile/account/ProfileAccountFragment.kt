@@ -85,6 +85,7 @@ class ProfileAccountFragment : BaseFragment<FragmentProfileAccountBinding, PageS
                 startActivity(Intent(requireActivity(), SignActivity::class.java))
                 requireActivity().finish()
             }
+            .showOnlyPositiveBtn()
             .show()
     }
 
@@ -96,6 +97,7 @@ class ProfileAccountFragment : BaseFragment<FragmentProfileAccountBinding, PageS
                 startActivity(Intent(requireActivity(), SignActivity::class.java))
                 requireActivity().finish()
             }
+            .showOnlyPositiveBtn()
             .show()
     }
 }

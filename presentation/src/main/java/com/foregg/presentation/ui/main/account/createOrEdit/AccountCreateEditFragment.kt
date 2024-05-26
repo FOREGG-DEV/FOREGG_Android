@@ -53,8 +53,8 @@ class AccountCreateEditFragment : BaseFragment<FragmentCreateEditAccountBinding,
             }
             launch {
                 viewModel.uiState.tabType.collect{
-                    if(it == AccountType.PERSONAL_EXPENSE) binding.customTabBar.leftBtnClicked { viewModel.updateChangedOrigin() }
-                    else binding.customTabBar.rightBtnClicked { viewModel.updateChangedOrigin() }
+                    if(it == AccountType.PERSONAL_EXPENSE) binding.customTabBar.setLeftBtnClickedBackground()
+                    else binding.customTabBar.setRightBtnClickedBackground()
                 }
             }
             launch {
