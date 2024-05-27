@@ -120,11 +120,6 @@ class CreateEditScheduleViewModel @Inject constructor(
         }
     }
 
-    fun onClickConfirmRepeatDay(){
-        if(repeatDayStateFlow.value.startDate.isEmpty() || repeatDayStateFlow.value.endDate.isEmpty() || repeatDayStateFlow.value.repeatDayList.isEmpty()) return
-        updateRepeatDayText(repeatDayStateFlow.value.repeatDayList.joinToString(", "))
-    }
-
     private fun updateRepeatDayText(days : String){
         viewModelScope.launch {
             repeatDayStateFlow.update { repeatDayStateFlow.value.copy(repeatDayText = days) }
@@ -209,6 +204,7 @@ class CreateEditScheduleViewModel @Inject constructor(
     private fun updateRepeatDayList(list : List<String>){
         viewModelScope.launch {
             repeatDayStateFlow.update { repeatDayStateFlow.value.copy(repeatDayList = list) }
+            updateRepeatDayText(list.sortedBy { allDayList.indexOf(it) }.joinToString(", "))
         }
     }
 
