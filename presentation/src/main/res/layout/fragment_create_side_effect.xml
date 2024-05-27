@@ -159,6 +159,7 @@
                 android:background="@drawable/bg_rectangle_filled_white_stroke_main_radius_8"
                 android:text="@string/word_next"
                 android:textAppearance="@style/h1"
+                android:textColor="@color/black"
                 android:onClick="@{()->vm.onClickBtnNext()}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

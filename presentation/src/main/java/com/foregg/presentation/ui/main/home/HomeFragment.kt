@@ -44,10 +44,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
     }
 
     override fun initView() {
+        val position = viewModel.uiState.scheduleStartPosition.value
         binding.apply {
             vm = viewModel
             todayScheduleViewPager.adapter = todayScheduleAdapter
             todayScheduleViewPager.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            if (position != 0) todayScheduleViewPager.scrollToPosition(position)
             challengeRecyclerView.adapter = homeChallengeAdapter
             challengeRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         }
