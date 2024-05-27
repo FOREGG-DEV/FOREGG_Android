@@ -79,7 +79,7 @@
             android:layout_marginEnd="16dp"
             android:afterTextChanged="@{()->vm.updateChangedOrigin()}"
             android:background="@drawable/bg_rectangle_filled_white_radius_4"
-            android:enabled="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? false : (vm.uiState.classification.classification == RecordType.INJECTION ? false : true)}"
+            android:enabled="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? false : true}"
             android:paddingVertical="9dp"
             android:paddingStart="12dp"
             android:text="@={vm.uiState.classification.classificationDetailEditText}"
