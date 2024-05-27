@@ -3,7 +3,9 @@ package com.foregg.presentation.ui.main.profile.edit
 import androidx.lifecycle.viewModelScope
 import com.foregg.domain.model.enums.SurgeryType
 import com.foregg.domain.model.request.profile.EditMyInfoRequestVo
+import com.foregg.domain.model.response.ShareCodeResponseVo
 import com.foregg.domain.model.response.profile.ProfileDetailResponseVo
+import com.foregg.domain.usecase.auth.GetShareCodeUseCase
 import com.foregg.domain.usecase.profile.GetMyInfoUseCase
 import com.foregg.domain.usecase.profile.PutEditMyInfoUseCase
 import com.foregg.presentation.base.BaseViewModel
@@ -18,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class EditMyInfoViewModel @Inject constructor(
     private val getMyInfoUseCase: GetMyInfoUseCase,
-    private val putEditMyInfoUseCase: PutEditMyInfoUseCase
+    private val putEditMyInfoUseCase: PutEditMyInfoUseCase,
 ) : BaseViewModel<EditMyInfoPageState>() {
 
     companion object{
@@ -57,7 +59,13 @@ class EditMyInfoViewModel @Inject constructor(
             selectedSurgeryTypeStateFlow.update { result.surgeryType }
             progressRoundStateFlow.update { result.round }
             startTreatmentDayStateFlow.update { result.startDate }
-            shareCodeStateFlow.update { result.spouse }
+            shareCodeStateFlow.update { result.shareCode }
+        }
+    }
+
+    private fun handleSuccessGetShareCode(result : ShareCodeResponseVo){
+        viewModelScope.launch {
+            shareCodeStateFlow.update { result.shareCode }
         }
     }
 

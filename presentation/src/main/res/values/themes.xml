@@ -13,10 +13,15 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
+    <!-- DatePickerDialog spinner style -->
     <style name="DatePickerStyle" parent="Theme.AppCompat.Light.Dialog">
-        <!-- 상단 색 변경 -->
-        <item name="colorAccent">@color/main</item>
-        <!-- 취소/확인버튼 색상 -->
+        <item name="android:datePickerStyle">@style/SpinnerDatePicker</item>
         <item name="android:textColor">@color/main</item>
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+    </style>
+
+    <style name="SpinnerDatePicker" parent="android:Widget.Material.DatePicker">
+        <item name="android:datePickerMode">spinner</item>
     </style>
 </resources>

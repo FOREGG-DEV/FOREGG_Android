@@ -147,8 +147,24 @@
             android:text="@string/word_every_day"
             android:textAppearance="@style/p3"
             android:textColor="@{vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.EVERY.week) ? @color/white : @color/gs_80}"
-            app:layout_constraintEnd_toStartOf="@id/btn_monday"
+            app:layout_constraintEnd_toStartOf="@id/btn_sunday"
             app:layout_constraintStart_toEndOf="@id/text_repeat_week"
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_end_day" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_sunday"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:clickable="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? false : true}"
+            android:onClick="@{()->vm.onClickRepeatDayBtn(RepeatDayType.SUN)}"
+            android:background="@{vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.EVERY.week) || vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.SUN.week) ? @drawable/bg_rectangle_filled_white_stroke_main_radius_4 : @drawable/bg_rectangle_filled_white_radius_4}"
+            android:text="@string/word_sunday"
+            android:textAppearance="@style/p3"
+            android:textColor="@color/gs_80"
+            app:layout_constraintEnd_toStartOf="@id/btn_monday"
+            app:layout_constraintStart_toEndOf="@id/btn_every_day"
             app:layout_constraintTop_toBottomOf="@id/constraint_layout_end_day" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -164,7 +180,7 @@
             android:textAppearance="@style/p3"
             android:textColor="@color/gs_80"
             app:layout_constraintEnd_toStartOf="@id/btn_tuesday"
-            app:layout_constraintStart_toEndOf="@id/btn_every_day"
+            app:layout_constraintStart_toEndOf="@id/btn_sunday"
             app:layout_constraintTop_toBottomOf="@id/constraint_layout_end_day" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -172,14 +188,14 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             android:clickable="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? false : true}"
             android:onClick="@{()->vm.onClickRepeatDayBtn(RepeatDayType.TUE)}"
             android:background="@{vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.EVERY.week) || vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.TUE.week) ? @drawable/bg_rectangle_filled_white_stroke_main_radius_4 : @drawable/bg_rectangle_filled_white_radius_4}"
             android:text="@string/word_tuesday"
             android:textAppearance="@style/p3"
             android:textColor="@color/gs_80"
-            app:layout_constraintEnd_toStartOf="@id/btn_wednesday"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_monday"
             app:layout_constraintTop_toBottomOf="@id/constraint_layout_end_day" />
 
@@ -187,23 +203,23 @@
             android:id="@+id/btn_wednesday"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:clickable="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? false : true}"
             android:onClick="@{()->vm.onClickRepeatDayBtn(RepeatDayType.WED)}"
             android:background="@{vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.EVERY.week) || vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.WED.week) ? @drawable/bg_rectangle_filled_white_stroke_main_radius_4 : @drawable/bg_rectangle_filled_white_radius_4}"
             android:text="@string/word_wednesday"
             android:textAppearance="@style/p3"
             android:textColor="@color/gs_80"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_tuesday"
-            app:layout_constraintTop_toBottomOf="@id/constraint_layout_end_day" />
+            app:layout_constraintEnd_toStartOf="@id/btn_thursday"
+            app:layout_constraintStart_toEndOf="@id/text_repeat_week"
+            app:layout_constraintTop_toBottomOf="@id/btn_every_day" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_thursday"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_marginStart="9dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:clickable="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? false : true}"
@@ -213,7 +229,7 @@
             android:textAppearance="@style/p3"
             android:textColor="@color/gs_80"
             app:layout_constraintEnd_toStartOf="@id/btn_friday"
-            app:layout_constraintStart_toEndOf="@id/text_repeat_week"
+            app:layout_constraintStart_toEndOf="@id/btn_wednesday"
             app:layout_constraintTop_toBottomOf="@id/btn_every_day" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -237,31 +253,15 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             android:clickable="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? false : true}"
             android:onClick="@{()->vm.onClickRepeatDayBtn(RepeatDayType.SAT)}"
             android:background="@{vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.EVERY.week) || vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.SAT.week) ? @drawable/bg_rectangle_filled_white_stroke_main_radius_4 : @drawable/bg_rectangle_filled_white_radius_4}"
             android:text="@string/word_saturday"
             android:textAppearance="@style/p3"
             android:textColor="@color/gs_80"
-            app:layout_constraintEnd_toStartOf="@id/btn_sunday"
-            app:layout_constraintStart_toEndOf="@id/btn_friday"
-            app:layout_constraintTop_toBottomOf="@id/btn_every_day" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_sunday"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:clickable="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? false : true}"
-            android:onClick="@{()->vm.onClickRepeatDayBtn(RepeatDayType.SUN)}"
-            android:background="@{vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.EVERY.week) || vm.uiState.repeatDay.repeatDayList.contains(RepeatDayType.SUN.week) ? @drawable/bg_rectangle_filled_white_stroke_main_radius_4 : @drawable/bg_rectangle_filled_white_radius_4}"
-            android:text="@string/word_sunday"
-            android:textAppearance="@style/p3"
-            android:textColor="@color/gs_80"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_saturday"
+            app:layout_constraintStart_toEndOf="@id/btn_friday"
             app:layout_constraintTop_toBottomOf="@id/btn_every_day" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

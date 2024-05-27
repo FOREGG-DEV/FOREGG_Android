@@ -72,13 +72,13 @@ class CreateEditScheduleViewModel @Inject constructor(
     )
 
     private val allDayList = listOf(
+        RepeatDayType.SUN.week,
         RepeatDayType.MON.week,
         RepeatDayType.TUE.week,
         RepeatDayType.WED.week,
         RepeatDayType.THU.week,
         RepeatDayType.FRI.week,
         RepeatDayType.SAT.week,
-        RepeatDayType.SUN.week
     )
     private lateinit var originDetail : ScheduleDetailVo
     private var originMedicalRecord: MedicalRecord = MedicalRecord()
@@ -118,11 +118,6 @@ class CreateEditScheduleViewModel @Inject constructor(
         viewModelScope.launch {
             repeatDayStateFlow.update { ScheduleRepeatDayVo() }
         }
-    }
-
-    fun onClickConfirmRepeatDay(){
-        if(repeatDayStateFlow.value.startDate.isEmpty() || repeatDayStateFlow.value.endDate.isEmpty() || repeatDayStateFlow.value.repeatDayList.isEmpty()) return
-        updateRepeatDayText(repeatDayStateFlow.value.repeatDayList.joinToString(", "))
     }
 
     private fun updateRepeatDayText(days : String){
@@ -209,6 +204,7 @@ class CreateEditScheduleViewModel @Inject constructor(
     private fun updateRepeatDayList(list : List<String>){
         viewModelScope.launch {
             repeatDayStateFlow.update { repeatDayStateFlow.value.copy(repeatDayList = list) }
+            updateRepeatDayText(list.sortedBy { allDayList.indexOf(it) }.joinToString(", "))
         }
     }
 

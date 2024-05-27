@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.foregg.presentation.ui.main.profile.account.ProfileAccountViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="16dp">
+
+            <include
+                android:id="@+id/include_top_bar"
+                layout="@layout/include_top_bar" />
+
+            <ImageButton
+                android:id="@+id/img_btn_back"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="16dp"
+                android:onClick="@{()->vm.onClickBack()}"
+                android:background="@drawable/ic_back_arrow_gs_50"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/profile_my_account_setting"
+                android:textAppearance="@style/h3"
+                android:textColor="@color/gs_black"
+                app:layout_constraintBottom_toBottomOf="@id/include_top_bar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/include_top_bar" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:onClick="@{()->vm.onClickLogout()}"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/bg_rectangle_filled_white_radius_8"
+                android:paddingBottom="14dp"
+                app:layout_constraintTop_toBottomOf="@id/include_top_bar">
+
+                <TextView
+                    android:id="@+id/text_logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:text="@string/profile_logout"
+                    android:textAppearance="@style/p2"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_unregister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:onClick="@{()->vm.onClickUnregister()}"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_rectangle_filled_white_radius_8"
+                android:paddingBottom="14dp"
+                app:layout_constraintTop_toBottomOf="@id/constraint_layout_logout">
+
+                <TextView
+                    android:id="@+id/text_unregister"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:text="@string/profile_unregister"
+                    android:textAppearance="@style/p2"
+                    android:textColor="@color/unregister"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

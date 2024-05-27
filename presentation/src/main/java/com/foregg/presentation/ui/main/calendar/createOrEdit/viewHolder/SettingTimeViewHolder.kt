@@ -36,7 +36,7 @@ class SettingTimeViewHolder(
                         if(editTextHourTime.text.toString().isNotEmpty() && editTextHourTime.text.toString().toInt() > MAX_AM_HOUR.toInt()) editTextHourTime.setText(MAX_AM_HOUR)
                     }
                     root.context.getString(R.string.calendar_create_edit_time_pm) -> {
-                        if(editTextHourTime.text.toString().isNotEmpty() && editTextHourTime.text.toString().toInt() > MAX_HOUR.toInt()) editTextHourTime.setText(MAX_HOUR)
+                        if(editTextHourTime.text.toString().isNotEmpty() && (editTextHourTime.text.toString().toInt() > MAX_HOUR.toInt() || editTextHourTime.text.toString().toInt() == 0)) editTextHourTime.setText(MAX_HOUR)
                     }
                 }
                 updateTime()

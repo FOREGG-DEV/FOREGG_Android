@@ -19,14 +19,52 @@
         <action
             android:id="@+id/action_home_to_challege"
             app:destination="@id/challengeFragment"/>
+
+        <action
+            android:id="@+id/action_home_to_daily_record"
+            app:destination="@id/dailyRecordFragment"/>
+
+        <action
+            android:id="@+id/action_home_to_create_edit_schedule"
+            app:destination="@id/createEditScheduleFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/dailyRecordFragment"
+        android:name="com.foregg.presentation.ui.dailyRecord.DailyRecordFragment"
+        android:label="fragment_daily_record"
+        tools:layout="@layout/fragment_daily_record">
+
+        <action
+            android:id="@+id/action_daily_record_to_create_daily_record"
+            app:destination="@id/createDailyRecordFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/createDailyRecordFragment"
+        android:name="com.foregg.presentation.ui.dailyRecord.createDailyRecord.CreateDailyRecordFragment"
+        android:label="fragment_create_daily_record"
+        tools:layout="@layout/fragment_create_daily_record">
+
+        <action
+            android:id="@+id/create_daily_record_to_create_side_effect"
+            app:destination="@id/createSideEffectFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/createSideEffectFragment"
+        android:name="com.foregg.presentation.ui.dailyRecord.createSideEffect.CreateSideEffectFragment"
+        android:label="fragment_create_side_effect"
+        tools:layout="@layout/fragment_create_side_effect">
+
     </fragment>
 
     <fragment
         android:id="@+id/challengeFragment"
         android:name="com.foregg.presentation.ui.main.home.challenge.ChallengeFragment"
         android:label="fragment_challenge"
-        tools:layout="@layout/fragment_home">
-
+        tools:layout="@layout/fragment_challenge">
 
     </fragment>
 
@@ -58,6 +96,19 @@
         <argument
             android:name="schedule_type"
             app:argType="com.foregg.domain.model.enums.RecordType"/>
+
+        <argument
+            android:name="isHome"
+            android:defaultValue="false"
+            app:argType="boolean"/>
+
+        <argument
+            android:name="isProfile"
+            android:defaultValue="false"
+            app:argType="boolean"/>
+        <action
+            android:id="@+id/action_createEditScheduleFragment_self"
+            app:destination="@id/createEditScheduleFragment" />
     </fragment>
 
     <fragment
@@ -103,6 +154,10 @@
         <action
             android:id="@+id/action_profile_to_ask"
             app:destination="@id/askFragment"/>
+
+        <action
+            android:id="@+id/action_profile_to_account"
+            app:destination="@id/profileAccountFragment"/>
     </fragment>
 
     <fragment
@@ -128,6 +183,13 @@
         android:name="com.foregg.presentation.ui.main.profile.ask.AskFragment"
         android:label="fragment_profile_ask"
         tools:layout="@layout/fragment_profile_ask">
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileAccountFragment"
+        android:name="com.foregg.presentation.ui.main.profile.account.ProfileAccountFragment"
+        android:label="fragment_profile_account"
+        tools:layout="@layout/fragment_profile_account">
     </fragment>
 
 </navigation>

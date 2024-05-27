@@ -27,4 +27,12 @@ class ProfileRepositoryImpl @Inject constructor(
     override suspend fun getMyMedicineInjection(request: String): Flow<ApiState<List<MyMedicineInjectionResponseVo>>> {
         return apiLaunch(apiCall = { profileApi.getMyMedicineInjectionInfo(request) }, MyMedicineInjectionResponseMapper )
     }
+
+    override suspend fun logout(): Flow<ApiState<Unit>> {
+        return apiLaunch(apiCall = { profileApi.logout() }, UnitResponseMapper )
+    }
+
+    override suspend fun unRegister(): Flow<ApiState<Unit>> {
+        return apiLaunch(apiCall = { profileApi.unRegister() }, UnitResponseMapper )
+    }
 }

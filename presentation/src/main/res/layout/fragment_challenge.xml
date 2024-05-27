@@ -7,6 +7,7 @@
     <data>
         <import type="android.view.View"/>
         <import type="com.foregg.domain.model.enums.ChallengeTapType"/>
+        <import type="com.foregg.domain.model.enums.ChallengeStatusType"/>
         <variable
             name="vm"
             type="com.foregg.presentation.ui.main.home.challenge.ChallengeViewModel" />
@@ -36,6 +37,7 @@
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->vm.onClickBtnBack()}"
                     android:src="@drawable/ic_back_arrow_gs_60"
                     android:background="@android:color/transparent"/>
 
@@ -99,6 +101,7 @@
                     android:layout_marginHorizontal="34dp"
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="24dp"
+                    android:clipToPadding="false"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -112,6 +115,7 @@
                 android:layout_height="28dp"
                 android:layout_marginBottom="178dp"
                 android:background="@drawable/bg_rectangle_filled_white_radius_12"
+                android:visibility="@{vm.uiState.myChallengeList.empty &amp;&amp; vm.uiState.challengeTapType == ChallengeTapType.MY ? View.GONE : View.VISIBLE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view_pager_frame"
@@ -193,13 +197,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="@{vm.uiState.myChallengeList.empty ? View.GONE : View.VISIBLE}"
                     android:orientation="horizontal">
 
                     <FrameLayout
                         android:id="@+id/frame_sunday"
                         android:layout_width="38dp"
                         android:layout_height="38dp"
-                        android:background="@drawable/bg_circle_filled_white_radius_19">
+                        android:clickable="@{vm.uiState.btnDayState[0] == ChallengeStatusType.TODAY ? true : false}"
+                        android:onClick="@{()->vm.onClickBtnComplete()}"
+                        android:background="@{vm.uiState.btnDayState[0] == ChallengeStatusType.SUCCESS ? @drawable/bg_circle_filled_main_radius_19 : vm.uiState.btnDayState[0] == ChallengeStatusType.FAIL ? @drawable/bg_circle_filled_gs_30_radius_19 : vm.uiState.btnDayState[0] == ChallengeStatusType.TODAY ? @drawable/bg_circle_filled_white_stroke_pink_radius_19 : @drawable/bg_circle_filled_white_radius_19}">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -220,7 +227,9 @@
                         android:id="@+id/frame_monday"
                         android:layout_width="38dp"
                         android:layout_height="38dp"
-                        android:background="@drawable/bg_circle_filled_white_radius_19">
+                        android:clickable="@{vm.uiState.btnDayState[1] == ChallengeStatusType.TODAY ? true : false}"
+                        android:onClick="@{()->vm.onClickBtnComplete()}"
+                        android:background="@{vm.uiState.btnDayState[1] == ChallengeStatusType.SUCCESS ? @drawable/bg_circle_filled_main_radius_19 : vm.uiState.btnDayState[1] == ChallengeStatusType.FAIL ? @drawable/bg_circle_filled_gs_30_radius_19 : vm.uiState.btnDayState[1] == ChallengeStatusType.TODAY ? @drawable/bg_circle_filled_white_stroke_pink_radius_19 : @drawable/bg_circle_filled_white_radius_19}">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -241,7 +250,9 @@
                         android:id="@+id/frame_tuesday"
                         android:layout_width="38dp"
                         android:layout_height="38dp"
-                        android:background="@drawable/bg_circle_filled_white_radius_19">
+                        android:clickable="@{vm.uiState.btnDayState[2] == ChallengeStatusType.TODAY ? true : false}"
+                        android:onClick="@{()->vm.onClickBtnComplete()}"
+                        android:background="@{vm.uiState.btnDayState[2] == ChallengeStatusType.SUCCESS ? @drawable/bg_circle_filled_main_radius_19 : vm.uiState.btnDayState[2] == ChallengeStatusType.FAIL ? @drawable/bg_circle_filled_gs_30_radius_19 : vm.uiState.btnDayState[2] == ChallengeStatusType.TODAY ? @drawable/bg_circle_filled_white_stroke_pink_radius_19 : @drawable/bg_circle_filled_white_radius_19}">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -262,7 +273,9 @@
                         android:id="@+id/frame_wednesday"
                         android:layout_width="38dp"
                         android:layout_height="38dp"
-                        android:background="@drawable/bg_circle_filled_white_radius_19">
+                        android:clickable="@{vm.uiState.btnDayState[3] == ChallengeStatusType.TODAY ? true : false}"
+                        android:onClick="@{()->vm.onClickBtnComplete()}"
+                        android:background="@{vm.uiState.btnDayState[3] == ChallengeStatusType.SUCCESS ? @drawable/bg_circle_filled_main_radius_19 : vm.uiState.btnDayState[3] == ChallengeStatusType.FAIL ? @drawable/bg_circle_filled_gs_30_radius_19 : vm.uiState.btnDayState[3] == ChallengeStatusType.TODAY ? @drawable/bg_circle_filled_white_stroke_pink_radius_19 : @drawable/bg_circle_filled_white_radius_19}">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -283,7 +296,9 @@
                         android:id="@+id/frame_thursday"
                         android:layout_width="38dp"
                         android:layout_height="38dp"
-                        android:background="@drawable/bg_circle_filled_white_radius_19">
+                        android:clickable="@{vm.uiState.btnDayState[4] == ChallengeStatusType.TODAY ? true : false}"
+                        android:onClick="@{()->vm.onClickBtnComplete()}"
+                        android:background="@{vm.uiState.btnDayState[4] == ChallengeStatusType.SUCCESS ? @drawable/bg_circle_filled_main_radius_19 : vm.uiState.btnDayState[4] == ChallengeStatusType.FAIL ? @drawable/bg_circle_filled_gs_30_radius_19 : vm.uiState.btnDayState[4] == ChallengeStatusType.TODAY ? @drawable/bg_circle_filled_white_stroke_pink_radius_19 : @drawable/bg_circle_filled_white_radius_19}">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -304,7 +319,9 @@
                         android:id="@+id/frame_friday"
                         android:layout_width="38dp"
                         android:layout_height="38dp"
-                        android:background="@drawable/bg_circle_filled_white_radius_19">
+                        android:clickable="@{vm.uiState.btnDayState[5] == ChallengeStatusType.TODAY ? true : false}"
+                        android:onClick="@{()->vm.onClickBtnComplete()}"
+                        android:background="@{vm.uiState.btnDayState[5] == ChallengeStatusType.SUCCESS ? @drawable/bg_circle_filled_main_radius_19 : vm.uiState.btnDayState[5] == ChallengeStatusType.FAIL ? @drawable/bg_circle_filled_gs_30_radius_19 : vm.uiState.btnDayState[5] == ChallengeStatusType.TODAY ? @drawable/bg_circle_filled_white_stroke_pink_radius_19 : @drawable/bg_circle_filled_white_radius_19}">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -325,7 +342,9 @@
                         android:id="@+id/frame_saturday"
                         android:layout_width="38dp"
                         android:layout_height="38dp"
-                        android:background="@drawable/bg_circle_filled_white_radius_19">
+                        android:clickable="@{vm.uiState.btnDayState[6] == ChallengeStatusType.TODAY ? true : false}"
+                        android:onClick="@{()->vm.onClickBtnComplete()}"
+                        android:background="@{vm.uiState.btnDayState[6] == ChallengeStatusType.SUCCESS ? @drawable/bg_circle_filled_main_radius_19 : vm.uiState.btnDayState[6] == ChallengeStatusType.FAIL ? @drawable/bg_circle_filled_gs_30_radius_19 : vm.uiState.btnDayState[6] == ChallengeStatusType.TODAY ? @drawable/bg_circle_filled_white_stroke_pink_radius_19 : @drawable/bg_circle_filled_white_radius_19}">
 
                         <TextView
                             android:layout_width="wrap_content"
