@@ -27,10 +27,14 @@ class CreateScheduleDialog @Inject constructor(@ActivityContext private val cont
 
     private var dialog: AlertDialog? = null
     fun show() {
+        if (binding.root.parent != null) {
+            (binding.root.parent as? ViewGroup)?.removeView(binding.root)
+        }
+
         dialog = builder.create()
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
-        dialog?.setCancelable(false)
+        dialog?.setCanceledOnTouchOutside(true)
         dialog?.show()
     }
 
