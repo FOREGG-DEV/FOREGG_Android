@@ -1,6 +1,7 @@
 package com.foregg.presentation.ui.main.calendar.createOrEdit
 
 import android.app.DatePickerDialog
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -132,6 +133,7 @@ class CreateEditScheduleFragment : BaseFragment<FragmentCreateEditScheduleBindin
         if(createEditScheduleFragmentArgs.type == CalendarType.CREATE)
             settingTimeAdapter.setData(listOf(CreateScheduleTimeVo()).toMutableList()
         )
+        if(createEditScheduleFragmentArgs.isProfile) binding.imgBtnComplete.visibility = View.GONE
         spinnerAdapter.submitList(resources.getStringArray(R.array.injection_list).toList())
         canUpdateTime = true
     }

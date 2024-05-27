@@ -96,6 +96,16 @@
         <argument
             android:name="schedule_type"
             app:argType="com.foregg.domain.model.enums.RecordType"/>
+
+        <argument
+            android:name="isHome"
+            android:defaultValue="false"
+            app:argType="boolean"/>
+
+        <argument
+            android:name="isProfile"
+            android:defaultValue="false"
+            app:argType="boolean"/>
         <action
             android:id="@+id/action_createEditScheduleFragment_self"
             app:destination="@id/createEditScheduleFragment" />
