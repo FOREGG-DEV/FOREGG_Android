@@ -72,13 +72,13 @@ class CreateEditScheduleViewModel @Inject constructor(
     )
 
     private val allDayList = listOf(
+        RepeatDayType.SUN.week,
         RepeatDayType.MON.week,
         RepeatDayType.TUE.week,
         RepeatDayType.WED.week,
         RepeatDayType.THU.week,
         RepeatDayType.FRI.week,
         RepeatDayType.SAT.week,
-        RepeatDayType.SUN.week
     )
     private lateinit var originDetail : ScheduleDetailVo
     private var originMedicalRecord: MedicalRecord = MedicalRecord()

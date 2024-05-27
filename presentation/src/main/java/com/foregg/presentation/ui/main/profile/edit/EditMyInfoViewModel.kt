@@ -21,7 +21,6 @@ import javax.inject.Inject
 class EditMyInfoViewModel @Inject constructor(
     private val getMyInfoUseCase: GetMyInfoUseCase,
     private val putEditMyInfoUseCase: PutEditMyInfoUseCase,
-    private val getShareCodeUseCase: GetShareCodeUseCase
 ) : BaseViewModel<EditMyInfoPageState>() {
 
     companion object{
@@ -53,11 +52,6 @@ class EditMyInfoViewModel @Inject constructor(
                 resultResponse(it, ::handleSuccessGetMyInfo)
             }
         }
-        viewModelScope.launch {
-            getShareCodeUseCase(Unit).collect{
-                resultResponse(it, ::handleSuccessGetShareCode)
-            }
-        }
     }
 
     private fun handleSuccessGetMyInfo(result : ProfileDetailResponseVo){
@@ -65,6 +59,7 @@ class EditMyInfoViewModel @Inject constructor(
             selectedSurgeryTypeStateFlow.update { result.surgeryType }
             progressRoundStateFlow.update { result.round }
             startTreatmentDayStateFlow.update { result.startDate }
+            shareCodeStateFlow.update { result.shareCode }
         }
     }
 

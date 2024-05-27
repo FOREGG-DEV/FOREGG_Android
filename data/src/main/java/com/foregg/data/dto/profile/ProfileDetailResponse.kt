@@ -17,4 +17,6 @@ data class ProfileDetailResponse(
     val spouse : String? = "",
     @SerializedName("ssn")
     val ssn : String = "",
+    @SerializedName("spouseCode")
+    val spouseCode : String = "",
 ) : DataDto
