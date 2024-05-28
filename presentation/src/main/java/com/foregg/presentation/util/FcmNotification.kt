@@ -1,8 +1,11 @@
 package com.foregg.presentation.util
 
+import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.datastore.preferences.core.Preferences
@@ -18,6 +21,7 @@ import com.google.firebase.messaging.RemoteMessage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.Calendar
 import javax.inject.Inject
 
 
@@ -46,7 +50,7 @@ class FcmNotification : FirebaseMessagingService() {
         if(message.data.isEmpty()) return
         val type = NotificationType.valuesOf(message.data[TYPE] ?: "")
         when(type){
-            NotificationType.INJECTION_FEMALE -> {} //sendNotification(message.data)
+            NotificationType.INJECTION_FEMALE -> setAlarm(message.data)
             NotificationType.INJECTION_MALE,
             NotificationType.TODAY_RECORD_FEMALE -> sendNotification(message.data)
             NotificationType.TODAY_RECORD_MALE -> {
@@ -98,5 +102,27 @@ class FcmNotification : FirebaseMessagingService() {
             }
             ForeggNotification.updateNoty(applicationContext, type, true)
         }
+    }
+
+    private fun setAlarm(data: Map<String, String>) {
+        val alarmManager = applicationContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(applicationContext, AlarmReceiver::class.java).apply {
+            putExtra("title", data[TITLE])
+            putExtra("body", data[BODY])
+            putExtra("targetId", data[TARGET_ID]?.toLong())
+        }
+        val pendingIntent = PendingIntent.getBroadcast(
+            applicationContext,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val calendar = Calendar.getInstance().apply {
+            timeInMillis = System.currentTimeMillis()
+            add(Calendar.SECOND, 5)  // 5초 후 알람 발생
+        }
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
     }
 }
