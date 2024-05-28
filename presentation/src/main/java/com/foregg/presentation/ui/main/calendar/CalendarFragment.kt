@@ -6,6 +6,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.foregg.domain.model.enums.CalendarType
+import com.foregg.domain.model.enums.NotificationType
 import com.foregg.domain.model.enums.RecordType
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
@@ -14,6 +15,7 @@ import com.foregg.presentation.ui.common.CommonDialog
 import com.foregg.presentation.ui.main.calendar.adapter.CalendarDayAdapter
 import com.foregg.presentation.ui.main.calendar.adapter.ScheduleAdapter
 import com.foregg.presentation.ui.main.calendar.dialog.CreateScheduleDialog
+import com.foregg.presentation.util.ForeggNotification
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -59,6 +61,7 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding, CalendarPageState
     }
 
     override fun initView() {
+        ForeggNotification.updateNoty(requireContext(), NotificationType.CALENDAR, false)
         binding.apply {
             vm = viewModel
 
