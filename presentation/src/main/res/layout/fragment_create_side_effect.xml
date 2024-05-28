@@ -72,6 +72,7 @@
                     android:layout_width="146dp"
                     android:layout_height="146dp"
                     android:layout_marginEnd="4dp"
+                    android:onClick="@{()->vm.updateHasSideEffectState(false)}"
                     android:background="@drawable/bg_rectangle_filled_white_radius_8">
 
                     <LinearLayout
@@ -85,8 +86,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:src="@{vm.uiState.hasSideEffect ? @drawable/ic_emotion_smile_unselected : @drawable/ic_emotion_smile_selected}"
-                            android:background="@android:color/transparent"
-                            android:onClick="@{()->vm.updateHasSideEffectState(false)}"/>
+                            android:onClick="@{()->vm.updateHasSideEffectState(false)}"
+                            android:background="@android:color/transparent" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -104,6 +105,7 @@
                     android:layout_width="146dp"
                     android:layout_height="146dp"
                     android:layout_marginStart="4dp"
+                    android:onClick="@{()->vm.updateHasSideEffectState(true)}"
                     android:background="@drawable/bg_rectangle_filled_white_radius_8">
 
                     <LinearLayout
@@ -117,8 +119,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:src="@{vm.uiState.hasSideEffect ? @drawable/ic_emotion_bad_selected : @drawable/ic_emotion_bad_unselected}"
-                            android:background="@android:color/transparent"
-                            android:onClick="@{()->vm.updateHasSideEffectState(true)}"/>
+                            android:onClick="@{()->vm.updateHasSideEffectState(true)}"
+                            android:background="@android:color/transparent" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -148,6 +150,8 @@
                 android:text="@{vm.uiState.contentText}"
                 android:textAppearance="@style/p2"
                 android:gravity="top|start"
+                android:enabled="@{vm.uiState.hasSideEffect}"
+                android:onTextChanged="@{(s, start, before, count) -> vm.onTextChanged(s)}"
                 app:layout_constraintTop_toBottomOf="@id/btn_adverse_effect_layout"/>
 
             <androidx.appcompat.widget.AppCompatButton
