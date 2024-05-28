@@ -72,3 +72,10 @@ object PreferenceKeys {
     val KEY_TODAY_RECORD = booleanPreferencesKey("today_record_key")
     val KEY_NOTHING = booleanPreferencesKey("nothing")
 }
+
+object PendingExtraValue {
+    const val KEY = "main_extra"
+    const val TARGET_ID_KEY = "extra_target_id_key"
+    const val INJECTION = "injection"
+    const val TODAY_RECORD = "today_record"
+}

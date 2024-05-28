@@ -51,6 +51,8 @@ class AlarmService : Service() {
         // 알림 터치 시 앱을 여는 인텐트
         val mainIntent = Intent(applicationContext, SignActivity::class.java).apply {
             putExtra(STOP_ALARM, true)
+            putExtra(PendingExtraValue.KEY, PendingExtraValue.INJECTION)
+            putExtra(PendingExtraValue.TARGET_ID_KEY, targetId)
         }
         val pendingIntent = PendingIntent.getActivity(this, 0, mainIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 

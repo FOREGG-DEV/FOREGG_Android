@@ -1,5 +1,6 @@
 package com.foregg.presentation.ui
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.activity.viewModels
@@ -11,6 +12,7 @@ import com.foregg.domain.model.enums.BottomNavType
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseActivity
 import com.foregg.presentation.databinding.ActivityMainBinding
+import com.foregg.presentation.util.PendingExtraValue
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -27,11 +29,40 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityPageState, Ma
     private lateinit var navController: NavController
 
     override fun initView() {
-
         binding.apply {
             vm = viewModel
             permissionCheck()
             initNavigation()
+        }
+        handleIntent(intent)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        intent?.let {
+            handleIntent(it)
+        }
+    }
+
+    private fun handleIntent(intent: Intent) {
+        val targetFragment = intent.getStringExtra(PendingExtraValue.KEY)
+        val targetId =  intent.getLongExtra(PendingExtraValue.TARGET_ID_KEY, -1)
+        targetFragment?.let {
+            navigateToTargetFragment(it, targetId)
+        }
+    }
+
+    private fun navigateToTargetFragment(targetFragment: String, targetId : Long) {
+        when (targetFragment) {
+            PendingExtraValue.INJECTION -> {
+                navController.navigate(R.id.homeFragment)
+                //navController.navigate(R.id.)
+            }
+            PendingExtraValue.TODAY_RECORD-> {
+                navController.navigate(R.id.homeFragment)
+                navController.navigate(R.id.dailyRecordFragment)
+            }
+            else -> navController.navigate(R.id.homeFragment)
         }
     }
 

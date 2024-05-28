@@ -1,14 +1,15 @@
 package com.foregg.presentation.ui.sign.splash
 
 import android.content.Intent
-import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.foregg.domain.model.enums.NotificationType
 import com.foregg.presentation.PageState
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentSplashBinding
 import com.foregg.presentation.ui.MainActivity
-import com.kakao.sdk.common.util.Utility
+import com.foregg.presentation.util.AlarmService
+import com.foregg.presentation.util.PendingExtraValue
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -44,7 +45,12 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, PageState.Default, Sp
     }
 
     private fun goToMain(){
-        val intent = Intent(requireActivity(), MainActivity::class.java)
+        val pendingIntent = requireActivity().intent.getStringExtra(PendingExtraValue.KEY) ?: ""
+        val targetIdIntent = requireActivity().intent.getLongExtra(PendingExtraValue.TARGET_ID_KEY, -1)
+        val intent = Intent(requireActivity(), MainActivity::class.java).apply {
+            if(pendingIntent.isNotEmpty()) putExtra(PendingExtraValue.KEY, pendingIntent)
+            if(targetIdIntent != (-1).toLong()) putExtra(PendingExtraValue.TARGET_ID_KEY, targetIdIntent)
+        }
         startActivity(intent)
         requireActivity().finish()
     }

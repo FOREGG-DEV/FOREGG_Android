@@ -11,18 +11,15 @@ import androidx.core.app.NotificationCompat
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
-import com.foregg.domain.base.ApiState
 import com.foregg.domain.model.enums.NotificationType
-import com.foregg.domain.model.request.fcm.RenewalFcmRequestVo
-import com.foregg.domain.usecase.auth.PostRenewalFcmUseCase
 import com.foregg.presentation.R
+import com.foregg.presentation.ui.sign.SignActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Calendar
-import javax.inject.Inject
 
 
 val Context.dataStore by preferencesDataStore(name = "foregg_prefs")
@@ -64,8 +61,11 @@ class FcmNotification : FirebaseMessagingService() {
     private fun sendNotification(data: Map<String, String>) {
         val title = data[TITLE] ?: ""
         val body = data[BODY] ?: ""
+        val type = NotificationType.valuesOf(data[TYPE] ?: "")
+        val targetId = data[TARGET_ID]?.toLong()
 
         createNotificationChannel()
+        val pendingIntent = getPendingIntent(type, targetId)
 
         val builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationCompat.Builder(this, CHANNEL_ID)
@@ -75,6 +75,7 @@ class FcmNotification : FirebaseMessagingService() {
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle(title)
             .setContentText(body)
+            .setContentIntent(pendingIntent)
             .setDefaults(NotificationCompat.DEFAULT_ALL)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
@@ -118,11 +119,22 @@ class FcmNotification : FirebaseMessagingService() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        val calendar = Calendar.getInstance().apply {
-            timeInMillis = System.currentTimeMillis()
-            add(Calendar.SECOND, 5)  // 5초 후 알람 발생
-        }
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pendingIntent)
+    }
 
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+    private fun getPendingIntent(type: NotificationType, targetId : Long?) : PendingIntent{
+        val intent = Intent(applicationContext, SignActivity::class.java).apply {
+            when(type){
+                NotificationType.INJECTION_FEMALE,
+                NotificationType.INJECTION_MALE -> {
+                    putExtra(PendingExtraValue.KEY, PendingExtraValue.INJECTION)
+                    putExtra(PendingExtraValue.TARGET_ID_KEY, targetId)
+                }
+                NotificationType.TODAY_RECORD_FEMALE,
+                NotificationType.TODAY_RECORD_MALE -> putExtra(PendingExtraValue.KEY, PendingExtraValue.TODAY_RECORD)
+                else -> {}
+            }
+        }
+        return PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
     }
 }
