@@ -44,7 +44,7 @@
             android:text="@string/injection_female_title"
             android:textAppearance="@style/h1"
             android:textColor="@color/black"
-            android:visibility="@{UserInfo.INSTANCE.info.genderType == GenderType.FEMALE ? View.VISIBLE : View.INVISIBLE"
+            android:visibility="@{UserInfo.INSTANCE.info.genderType == GenderType.FEMALE ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/include_top_bar" />
@@ -56,7 +56,7 @@
             android:gravity="center"
             android:textAppearance="@style/h1"
             android:textColor="@color/black"
-            android:visibility="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? View.VISIBLE : View.INVISIBLE"
+            android:visibility="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="@id/text_female_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -179,7 +179,7 @@
             android:text="@string/injection_share_husband"
             android:textAppearance="@style/btn"
             android:textColor="@color/white"
-            android:visibility="@{UserInfo.INSTANCE.info.genderType == GenderType.FEMALE ? View.VISIBLE : View.GONE"
+            android:visibility="@{UserInfo.INSTANCE.info.genderType == GenderType.FEMALE ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toTopOf="@id/btn_home"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -190,7 +190,7 @@
             android:layout_marginBottom="6dp"
             android:text="@string/injection_share_hint"
             android:textAppearance="@style/p1_l"
-            android:visibility="@{UserInfo.INSTANCE.info.genderType == GenderType.FEMALE ? View.VISIBLE : View.GONE"
+            android:visibility="@{UserInfo.INSTANCE.info.genderType == GenderType.FEMALE ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toTopOf="@id/btn_share"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
