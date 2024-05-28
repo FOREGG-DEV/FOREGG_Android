@@ -10,6 +10,9 @@
         <import type="com.foregg.domain.model.enums.GenderType" />
 
         <import type="com.foregg.presentation.util.UserInfo" />
+        <variable
+            name="vm"
+            type="com.foregg.presentation.ui.main.injection.InjectionViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -160,6 +163,7 @@
             android:text="@string/injection_go_home"
             android:textAppearance="@style/btn"
             android:textColor="@color/black"
+            android:onClick="@{()->vm.onClickHome()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -170,6 +174,7 @@
             android:layout_height="56dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="8dp"
+            android:onClick="@{()->vm.onClickShare()}"
             android:background="@drawable/bg_rectangle_filled_main_radius_8"
             android:text="@string/injection_share_husband"
             android:textAppearance="@style/btn"

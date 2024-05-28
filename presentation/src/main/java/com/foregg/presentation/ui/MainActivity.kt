@@ -56,6 +56,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityPageState, Ma
         when (targetFragment) {
             PendingExtraValue.INJECTION -> {
                 navController.navigate(R.id.homeFragment)
+                navController.navigate(R.id.injectionFragment)
             }
             PendingExtraValue.TODAY_RECORD-> {
                 navController.navigate(R.id.homeFragment)
