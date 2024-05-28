@@ -8,7 +8,10 @@ import androidx.core.app.NotificationCompat
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
+import com.foregg.domain.base.ApiState
 import com.foregg.domain.model.enums.NotificationType
+import com.foregg.domain.model.request.fcm.RenewalFcmRequestVo
+import com.foregg.domain.usecase.auth.PostRenewalFcmUseCase
 import com.foregg.presentation.R
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -20,7 +23,9 @@ import javax.inject.Inject
 
 val Context.dataStore by preferencesDataStore(name = "foregg_prefs")
 
-class FcmNotification @Inject constructor() : FirebaseMessagingService() {
+class FcmNotification @Inject constructor(
+    private val renewalFcmUseCase: PostRenewalFcmUseCase
+) : FirebaseMessagingService() {
 
     companion object {
         const val CHANNEL_ID = "notification_remote_channel"
@@ -34,6 +39,16 @@ class FcmNotification @Inject constructor() : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
+        CoroutineScope(Dispatchers.IO).launch {
+            val request = RenewalFcmRequestVo(token)
+            renewalFcmUseCase(request).collect{
+                when(it){
+                    is ApiState.Error -> ForeggLog.D("fcm 토큰 갱신 실패")
+                    ApiState.Loading -> {}
+                    is ApiState.Success -> ForeggLog.D("fcm 토큰 갱신 성공")
+                }
+            }
+        }
     }
 
 
@@ -94,6 +109,5 @@ class FcmNotification @Inject constructor() : FirebaseMessagingService() {
             }
             ForeggNotification.updateNoty(applicationContext, type, true)
         }
-
     }
 }

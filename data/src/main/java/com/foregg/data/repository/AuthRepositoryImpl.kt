@@ -4,7 +4,9 @@ import com.foregg.data.api.AuthApi
 import com.foregg.data.base.BaseRepository
 import com.foregg.data.mapper.ShareCodeResponseMapper
 import com.foregg.data.mapper.SignResponseMapper
+import com.foregg.data.mapper.UnitResponseMapper
 import com.foregg.domain.base.ApiState
+import com.foregg.domain.model.request.fcm.RenewalFcmRequestVo
 import com.foregg.domain.model.request.sign.SignUpWithTokenMaleRequestVo
 import com.foregg.domain.model.request.sign.SignUpWithTokenRequestVo
 import com.foregg.domain.model.response.ShareCodeResponseVo
@@ -30,5 +32,9 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun getShareCode(): Flow<ApiState<ShareCodeResponseVo>> {
         return apiLaunch(apiCall = { authApi.getShareCode()}, ShareCodeResponseMapper )
+    }
+
+    override suspend fun renewalFcm(request: RenewalFcmRequestVo): Flow<ApiState<Unit>> {
+        return apiLaunch(apiCall = { authApi.renewalFcm(request)}, UnitResponseMapper )
     }
 }

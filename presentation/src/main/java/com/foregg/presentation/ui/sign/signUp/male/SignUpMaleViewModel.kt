@@ -13,6 +13,7 @@ import com.foregg.domain.usecase.profile.GetMyInfoUseCase
 import com.foregg.presentation.base.BaseViewModel
 import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.UserInfo
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -44,10 +45,12 @@ class SignUpMaleViewModel @Inject constructor(
     }
 
     fun onClickConfirm(){
-        val request = getRequest()
-        viewModelScope.launch {
-            postJoinMaleUseCase(request).collect{
-                resultResponse(it, ::handleJoinSuccess)
+        FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
+            val request = getRequest(token)
+            viewModelScope.launch {
+                postJoinMaleUseCase(request).collect{
+                    resultResponse(it, ::handleJoinSuccess)
+                }
             }
         }
     }
@@ -78,10 +81,10 @@ class SignUpMaleViewModel @Inject constructor(
     private fun goToMain(){
         emitEventFlow(SignUpMaleEvent.GoToMainEvent)
     }
-    private fun getRequest() : SignUpWithTokenMaleRequestVo {
+    private fun getRequest(fcmToken : String) : SignUpWithTokenMaleRequestVo {
         return SignUpWithTokenMaleRequestVo(
             accessToken = accessToken,
-            signUpMaleRequestVo = SignUpMaleRequestVo(spouseCode = shareCodeStateFlow.value, ssn = ssn)
+            signUpMaleRequestVo = SignUpMaleRequestVo(spouseCode = shareCodeStateFlow.value, ssn = ssn, fcmToken = fcmToken)
         )
     }
 }
