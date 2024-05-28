@@ -12,6 +12,7 @@ import com.foregg.domain.model.enums.BottomNavType
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseActivity
 import com.foregg.presentation.databinding.ActivityMainBinding
+import com.foregg.presentation.ui.main.account.createOrEdit.AccountCreateEditFragmentArgs
 import com.foregg.presentation.util.PendingExtraValue
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -46,17 +47,15 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityPageState, Ma
 
     private fun handleIntent(intent: Intent) {
         val targetFragment = intent.getStringExtra(PendingExtraValue.KEY)
-        val targetId =  intent.getLongExtra(PendingExtraValue.TARGET_ID_KEY, -1)
         targetFragment?.let {
-            navigateToTargetFragment(it, targetId)
+            navigateToTargetFragment(it)
         }
     }
 
-    private fun navigateToTargetFragment(targetFragment: String, targetId : Long) {
+    private fun navigateToTargetFragment(targetFragment: String) {
         when (targetFragment) {
             PendingExtraValue.INJECTION -> {
                 navController.navigate(R.id.homeFragment)
-                //navController.navigate(R.id.)
             }
             PendingExtraValue.TODAY_RECORD-> {
                 navController.navigate(R.id.homeFragment)

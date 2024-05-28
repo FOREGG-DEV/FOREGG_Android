@@ -25,6 +25,7 @@ class AlarmService : Service() {
 
     companion object{
         const val STOP_ALARM = "STOP_ALARM"
+        const val CHANNEL_ID = "alarm_service_channel"
         var ringtone: Ringtone? = null
         var vibrator: Vibrator? = null
 
@@ -44,11 +45,8 @@ class AlarmService : Service() {
         val body = intent?.getStringExtra("body") ?: ""
         val targetId = intent?.getLongExtra("targetId", -1) ?: 0
 
-        // Foreground Notification 생성
-        val channelId = "alarm_service_channel"
-        createNotificationChannel(channelId)
+        createNotificationChannel()
 
-        // 알림 터치 시 앱을 여는 인텐트
         val mainIntent = Intent(applicationContext, SignActivity::class.java).apply {
             putExtra(STOP_ALARM, true)
             putExtra(PendingExtraValue.KEY, PendingExtraValue.INJECTION)
@@ -56,10 +54,7 @@ class AlarmService : Service() {
         }
         val pendingIntent = PendingIntent.getActivity(this, 0, mainIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
-        // 알림 끄기 버튼 클릭 시 호출되는 인텐트
-        val stopIntent = Intent(this, AlarmService::class.java).apply {
-            action = STOP_ALARM
-        }
+        val stopIntent = Intent(this, AlarmService::class.java).apply { action = STOP_ALARM }
         val stopPendingIntent = PendingIntent.getService(this, 0, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
         val notificationManager = NotificationManagerCompat.from(applicationContext)
@@ -71,7 +66,7 @@ class AlarmService : Service() {
 //            setOnClickPendingIntent(R.id.stop_alarm_button, stopPendingIntent)
 //        }
 
-        val notificationBuilder = NotificationCompat.Builder(applicationContext, channelId)
+        val notificationBuilder = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
             .setStyle(NotificationCompat.DecoratedCustomViewStyle())
             .setContentTitle(title)
             .setContentText(body)
@@ -90,12 +85,10 @@ class AlarmService : Service() {
     }
 
     private fun startAlarm(){
-        // 진동 시작
         vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         val pattern = longArrayOf(0, 1000, 1000)  // 대기, 진동, 대기
         vibrator?.vibrate(pattern, 1)
 
-        // 알람음 시작
         val alarmUri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
         ringtone = RingtoneManager.getRingtone(this, alarmUri)
         ringtone?.play()
@@ -111,9 +104,9 @@ class AlarmService : Service() {
         }
     }
 
-    private fun createNotificationChannel(channelId: String) {
+    private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelId, "Alarm Service Channel", NotificationManager.IMPORTANCE_HIGH)
+            val channel = NotificationChannel(CHANNEL_ID, "Alarm Service Channel", NotificationManager.IMPORTANCE_HIGH)
             val manager = getSystemService(NotificationManager::class.java)
             manager.createNotificationChannel(channel)
         }
