@@ -20,6 +20,7 @@ class DailyRecordViewHolder(
 
             imageViewEmotion.setImageResource(imageResource)
             if (husbandImageResource != -1) imageViewEmotionHusband.setImageResource(husbandImageResource)
+            else imageViewEmotionHusband.visibility = View.GONE
 
             if (TimeFormatter.getToday() == item.date) { imageViewLine.setImageResource(R.drawable.ic_today_record_item_line) }
             else imageViewLine.setImageResource(R.drawable.ic_record_item_line)
