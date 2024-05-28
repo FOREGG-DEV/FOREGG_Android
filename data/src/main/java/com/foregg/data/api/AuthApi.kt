@@ -35,9 +35,4 @@ interface AuthApi {
 
     @GET(Endpoints.AUTH.GET_SHARE_CODE)
     suspend fun getShareCode() : Response<ApiResponse<SignResponse>>
-
-    @POST(Endpoints.AUTH.RENEWAL_FCM)
-    suspend fun renewalFcm(
-        @Body request : RenewalFcmRequestVo
-    ) : Response<ApiResponse<Unit>>
 }

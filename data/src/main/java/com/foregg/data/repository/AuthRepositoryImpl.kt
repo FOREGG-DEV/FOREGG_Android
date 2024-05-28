@@ -1,6 +1,7 @@
 package com.foregg.data.repository
 
 import com.foregg.data.api.AuthApi
+import com.foregg.data.api.FcmApi
 import com.foregg.data.base.BaseRepository
 import com.foregg.data.mapper.ShareCodeResponseMapper
 import com.foregg.data.mapper.SignResponseMapper
@@ -16,7 +17,8 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
-    private val authApi: AuthApi
+    private val authApi: AuthApi,
+    private val fcmApi: FcmApi
 ) : AuthRepository, BaseRepository() {
     override suspend fun login(request: String): Flow<ApiState<SignResponseVo>> {
         return apiLaunch(apiCall = { authApi.login(request) }, SignResponseMapper )
@@ -35,6 +37,6 @@ class AuthRepositoryImpl @Inject constructor(
     }
 
     override suspend fun renewalFcm(request: RenewalFcmRequestVo): Flow<ApiState<Unit>> {
-        return apiLaunch(apiCall = { authApi.renewalFcm(request)}, UnitResponseMapper )
+        return apiLaunch(apiCall = { fcmApi.renewalFcm(request)}, UnitResponseMapper )
     }
 }

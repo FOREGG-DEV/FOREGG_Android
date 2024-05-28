@@ -23,9 +23,7 @@ import javax.inject.Inject
 
 val Context.dataStore by preferencesDataStore(name = "foregg_prefs")
 
-class FcmNotification @Inject constructor(
-    private val renewalFcmUseCase: PostRenewalFcmUseCase
-) : FirebaseMessagingService() {
+class FcmNotification : FirebaseMessagingService() {
 
     companion object {
         const val CHANNEL_ID = "notification_remote_channel"
@@ -33,22 +31,13 @@ class FcmNotification @Inject constructor(
         private const val TITLE = "title"
         private const val BODY = "body"
         private const val TYPE = "type"
+        private const val TARGET_ID = "targetId"
     }
 
     private lateinit var notificationManager: NotificationManager
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        CoroutineScope(Dispatchers.IO).launch {
-            val request = RenewalFcmRequestVo(token)
-            renewalFcmUseCase(request).collect{
-                when(it){
-                    is ApiState.Error -> ForeggLog.D("fcm 토큰 갱신 실패")
-                    ApiState.Loading -> {}
-                    is ApiState.Success -> ForeggLog.D("fcm 토큰 갱신 성공")
-                }
-            }
-        }
     }
 
 
