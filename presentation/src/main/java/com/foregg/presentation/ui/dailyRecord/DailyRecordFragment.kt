@@ -11,6 +11,7 @@ import com.foregg.presentation.databinding.FragmentDailyRecordBinding
 import com.foregg.presentation.ui.dailyRecord.adapter.DailyRecordAdapter
 import com.foregg.presentation.ui.dailyRecord.adapter.SideEffectAdapter
 import com.foregg.presentation.util.ForeggNotification
+import com.foregg.presentation.util.PendingExtraValue
 import com.foregg.presentation.util.UserInfo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -32,6 +33,7 @@ class DailyRecordFragment : BaseFragment<FragmentDailyRecordBinding, DailyRecord
         }
         viewModel.setView()
         bindTab()
+        checkFcm()
     }
 
     override fun initStates() {
@@ -81,5 +83,13 @@ class DailyRecordFragment : BaseFragment<FragmentDailyRecordBinding, DailyRecord
     private fun goToCreateDailyRecord() {
         val action = DailyRecordFragmentDirections.actionDailyRecordToCreateDailyRecord()
         findNavController().navigate(action)
+    }
+
+    private fun checkFcm(){
+        if(requireActivity().intent.getStringExtra(PendingExtraValue.KEY) == PendingExtraValue.TODAY_RECORD) {
+            binding.customTabBar.setRightBtnClickedBackground()
+            viewModel.updateTabType(DailyRecordTabType.DAILY_RECORD)
+            binding.recordRecyclerView.adapter = dailyRecordAdapter
+        }
     }
 }

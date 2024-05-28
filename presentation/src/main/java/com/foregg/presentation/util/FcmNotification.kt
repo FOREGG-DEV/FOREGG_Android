@@ -29,10 +29,10 @@ class FcmNotification : FirebaseMessagingService() {
     companion object {
         const val CHANNEL_ID = "notification_remote_channel"
         const val CHANNEL_NAME = "notification_channel_name"
-        private const val TITLE = "title"
-        private const val BODY = "body"
-        private const val TYPE = "type"
-        private const val TARGET_ID = "targetId"
+        const val TITLE = "title"
+        const val BODY = "body"
+        const val TYPE = "type"
+        const val TARGET_ID = "targetId"
     }
 
     private lateinit var notificationManager: NotificationManager
@@ -108,9 +108,9 @@ class FcmNotification : FirebaseMessagingService() {
     private fun setAlarm(data: Map<String, String>) {
         val alarmManager = applicationContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(applicationContext, AlarmReceiver::class.java).apply {
-            putExtra("title", data[TITLE])
-            putExtra("body", data[BODY])
-            putExtra("targetId", data[TARGET_ID]?.toLong())
+            putExtra(TITLE, data[TITLE])
+            putExtra(BODY, data[BODY])
+            putExtra(TARGET_ID, data[TARGET_ID]?.toLong())
         }
         val pendingIntent = PendingIntent.getBroadcast(
             applicationContext,

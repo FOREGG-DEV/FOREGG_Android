@@ -41,9 +41,9 @@ class AlarmService : Service() {
             stopSelf()
             return START_NOT_STICKY
         }
-        val title = intent?.getStringExtra("title") ?: ""
-        val body = intent?.getStringExtra("body") ?: ""
-        val targetId = intent?.getLongExtra("targetId", -1) ?: 0
+        val title = intent?.getStringExtra(FcmNotification.TITLE) ?: ""
+        val body = intent?.getStringExtra(FcmNotification.BODY) ?: ""
+        val targetId = intent?.getLongExtra(FcmNotification.TARGET_ID, -1) ?: 0
 
         createNotificationChannel()
 
