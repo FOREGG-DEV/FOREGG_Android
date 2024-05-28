@@ -13,6 +13,7 @@ object Google {
     const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
     const val FCM = "com.google.firebase:firebase-messaging:${Versions.FCM}"
     const val FCM_KTX = "com.google.firebase:firebase-messaging-ktx:${Versions.FCM}"
+    const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics:${Versions.FIREBASE}"
 }
 
 object AndroidX{
