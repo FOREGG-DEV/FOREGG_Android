@@ -12,7 +12,6 @@ import com.foregg.domain.model.enums.BottomNavType
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseActivity
 import com.foregg.presentation.databinding.ActivityMainBinding
-import com.foregg.presentation.ui.main.account.createOrEdit.AccountCreateEditFragmentArgs
 import com.foregg.presentation.util.PendingExtraValue
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -53,16 +52,11 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityPageState, Ma
     }
 
     private fun navigateToTargetFragment(targetFragment: String) {
+        navController.navigate(R.id.homeFragment)
         when (targetFragment) {
-            PendingExtraValue.INJECTION -> {
-                navController.navigate(R.id.homeFragment)
-                navController.navigate(R.id.injectionFragment)
-            }
-            PendingExtraValue.TODAY_RECORD-> {
-                navController.navigate(R.id.homeFragment)
-                navController.navigate(R.id.dailyRecordFragment)
-            }
-            else -> navController.navigate(R.id.homeFragment)
+            PendingExtraValue.INJECTION -> navController.navigate(R.id.injectionFragment)
+            PendingExtraValue.TODAY_RECORD_MALE-> navController.navigate(R.id.dailyRecordFragment)
+            PendingExtraValue.TODAY_RECORD_FEMALE-> navController.navigate(R.id.createDailyRecordFragment)
         }
     }
 
