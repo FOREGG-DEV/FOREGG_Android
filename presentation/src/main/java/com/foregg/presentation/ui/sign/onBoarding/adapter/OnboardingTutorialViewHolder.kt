@@ -12,6 +12,7 @@ class OnboardingTutorialViewHolder(
         binding.apply {
             textTitle.text = item.title
             textContent.text = item.content
+            imgTutorial.setBackgroundResource(item.img)
         }
     }
 }

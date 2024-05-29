@@ -85,9 +85,11 @@ class CreateEditScheduleViewModel @Inject constructor(
     private var originMedicalRecord: MedicalRecord = MedicalRecord()
     private var id by Delegates.notNull<Long>()
     private var canCheckChanged : Boolean = false
+    private var isProfile : Boolean = false
 
     fun setViewType(arg : CreateEditScheduleFragmentArgs){
         updateViewType(arg.type)
+        isProfile = arg.isProfile
         when(arg.type){
             CalendarType.CREATE -> updateClassification(arg.scheduleType)
             CalendarType.EDIT -> getScheduleDetail(arg.id)
@@ -413,6 +415,7 @@ class CreateEditScheduleViewModel @Inject constructor(
     }
 
     private fun checkChangedContent() : Boolean{
+        if(isProfile) return false
         return originDetail.name != classificationStateFlow.value.classificationDetailEditText
                 || checkDateChanged()
                 || checkTimeChanged()
