@@ -3,6 +3,7 @@ package com.foregg.presentation.ui.main.account.createOrEdit
 import android.app.DatePickerDialog
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -11,14 +12,19 @@ import com.foregg.domain.model.enums.AccountType
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentCreateEditAccountBinding
+import com.foregg.presentation.ui.common.CommonDialog
+import com.foregg.presentation.util.ForeggToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.Calendar
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AccountCreateEditFragment : BaseFragment<FragmentCreateEditAccountBinding, AccountCreateEditPageState, AccountCreateEditViewModel>(
     FragmentCreateEditAccountBinding::inflate
 ) {
+    @Inject
+    lateinit var commonDialog : CommonDialog
 
     private val accountCreateEditFragmentArgs : AccountCreateEditFragmentArgs by navArgs()
 
@@ -69,6 +75,8 @@ class AccountCreateEditFragment : BaseFragment<FragmentCreateEditAccountBinding,
         when(event){
             AccountCreateEditEvent.ShowDatePickerDialog -> showDatePickerDialog()
             AccountCreateEditEvent.GoToBackEvent -> findNavController().popBackStack()
+            AccountCreateEditEvent.ErrorNotExist -> showErrorDialog()
+            AccountCreateEditEvent.ErrorBlankContent -> ForeggToast.createToast(requireContext(), R.string.toast_error_blank_content_schedule, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -98,5 +106,16 @@ class AccountCreateEditFragment : BaseFragment<FragmentCreateEditAccountBinding,
                 binding.editTextMoney.setSelection(binding.editTextMoney.text.length)  //커서를 오른쪽 끝으로 보냄
             }
         })
+    }
+
+    private fun showErrorDialog(){
+        commonDialog
+            .setTitle(R.string.toast_error_no_exist_ledger)
+            .showOnlyPositiveBtn()
+            .setPositiveButton(R.string.word_confirm){
+                commonDialog.dismiss()
+                findNavController().popBackStack()
+            }
+            .show()
     }
 }
