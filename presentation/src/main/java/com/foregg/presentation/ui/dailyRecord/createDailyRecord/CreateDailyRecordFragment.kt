@@ -2,7 +2,9 @@ package com.foregg.presentation.ui.dailyRecord.createDailyRecord
 
 import androidx.fragment.app.viewModels
 import android.widget.Toast
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentCreateDailyRecordBinding
 import com.foregg.presentation.util.ForeggToast
@@ -42,6 +44,9 @@ class CreateDailyRecordFragment : BaseFragment<FragmentCreateDailyRecordBinding,
 
     private fun goToCreateSideEffect() {
         val action = CreateDailyRecordFragmentDirections.createDailyRecordToCreateSideEffect()
-        findNavController().navigate(action)
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.createDailyRecordFragment, true)
+            .build()
+        findNavController().navigate(action.actionId, null, navOptions)
     }
 }
