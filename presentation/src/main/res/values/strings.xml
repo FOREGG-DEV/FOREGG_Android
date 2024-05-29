@@ -141,6 +141,7 @@
     <string name="toast_error_empty_ssn">주민번호를 모두 입력해주세요.</string>
     <string name="toast_error_empty_start_date">시작 날짜를 입력해주세요.</string>
     <string name="toast_error_not_correct_share_code">유효하지 않은 배우자코드입니다.</string>
+    <string name="toast_error_no_exist_schedule">존재하지 않는 일정입니다.</string>
 
     <!-- challenge -->
     <string name="challenge_title">챌린지</string>

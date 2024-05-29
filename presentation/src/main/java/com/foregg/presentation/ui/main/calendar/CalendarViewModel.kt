@@ -190,8 +190,7 @@ class CalendarViewModel @Inject constructor(
 
     private fun handleDeleteError(error : String){
         when(error){
-            StatusCode.RECORD.NO_EXIST_SCHEDULE -> ForeggLog.D("존재하지 않는 일정")
-            else -> ForeggLog.D("알 수 없는 오류")
+            StatusCode.RECORD.NO_EXIST_SCHEDULE -> emitEventFlow(CalendarEvent.ErrorDelete)
         }
     }
 
