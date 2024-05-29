@@ -148,4 +148,11 @@
     <string name="challenge_participant_count_text">%d명이 함께하고 있어요</string>
     <string name="challenge_month_week">%d월 %d주차</string>
     <string name="challenge_stop">챌린지를 그만두시겠습니까?</string>
+
+    <!--  Information  -->
+    <string name="info_possible_subsidy">받을 수 있는 정부 지원금</string>
+    <string name="info_essential">시기 별 알아야 할 필수 정보</string>
+    <string name="info_woman_contents">여성을 위한 공감 콘텐츠</string>
+    <string name="info_husband_contents">남편을 위한 필수 상식</string>
+
 </resources>
