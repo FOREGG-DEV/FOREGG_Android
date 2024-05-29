@@ -144,6 +144,7 @@
     <string name="toast_error_no_exist_schedule">존재하지 않는 일정입니다.</string>
     <string name="toast_error_repeat_day_schedule">올바른 형태의 날짜를 입력해주세요.</string>
     <string name="toast_error_blank_content_schedule">빈칸 없이 입력해주세요.</string>
+    <string name="toast_error_no_exist_ledger">존재하지 않는 가계부입니다.</string>
 
     <!-- challenge -->
     <string name="challenge_title">챌린지</string>

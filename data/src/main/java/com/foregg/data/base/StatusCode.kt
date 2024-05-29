@@ -12,4 +12,8 @@ object StatusCode {
     object RECORD {
         const val NO_EXIST_SCHEDULE = "RECORD4001"
     }
+
+    object LEDGER {
+        const val NO_EXIST_LEDGER = "LEDGER4001"
+    }
 }
