@@ -1,8 +1,9 @@
 package com.foregg.data.base
 
 object StatusCode {
-    const val SUCCESS = "COMMON200"
     const val ERROR = "ERROR400"
+    const val ERROR_404 = "ERROR404"
+    const val NETWORK_ERROR = "NETWORK_ERROR"
 
     object AUTH {
         const val USER_NEED_JOIN = "USER4002"

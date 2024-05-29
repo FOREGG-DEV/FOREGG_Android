@@ -17,15 +17,22 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.foregg.data.base.StatusCode
 import com.foregg.presentation.PageState
+import com.foregg.presentation.R
+import com.foregg.presentation.ui.common.CommonDialog
 import com.foregg.presentation.ui.common.LoadingDialog
 import com.foregg.presentation.util.ForeggToast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewModel<STATE>>(
     private val inflater: (LayoutInflater, ViewGroup?, Boolean) -> B,
 ) : Fragment() {
+
+    @Inject
+    lateinit var commonErrorDialog: CommonDialog
 
     private var backPressedOnce = false
     private lateinit var navController: NavController
@@ -91,6 +98,11 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
                     }
                 }
             }
+            launch {
+                viewModel.commonError.observe(viewLifecycleOwner) { error ->
+                    showCommonDialog(error)
+                }
+            }
         }
     }
 
@@ -103,5 +115,25 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    private fun showCommonDialog(error : String){
+        val title = when(error){
+            StatusCode.ERROR_404 -> "시스템 오류가 발생했어요"
+            StatusCode.NETWORK_ERROR -> "서버에 오류가 발생했습니다."
+            else -> {"알 수 없는 오류가 발생했습니다."}
+        }
+        val btnText =when(error){
+            StatusCode.ERROR_404 -> "새로고침"
+            else -> getString(R.string.word_confirm)
+        }
+        commonErrorDialog
+            .setTitle(title)
+            .showOnlyPositiveBtn()
+            .setPositiveButton(btnText){
+                if(error == StatusCode.ERROR_404) initView()
+                commonErrorDialog.dismiss()
+            }
+            .show()
     }
 }
