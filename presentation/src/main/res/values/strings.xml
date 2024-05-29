@@ -142,6 +142,8 @@
     <string name="toast_error_empty_start_date">시작 날짜를 입력해주세요.</string>
     <string name="toast_error_not_correct_share_code">유효하지 않은 배우자코드입니다.</string>
     <string name="toast_error_no_exist_schedule">존재하지 않는 일정입니다.</string>
+    <string name="toast_error_repeat_day_schedule">올바른 형태의 날짜를 입력해주세요.</string>
+    <string name="toast_error_blank_content_schedule">빈칸 없이 입력해주세요.</string>
 
     <!-- challenge -->
     <string name="challenge_title">챌린지</string>
