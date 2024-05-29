@@ -26,6 +26,9 @@ abstract class BaseViewModel<STATE: PageState> : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _commonError = MutableLiveData<String>()
+    val commonError: LiveData<String> = _commonError
+
     protected fun emitEventFlow(event: Event) {
         viewModelScope.launch {
             _eventFlow.emit(event)
@@ -43,7 +46,10 @@ abstract class BaseViewModel<STATE: PageState> : ViewModel() {
     protected fun<D> resultResponse(response: ApiState<D>, successCallback : (D) -> Unit, errorCallback : ((String) -> Unit)? = null, needLoading : Boolean = false){
         when(response){
             is ApiState.Error -> {
-                errorCallback?.invoke(response.errorCode)
+                if(response.errorCode == StatusCode.ERROR_404 ||
+                    response.errorCode == StatusCode.ERROR ||
+                    response.errorCode == StatusCode.NETWORK_ERROR) _commonError.value = response.errorCode
+                else errorCallback?.invoke(response.errorCode)
                 endLoading()
             }
             ApiState.Loading -> if(needLoading) showLoading()

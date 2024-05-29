@@ -9,7 +9,7 @@ data class MyChallengeResponseListItem(
     @SerializedName("id")
     val id: Long = -1,
     @SerializedName("image")
-    val image: String = "",
+    val image: String? = "",
     @SerializedName("name")
     val name: String = "",
     @SerializedName("participants")

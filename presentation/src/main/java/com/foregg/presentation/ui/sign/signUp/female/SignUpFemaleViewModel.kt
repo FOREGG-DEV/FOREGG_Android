@@ -109,6 +109,10 @@ class SignUpFemaleViewModel @Inject constructor(
     }
 
     fun onClickJoin(){
+        if(selectedSurgeryTypeStateFlow.value != SurgeryType.THINK_SURGERY && startTreatmentDayStateFlow.value.isEmpty()){
+            emitEventFlow(SignUpFemaleEvent.ErrorEmptyDate)
+            return
+        }
         FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
             val request = getRequest(token)
             viewModelScope.launch {

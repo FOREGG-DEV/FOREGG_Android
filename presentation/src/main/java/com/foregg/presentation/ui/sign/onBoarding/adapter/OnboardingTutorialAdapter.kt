@@ -5,9 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.foregg.domain.model.vo.onboarding.OnboardingTutorialVo
 import com.foregg.presentation.databinding.IncludeItemTutorialBinding
 
-class OnboardingTutorialAdapter : ListAdapter<String, RecyclerView.ViewHolder>(
+class OnboardingTutorialAdapter : ListAdapter<OnboardingTutorialVo, RecyclerView.ViewHolder>(
     OnboardingTutorialDiffCallBack()
 ) {
 
@@ -24,7 +25,7 @@ class OnboardingTutorialAdapter : ListAdapter<String, RecyclerView.ViewHolder>(
 
 }
 
-class OnboardingTutorialDiffCallBack : DiffUtil.ItemCallback<String>() {
-    override fun areItemsTheSame(oldItem: String, newItem: String): Boolean = oldItem == newItem
-    override fun areContentsTheSame(oldItem: String, newItem: String): Boolean = oldItem == newItem
+class OnboardingTutorialDiffCallBack : DiffUtil.ItemCallback<OnboardingTutorialVo>() {
+    override fun areItemsTheSame(oldItem: OnboardingTutorialVo, newItem: OnboardingTutorialVo): Boolean = oldItem == newItem
+    override fun areContentsTheSame(oldItem: OnboardingTutorialVo, newItem: OnboardingTutorialVo): Boolean = oldItem == newItem
 }

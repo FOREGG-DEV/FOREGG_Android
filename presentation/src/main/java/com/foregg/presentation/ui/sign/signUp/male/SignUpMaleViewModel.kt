@@ -1,6 +1,7 @@
 package com.foregg.presentation.ui.sign.signUp.male
 
 import androidx.lifecycle.viewModelScope
+import com.foregg.data.base.StatusCode
 import com.foregg.domain.model.request.sign.SaveForeggJwtRequestVo
 import com.foregg.domain.model.request.sign.SignUpMaleRequestVo
 import com.foregg.domain.model.request.sign.SignUpWithTokenMaleRequestVo
@@ -49,7 +50,7 @@ class SignUpMaleViewModel @Inject constructor(
             val request = getRequest(token)
             viewModelScope.launch {
                 postJoinMaleUseCase(request).collect{
-                    resultResponse(it, ::handleJoinSuccess)
+                    resultResponse(it, ::handleJoinSuccess, ::handleJoinError)
                 }
             }
         }
@@ -61,6 +62,12 @@ class SignUpMaleViewModel @Inject constructor(
             saveForeggAccessTokenAndRefreshTokenUseCase(request).collect{
                 if(it) getMyInfo() else ForeggLog.D("저장 실패")
             }
+        }
+    }
+
+    private fun handleJoinError(error : String){
+        when(error){
+            StatusCode.AUTH.NOT_CORRECT_SHARE_CODE -> emitEventFlow(SignUpMaleEvent.ErrorShareCode)
         }
     }
 

@@ -1,6 +1,7 @@
 package com.foregg.presentation.ui.main.account
 
 import androidx.lifecycle.viewModelScope
+import com.foregg.data.base.StatusCode
 import com.foregg.domain.model.enums.AccountTabType
 import com.foregg.domain.model.request.account.AccountGetConditionRequestVo
 import com.foregg.domain.model.response.account.AccountResponseVo
@@ -251,12 +252,18 @@ class AccountViewModel @Inject constructor(
         val request = accountListStateFlow.value.find { it.isSelected }?.id ?: -1
         viewModelScope.launch {
             deleteAccountUseCase(request).collect{
-                resultResponse(it, {inspectSelectText(tabTypeStateFlow.value)} )
+                resultResponse(it, {inspectSelectText(tabTypeStateFlow.value)}, ::handleDeleteError)
             }
         }
     }
 
     fun onClickChangeDate(){
         emitEventFlow(AccountEvent.ShowBottomSheetEvent(startDayStateFlow.value, endDayStateFlow.value))
+    }
+
+    private fun handleDeleteError(error : String){
+        when(error){
+            StatusCode.LEDGER.NO_EXIST_LEDGER -> emitEventFlow(AccountEvent.ErrorNotExist)
+        }
     }
 }

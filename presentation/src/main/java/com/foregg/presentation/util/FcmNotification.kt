@@ -19,7 +19,6 @@ import com.google.firebase.messaging.RemoteMessage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.Calendar
 
 
 val Context.dataStore by preferencesDataStore(name = "foregg_prefs")
@@ -130,8 +129,8 @@ class FcmNotification : FirebaseMessagingService() {
                     putExtra(PendingExtraValue.KEY, PendingExtraValue.INJECTION)
                     putExtra(PendingExtraValue.TARGET_ID_KEY, targetId)
                 }
-                NotificationType.TODAY_RECORD_FEMALE,
-                NotificationType.TODAY_RECORD_MALE -> putExtra(PendingExtraValue.KEY, PendingExtraValue.TODAY_RECORD)
+                NotificationType.TODAY_RECORD_FEMALE -> putExtra(PendingExtraValue.KEY, PendingExtraValue.TODAY_RECORD_FEMALE)
+                NotificationType.TODAY_RECORD_MALE -> putExtra(PendingExtraValue.KEY, PendingExtraValue.TODAY_RECORD_MALE)
                 else -> {}
             }
         }

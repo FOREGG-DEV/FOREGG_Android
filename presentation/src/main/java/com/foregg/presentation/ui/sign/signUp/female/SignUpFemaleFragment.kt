@@ -85,6 +85,7 @@ class SignUpFemaleFragment : BaseFragment<FragmentSignUpFemaleBinding, SignUpFem
             SignUpFemaleEvent.ShowDatePickerDialogEvent -> showDatePickerDialog()
             SignUpFemaleEvent.GoToMainEvent -> goToMain()
             is SignUpFemaleEvent.OnClickCopyCodeEvent -> copyClipBoard(event.code)
+            SignUpFemaleEvent.ErrorEmptyDate -> ForeggToast.createToast(requireContext(), R.string.toast_error_empty_start_date, Toast.LENGTH_SHORT).show()
         }
     }
 

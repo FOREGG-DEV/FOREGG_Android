@@ -1,8 +1,10 @@
 package com.foregg.presentation.ui.sign.onBoarding
 
 import android.content.Intent
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentOnboardingBinding
 import com.foregg.presentation.ui.MainActivity
@@ -23,9 +25,22 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding, OnboardingPag
         binding.apply {
             vm = viewModel
             viewPagerTutorial.apply {
-                isUserInputEnabled = false
                 adapter = onboardingTutorialAdapter
                 indicatorView.attachTo(viewPagerTutorial)
+                registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                    override fun onPageSelected(position: Int) {
+                        super.onPageSelected(position)
+                        imgBtnBack.visibility = if(position == 0) View.GONE else View.VISIBLE
+                        if(position == adapter?.itemCount?.minus(1)) {
+                            textSkip.visibility = View.GONE
+                            viewModel.updateKaKaoLoginButton(true)
+                        }
+                        else {
+                            textSkip.visibility = View.VISIBLE
+                            viewModel.updateKaKaoLoginButton(false)
+                        }
+                    }
+                })
             }
 
             viewModel.getTutorialImage()
@@ -55,6 +70,8 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding, OnboardingPag
             OnboardingEvent.GoToMainEvent -> goToMain()
             OnboardingEvent.MoveNextEvent -> moveToNext()
             OnboardingEvent.KaKaoLoginEvent -> signInKakao()
+            OnboardingEvent.MovePrevEvent -> moveToPrev()
+            OnboardingEvent.SkipEvent -> moveToSkip()
         }
     }
 
@@ -64,8 +81,23 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding, OnboardingPag
             if (nextItem < (viewPagerTutorial.adapter?.itemCount ?: 0)) {
                 viewPagerTutorial.currentItem = nextItem
             }
-            if(nextItem == (viewPagerTutorial.adapter?.itemCount?.minus(1))){
-                viewModel.updateKaKaoLoginButton()
+        }
+    }
+
+    private fun moveToPrev(){
+        binding.apply {
+            val nextItem = viewPagerTutorial.currentItem - 1
+            if (nextItem < (viewPagerTutorial.adapter?.itemCount ?: 0)) {
+                viewPagerTutorial.currentItem = nextItem
+            }
+        }
+    }
+
+    private fun moveToSkip(){
+        binding.apply {
+            val nextItem = viewPagerTutorial.adapter?.itemCount?.minus(1)
+            if (nextItem != null) {
+                viewPagerTutorial.currentItem = nextItem
             }
         }
     }

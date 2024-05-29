@@ -1,6 +1,7 @@
 package com.foregg.presentation.ui.main.account.createOrEdit
 
 import androidx.lifecycle.viewModelScope
+import com.foregg.data.base.StatusCode
 import com.foregg.domain.model.enums.AccountType
 import com.foregg.domain.model.enums.CalendarType
 import com.foregg.domain.model.request.account.AccountCreateRequestVo
@@ -67,7 +68,7 @@ class AccountCreateEditViewModel @Inject constructor(
         this.id = id
         viewModelScope.launch{
             getAccountDetailUseCase(id).collect{
-                resultResponse(it, ::handleSuccessGetAccountDetail)
+                resultResponse(it, ::handleSuccessGetAccountDetail, ::handleGetAccountDetailError)
             }
         }
     }
@@ -81,6 +82,12 @@ class AccountCreateEditViewModel @Inject constructor(
         updateProgressRound(result.round)
         updateMemo(result.memo)
         canCheckChanged = true
+    }
+
+    private fun handleGetAccountDetailError(error : String){
+        when(error){
+            StatusCode.LEDGER.NO_EXIST_LEDGER -> emitEventFlow(AccountCreateEditEvent.ErrorNotExist)
+        }
     }
 
     fun setTabType(type: AccountType){
@@ -152,6 +159,10 @@ class AccountCreateEditViewModel @Inject constructor(
     }
 
     private fun createAccount(){
+        if(isEmpty()){
+            emitEventFlow(AccountCreateEditEvent.ErrorBlankContent)
+            return
+        }
         val request = getCreateRequest()
         viewModelScope.launch {
             postCreateAccountUseCase(request).collect{
@@ -164,7 +175,7 @@ class AccountCreateEditViewModel @Inject constructor(
         val request = getEditRequest()
         viewModelScope.launch {
             putEditAccountUseCase(request).collect{
-                resultResponse(it, { onClickBack() })
+                resultResponse(it, { onClickBack() }, ::handleGetAccountDetailError)
             }
         }
     }
@@ -207,5 +218,9 @@ class AccountCreateEditViewModel @Inject constructor(
         viewModelScope.launch {
             roundStateFlow.update { round }
         }
+    }
+
+    private fun isEmpty() : Boolean {
+        return selectDateStateFlow.value.isEmpty() || contentStateFlow.value.isEmpty() || moneyStateFlow.value.isEmpty()
     }
 }

@@ -7,12 +7,15 @@ import com.foregg.domain.model.request.sign.SaveForeggJwtRequestVo
 import com.foregg.domain.model.response.SignResponseVo
 import com.foregg.domain.model.response.profile.ProfileDetailResponseVo
 import com.foregg.domain.model.vo.UserVo
+import com.foregg.domain.model.vo.onboarding.OnboardingTutorialVo
 import com.foregg.domain.usecase.auth.PostLoginUseCase
 import com.foregg.domain.usecase.auth.PostRenewalFcmUseCase
 import com.foregg.domain.usecase.jwtToken.SaveForeggAccessTokenAndRefreshTokenUseCase
 import com.foregg.domain.usecase.profile.GetMyInfoUseCase
+import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseViewModel
 import com.foregg.presentation.util.ForeggLog
+import com.foregg.presentation.util.ResourceProvider
 import com.foregg.presentation.util.UserInfo
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,10 +30,11 @@ class OnboardingViewModel @Inject constructor(
     private val postLoginUseCase: PostLoginUseCase,
     private val saveForeggAccessTokenAndRefreshTokenUseCase: SaveForeggAccessTokenAndRefreshTokenUseCase,
     private val getMyInfoUseCase: GetMyInfoUseCase,
-    private val postRenewalFcmUseCase: PostRenewalFcmUseCase
+    private val postRenewalFcmUseCase: PostRenewalFcmUseCase,
+    private val resourceProvider: ResourceProvider
 ) : BaseViewModel<OnboardingPageState>() {
 
-    private val imageListStateFlow : MutableStateFlow<List<String>> = MutableStateFlow(emptyList())
+    private val imageListStateFlow : MutableStateFlow<List<OnboardingTutorialVo>> = MutableStateFlow(emptyList())
     private val isLastPageStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     override val uiState: OnboardingPageState = OnboardingPageState(
@@ -41,20 +45,51 @@ class OnboardingViewModel @Inject constructor(
     private lateinit var accessToken : String
 
     fun getTutorialImage(){
-        //TODO 설명 및 이미지 받아와야 함
-        val list = listOf("여기에 그림에 들어가는 기능에 대한 설명 멘트 두 줄 정도 들어가면 좋을 것 같습니다.", "2번", "3번", "4번")
         viewModelScope.launch {
-            imageListStateFlow.update { list }
+            imageListStateFlow.update { getTutorialList() }
         }
+    }
+
+    private fun getTutorialList() : List<OnboardingTutorialVo>{
+        return listOf(
+            OnboardingTutorialVo(
+                title = resourceProvider.getString(R.string.onboarding_title_1),
+                content = resourceProvider.getString(R.string.onboarding_content_1),
+                img = R.drawable.onboarding_first
+            ),
+            OnboardingTutorialVo(
+                title = resourceProvider.getString(R.string.onboarding_title_2),
+                content = resourceProvider.getString(R.string.onboarding_content_2),
+                img = R.drawable.onboarding_first
+            ),
+            OnboardingTutorialVo(
+                title = resourceProvider.getString(R.string.onboarding_title_3),
+                content = resourceProvider.getString(R.string.onboarding_content_3),
+                img = R.drawable.onboarding_first
+            ),
+            OnboardingTutorialVo(
+                title = resourceProvider.getString(R.string.onboarding_title_4),
+                content = resourceProvider.getString(R.string.onboarding_content_4),
+                img = R.drawable.onboarding_first
+            )
+        )
     }
 
     fun onClickNext(){
         emitEventFlow(OnboardingEvent.MoveNextEvent)
     }
 
-    fun updateKaKaoLoginButton(){
+    fun onClickSkip(){
+        emitEventFlow(OnboardingEvent.SkipEvent)
+    }
+
+    fun onClickPrev(){
+        emitEventFlow(OnboardingEvent.MovePrevEvent)
+    }
+
+    fun updateKaKaoLoginButton(value : Boolean){
         viewModelScope.launch {
-            isLastPageStateFlow.update { true }
+            isLastPageStateFlow.update { value }
         }
     }
 
