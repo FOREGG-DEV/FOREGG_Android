@@ -8,6 +8,8 @@ import com.foregg.domain.model.request.dailyRecord.CreateDailyRecordRequestVo
 import com.foregg.domain.usecase.dailyRecord.PostDailyRecordUseCase
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseViewModel
+import com.foregg.presentation.util.ForeggLog
+import com.foregg.presentation.util.ForeggToast
 import com.foregg.presentation.util.ResourceProvider
 import com.foregg.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -40,6 +42,11 @@ class CreateDailyRecordViewModel @Inject constructor(
                 resourceProvider.getString(R.string.create_daily_record_text, UserInfo.info.name)
             }
         }
+    }
+
+    fun onTextChanged(input: CharSequence) {
+        ForeggLog.D(input.toString())
+        contentTextStateFlow.update { input.toString() }
     }
 
     fun onClickBtnDailyCondition(type: DailyConditionType) {
