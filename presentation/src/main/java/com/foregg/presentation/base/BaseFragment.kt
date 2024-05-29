@@ -7,6 +7,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -18,6 +19,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.foregg.presentation.PageState
 import com.foregg.presentation.ui.common.LoadingDialog
+import com.foregg.presentation.util.ForeggToast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -71,6 +73,7 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
                 return
             }
             backPressedOnce = true
+            ForeggToast.createToast(requireContext(), "한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
             Handler(Looper.getMainLooper()).postDelayed({ backPressedOnce = false }, 2000)
         }
     }
