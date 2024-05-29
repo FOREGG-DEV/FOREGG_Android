@@ -9,7 +9,7 @@ object ScheduleSideEffectResponseMapper: Mapper.ResponseMapper<ScheduleSideEffec
     override fun mapDtoToModel(type: ScheduleSideEffectResponse?): MedicalRecord {
         return type?.run {
             MedicalRecord(
-                medicalRecord = medicalRecord,
+                medicalRecord = medicalRecord ?: "",
                 medicalSideEffect = sideEffects?.map { SideEffectVo(content = it.content) } ?: emptyList()
             )
         }?: MedicalRecord()

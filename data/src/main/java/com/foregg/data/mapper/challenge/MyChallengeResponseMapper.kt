@@ -9,7 +9,7 @@ object MyChallengeResponseMapper: Mapper.ResponseMapper<List<MyChallengeResponse
         return type?.map {  it ->
             MyChallengeListItemVo(
                 description = it.description,
-                image = it.image,
+                image = it.image ?: "",
                 id = it.id,
                 name = it.name,
                 participants = it.participants,
