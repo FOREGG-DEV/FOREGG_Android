@@ -6,12 +6,15 @@ import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentSignUpChooseGenderBinding
+import com.foregg.presentation.util.ForeggToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -48,6 +51,7 @@ class ChooseGenderFragment : BaseFragment<FragmentSignUpChooseGenderBinding, Cho
             is ChooseGenderEvent.OnClickFemaleEvent -> goToFemaleSignUp(event.ssn, event.shareCode)
             is ChooseGenderEvent.OnClickMaleEvent -> goToMaleSignUp(event.ssn)
             ChooseGenderEvent.GoToBackEvent -> findNavController().popBackStack()
+            ChooseGenderEvent.ErrorEmpty -> ForeggToast.createToast(requireContext(), R.string.toast_error_empty_ssn, Toast.LENGTH_SHORT).show()
         }
     }
 

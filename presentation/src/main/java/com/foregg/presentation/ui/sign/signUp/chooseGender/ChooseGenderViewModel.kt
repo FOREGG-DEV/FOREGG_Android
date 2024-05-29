@@ -45,7 +45,7 @@ class ChooseGenderViewModel @Inject constructor(
     }
 
     fun onClickNext(){
-        if(isEmpty()) return
+        if(isEmpty()) emitEventFlow(ChooseGenderEvent.ErrorEmpty)
         if(ssn7StateFlow.value.toInt() % 2 == 0) getShareCode() else goToMale()
     }
 
