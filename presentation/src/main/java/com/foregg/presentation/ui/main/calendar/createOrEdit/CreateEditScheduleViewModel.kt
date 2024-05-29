@@ -1,6 +1,7 @@
 package com.foregg.presentation.ui.main.calendar.createOrEdit
 
 import androidx.lifecycle.viewModelScope
+import com.foregg.data.base.StatusCode
 import com.foregg.domain.model.enums.CalendarDatePickerType
 import com.foregg.domain.model.enums.CalendarTabType
 import com.foregg.domain.model.enums.CalendarType
@@ -37,7 +38,7 @@ import kotlin.properties.Delegates
 @HiltViewModel
 class CreateEditScheduleViewModel @Inject constructor(
     private val postAddScheduleUseCase: PostAddScheduleUseCase,
-    private val getScheduleDetailUseCase: GetScheduleDetailUseCase,
+    private val getScheduleDetailUseCase: GetScheduleDetailUseCase, // (완)
     private val getScheduleSideEffectUseCase: GetScheduleSideEffectUseCase,
     private val putModifyScheduleUseCase: PutModifyScheduleUseCase,
     private val postUpdateSideEffectUseCase: PostUpdateSideEffectUseCase
@@ -84,9 +85,11 @@ class CreateEditScheduleViewModel @Inject constructor(
     private var originMedicalRecord: MedicalRecord = MedicalRecord()
     private var id by Delegates.notNull<Long>()
     private var canCheckChanged : Boolean = false
+    private var isProfile : Boolean = false
 
     fun setViewType(arg : CreateEditScheduleFragmentArgs){
         updateViewType(arg.type)
+        isProfile = arg.isProfile
         when(arg.type){
             CalendarType.CREATE -> updateClassification(arg.scheduleType)
             CalendarType.EDIT -> getScheduleDetail(arg.id)
@@ -241,8 +244,13 @@ class CreateEditScheduleViewModel @Inject constructor(
                 CalendarType.CREATE -> createSchedule()
                 CalendarType.EDIT -> modifySchedule()
             }
+            return
         }
-        else ForeggLog.D("빈 값 있경")
+        if(repeatDayStateFlow.value.isNotEmpty() && !repeatDayStateFlow.value.isCorrectDay()) {
+            emitEventFlow(CreateEditScheduleEvent.ErrorRepeatDate)
+            return
+        }
+        emitEventFlow(CreateEditScheduleEvent.ErrorBlankExist)
     }
 
     private fun checkNotEmpty() : Boolean{
@@ -256,7 +264,7 @@ class CreateEditScheduleViewModel @Inject constructor(
         val request = getDetailRequest()
         viewModelScope.launch {
             postAddScheduleUseCase(request).collect{
-                resultResponse(it, { onClickBack() } , {ForeggLog.D("오류")})
+                resultResponse(it, { onClickBack() }, needLoading = true)
             }
         }
     }
@@ -266,7 +274,7 @@ class CreateEditScheduleViewModel @Inject constructor(
         val request = getModifyDetailRequest()
         viewModelScope.launch {
             putModifyScheduleUseCase(request).collect{
-                resultResponse(it, { onClickBack() }, {ForeggLog.D("오류")} )
+                resultResponse(it, { onClickBack() }, ::handleGetDetailError, needLoading = true)
             }
         }
     }
@@ -344,7 +352,7 @@ class CreateEditScheduleViewModel @Inject constructor(
         this.id = id
         viewModelScope.launch {
             getScheduleDetailUseCase(id).collect {
-                resultResponse(it, ::handleGetDetailSuccess)
+                resultResponse(it, ::handleGetDetailSuccess, ::handleGetDetailError)
             }
         }
     }
@@ -363,6 +371,12 @@ class CreateEditScheduleViewModel @Inject constructor(
         }
         updateMemo(result.memo)
         canCheckChanged = true
+    }
+
+    private fun handleGetDetailError(error : String){
+        when(error){
+            StatusCode.RECORD.NO_EXIST_SCHEDULE -> emitEventFlow(CreateEditScheduleEvent.ErrorExist)
+        }
     }
 
     private fun updateDate(result : ScheduleDetailVo){
@@ -401,6 +415,7 @@ class CreateEditScheduleViewModel @Inject constructor(
     }
 
     private fun checkChangedContent() : Boolean{
+        if(isProfile) return false
         return originDetail.name != classificationStateFlow.value.classificationDetailEditText
                 || checkDateChanged()
                 || checkTimeChanged()

@@ -71,7 +71,7 @@ class MedicineInjectionFragment : BaseFragment<FragmentMyMedicineInjectionBindin
 
     private fun goToDetail(id : Long){
         val recordType = viewModel.getRecordType()
-        val action = MedicineInjectionFragmentDirections.actionMyMedicalToCalendarDetail(id = id, type = CalendarType.EDIT, scheduleType = recordType)
+        val action = MedicineInjectionFragmentDirections.actionMyMedicalToCalendarDetail(id = id, type = CalendarType.EDIT, scheduleType = recordType, isProfile = true)
         findNavController().navigate(action)
 
     }

@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.foregg.presentation.R
 import com.foregg.presentation.databinding.BottomSheetAccountDatePickerBinding
+import com.foregg.presentation.util.ForeggToast
 import com.foregg.presentation.util.TimeFormatter
 import com.foregg.presentation.util.serializable
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -126,7 +128,6 @@ class AccountDatePickBottomSheet : BottomSheetDialogFragment() {
                     val formattedDay = String.format("%02d", day)
                     passedStartDay = "$year-$formattedMonth-$formattedDay"
                     textStartDay.text = passedStartDay
-                    isAfterEndDay()
                 }
                 datePickerDialog.show()
                 datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(requireContext(), R.color.main))
@@ -139,7 +140,6 @@ class AccountDatePickBottomSheet : BottomSheetDialogFragment() {
                     val formattedDay = String.format("%02d", day)
                     passedEndDay = "$year-$formattedMonth-$formattedDay"
                     textEndDay.text = passedEndDay
-                    isBeforeStartDay()
                 }
                 datePickerDialog.show()
                 datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(requireContext(), R.color.main))
@@ -147,27 +147,13 @@ class AccountDatePickBottomSheet : BottomSheetDialogFragment() {
             }
 
             textBtnConfirm.setOnClickListener {
+                if(!isCorrectDay()) {
+                    ForeggToast.createToast(requireContext(), R.string.toast_error_repeat_day_schedule, Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
                 confirmClick?.invoke(passedStartDay, passedEndDay)
                 dismiss()
             }
-        }
-    }
-
-    private fun isAfterEndDay(){
-        val start = LocalDate.parse(passedStartDay, formatter)
-        val end = LocalDate.parse(binding.textEndDay.text, formatter)
-        if(start.isAfter(end)) {
-            binding.textEndDay.text = passedStartDay
-            passedEndDay = passedStartDay
-        }
-    }
-
-    private fun isBeforeStartDay(){
-        val end = LocalDate.parse(passedEndDay, formatter)
-        val start = LocalDate.parse(binding.textStartDay.text, formatter)
-        if(end.isBefore(start)) {
-            binding.textStartDay.text = passedEndDay
-            passedStartDay = passedEndDay
         }
     }
 
@@ -228,5 +214,12 @@ class AccountDatePickBottomSheet : BottomSheetDialogFragment() {
             textThreeMonth.setTextColor(ContextCompat.getColor(requireContext(), R.color.gs_70))
             textLastMonth.setTextColor(ContextCompat.getColor(requireContext(), R.color.gs_70))
         }
+    }
+
+    fun isCorrectDay() : Boolean{
+        val formatter = DateTimeFormatter.ISO_LOCAL_DATE
+        val start = LocalDate.parse(passedStartDay, formatter)
+        val end = LocalDate.parse(passedEndDay, formatter)
+        return start.isBefore(end) || start.isEqual(end)
     }
 }

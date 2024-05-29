@@ -86,7 +86,7 @@ class DailyRecordFragment : BaseFragment<FragmentDailyRecordBinding, DailyRecord
     }
 
     private fun checkFcm(){
-        if(requireActivity().intent.getStringExtra(PendingExtraValue.KEY) == PendingExtraValue.TODAY_RECORD) {
+        if(requireActivity().intent.getStringExtra(PendingExtraValue.KEY) == PendingExtraValue.TODAY_RECORD_MALE) {
             binding.customTabBar.setRightBtnClickedBackground()
             viewModel.updateTabType(DailyRecordTabType.DAILY_RECORD)
             binding.recordRecyclerView.adapter = dailyRecordAdapter

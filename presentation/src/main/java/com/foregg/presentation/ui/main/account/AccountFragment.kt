@@ -1,5 +1,6 @@
 package com.foregg.presentation.ui.main.account
 
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import com.foregg.presentation.ui.main.account.adapter.AccountCardAdapter
 import com.foregg.presentation.ui.main.account.bottomSheet.AccountDatePickBottomSheet
 import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.ForeggNotification
+import com.foregg.presentation.util.ForeggToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -103,6 +105,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountPageState, A
         when(event){
             AccountEvent.OnClickAddOrDeleteBtn -> if(accountCardAdapter.getSelectMode()) viewModel.onClickDeleteBtn() else goToCreateOrDetail(type = CalendarType.CREATE)
             is AccountEvent.ShowBottomSheetEvent -> showBottomSheet(event.startDay, event.endDay)
+            AccountEvent.ErrorNotExist -> ForeggToast.createToast(requireContext(), R.string.toast_error_no_exist_ledger, Toast.LENGTH_SHORT).show()
         }
     }
 

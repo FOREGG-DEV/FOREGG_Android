@@ -1,5 +1,6 @@
 package com.foregg.presentation.ui.main.calendar
 
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -16,6 +17,7 @@ import com.foregg.presentation.ui.main.calendar.adapter.CalendarDayAdapter
 import com.foregg.presentation.ui.main.calendar.adapter.ScheduleAdapter
 import com.foregg.presentation.ui.main.calendar.dialog.CreateScheduleDialog
 import com.foregg.presentation.util.ForeggNotification
+import com.foregg.presentation.util.ForeggToast
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -106,6 +108,7 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding, CalendarPageState
     private fun inspectEvent(event: CalendarEvent){
         when(event){
             CalendarEvent.CreateScheduleEvent -> showCreateScheduleDialog()
+            CalendarEvent.ErrorDelete -> ForeggToast.createToast(requireContext(), R.string.toast_error_no_exist_schedule, Toast.LENGTH_SHORT).show()
         }
     }
 

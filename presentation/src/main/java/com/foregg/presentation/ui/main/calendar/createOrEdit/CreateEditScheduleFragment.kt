@@ -2,6 +2,7 @@ package com.foregg.presentation.ui.main.calendar.createOrEdit
 
 import android.app.DatePickerDialog
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -15,9 +16,11 @@ import com.foregg.domain.model.vo.CreateScheduleTimeVo
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentCreateEditScheduleBinding
+import com.foregg.presentation.ui.common.CommonDialog
 import com.foregg.presentation.ui.common.spinner.CommonSpinnerAdapter
 import com.foregg.presentation.ui.main.calendar.createOrEdit.adapter.SettingTimeAdapter
 import com.foregg.presentation.ui.main.calendar.dialog.CreateScheduleDialog
+import com.foregg.presentation.util.ForeggToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.Calendar
@@ -30,6 +33,8 @@ class CreateEditScheduleFragment : BaseFragment<FragmentCreateEditScheduleBindin
 
     @Inject
     lateinit var createScheduleDialog: CreateScheduleDialog
+    @Inject
+    lateinit var commonDialog: CommonDialog
 
     private val createEditScheduleFragmentArgs : CreateEditScheduleFragmentArgs by navArgs()
 
@@ -107,6 +112,9 @@ class CreateEditScheduleFragment : BaseFragment<FragmentCreateEditScheduleBindin
             CreateEditScheduleEvent.ShowSelectScheduleDialog -> showSelectScheduleDialog()
             is CreateEditScheduleEvent.ShowDatePickerDialogEvent -> showDatePickerDialog(event.type)
             CreateEditScheduleEvent.GoToBackEvent -> findNavController().popBackStack()
+            CreateEditScheduleEvent.ErrorExist -> showErrorDialog()
+            CreateEditScheduleEvent.ErrorRepeatDate -> ForeggToast.createToast(requireContext(), R.string.toast_error_repeat_day_schedule, Toast.LENGTH_SHORT).show()
+            CreateEditScheduleEvent.ErrorBlankExist -> ForeggToast.createToast(requireContext(), R.string.toast_error_blank_content_schedule, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -151,5 +159,16 @@ class CreateEditScheduleFragment : BaseFragment<FragmentCreateEditScheduleBindin
             leftBtnClicked { viewModel.updateTabType(CalendarTabType.SCHEDULE) }
             rightBtnClicked { viewModel.updateTabType(CalendarTabType.MEDICAL_RECORD) }
         }
+    }
+
+    private fun showErrorDialog(){
+        commonDialog
+            .setTitle(R.string.toast_error_no_exist_schedule)
+            .showOnlyPositiveBtn()
+            .setPositiveButton(R.string.word_confirm){
+                commonDialog.dismiss()
+                findNavController().popBackStack()
+            }
+            .show()
     }
 }
