@@ -14,4 +14,8 @@ class InformationViewModel : BaseViewModel<InformationPageState>() {
     override val uiState: InformationPageState = InformationPageState(
         infoList = infoListStateFlow.asStateFlow()
     )
+
+    fun onClickBtnSubsidyDetail() {
+        emitEventFlow(InformationEvent.GoToSubsidyDetailEvent)
+    }
 }

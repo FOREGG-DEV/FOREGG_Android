@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.foregg.presentation.R
@@ -54,6 +55,23 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
                     husbandInfoAdapter.submitList(it)
                 }
             }
+
+            launch {
+                viewModel.eventFlow.collect {
+                    sortEvent(it as InformationEvent)
+                }
+            }
         }
+    }
+
+    private fun sortEvent(event: InformationEvent) {
+        when(event) {
+            InformationEvent.GoToSubsidyDetailEvent -> goToSubsidyDetail()
+        }
+    }
+
+    private fun goToSubsidyDetail() {
+        val action = InformationFragmentDirections.actionInformationToSubsidyDetail()
+        findNavController().navigate(action)
     }
 }
