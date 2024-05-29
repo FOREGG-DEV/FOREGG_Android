@@ -4,6 +4,7 @@ plugins {
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -56,6 +57,7 @@ dependencies {
     implementation(AndroidX.SPLASH)
     implementation(AndroidX.THREE_TEN)
     implementation(AndroidX.SWIPE_REFRESH)
+    implementation(AndroidX.DATA_STORE_PREFERENCES)
 
     //코루틴
     implementation(Kotlin.COROUTINES_CORE)
@@ -64,6 +66,11 @@ dependencies {
     //힐트
     implementation(Google.HILT_ANDROID)
     implementation(Google.HILT_CORE)
+    implementation(Google.FCM)
+    implementation(Google.FCM_KTX)
+    implementation(Google.FIREBASE_ANALYTICS)
+
+
     kapt(Google.HILT_COMPILER)
 
     implementation(KAKAO.AUTH)

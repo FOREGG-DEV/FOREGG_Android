@@ -2,16 +2,19 @@ package com.foregg.presentation.ui.sign.onBoarding
 
 import androidx.lifecycle.viewModelScope
 import com.foregg.data.base.StatusCode
+import com.foregg.domain.model.request.fcm.RenewalFcmRequestVo
 import com.foregg.domain.model.request.sign.SaveForeggJwtRequestVo
 import com.foregg.domain.model.response.SignResponseVo
 import com.foregg.domain.model.response.profile.ProfileDetailResponseVo
 import com.foregg.domain.model.vo.UserVo
 import com.foregg.domain.usecase.auth.PostLoginUseCase
+import com.foregg.domain.usecase.auth.PostRenewalFcmUseCase
 import com.foregg.domain.usecase.jwtToken.SaveForeggAccessTokenAndRefreshTokenUseCase
 import com.foregg.domain.usecase.profile.GetMyInfoUseCase
 import com.foregg.presentation.base.BaseViewModel
 import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.UserInfo
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,7 +26,8 @@ import javax.inject.Inject
 class OnboardingViewModel @Inject constructor(
     private val postLoginUseCase: PostLoginUseCase,
     private val saveForeggAccessTokenAndRefreshTokenUseCase: SaveForeggAccessTokenAndRefreshTokenUseCase,
-    private val getMyInfoUseCase: GetMyInfoUseCase
+    private val getMyInfoUseCase: GetMyInfoUseCase,
+    private val postRenewalFcmUseCase: PostRenewalFcmUseCase
 ) : BaseViewModel<OnboardingPageState>() {
 
     private val imageListStateFlow : MutableStateFlow<List<String>> = MutableStateFlow(emptyList())
@@ -71,7 +75,23 @@ class OnboardingViewModel @Inject constructor(
         val request = SaveForeggJwtRequestVo(accessToken = result.accessToken, refreshToken = result.refreshToken)
         viewModelScope.launch {
             saveForeggAccessTokenAndRefreshTokenUseCase(request).collect{
-                if(it) getMyInfo() else ForeggLog.D("저장 실패")
+                if(it) handleSaveTokenSuccess() else ForeggLog.D("저장 실패")
+            }
+        }
+    }
+
+    private fun handleSaveTokenSuccess(){
+        updateFcmToken()
+        getMyInfo()
+    }
+
+    private fun updateFcmToken(){
+        FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
+            val request = RenewalFcmRequestVo(token)
+            viewModelScope.launch {
+                postRenewalFcmUseCase(request).collect{
+                    resultResponse(it, {ForeggLog.D("Fcm 토큰 갱신 성공")}, {ForeggLog.D("Fcm 토큰 갱신 실패")})
+                }
             }
         }
     }

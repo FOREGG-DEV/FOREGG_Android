@@ -55,12 +55,10 @@ class AccountCardViewHolder(
                 AccountType.PERSONAL_EXPENSE -> {
                     constraintLayoutType.setBackgroundResource(R.drawable.bg_rectangle_filled_medicine_radius_4)
                     textType.text = root.context.getString(R.string.account_personal)
-                    textSmallType.text = root.context.getString(R.string.account_personal)
                 }
                 AccountType.SUBSIDY -> {
                     constraintLayoutType.setBackgroundResource(R.drawable.bg_rectangle_filled_injection_radius_4)
                     textType.text = root.context.getString(R.string.account_subsidy_type)
-                    textSmallType.text = root.context.getString(R.string.account_subsidy_type)
                 }
             }
         }

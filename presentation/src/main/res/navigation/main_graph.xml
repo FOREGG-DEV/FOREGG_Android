@@ -96,6 +96,16 @@
         <argument
             android:name="schedule_type"
             app:argType="com.foregg.domain.model.enums.RecordType"/>
+
+        <argument
+            android:name="isHome"
+            android:defaultValue="false"
+            app:argType="boolean"/>
+
+        <argument
+            android:name="isProfile"
+            android:defaultValue="false"
+            app:argType="boolean"/>
         <action
             android:id="@+id/action_createEditScheduleFragment_self"
             app:destination="@id/createEditScheduleFragment" />
@@ -189,4 +199,18 @@
         tools:layout="@layout/fragment_information">
     </fragment>
 
+    <fragment
+        android:id="@+id/injectionFragment"
+        android:name="com.foregg.presentation.ui.main.injection.InjectionFragment"
+        android:label="fragment_injection"
+        tools:layout="@layout/fragment_injection">
+
+        <argument
+            android:name="id"
+            app:argType="long"/>
+
+        <action
+            android:id="@+id/action_injection_to_home"
+            app:destination="@id/homeFragment"/>
+    </fragment>
 </navigation>

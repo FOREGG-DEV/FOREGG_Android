@@ -14,6 +14,7 @@ import com.foregg.domain.usecase.profile.GetMyInfoUseCase
 import com.foregg.presentation.base.BaseViewModel
 import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.UserInfo
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -108,10 +109,12 @@ class SignUpFemaleViewModel @Inject constructor(
     }
 
     fun onClickJoin(){
-        val request = getRequest()
-        viewModelScope.launch {
-            postJoinUseCase(request).collect{
-                resultResponse(it, ::handleLoginSuccess, { ForeggLog.D("실패") })
+        FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
+            val request = getRequest(token)
+            viewModelScope.launch {
+                postJoinUseCase(request).collect{
+                    resultResponse(it, ::handleLoginSuccess, { ForeggLog.D("실패") })
+                }
             }
         }
     }
@@ -143,7 +146,7 @@ class SignUpFemaleViewModel @Inject constructor(
         emitEventFlow(SignUpFemaleEvent.GoToMainEvent)
     }
 
-    private fun getRequest() : SignUpWithTokenRequestVo {
+    private fun getRequest(fcmToken : String) : SignUpWithTokenRequestVo {
         return SignUpWithTokenRequestVo(
             accessToken = accessToken,
             signUpRequestVo = SignUpRequestVo(
@@ -153,7 +156,8 @@ class SignUpFemaleViewModel @Inject constructor(
                 startAt = if(selectedSurgeryTypeStateFlow.value == SurgeryType.THINK_SURGERY) null
                         else startTreatmentDayStateFlow.value,
                 spouseCode = shareCodeStateFlow.value,
-                ssn = ssn
+                ssn = ssn,
+                fcmToken = fcmToken
             )
         )
     }

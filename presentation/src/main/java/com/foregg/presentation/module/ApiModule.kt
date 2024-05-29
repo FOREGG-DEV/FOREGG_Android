@@ -26,6 +26,12 @@ object ApiModule {
 
     @Singleton
     @Provides
+    fun provideFcmApi(@AuthRetrofit retrofit: Retrofit): FcmApi {
+        return retrofit.create(FcmApi::class.java)
+    }
+
+    @Singleton
+    @Provides
     fun provideScheduleApi(@AuthRetrofit retrofit: Retrofit): ScheduleApi {
         return retrofit.create(ScheduleApi::class.java)
     }

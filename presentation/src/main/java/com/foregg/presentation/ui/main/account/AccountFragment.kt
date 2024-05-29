@@ -5,6 +5,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.foregg.domain.model.enums.AccountTabType
 import com.foregg.domain.model.enums.CalendarType
+import com.foregg.domain.model.enums.NotificationType
 import com.foregg.domain.model.vo.account.AccountCardVo
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
@@ -12,6 +13,7 @@ import com.foregg.presentation.databinding.FragmentAccountBinding
 import com.foregg.presentation.ui.main.account.adapter.AccountCardAdapter
 import com.foregg.presentation.ui.main.account.bottomSheet.AccountDatePickBottomSheet
 import com.foregg.presentation.util.ForeggLog
+import com.foregg.presentation.util.ForeggNotification
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -39,6 +41,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountPageState, A
     }
 
     override fun initView() {
+        ForeggNotification.updateNoty(requireContext(), NotificationType.LEDGER, false)
         binding.apply {
             vm = viewModel
 

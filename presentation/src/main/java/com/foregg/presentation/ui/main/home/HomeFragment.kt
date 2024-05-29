@@ -29,8 +29,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
 
     private val todayScheduleAdapter : HomeTodayScheduleAdapter by lazy {
         HomeTodayScheduleAdapter(object : HomeTodayScheduleAdapter.HomeTodayScheduleDelegate {
-            override fun onClickRecordTreatment(id: Long, type: CalendarType, recordType: RecordType) {
-                goToCreateEditSchedule(id ,type, recordType)
+            override fun onClickRecordTreatment(id: Long, recordType: RecordType) {
+                goToCreateEditSchedule(id, recordType)
             }
         })
     }
@@ -114,8 +114,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
             .show()
     }
 
-    private fun goToCreateEditSchedule(id: Long, type: CalendarType, recordType: RecordType) {
-        val action = HomeFragmentDirections.actionHomeToCreateEditSchedule(id = id, type = type, scheduleType = recordType)
+    private fun goToCreateEditSchedule(id: Long, recordType: RecordType) {
+        val action = HomeFragmentDirections.actionHomeToCreateEditSchedule(id = id, type = CalendarType.EDIT, scheduleType = recordType, isHome = true)
         findNavController().navigate(action)
     }
 }

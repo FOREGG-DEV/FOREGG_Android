@@ -11,6 +11,8 @@ object Versions {
     const val MATERIAL = "1.11.0"
     const val HILT = "2.44"
     const val GLIDE = "4.12.0"
+    const val FCM = "24.0.0"
+    const val FIREBASE = "21.2.0"
 
     /* [ Android ] */
     const val CORE = "1.12.0"

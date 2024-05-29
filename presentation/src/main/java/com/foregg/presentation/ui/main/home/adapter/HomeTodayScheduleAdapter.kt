@@ -18,7 +18,7 @@ class HomeTodayScheduleAdapter(
 ) {
 
     interface HomeTodayScheduleDelegate {
-        fun onClickRecordTreatment(id: Long, type: CalendarType, recordType: RecordType)
+        fun onClickRecordTreatment(id: Long, recordType: RecordType)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

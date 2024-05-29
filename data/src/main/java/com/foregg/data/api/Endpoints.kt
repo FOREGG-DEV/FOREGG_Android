@@ -11,6 +11,7 @@ object Endpoints {
         const val RENEWAL = "$AUTH/renewalToken"
         const val LOGOUT = "$AUTH/logout"
         const val UNREGISTER = "$AUTH/withdrawal"
+        const val RENEWAL_FCM = "$AUTH/renewalFcm"
     }
 
     object RECORD {
