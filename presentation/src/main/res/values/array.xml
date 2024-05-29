@@ -17,13 +17,27 @@
     </string-array>
 
     <string-array name="injection_list">
-        <item>폴리트롭</item>
+        <item>가니레버</item>
         <item>고날에프</item>
-        <item>퓨레곤</item>
         <item>고나도핀</item>
-        <item>레코벨</item>
-        <item>벰폴라</item>
+        <item>데카펩틸</item>
         <item>루베리스</item>
+        <item>로렐린</item>
+        <item>레코벨</item>
+        <item>메노푸어</item>
+        <item>메리오날</item>
+        <item>벰폴라</item>
+        <item>세트로타이드</item>
+        <item>오가루트란</item>
+        <item>오비드렐</item>
+        <item>유트로핀</item>
+        <item>크녹산</item>
         <item>퍼고베리스</item>
+        <item>프롤루텍스</item>
+        <item>플리트롭</item>
+        <item>퓨레곤</item>
+        <item>IVF-C</item>
+        <item>IVF-M HP</item>
+        <item>기타</item>
     </string-array>
 </resources>
