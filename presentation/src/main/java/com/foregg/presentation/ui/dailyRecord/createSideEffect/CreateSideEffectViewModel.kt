@@ -37,6 +37,10 @@ class CreateSideEffectViewModel @Inject constructor(
         contentText = contentTextStateFlow
     )
 
+    fun onTextChanged(input: CharSequence) {
+        contentTextStateFlow.update { input.toString() }
+    }
+
     fun updateHasSideEffectState(value :Boolean) {
         viewModelScope.launch {
             hasSideEffectStateFlow.update { value }
