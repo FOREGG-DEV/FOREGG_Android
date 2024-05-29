@@ -13,7 +13,7 @@ data class ChallengeResponseListItem(
     @SerializedName("participants")
     val participants: Int = 0,
     @SerializedName("image")
-    val image: String = "",
+    val image: String? = "",
     @SerializedName("ifMine")
     val ifMine: Boolean = false
 ): DataDto

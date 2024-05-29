@@ -12,7 +12,7 @@ object ChallengeResponseMapper: Mapper.ResponseMapper<List<ChallengeResponseList
                 name = listItem.name,
                 description = listItem.description,
                 participants = listItem.participants,
-                image = listItem.image,
+                image = listItem.image ?: "",
                 ifMine = listItem.ifMine
             )
         } ?: emptyList()
