@@ -6,6 +6,7 @@ object StatusCode {
 
     object AUTH {
         const val USER_NEED_JOIN = "USER4002"
+        const val NOT_CORRECT_SHARE_CODE = "USER4004"
     }
 
     object RECORD {

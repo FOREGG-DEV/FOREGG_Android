@@ -140,6 +140,7 @@
     <string name="toast_clipboard_email">클립보드에 메일주소가 복사되었어요!</string>
     <string name="toast_error_empty_ssn">주민번호를 모두 입력해주세요.</string>
     <string name="toast_error_empty_start_date">시작 날짜를 입력해주세요.</string>
+    <string name="toast_error_not_correct_share_code">유효하지 않은 배우자코드입니다.</string>
 
     <!-- challenge -->
     <string name="challenge_title">챌린지</string>
