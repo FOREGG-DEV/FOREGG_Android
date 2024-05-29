@@ -8,6 +8,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -81,10 +82,19 @@ class ChooseGenderFragment : BaseFragment<FragmentSignUpChooseGenderBinding, Cho
             editTextSsn6.setGenericKeyEvent(editTextSsn5)
             editTextSsn7.setGenericKeyEvent(editTextSsn6)
 
+            editTextSsn7.addTextChangedListener {
+                if(editTextSsn7.text.isNotEmpty()) hideKeyboard()
+            }
+
             editTextSsn1.requestFocus()
             val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(editTextSsn1, 0)
         }
+    }
+
+    private fun hideKeyboard(){
+        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(requireActivity().window.decorView.applicationWindowToken, 0)
     }
 
     class GenericTextListener(private val currentView: EditText, private val nextView: EditText?) : TextWatcher {
