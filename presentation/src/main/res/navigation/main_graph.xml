@@ -182,4 +182,11 @@
         tools:layout="@layout/fragment_profile_account">
     </fragment>
 
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.foregg.presentation.ui.main.information.InformationFragment"
+        android:label="fragment_info"
+        tools:layout="@layout/fragment_information">
+    </fragment>
+
 </navigation>
