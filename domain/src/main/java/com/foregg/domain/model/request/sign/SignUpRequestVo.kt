@@ -15,4 +15,6 @@ data class SignUpRequestVo(
     val spouseCode : String,
     @SerializedName("ssn")
     val ssn : String,
+    @SerializedName("fcmToken")
+    val fcmToken : String
 ) : RequestVo

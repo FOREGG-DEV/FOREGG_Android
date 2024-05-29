@@ -11,6 +11,9 @@ object Google {
     const val HILT_COMPILER = "com.google.dagger:hilt-compiler:${Versions.HILT}"
     const val HILT_ANDROID = "com.google.dagger:hilt-android:${Versions.HILT}"
     const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
+    const val FCM = "com.google.firebase:firebase-messaging:${Versions.FCM}"
+    const val FCM_KTX = "com.google.firebase:firebase-messaging-ktx:${Versions.FCM}"
+    const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics:${Versions.FIREBASE}"
 }
 
 object AndroidX{

@@ -139,7 +139,7 @@
                 android:scrollHorizontally="false"
                 android:gravity="top|start"
                 android:hint="@string/create_daily_record_edit_text_hint"
-                android:text="@{vm.uiState.contentText}"
+                android:text="@={vm.uiState.contentText}"
                 android:textAppearance="@style/p2"
                 android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@id/emotion_layout"/>

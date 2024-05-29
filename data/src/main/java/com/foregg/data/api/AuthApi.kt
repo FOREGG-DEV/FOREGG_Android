@@ -2,6 +2,7 @@ package com.foregg.data.api
 
 import com.foregg.data.base.ApiResponse
 import com.foregg.data.dto.SignResponse
+import com.foregg.domain.model.request.fcm.RenewalFcmRequestVo
 import com.foregg.domain.model.request.sign.SignUpMaleRequestVo
 import com.foregg.domain.model.request.sign.SignUpRequestVo
 import retrofit2.Response

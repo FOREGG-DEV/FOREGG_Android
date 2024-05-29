@@ -6,6 +6,7 @@
 
     <data>
         <import type="android.view.View"/>
+        <import type="com.foregg.presentation.util.ForeggNotification"/>
         <variable
             name="vm"
             type="com.foregg.presentation.ui.main.home.HomeViewModel" />
@@ -59,8 +60,7 @@
                 <ImageButton
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_daily_record"
-                    android:background="@android:color/transparent"
+                    android:src="@{ForeggNotification.INSTANCE.todayRecordNotificationStateFlow.booleanValue() == true ? @drawable/ic_daily_record_noti : @drawable/ic_daily_record}"
                     android:layout_gravity="center"
                     android:onClick="@{()->vm.onClickDailyRecord()}"/>
 

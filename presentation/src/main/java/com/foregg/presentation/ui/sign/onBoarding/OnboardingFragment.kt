@@ -7,6 +7,7 @@ import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentOnboardingBinding
 import com.foregg.presentation.ui.MainActivity
 import com.foregg.presentation.ui.sign.onBoarding.adapter.OnboardingTutorialAdapter
+import com.foregg.presentation.util.PendingExtraValue
 import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -94,7 +95,12 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding, OnboardingPag
     }
 
     private fun goToMain(){
-        val intent = Intent(requireActivity(), MainActivity::class.java)
+        val pendingIntent = requireActivity().intent.getStringExtra(PendingExtraValue.KEY) ?: ""
+        val targetIdIntent = requireActivity().intent.getLongExtra(PendingExtraValue.TARGET_ID_KEY, -1)
+        val intent = Intent(requireActivity(), MainActivity::class.java).apply {
+            if(pendingIntent.isNotEmpty()) putExtra(PendingExtraValue.KEY, pendingIntent)
+            if(targetIdIntent != (-1).toLong()) putExtra(PendingExtraValue.TARGET_ID_KEY, targetIdIntent)
+        }
         startActivity(intent)
         requireActivity().finish()
     }

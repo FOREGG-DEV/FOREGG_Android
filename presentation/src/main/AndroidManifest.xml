@@ -4,6 +4,10 @@
     package="com.foregg.presentation">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
 
     <application
         android:name=".ForeggApp"
@@ -17,6 +21,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foregg"
         tools:targetApi="31">
+
+        <service
+            android:name=".util.FcmNotification"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
         <activity
             android:name=".ui.sign.SignActivity"
             android:screenOrientation="portrait"

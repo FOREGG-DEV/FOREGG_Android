@@ -7,6 +7,7 @@ import com.foregg.presentation.PageState
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseActivity
 import com.foregg.presentation.databinding.ActivitySignBinding
+import com.foregg.presentation.util.AlarmService
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -16,7 +17,9 @@ class SignActivity : BaseActivity<ActivitySignBinding, PageState.Default, SignVi
     private lateinit var navController: NavController
 
     override fun initView() {
-
+        if (intent.getBooleanExtra("STOP_ALARM", false)) {
+            AlarmService.stopAlarm()
+        }
         binding.apply {
             vm = viewModel
             initNavigation()
