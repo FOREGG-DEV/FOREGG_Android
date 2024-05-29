@@ -1,6 +1,7 @@
 package com.foregg.presentation.ui.main.calendar.createOrEdit
 
 import android.app.DatePickerDialog
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -132,14 +133,23 @@ class CreateEditScheduleFragment : BaseFragment<FragmentCreateEditScheduleBindin
         if(createEditScheduleFragmentArgs.type == CalendarType.CREATE)
             settingTimeAdapter.setData(listOf(CreateScheduleTimeVo()).toMutableList()
         )
+        if(createEditScheduleFragmentArgs.isProfile) binding.imgBtnComplete.visibility = View.GONE
         spinnerAdapter.submitList(resources.getStringArray(R.array.injection_list).toList())
         canUpdateTime = true
     }
 
     private fun bindTab(){
-        binding.apply {
-            customTabBar.leftBtnClicked { viewModel.updateTabType(CalendarTabType.SCHEDULE) }
-            customTabBar.rightBtnClicked { viewModel.updateTabType(CalendarTabType.MEDICAL_RECORD) }
+        binding.customTabBar.apply {
+            if(createEditScheduleFragmentArgs.isHome) {
+                viewModel.updateTabType(CalendarTabType.MEDICAL_RECORD)
+                setRightBtnClickedBackground()
+            }
+            else {
+                viewModel.updateTabType(CalendarTabType.SCHEDULE)
+                setLeftBtnClickedBackground()
+            }
+            leftBtnClicked { viewModel.updateTabType(CalendarTabType.SCHEDULE) }
+            rightBtnClicked { viewModel.updateTabType(CalendarTabType.MEDICAL_RECORD) }
         }
     }
 }

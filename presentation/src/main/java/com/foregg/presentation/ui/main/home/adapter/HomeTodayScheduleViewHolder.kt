@@ -12,19 +12,19 @@ class HomeTodayScheduleViewHolder(
     private val binding: ItemTodayScheduleBinding,
     private val listener: HomeTodayScheduleAdapter.HomeTodayScheduleDelegate
 ) : RecyclerView.ViewHolder(binding.root) {
-    var id: Long? = null
-    var type: CalendarType = CalendarType.CREATE
-    var recordType: RecordType = RecordType.ETC
+
+    private var id: Long? = null
+    private var recordType: RecordType = RecordType.ETC
     init {
         binding.btnRecordTreatment.setOnClickListener {
             id?.let { id ->
-                listener.onClickRecordTreatment(id ,type, recordType)
+                listener.onClickRecordTreatment(id, recordType)
             }
         }
 
         binding.btnEditSchedule.setOnClickListener {
             id?.let { id ->
-                listener.onClickRecordTreatment(id ,type, recordType)
+                listener.onClickRecordTreatment(id, recordType)
             }
         }
     }
@@ -33,7 +33,6 @@ class HomeTodayScheduleViewHolder(
         binding.apply {
             id = item.id
             recordType = item.recordType
-            type = CalendarType.EDIT
 
             val recordType = item.recordType
 

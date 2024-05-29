@@ -64,7 +64,7 @@ class CalendarViewModel @Inject constructor(
     private fun getScheduleList(){
         viewModelScope.launch {
             getScheduleListUseCase(getRequest()).collect{
-                resultResponse(it, ::updateCalendar, { ForeggLog.D("에러") })
+                resultResponse(it, ::updateCalendar, { ForeggLog.D("에러") }, true)
             }
         }
     }
@@ -124,9 +124,19 @@ class CalendarViewModel @Inject constructor(
     }
 
     fun onClickDay(day : String){
+        changeClickedDay(day)
         updateSelectedDay(day)
         val schedule = calendarDayListStateFlow.value.find { it.day == day }
         updateScheduleList(splitRepeatTimesForList(schedule?.scheduleList ?: emptyList()))
+    }
+
+    private fun changeClickedDay(day : String){
+        val newList = calendarDayListStateFlow.value.map {
+            if(it.day == day) it.copy(isClicked = true) else it.copy(isClicked = false)
+        }
+        viewModelScope.launch {
+            calendarDayListStateFlow.update { newList }
+        }
     }
 
     private fun updateSelectedDay(day : String){
@@ -168,7 +178,7 @@ class CalendarViewModel @Inject constructor(
     fun onClickDelete(id : Long){
         viewModelScope.launch {
             deleteScheduleUseCase(id).collect{
-                resultResponse(it, { handleDeleteSuccess(id) }, ::handleDeleteError)
+                resultResponse(it, { handleDeleteSuccess(id) }, ::handleDeleteError, true)
             }
         }
     }
@@ -196,7 +206,8 @@ class CalendarViewModel @Inject constructor(
             val dateString = currentDate.toString()
             val scheduleList = newScheduleList.filter { it.date == dateString }
             val isToday = dateString == TimeFormatter.getToday()
-            val calendarDayVo = CalendarDayVo(day = dateString, isToday = isToday, scheduleList = scheduleList)
+            val isClickedDay = dateString == TimeFormatter.getDashDate(selectedDayStateFlow.value)
+            val calendarDayVo = CalendarDayVo(day = dateString, isToday = isToday, scheduleList = scheduleList, isClicked = isClickedDay)
             dayList.add(calendarDayVo)
             currentDate = currentDate.plusDays(1)
         }
@@ -220,7 +231,8 @@ class CalendarViewModel @Inject constructor(
         return (1 .. startDay).map { i ->
             val day = lastDayOfPreviousMonth.minusDays((startDay - i).toLong())
             val scheduleListForDay = list.filter { it.date == day.toString() }
-            CalendarDayVo(day = day.toString(), dayType = DayType.PREV_NEXT, scheduleList = scheduleListForDay)
+            val isClickedDay = day.toString() == TimeFormatter.getDashDate(selectedDayStateFlow.value)
+            CalendarDayVo(day = day.toString(), dayType = DayType.PREV_NEXT, scheduleList = scheduleListForDay, isClicked = isClickedDay)
         }
     }
 
@@ -230,7 +242,8 @@ class CalendarViewModel @Inject constructor(
         return (0 until (6 - endDay)).map {i ->
             val day = firstDayOfNextMonth.plusDays(i.toLong())
             val scheduleListForDay = list.filter { it.date == day.toString() }
-            CalendarDayVo(day = day.toString(), dayType = DayType.PREV_NEXT, scheduleList = scheduleListForDay)
+            val isClickedDay = day.toString() == TimeFormatter.getDashDate(selectedDayStateFlow.value)
+            CalendarDayVo(day = day.toString(), dayType = DayType.PREV_NEXT, scheduleList = scheduleListForDay, isClicked = isClickedDay)
         }
     }
 }

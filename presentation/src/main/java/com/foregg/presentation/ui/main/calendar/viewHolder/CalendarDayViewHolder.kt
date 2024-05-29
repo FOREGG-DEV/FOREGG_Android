@@ -58,6 +58,7 @@ class CalendarDayViewHolder(
 
     private fun setNormalDay(item: CalendarDayVo){
         binding.apply {
+            viewClicked.visibility = if(item.isClicked) View.VISIBLE else View.INVISIBLE
             viewToday.visibility = if(item.isToday) View.VISIBLE else View.INVISIBLE
             textDay.setTextColor(root.context.getColor(getTextColor(item.isToday)))
             textDay.text = TimeFormatter.getDay(item.day).toInt().toString()
@@ -67,6 +68,7 @@ class CalendarDayViewHolder(
 
     private fun setPrevAndNextDay(item: CalendarDayVo){
         binding.apply {
+            viewClicked.visibility = if(item.isClicked) View.VISIBLE else View.INVISIBLE
             viewToday.visibility = if(item.isToday) View.VISIBLE else View.INVISIBLE
             textDay.setTextColor(root.context.getColor(R.color.gs_30))
             textDay.text = TimeFormatter.getDay(item.day).toInt().toString()

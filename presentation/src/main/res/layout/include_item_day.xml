@@ -11,6 +11,15 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <View
+            android:id="@+id/view_clicked"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@id/text_day"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/text_day"
+            android:background="@drawable/bg_rectangle_filled_gs_10_radius_4" />
+
+        <View
             android:id="@+id/view_today"
             android:layout_width="match_parent"
             android:layout_height="0dp"
