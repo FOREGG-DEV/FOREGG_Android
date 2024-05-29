@@ -45,7 +45,10 @@ class ChooseGenderViewModel @Inject constructor(
     }
 
     fun onClickNext(){
-        if(isEmpty()) emitEventFlow(ChooseGenderEvent.ErrorEmpty)
+        if(isEmpty()) {
+            emitEventFlow(ChooseGenderEvent.ErrorEmpty)
+            return
+        }
         if(ssn7StateFlow.value.toInt() % 2 == 0) getShareCode() else goToMale()
     }
 
@@ -63,8 +66,8 @@ class ChooseGenderViewModel @Inject constructor(
     }
 
     private fun isEmpty() : Boolean{
-        return ssn1StateFlow.value.isEmpty() && ssn2StateFlow.value.isEmpty() && ssn3StateFlow.value.isEmpty()
-                && ssn4StateFlow.value.isEmpty() && ssn5StateFlow.value.isEmpty() && ssn6StateFlow.value.isEmpty()
-                && ssn7StateFlow.value.isEmpty()
+        return ssn1StateFlow.value.isEmpty() || ssn2StateFlow.value.isEmpty() || ssn3StateFlow.value.isEmpty()
+                || ssn4StateFlow.value.isEmpty() || ssn5StateFlow.value.isEmpty() || ssn6StateFlow.value.isEmpty()
+                || ssn7StateFlow.value.isEmpty()
     }
 }
