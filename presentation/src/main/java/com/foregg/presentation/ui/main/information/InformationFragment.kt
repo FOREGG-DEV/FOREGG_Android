@@ -24,22 +24,19 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
 ) {
     override val viewModel: InformationViewModel by viewModels()
 
-    private val subsidyAdapter = InformationAdapter()
-    private val essentialInfoAdapter = InformationAdapter()
-    private val womanInfoAdapter = InformationAdapter()
-    private val husbandInfoAdapter = InformationAdapter()
+    private val informationAdapter: InformationAdapter by lazy {
+        InformationAdapter(mapOf(), requireContext(), object : InformationAdapter.InformationAdapterDelegate {
+            override fun onClickBtnSubsidyDetail() {
+                viewModel.onClickBtnSubsidyDetail()
+            }
+        })
+    }
 
     override fun initView() {
         binding.apply {
             vm = viewModel
-            subsidyRecyclerView.adapter = subsidyAdapter
-            subsidyRecyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-            essentialInfoRecyclerView.adapter = essentialInfoAdapter
-            essentialInfoRecyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-            womanContentsRecyclerView.adapter = womanInfoAdapter
-            womanContentsRecyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-            husbandContentsRecyclerView.adapter = husbandInfoAdapter
-            husbandContentsRecyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+            infoRecyclerView.adapter = informationAdapter
+            infoRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         }
     }
 
@@ -49,10 +46,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.infoList.collect {
-                    subsidyAdapter.submitList(it)
-                    essentialInfoAdapter.submitList(it)
-                    womanInfoAdapter.submitList(it)
-                    husbandInfoAdapter.submitList(it)
+                    informationAdapter.updateData(it)
                 }
             }
 

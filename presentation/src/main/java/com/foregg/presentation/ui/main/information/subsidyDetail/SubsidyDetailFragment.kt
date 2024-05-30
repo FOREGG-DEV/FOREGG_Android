@@ -12,16 +12,19 @@ import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentSubsidyDetailBinding
 import com.foregg.presentation.ui.main.information.adapter.GridSpacingItemDecoration
 import com.foregg.presentation.ui.main.information.adapter.InformationAdapter
+import com.foregg.presentation.ui.main.information.adapter.InformationDetailAdapter
 import com.foregg.presentation.util.px
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class SubsidyDetailFragment : BaseFragment<FragmentSubsidyDetailBinding, SubsidyDetailPageState, SubsidyDetailViewModel>(
     FragmentSubsidyDetailBinding::inflate
 ) {
     override val viewModel: SubsidyDetailViewModel by viewModels()
 
-    private val infoAdapter = InformationAdapter()
+    private val infoAdapter = InformationDetailAdapter()
 
     override fun initView() {
         binding.apply {

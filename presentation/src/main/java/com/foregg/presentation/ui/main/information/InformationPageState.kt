@@ -5,5 +5,5 @@ import com.foregg.presentation.PageState
 import kotlinx.coroutines.flow.StateFlow
 
 data class InformationPageState (
-    val infoList: StateFlow<List<InfoItemVo>>
+    val infoList: StateFlow<Map<String, List<InfoItemVo>>>
 ): PageState
