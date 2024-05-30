@@ -85,6 +85,7 @@
     <string name="home_adv_text">광고배너 (자동 슬라이딩)</string>
     <string name="home_challenge_text">챌린지 참여하기</string>
     <string name="today_schedule_format">%1$s님의\n%2$s월 %3$s일 일정이예요.</string>
+    <string name="today_schedule_husband_format">$s, $s 님의 \n$s월 $s일 일정이에요.</string>
     <string name="today_schedule_empty_text">오늘은 일정이 없어요.</string>
     <string name="home_challenge_complete_dialog_text">오늘의 챌린지 성공하셨나요?</string>
 
