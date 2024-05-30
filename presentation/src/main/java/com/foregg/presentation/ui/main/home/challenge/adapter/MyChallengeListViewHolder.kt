@@ -2,6 +2,7 @@ package com.foregg.presentation.ui.main.home.challenge.adapter
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.foregg.domain.model.response.MyChallengeListItemVo
 import com.foregg.presentation.R
 import com.foregg.presentation.databinding.ItemMyChallengeBinding
@@ -31,6 +32,9 @@ class MyChallengeListViewHolder(
             challengeItemTitle.text = item.name
             challengeItemContainer.text = item.description
             challengeParticipantsText.text = context.getString(R.string.challenge_participant_count_text, item.participants)
+            Glide.with(binding.root)
+                .load(item.image)
+                .into(challengeImage)
         }
     }
 }
