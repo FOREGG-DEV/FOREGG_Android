@@ -12,6 +12,7 @@ import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentHomeBinding
 import com.foregg.presentation.ui.common.CommonDialog
 import com.foregg.presentation.ui.main.home.adapter.HomeChallengeAdapter
+import com.foregg.presentation.ui.main.home.adapter.HomeIntroductionAdapter
 import com.foregg.presentation.ui.main.home.adapter.HomeTodayScheduleAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -26,6 +27,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
 
     @Inject
     lateinit var dialog: CommonDialog
+
+    private val homeIntroductionAdapter = HomeIntroductionAdapter()
 
     private val todayScheduleAdapter : HomeTodayScheduleAdapter by lazy {
         HomeTodayScheduleAdapter(object : HomeTodayScheduleAdapter.HomeTodayScheduleDelegate {
@@ -52,6 +55,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
             if (position != 0) todayScheduleViewPager.scrollToPosition(position)
             challengeRecyclerView.adapter = homeChallengeAdapter
             challengeRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            advertiseViewPager.adapter = homeIntroductionAdapter
+            indicatorView.attachTo(advertiseViewPager)
         }
     }
 
@@ -72,6 +77,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
             launch {
                 viewModel.uiState.scheduleStartPosition.collect {
                     if (it != 0) binding.todayScheduleViewPager.scrollToPosition(it)
+                }
+            }
+            launch {
+                viewModel.uiState.homeIntroductionItemList.collect {
+                    homeIntroductionAdapter.submitList(it)
                 }
             }
             launch {
