@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentSubsidyDetailBinding
+import com.foregg.presentation.ui.main.information.adapter.GridSpacingItemDecoration
 import com.foregg.presentation.ui.main.information.adapter.InformationAdapter
 import com.foregg.presentation.util.px
 import kotlinx.coroutines.flow.collect
@@ -27,7 +28,7 @@ class SubsidyDetailFragment : BaseFragment<FragmentSubsidyDetailBinding, Subsidy
             gridRecyclerView.adapter = infoAdapter
             gridRecyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
             gridRecyclerView.addItemDecoration(
-                InformationAdapter.GridSpacingItemDecoration(3, 20.px)
+                GridSpacingItemDecoration(3, 20.px)
             )
         }
     }

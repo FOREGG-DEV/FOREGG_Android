@@ -24,36 +24,36 @@ class InformationAdapter: ListAdapter<InfoItemVo, RecyclerView.ViewHolder>(
         val binding = ItemInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return InformationViewHolder(binding)
     }
+}
 
-    internal class GridSpacingItemDecoration(
-        private val spanCount: Int,
-        private val spacing: Int
-    ) : RecyclerView.ItemDecoration() {
+class GridSpacingItemDecoration(
+    private val spanCount: Int,
+    private val spacing: Int
+) : RecyclerView.ItemDecoration() {
 
-        override fun getItemOffsets(
-            outRect: Rect,
-            view: View,
-            parent: RecyclerView,
-            state: RecyclerView.State
-        ) {
-            val position: Int = parent.getChildAdapterPosition(view)
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
+        val position: Int = parent.getChildAdapterPosition(view)
 
-            if (position >= 0) {
-                val column = position % spanCount
-                outRect.apply {
-                    left = spacing - column * spacing / spanCount
-                    right = if (column == 2) 0
-                    else (column + 1) * spacing / spanCount
-                    if (position < spanCount) top = spacing
-                    bottom = spacing
-                }
-            } else {
-                outRect.apply {
-                    left = 0
-                    right = 0
-                    top = 0
-                    bottom = 0
-                }
+        if (position >= 0) {
+            val column = position % spanCount
+            outRect.apply {
+                left = spacing - column * spacing / spanCount
+                right = if (column == 2) 0
+                else (column + 1) * spacing / spanCount
+                if (position < spanCount) top = spacing
+                bottom = spacing
+            }
+        } else {
+            outRect.apply {
+                left = 0
+                right = 0
+                top = 0
+                bottom = 0
             }
         }
     }
