@@ -25,7 +25,6 @@
             android:layout_width="178dp"
             android:layout_height="178dp"
             android:layout_marginTop="32dp"
-            android:src="@drawable/bg_rectangle_filled_gs_10_radius_4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
