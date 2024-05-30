@@ -2,6 +2,7 @@ package com.foregg.presentation.ui.main.home
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.foregg.domain.model.enums.GenderType
 import com.foregg.domain.model.response.HomeRecordResponseVo
 import com.foregg.domain.model.response.HomeResponseVo
 import com.foregg.domain.model.response.MyChallengeListItemVo
@@ -12,6 +13,7 @@ import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseViewModel
 import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.ResourceProvider
+import com.foregg.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,6 +33,7 @@ class HomeViewModel @Inject constructor(
 ) : BaseViewModel<HomePageState>() {
     private val hasDailyRecordStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val userNameStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private val husbandNameStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val todayDateStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val todayScheduleStateFlow: MutableStateFlow<List<HomeRecordResponseVo>> = MutableStateFlow(emptyList())
     private val formattedTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
@@ -57,7 +60,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getTodaySchedule() {
-        viewModelScope.launch() {
+        viewModelScope.launch {
             getHomeUseCase(Unit).collect {
                 resultResponse(it, ::handleInitScheduleStatesSuccess, { ForeggLog.D("실패") })
             }
@@ -75,9 +78,11 @@ class HomeViewModel @Inject constructor(
     private fun handleInitScheduleStatesSuccess(result: HomeResponseVo) {
         viewModelScope.launch {
             userNameStateFlow.update { result.userName }
+            husbandNameStateFlow.update { result.spouseName }
             todayDateStateFlow.update { result.todayDate }
             todayScheduleStateFlow.update { splitTodayScheduleByRepeatedTime(result.homeRecordResponseVo) }
-            formattedTextStateFlow.update { resourceProvider.getString(R.string.today_schedule_format, userNameStateFlow.value, month, day) }
+            if (UserInfo.info.genderType == GenderType.FEMALE) formattedTextStateFlow.update { resourceProvider.getString(R.string.today_schedule_format, userNameStateFlow.value, month, day) }
+            else formattedTextStateFlow.update { resourceProvider.getString(R.string.today_schedule_husband_format, userNameStateFlow.value, husbandNameStateFlow.value, month, day) }
             if (todayScheduleStateFlow.value.isNotEmpty()) scheduleStartPositionStateFlow.update { calculatePosition(todayScheduleStateFlow.value) }
         }
     }
