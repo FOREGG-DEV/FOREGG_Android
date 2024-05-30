@@ -110,23 +110,26 @@ class ChallengeViewModel @Inject constructor(
     }
 
     private fun updateBtnDayState(index: Int) {
+        val newState = MutableStateFlow(List(7) { ChallengeStatusType.DEFAULT }).value.toMutableList()
+        val todayIndex = dayToIndex(TimeFormatter.getKoreanDayOfWeek(LocalDate.now().dayOfWeek))
+
+        for (i in 0 until todayIndex) {
+            newState[i] = ChallengeStatusType.FAIL
+        }
+
         viewModelScope.launch {
             myChallengeListStateFlow.value[index].successDays?.let { successDays ->
-                val newState = btnDayStateFlow.value.toMutableList()
-                val todayIndex = dayToIndex(TimeFormatter.getKoreanDayOfWeek(LocalDate.now().dayOfWeek))
-                for (i in 0 until todayIndex) {
-                    newState[i] = ChallengeStatusType.FAIL
-                }
                 for (day in successDays) {
                     val dayIndex = dayToIndex(day)
-                    if (dayIndex > todayIndex) return@let
+                    if (dayIndex > todayIndex) break
                     else if (dayIndex != -1) {
                         newState[dayIndex] = ChallengeStatusType.SUCCESS
                     }
                 }
-                if (newState[todayIndex] == ChallengeStatusType.DEFAULT) newState[todayIndex] = ChallengeStatusType.TODAY
-                btnDayStateFlow.update { newState }
             }
+            if (newState[todayIndex] == ChallengeStatusType.DEFAULT) newState[todayIndex] = ChallengeStatusType.TODAY
+            btnDayStateFlow.update { newState }
+            ForeggLog.D(btnDayStateFlow.value.toString() + ", " + myChallengeListStateFlow.value[index].name)
         }
     }
 
@@ -182,7 +185,7 @@ class ChallengeViewModel @Inject constructor(
         }
     }
 
-    fun participateChallenge() {
+    private fun participateChallenge() {
         val currentIdx = currentItemCountStateFlow.value - 1
         val currentItemId = challengeItemListStateFlow.value[currentIdx].id
 
@@ -198,13 +201,9 @@ class ChallengeViewModel @Inject constructor(
     fun quitChallenge(id: Long) {
         viewModelScope.launch {
             quitChallengeUseCase(request = id).collect {
-                resultResponse(it, ::handleQuitChallengeSuccess)
+                resultResponse(it, { getMyChallenge() })
             }
         }
-    }
-
-    private fun handleQuitChallengeSuccess(result: Unit) {
-        getMyChallenge()
     }
 
     fun onClickBtnComplete() {
@@ -215,13 +214,9 @@ class ChallengeViewModel @Inject constructor(
         val currentItemId = myChallengeListStateFlow.value[currentItemCountStateFlow.value - 1].id
         viewModelScope.launch {
             completeChallengeUseCase(request = currentItemId).collect {
-                resultResponse(it, ::handleCompleteChallengeSuccess)
+                resultResponse(it, { getMyChallenge() }, null, true)
             }
         }
-    }
-
-    private fun handleCompleteChallengeSuccess(result: Unit) {
-        //TODO 각 챌린지에 대해 일요일 ~ 토요일 중 어느 요일에 성공을 했는지, 오늘은 무슨 요일인지 데이터 필요
     }
 
     fun onClickBtnBack() {
