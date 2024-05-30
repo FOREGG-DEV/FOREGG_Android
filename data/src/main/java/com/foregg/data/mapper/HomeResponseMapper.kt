@@ -9,8 +9,13 @@ object HomeResponseMapper: Mapper.ResponseMapper<HomeResponse, HomeResponseVo> {
         return type?.run {
             HomeResponseVo(
                 userName = userName,
+                spouseName = spouseName,
                 todayDate = todayDate,
-                homeRecordResponseVo = homeRecordResponseVo
+                homeRecordResponseVo = homeRecordResponseVo,
+                ssn = ssn,
+                dailyConditionType = dailyConditionType,
+                dailyContent = dailyContent,
+                latestMedicalRecord = latestMedicalRecord
             )
         } ?: HomeResponseVo()
     }
