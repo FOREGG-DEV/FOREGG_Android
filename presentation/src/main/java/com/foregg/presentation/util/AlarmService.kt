@@ -79,6 +79,8 @@ class AlarmService : Service() {
             .build()
 
         checkPermission()
+        startForeground(1, notificationBuilder)
+
         notificationManager.notify(1, notificationBuilder)
         startAlarm()
         return START_STICKY
