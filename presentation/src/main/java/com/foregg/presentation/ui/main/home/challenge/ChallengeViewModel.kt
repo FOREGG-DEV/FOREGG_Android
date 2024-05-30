@@ -129,7 +129,6 @@ class ChallengeViewModel @Inject constructor(
             }
             if (newState[todayIndex] == ChallengeStatusType.DEFAULT) newState[todayIndex] = ChallengeStatusType.TODAY
             btnDayStateFlow.update { newState }
-            ForeggLog.D(btnDayStateFlow.value.toString() + ", " + myChallengeListStateFlow.value[index].name)
         }
     }
 
