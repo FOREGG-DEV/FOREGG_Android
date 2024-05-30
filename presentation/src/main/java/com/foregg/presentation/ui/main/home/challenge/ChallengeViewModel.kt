@@ -213,7 +213,7 @@ class ChallengeViewModel @Inject constructor(
         val currentItemId = myChallengeListStateFlow.value[currentItemCountStateFlow.value - 1].id
         viewModelScope.launch {
             completeChallengeUseCase(request = currentItemId).collect {
-                resultResponse(it, { getMyChallenge() }, null, true)
+                resultResponse(it, { getMyChallenge() }, needLoading = true)
             }
         }
     }
