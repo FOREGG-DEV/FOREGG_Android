@@ -26,12 +26,10 @@ class HomeChallengeViewHolder(
         itemId = item.id
         binding.apply {
             textChallengeName.text = item.name
-            item.successDays?.let {list ->
-                for (i in list.indices) {
-                    if (list[i] == today) {
-                        btnCompleteChallenge.setImageResource(R.drawable.ic_btn_complete_challenge_already)
-                        btnCompleteChallenge.isClickable = false
-                    }
+            item.successDays?.forEach { day ->
+                if (day == today) {
+                    btnCompleteChallenge.setImageResource(R.drawable.ic_btn_complete_challenge_already)
+                    btnCompleteChallenge.isClickable = false
                 }
             }
         }
