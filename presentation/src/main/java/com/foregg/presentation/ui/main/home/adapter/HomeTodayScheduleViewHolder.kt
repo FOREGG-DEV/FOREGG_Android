@@ -3,10 +3,12 @@ package com.foregg.presentation.ui.main.home.adapter
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.foregg.domain.model.enums.CalendarType
+import com.foregg.domain.model.enums.GenderType
 import com.foregg.domain.model.response.HomeRecordResponseVo
 import com.foregg.presentation.R
 import com.foregg.presentation.databinding.ItemTodayScheduleBinding
 import com.foregg.domain.model.enums.RecordType
+import com.foregg.presentation.util.UserInfo
 import org.threeten.bp.LocalTime
 
 class HomeTodayScheduleViewHolder(
@@ -60,7 +62,7 @@ class HomeTodayScheduleViewHolder(
                 }
                 RecordType.HOSPITAL -> {
                     scheduleContentLayout.setBackgroundResource(R.drawable.bg_rectangle_filled_hospital_radius_4)
-                    btnRecordTreatment.visibility = View.VISIBLE
+                    if (UserInfo.info.genderType == GenderType.FEMALE) btnRecordTreatment.visibility = View.VISIBLE
                 }
                 RecordType.ETC -> {
                     scheduleContentLayout.setBackgroundResource(R.drawable.bg_rectangle_filled_personal_radius_4)
