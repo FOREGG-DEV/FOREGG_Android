@@ -2,6 +2,7 @@ package com.foregg.presentation.ui.main.home
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.foregg.domain.model.enums.DailyConditionType
 import com.foregg.domain.model.enums.GenderType
 import com.foregg.domain.model.response.HomeRecordResponseVo
 import com.foregg.domain.model.response.HomeResponseVo
@@ -14,6 +15,7 @@ import com.foregg.presentation.base.BaseViewModel
 import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.ResourceProvider
 import com.foregg.presentation.util.UserInfo
+import com.kakao.sdk.user.model.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -40,8 +42,12 @@ class HomeViewModel @Inject constructor(
     private val challengeListStateFlow: MutableStateFlow<List<MyChallengeListItemVo>> = MutableStateFlow(emptyList())
     private val scheduleStartPositionStateFlow: MutableStateFlow<Int> = MutableStateFlow(0)
     private val homeIntroductionItemListStateFlow: MutableStateFlow<List<Int>> = MutableStateFlow(listOf(R.drawable.ic_card_inrtoduction, R.drawable.ic_card_inrtoduction, R.drawable.ic_card_inrtoduction))
+    private val dailyConditionTypeImageStateFlow: MutableStateFlow<Int> = MutableStateFlow(R.drawable.ic_emotion_perfect_selected)
+    private val dailyContentStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private val medicalRecordStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     val month = org.threeten.bp.LocalDate.now().monthValue
     val day = org.threeten.bp.LocalDate.now().dayOfMonth
+    val emptyRecordText = resourceProvider.getString(R.string.home_empty_record)
 
     override val uiState: HomePageState = HomePageState(
         hasDailyRecord = hasDailyRecordStateFlow.asStateFlow(),
@@ -51,12 +57,16 @@ class HomeViewModel @Inject constructor(
         formattedText = formattedTextStateFlow.asStateFlow(),
         challengeList = challengeListStateFlow.asStateFlow(),
         scheduleStartPosition = scheduleStartPositionStateFlow.asStateFlow(),
-        homeIntroductionItemList = homeIntroductionItemListStateFlow.asStateFlow()
+        homeIntroductionItemList = homeIntroductionItemListStateFlow.asStateFlow(),
+        genderType = UserInfo.info.genderType,
+        dailyConditionImage = dailyConditionTypeImageStateFlow.asStateFlow(),
+        dailyContent = dailyContentStateFlow.asStateFlow(),
+        medicalRecord = medicalRecordStateFlow.asStateFlow()
     )
 
     fun initScheduleStates() {
         getTodaySchedule()
-        getMyChallenge()
+        if (UserInfo.info.genderType == GenderType.FEMALE) getMyChallenge()
     }
 
     private fun getTodaySchedule() {
@@ -81,6 +91,9 @@ class HomeViewModel @Inject constructor(
             husbandNameStateFlow.update { result.spouseName }
             todayDateStateFlow.update { result.todayDate }
             todayScheduleStateFlow.update { splitTodayScheduleByRepeatedTime(result.homeRecordResponseVo) }
+            dailyConditionTypeImageStateFlow.update { getDailyConditionTypeImage(result.dailyConditionType) }
+            dailyContentStateFlow.update { result.dailyContent }
+            medicalRecordStateFlow.update { result.latestMedicalRecord }
             if (UserInfo.info.genderType == GenderType.FEMALE) formattedTextStateFlow.update { resourceProvider.getString(R.string.today_schedule_format, userNameStateFlow.value, month, day) }
             else formattedTextStateFlow.update { resourceProvider.getString(R.string.today_schedule_husband_format, userNameStateFlow.value, husbandNameStateFlow.value, month, day) }
             if (todayScheduleStateFlow.value.isNotEmpty()) scheduleStartPositionStateFlow.update { calculatePosition(todayScheduleStateFlow.value) }
@@ -138,5 +151,16 @@ class HomeViewModel @Inject constructor(
 
     fun onCLickGoToChallenge() {
         emitEventFlow(HomeEvent.GoToChallengeEvent)
+    }
+
+    private fun getDailyConditionTypeImage(type: DailyConditionType): Int {
+        return when (type) {
+            DailyConditionType.WORST -> R.drawable.ic_emotion_worst_selected
+            DailyConditionType.BAD -> R.drawable.ic_emotion_bad_selected
+            DailyConditionType.SOSO -> R.drawable.ic_emotion_soso_selected
+            DailyConditionType.GOOD -> R.drawable.ic_emotion_smile_selected
+            DailyConditionType.PERFECT -> R.drawable.ic_emotion_perfect_selected
+            DailyConditionType.DEFAULT -> R.drawable.ic_emotion_perfect_selected
+        }
     }
 }
