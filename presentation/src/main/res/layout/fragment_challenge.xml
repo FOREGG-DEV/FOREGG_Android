@@ -190,6 +190,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:text="@{vm.uiState.weekOfMonth}"
+                    android:visibility="@{vm.uiState.myChallengeList.empty &amp;&amp; vm.uiState.challengeTapType == ChallengeTapType.MY ? View.GONE : View.VISIBLE}"
                     android:textColor="@color/gs_80"
                     android:textSize="16sp"
                     android:fontFamily="@font/pretendard_regular"/>

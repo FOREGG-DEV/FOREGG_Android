@@ -88,7 +88,7 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
     private fun sortEvent(event: ChallengeEvent) {
         when(event) {
             ChallengeEvent.OnClickBtnBack -> findNavController().popBackStack()
-            ChallengeEvent.OnClickBtnComplete -> TODO()
+            ChallengeEvent.OnClickBtnComplete -> showCompleteDialog()
         }
     }
 
@@ -112,6 +112,19 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
             .setTitle(R.string.challenge_stop)
             .setPositiveButton(R.string.word_yes) {
                 viewModel.quitChallenge(id)
+                dialog.dismiss()
+            }
+            .setNegativeButton(R.string.word_no) {
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun showCompleteDialog() {
+        dialog
+            .setTitle(R.string.home_challenge_complete_dialog_text)
+            .setPositiveButton(R.string.word_yes) {
+                viewModel.completeChallenge()
                 dialog.dismiss()
             }
             .setNegativeButton(R.string.word_no) {
