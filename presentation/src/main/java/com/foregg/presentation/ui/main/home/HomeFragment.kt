@@ -112,6 +112,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
         when(event) {
             HomeEvent.GoToChallengeEvent -> goToChallenge()
             HomeEvent.GoToDailyRecordEvent -> goToDailyRecord()
+            HomeEvent.GoToCalendarEvent -> goToCalendar()
         }
     }
 
@@ -140,6 +141,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
 
     private fun goToCreateEditSchedule(id: Long, recordType: RecordType) {
         val action = HomeFragmentDirections.actionHomeToCreateEditSchedule(id = id, type = CalendarType.EDIT, scheduleType = recordType, isHome = true)
+        findNavController().navigate(action)
+    }
+
+    private fun goToCalendar() {
+        val action = HomeFragmentDirections.actionHomeToCalendar()
         findNavController().navigate(action)
     }
 }

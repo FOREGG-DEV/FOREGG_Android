@@ -315,7 +315,7 @@
                         android:layout_gravity="center"
                         android:src="@drawable/ic_right_arrow_gs_50"
                         android:background="@android:color/transparent"
-                        android:onClick="@{()->vm.onClickDailyRecord()}"/>
+                        android:onClick="@{()->vm.onClickBtnMedicalRecord()}"/>
 
                 </LinearLayout>
                 

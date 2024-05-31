@@ -162,4 +162,8 @@ class HomeViewModel @Inject constructor(
             DailyConditionType.DEFAULT -> R.drawable.ic_emotion_perfect_selected
         }
     }
+
+    fun onClickBtnMedicalRecord() {
+        if (medicalRecordStateFlow.value.isEmpty()) emitEventFlow(HomeEvent.GoToCalendarEvent)
+    }
 }
