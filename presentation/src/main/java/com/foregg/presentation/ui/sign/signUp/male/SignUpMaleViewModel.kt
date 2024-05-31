@@ -80,7 +80,7 @@ class SignUpMaleViewModel @Inject constructor(
     }
 
     private fun handleSuccessGetMyInfo(result : ProfileDetailResponseVo){
-        val vo = UserVo(name = result.nickName, ssn = result.ssn, genderType = result.genderType)
+        val vo = UserVo(name = result.nickName, ssn = result.ssn, genderType = result.genderType, spouse = result.spouse)
         UserInfo.updateInfo(vo)
         goToMain()
     }
