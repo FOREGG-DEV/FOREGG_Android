@@ -10,6 +10,7 @@
         <import type="com.foregg.domain.model.enums.GenderType" />
 
         <import type="com.foregg.presentation.util.UserInfo" />
+
         <variable
             name="vm"
             type="com.foregg.presentation.ui.main.injection.InjectionViewModel" />
@@ -53,11 +54,12 @@
             android:id="@+id/text_male_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:gravity="center"
             android:textAppearance="@style/h1"
             android:textColor="@color/black"
             android:visibility="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? View.VISIBLE : View.INVISIBLE}"
-            app:layout_constraintBottom_toBottomOf="@id/text_female_title"
+            app:layout_constraintBottom_toTopOf="@id/img_injection"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="@string/injection_male_title" />
@@ -97,9 +99,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="24dp"
+                android:text="@{vm.uiState.date}"
                 android:textAppearance="@style/p2"
                 android:textColor="@color/black"
-                android:text="@{vm.uiState.date}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="2024. 04. 04" />
@@ -122,8 +124,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
-                android:textAppearance="@style/p2"
                 android:text="@{vm.uiState.time}"
+                android:textAppearance="@style/p2"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_date"
@@ -147,9 +149,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
+                android:text="@{vm.uiState.injection}"
                 android:textAppearance="@style/p2"
                 android:textColor="@color/black"
-                android:text="@{vm.uiState.injection}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_time"
                 tools:text="주사 이름" />
@@ -163,10 +165,10 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="32dp"
             android:background="@drawable/bg_rectangle_filled_white_stroke_main_radius_8"
+            android:onClick="@{()->vm.onClickHome()}"
             android:text="@string/injection_go_home"
             android:textAppearance="@style/btn"
             android:textColor="@color/black"
-            android:onClick="@{()->vm.onClickHome()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -177,8 +179,8 @@
             android:layout_height="56dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="8dp"
-            android:onClick="@{()->vm.onClickShare()}"
             android:background="@drawable/bg_rectangle_filled_main_radius_8"
+            android:onClick="@{()->vm.onClickShare()}"
             android:text="@string/injection_share_husband"
             android:textAppearance="@style/btn"
             android:textColor="@color/white"
