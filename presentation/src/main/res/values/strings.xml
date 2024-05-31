@@ -83,8 +83,8 @@
 
     <!-- Home -->
     <string name="home_adv_text">광고배너 (자동 슬라이딩)</string>
-    <string name="home_challenge_text">챌린지 도전하기</string>
-    <string name="today_schedule_format">%1$s님의\n%2$s월 %3$s일 일정입니다.</string>
+    <string name="home_challenge_text">챌린지 참여하기</string>
+    <string name="today_schedule_format">%1$s님의\n%2$s월 %3$s일 일정이예요.</string>
     <string name="today_schedule_empty_text">오늘은 일정이 없어요.</string>
     <string name="home_challenge_complete_dialog_text">오늘의 챌린지 성공하셨나요?</string>
 
@@ -168,6 +168,12 @@
     <string name="challenge_participant_count_text">%d명이 함께하고 있어요</string>
     <string name="challenge_month_week">%d월 %d주차</string>
     <string name="challenge_stop">챌린지를 그만두시겠습니까?</string>
+
+    <!--  Information  -->
+    <string name="info_possible_subsidy">받을 수 있는 정부 지원금</string>
+    <string name="info_essential">시기 별 알아야 할 필수 정보</string>
+    <string name="info_woman_contents">여성을 위한 공감 콘텐츠</string>
+    <string name="info_husband_contents">남편을 위한 필수 상식</string>
 
     <!-- injection -->
     <string name="injection_female_title">오늘 맞을 주사예요\n안내받은 가이드에 따라 투여해주세요</string>

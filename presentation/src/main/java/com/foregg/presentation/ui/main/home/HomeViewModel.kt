@@ -36,6 +36,7 @@ class HomeViewModel @Inject constructor(
     private val formattedTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val challengeListStateFlow: MutableStateFlow<List<MyChallengeListItemVo>> = MutableStateFlow(emptyList())
     private val scheduleStartPositionStateFlow: MutableStateFlow<Int> = MutableStateFlow(0)
+    private val homeIntroductionItemListStateFlow: MutableStateFlow<List<Int>> = MutableStateFlow(listOf(R.drawable.ic_card_inrtoduction, R.drawable.ic_card_inrtoduction, R.drawable.ic_card_inrtoduction))
     val month = org.threeten.bp.LocalDate.now().monthValue
     val day = org.threeten.bp.LocalDate.now().dayOfMonth
 
@@ -46,7 +47,8 @@ class HomeViewModel @Inject constructor(
         todayScheduleList = todayScheduleStateFlow.asStateFlow(),
         formattedText = formattedTextStateFlow.asStateFlow(),
         challengeList = challengeListStateFlow.asStateFlow(),
-        scheduleStartPosition = scheduleStartPositionStateFlow.asStateFlow()
+        scheduleStartPosition = scheduleStartPositionStateFlow.asStateFlow(),
+        homeIntroductionItemList = homeIntroductionItemListStateFlow.asStateFlow()
     )
 
     fun initScheduleStates() {

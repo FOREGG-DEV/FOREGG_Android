@@ -7,6 +7,7 @@ import com.foregg.domain.model.response.HomeRecordResponseVo
 import com.foregg.presentation.R
 import com.foregg.presentation.databinding.ItemTodayScheduleBinding
 import com.foregg.domain.model.enums.RecordType
+import org.threeten.bp.LocalTime
 
 class HomeTodayScheduleViewHolder(
     private val binding: ItemTodayScheduleBinding,
@@ -15,6 +16,8 @@ class HomeTodayScheduleViewHolder(
 
     private var id: Long? = null
     private var recordType: RecordType = RecordType.ETC
+    private val currentTime = LocalTime.now().hour
+
     init {
         binding.btnRecordTreatment.setOnClickListener {
             id?.let { id ->
@@ -64,6 +67,8 @@ class HomeTodayScheduleViewHolder(
                     btnRecordTreatment.visibility = View.GONE
                 }
             }
+
+            if (item.times.first().split(':').first().toInt() >= currentTime) cardView.strokeWidth = 2
         }
     }
 }

@@ -85,7 +85,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityPageState, Ma
             MainActivityEvent.GoToMain -> navController.navigate(R.id.homeFragment)
             MainActivityEvent.GoToAccount -> navController.navigate(R.id.accountFragment)
             MainActivityEvent.GoToProfile -> navController.navigate(R.id.profileFragment)
-            MainActivityEvent.GoToInfo -> {}
+            MainActivityEvent.GoToInfo -> navController.navigate(R.id.infoFragment)
         }
     }
 

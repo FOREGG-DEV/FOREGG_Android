@@ -193,6 +193,24 @@
     </fragment>
 
     <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.foregg.presentation.ui.main.information.InformationFragment"
+        android:label="fragment_info"
+        tools:layout="@layout/fragment_information">
+
+        <action
+            android:id="@+id/action_information_to_subsidy_detail"
+            app:destination="@id/subsidyDetailFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/subsidyDetailFragment"
+        android:name="com.foregg.presentation.ui.main.information.subsidyDetail.SubsidyDetailFragment"
+        android:label="fragment_subsidy_detail"
+        tools:layout="@layout/fragment_subsidy_detail">
+    </fragment>
+
+    <fragment
         android:id="@+id/injectionFragment"
         android:name="com.foregg.presentation.ui.main.injection.InjectionFragment"
         android:label="fragment_injection"
