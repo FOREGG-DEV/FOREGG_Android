@@ -32,4 +32,8 @@ class DailyRecordRepositoryImpl @Inject constructor(
     override suspend fun getSideEffect(): Flow<ApiState<List<SideEffectListItemVo>>> {
         return apiLaunch(apiCall = { dailyRecordApi.getSideEffect() }, SideEffectResponseMapper)
     }
+
+    override suspend fun postShareInjection(): Flow<ApiState<Unit>> {
+        return apiLaunch(apiCall = { dailyRecordApi.shareInjection() }, UnitResponseMapper)
+    }
 }

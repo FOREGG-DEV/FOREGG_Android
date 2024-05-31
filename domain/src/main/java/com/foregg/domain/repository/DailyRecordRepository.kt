@@ -12,4 +12,5 @@ interface DailyRecordRepository {
     suspend fun createDailyRecord(request: CreateDailyRecordRequestVo): Flow<ApiState<Unit>>
     suspend fun createSideEffect(request: CreateSideEffectRequestVo): Flow<ApiState<Unit>>
     suspend fun getSideEffect(): Flow<ApiState<List<SideEffectListItemVo>>>
+    suspend fun postShareInjection() : Flow<ApiState<Unit>>
 }

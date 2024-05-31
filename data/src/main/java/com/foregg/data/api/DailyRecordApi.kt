@@ -21,4 +21,6 @@ interface DailyRecordApi {
     ): Response<ApiResponse<Unit>>
     @POST(Endpoints.DailyRecord.SIDEEFFECT)
     suspend fun createSideEffect(@Body content: CreateSideEffectRequestVo): Response<ApiResponse<Unit>>
+    @POST(Endpoints.DailyRecord.SHARE_INJECTION)
+    suspend fun shareInjection(): Response<ApiResponse<Unit>>
 }

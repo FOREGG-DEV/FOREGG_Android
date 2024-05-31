@@ -2,6 +2,7 @@ package com.foregg.presentation.ui.main.injection
 
 import androidx.lifecycle.viewModelScope
 import com.foregg.domain.model.vo.ScheduleDetailVo
+import com.foregg.domain.usecase.dailyRecord.PostShareInjectionUseCase
 import com.foregg.domain.usecase.schedule.GetScheduleDetailUseCase
 import com.foregg.presentation.base.BaseViewModel
 import com.foregg.presentation.util.TimeFormatter
@@ -14,6 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class InjectionViewModel @Inject constructor(
+    private val shareInjectionUseCase: PostShareInjectionUseCase,
     private val getScheduleDetailUseCase: GetScheduleDetailUseCase
 ) : BaseViewModel<InjectionPageState>() {
 
@@ -49,7 +51,14 @@ class InjectionViewModel @Inject constructor(
     }
 
     fun onClickShare(){
-        // FCM api
+        viewModelScope.launch {
+            shareInjectionUseCase(Unit).collect{
+                resultResponse(it, { handleShareSuccess() })
+            }
+        }
     }
 
+    private fun handleShareSuccess(){
+
+    }
 }
