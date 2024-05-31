@@ -4,12 +4,15 @@ import com.foregg.data.api.DailyRecordApi
 import com.foregg.data.base.BaseRepository
 import com.foregg.data.mapper.UnitResponseMapper
 import com.foregg.data.mapper.dailyRecord.DailyRecordResponseMapper
+import com.foregg.data.mapper.dailyRecord.InjectionInfoResponseMapper
 import com.foregg.data.mapper.dailyRecord.SideEffectResponseMapper
 import com.foregg.domain.base.ApiState
 import com.foregg.domain.model.request.dailyRecord.CreateDailyRecordRequestVo
 import com.foregg.domain.model.request.dailyRecord.CreateSideEffectRequestVo
+import com.foregg.domain.model.request.dailyRecord.InjectionAlarmRequestVo
 import com.foregg.domain.model.response.DailyRecordResponseVo
 import com.foregg.domain.model.response.SideEffectListItemVo
+import com.foregg.domain.model.response.daily.InjectionInfoResponseVo
 import com.foregg.domain.repository.DailyRecordRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -31,5 +34,13 @@ class DailyRecordRepositoryImpl @Inject constructor(
 
     override suspend fun getSideEffect(): Flow<ApiState<List<SideEffectListItemVo>>> {
         return apiLaunch(apiCall = { dailyRecordApi.getSideEffect() }, SideEffectResponseMapper)
+    }
+
+    override suspend fun postShareInjection(request : InjectionAlarmRequestVo): Flow<ApiState<Unit>> {
+        return apiLaunch(apiCall = { dailyRecordApi.shareInjection(request.id, request.time) }, UnitResponseMapper)
+    }
+
+    override suspend fun getInjectionInfo(request: InjectionAlarmRequestVo): Flow<ApiState<InjectionInfoResponseVo>> {
+        return apiLaunch(apiCall = { dailyRecordApi.getInjectionInfo(request.id, request.time) }, InjectionInfoResponseMapper)
     }
 }

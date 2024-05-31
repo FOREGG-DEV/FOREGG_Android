@@ -76,6 +76,7 @@ object PreferenceKeys {
 object PendingExtraValue {
     const val KEY = "main_extra"
     const val TARGET_ID_KEY = "extra_target_id_key"
+    const val INJECTION_TIME_KEY = "extra_injection_time_key"
     const val INJECTION = "injection"
     const val TODAY_RECORD_MALE = "today_record_male"
     const val TODAY_RECORD_FEMALE= "today_record_female"

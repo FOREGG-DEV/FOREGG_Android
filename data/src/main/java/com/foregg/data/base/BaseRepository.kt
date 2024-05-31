@@ -1,6 +1,5 @@
 package com.foregg.data.base
 
-import android.util.Log
 import com.foregg.domain.base.ApiState
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

@@ -32,6 +32,7 @@ class FcmNotification : FirebaseMessagingService() {
         const val BODY = "body"
         const val TYPE = "type"
         const val TARGET_ID = "targetId"
+        const val TIME = "time"
     }
 
     private lateinit var notificationManager: NotificationManager
@@ -62,9 +63,10 @@ class FcmNotification : FirebaseMessagingService() {
         val body = data[BODY] ?: ""
         val type = NotificationType.valuesOf(data[TYPE] ?: "")
         val targetId = data[TARGET_ID]?.toLong()
+        val time = data[TIME] ?: ""
 
         createNotificationChannel()
-        val pendingIntent = getPendingIntent(type, targetId)
+        val pendingIntent = getPendingIntent(type, targetId, time)
 
         val builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationCompat.Builder(this, CHANNEL_ID)
@@ -110,6 +112,7 @@ class FcmNotification : FirebaseMessagingService() {
             putExtra(TITLE, data[TITLE])
             putExtra(BODY, data[BODY])
             putExtra(TARGET_ID, data[TARGET_ID]?.toLong())
+            putExtra(TIME, data[TIME])
         }
         val pendingIntent = PendingIntent.getBroadcast(
             applicationContext,
@@ -121,13 +124,14 @@ class FcmNotification : FirebaseMessagingService() {
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pendingIntent)
     }
 
-    private fun getPendingIntent(type: NotificationType, targetId : Long?) : PendingIntent{
+    private fun getPendingIntent(type: NotificationType, targetId : Long?, time : String) : PendingIntent{
         val intent = Intent(applicationContext, SignActivity::class.java).apply {
             when(type){
                 NotificationType.INJECTION_FEMALE,
                 NotificationType.INJECTION_MALE -> {
                     putExtra(PendingExtraValue.KEY, PendingExtraValue.INJECTION)
                     putExtra(PendingExtraValue.TARGET_ID_KEY, targetId)
+                    putExtra(PendingExtraValue.INJECTION_TIME_KEY, time)
                 }
                 NotificationType.TODAY_RECORD_FEMALE -> putExtra(PendingExtraValue.KEY, PendingExtraValue.TODAY_RECORD_FEMALE)
                 NotificationType.TODAY_RECORD_MALE -> putExtra(PendingExtraValue.KEY, PendingExtraValue.TODAY_RECORD_MALE)

@@ -56,7 +56,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityPageState, Ma
         when (targetFragment) {
             PendingExtraValue.INJECTION -> navController.navigate(R.id.injectionFragment)
             PendingExtraValue.TODAY_RECORD_MALE-> navController.navigate(R.id.dailyRecordFragment)
-            PendingExtraValue.TODAY_RECORD_FEMALE-> navController.navigate(R.id.createDailyRecordFragment)
+            PendingExtraValue.TODAY_RECORD_FEMALE-> {
+                navController.navigate(R.id.dailyRecordFragment)
+                navController.navigate(R.id.createDailyRecordFragment)
+            }
         }
     }
 
