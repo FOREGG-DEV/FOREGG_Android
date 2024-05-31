@@ -41,14 +41,9 @@ class InjectionFragment : BaseFragment<FragmentInjectionBinding, InjectionPageSt
 
     private fun inspectEvent(event: InjectionEvent){
         when(event){
-            InjectionEvent.GoToHomeEvent -> goToHome()
+            InjectionEvent.GoToHomeEvent -> findNavController().popBackStack()
             InjectionEvent.ErrorShareToast -> ForeggToast.createToast(requireContext(), R.string.toast_error_no_exist_spouse, Toast.LENGTH_SHORT).show()
             InjectionEvent.SuccessShareToast -> ForeggToast.createToast(requireContext(), R.string.toast_success_share_injection, Toast.LENGTH_SHORT).show()
         }
-    }
-
-    private fun goToHome(){
-        val action = InjectionFragmentDirections.actionInjectionToHome()
-        findNavController().navigate(action)
     }
 }

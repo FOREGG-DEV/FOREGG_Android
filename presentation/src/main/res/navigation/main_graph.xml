@@ -219,9 +219,5 @@
         <argument
             android:name="id"
             app:argType="long"/>
-
-        <action
-            android:id="@+id/action_injection_to_home"
-            app:destination="@id/homeFragment"/>
     </fragment>
 </navigation>
