@@ -5,6 +5,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.foregg.domain.model.enums.CalendarType
+import com.foregg.domain.model.enums.GenderType
 import com.foregg.domain.model.enums.RecordType
 import com.foregg.domain.model.response.HomeRecordResponseVo
 import com.foregg.presentation.R
@@ -14,6 +15,7 @@ import com.foregg.presentation.ui.common.CommonDialog
 import com.foregg.presentation.ui.main.home.adapter.HomeChallengeAdapter
 import com.foregg.presentation.ui.main.home.adapter.HomeIntroductionAdapter
 import com.foregg.presentation.ui.main.home.adapter.HomeTodayScheduleAdapter
+import com.foregg.presentation.util.UserInfo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
@@ -82,6 +84,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
             launch {
                 viewModel.uiState.homeIntroductionItemList.collect {
                     homeIntroductionAdapter.submitList(it)
+                }
+            }
+            launch {
+                viewModel.uiState.dailyContent.collect {
+                    if (it.isEmpty()) binding.textHusbandDailyRecord.text = requireContext().getString(R.string.home_empty_record)
+                    else binding.textHusbandDailyRecord.text = it
+                }
+            }
+            launch {
+                viewModel.uiState.medicalRecord.collect {
+                    if (it.isEmpty()) binding.textHusbandMedicalRecord.text = requireContext().getString(R.string.home_empty_record)
+                    else binding.textHusbandMedicalRecord.text = it
                 }
             }
             launch {

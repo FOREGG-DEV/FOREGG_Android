@@ -47,7 +47,6 @@ class HomeViewModel @Inject constructor(
     private val medicalRecordStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     val month = org.threeten.bp.LocalDate.now().monthValue
     val day = org.threeten.bp.LocalDate.now().dayOfMonth
-    val emptyRecordText = resourceProvider.getString(R.string.home_empty_record)
 
     override val uiState: HomePageState = HomePageState(
         hasDailyRecord = hasDailyRecordStateFlow.asStateFlow(),
