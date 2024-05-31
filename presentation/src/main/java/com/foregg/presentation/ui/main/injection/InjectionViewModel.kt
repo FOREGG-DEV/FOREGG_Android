@@ -1,9 +1,11 @@
 package com.foregg.presentation.ui.main.injection
 
 import androidx.lifecycle.viewModelScope
-import com.foregg.domain.model.vo.ScheduleDetailVo
+import com.foregg.data.base.StatusCode
+import com.foregg.domain.model.request.dailyRecord.InjectionAlarmRequestVo
+import com.foregg.domain.model.response.daily.InjectionInfoResponseVo
+import com.foregg.domain.usecase.dailyRecord.GetInjectionInfoUseCase
 import com.foregg.domain.usecase.dailyRecord.PostShareInjectionUseCase
-import com.foregg.domain.usecase.schedule.GetScheduleDetailUseCase
 import com.foregg.presentation.base.BaseViewModel
 import com.foregg.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,11 +14,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 @HiltViewModel
 class InjectionViewModel @Inject constructor(
     private val shareInjectionUseCase: PostShareInjectionUseCase,
-    private val getScheduleDetailUseCase: GetScheduleDetailUseCase
+    private val getInjectionInfoUseCase: GetInjectionInfoUseCase
 ) : BaseViewModel<InjectionPageState>() {
 
     private val dateStateFlow : MutableStateFlow<String> = MutableStateFlow("")
@@ -29,19 +32,25 @@ class InjectionViewModel @Inject constructor(
         injection = injectionStateFlow.asStateFlow()
     )
 
-    fun initView(id : Long){
+    private var id by Delegates.notNull<Long>()
+    private lateinit var time : String
+
+    fun initView(id : Long, time : String){
+        this.id = id
+        this.time = time
+        val request = InjectionAlarmRequestVo(id = id, time = time)
         viewModelScope.launch {
-            getScheduleDetailUseCase(id).collect{
+            getInjectionInfoUseCase(request).collect{
                 resultResponse(it, ::handleGetDetailSuccess)
             }
         }
     }
 
-    private fun handleGetDetailSuccess(result : ScheduleDetailVo){
+    private fun handleGetDetailSuccess(result : InjectionInfoResponseVo){
         viewModelScope.launch {
             val today = TimeFormatter.getToday()
             dateStateFlow.update { TimeFormatter.getDotsDate(today) }
-            timeStateFlow.update { result.repeatTimes.first().toString() }
+            timeStateFlow.update { result.time }
             injectionStateFlow.update { result.name }
         }
     }
@@ -51,14 +60,21 @@ class InjectionViewModel @Inject constructor(
     }
 
     fun onClickShare(){
+        val request = InjectionAlarmRequestVo(id = id, time = time)
         viewModelScope.launch {
-            shareInjectionUseCase(Unit).collect{
-                resultResponse(it, { handleShareSuccess() })
+            shareInjectionUseCase(request).collect{
+                resultResponse(it, { handleShareSuccess() }, ::handleShareError)
             }
         }
     }
 
     private fun handleShareSuccess(){
+        emitEventFlow(InjectionEvent.SuccessShareToast)
+    }
 
+    private fun handleShareError(error : String){
+        when(error){
+            StatusCode.DAILY.SPOUSE_NOT_FOUND -> emitEventFlow(InjectionEvent.ErrorShareToast)
+        }
     }
 }

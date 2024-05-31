@@ -18,11 +18,12 @@ class InjectionFragment : BaseFragment<FragmentInjectionBinding, InjectionPageSt
 
     override val viewModel: InjectionViewModel by viewModels()
 
-
     override fun initView() {
         binding.apply {
             vm = viewModel
-            viewModel.initView(requireActivity().intent.getLongExtra(PendingExtraValue.TARGET_ID_KEY, -1))
+            val id = requireActivity().intent.getLongExtra(PendingExtraValue.TARGET_ID_KEY, -1)
+            val time = requireActivity().intent.getStringExtra(PendingExtraValue.INJECTION_TIME_KEY) ?: ""
+            viewModel.initView(id, time)
         }
     }
 

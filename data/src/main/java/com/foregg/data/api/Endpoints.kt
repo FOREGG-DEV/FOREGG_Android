@@ -34,7 +34,8 @@ object Endpoints {
         const val WRITE = "$DAILY/write"
         const val SIDEEFFECT = "$DAILY/sideEffect"
         const val SIDEEFFECTLIST = "$DAILY/sideEffectList"
-        const val SHARE_INJECTION = "$DAILY/shareInjection"
+        const val SHARE_INJECTION = "$DAILY/shareInjection/{id}"
+        const val GET_INJECTION_INFO = "$DAILY/injectionInfo/{id}"
     }
 
     object Challenge {

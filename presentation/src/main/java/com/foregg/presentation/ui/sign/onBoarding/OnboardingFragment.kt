@@ -129,9 +129,11 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding, OnboardingPag
     private fun goToMain(){
         val pendingIntent = requireActivity().intent.getStringExtra(PendingExtraValue.KEY) ?: ""
         val targetIdIntent = requireActivity().intent.getLongExtra(PendingExtraValue.TARGET_ID_KEY, -1)
+        val timeIntent = requireActivity().intent.getStringExtra(PendingExtraValue.INJECTION_TIME_KEY) ?: ""
         val intent = Intent(requireActivity(), MainActivity::class.java).apply {
             if(pendingIntent.isNotEmpty()) putExtra(PendingExtraValue.KEY, pendingIntent)
             if(targetIdIntent != (-1).toLong()) putExtra(PendingExtraValue.TARGET_ID_KEY, targetIdIntent)
+            if(timeIntent.isNotEmpty()) putExtra(PendingExtraValue.INJECTION_TIME_KEY, timeIntent)
         }
         startActivity(intent)
         requireActivity().finish()

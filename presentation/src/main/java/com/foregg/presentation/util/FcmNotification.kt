@@ -32,6 +32,7 @@ class FcmNotification : FirebaseMessagingService() {
         const val BODY = "body"
         const val TYPE = "type"
         const val TARGET_ID = "targetId"
+        const val TIME = "time"
     }
 
     private lateinit var notificationManager: NotificationManager
@@ -110,6 +111,7 @@ class FcmNotification : FirebaseMessagingService() {
             putExtra(TITLE, data[TITLE])
             putExtra(BODY, data[BODY])
             putExtra(TARGET_ID, data[TARGET_ID]?.toLong())
+            putExtra(TIME, data[TIME])
         }
         val pendingIntent = PendingIntent.getBroadcast(
             applicationContext,
