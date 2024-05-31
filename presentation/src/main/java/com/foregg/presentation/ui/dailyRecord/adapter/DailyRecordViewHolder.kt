@@ -4,17 +4,34 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.foregg.domain.model.enums.DailyConditionType
 import com.foregg.domain.model.enums.EmotionType
+import com.foregg.domain.model.enums.GenderType
+import com.foregg.domain.model.request.dailyRecord.EmotionVo
+import com.foregg.domain.model.request.dailyRecord.PutEmotionVo
 import com.foregg.domain.model.vo.DailyRecordResponseItemVo
 import com.foregg.presentation.R
 import com.foregg.presentation.databinding.ItemDailyRecordBinding
 import com.foregg.presentation.util.TimeFormatter
+import com.foregg.presentation.util.UserInfo
 
 class DailyRecordViewHolder(
-    private val binding: ItemDailyRecordBinding
-) : RecyclerView.ViewHolder(binding.root){
+    private val binding: ItemDailyRecordBinding,
+    private val listener: DailyRecordAdapter.DailyRecordDelegate
+) : RecyclerView.ViewHolder(binding.root) {
+    var id: Long? = null
+    init {
+        binding.apply {
+            btnHeart.setOnClickListener { id?.let { listener.onClickEmotion(PutEmotionVo(it, EmotionVo(EmotionType.HEART))) } }
+            btnThumbsUp.setOnClickListener { id?.let { listener.onClickEmotion(PutEmotionVo(it, EmotionVo(EmotionType.THUMBS_UP))) } }
+            btnClap.setOnClickListener { id?.let { listener.onClickEmotion(PutEmotionVo(it, EmotionVo(EmotionType.CLAP))) } }
+            btnSad.setOnClickListener { id?.let { listener.onClickEmotion(PutEmotionVo(it, EmotionVo(EmotionType.SAD))) } }
+            btnPerfect.setOnClickListener { id?.let { listener.onClickEmotion(PutEmotionVo(it, EmotionVo(EmotionType.SMILE))) } }
+        }
+    }
+
     fun bind(item: DailyRecordResponseItemVo) {
         val imageResource = setImageResource(item.dailyConditionType)
         val husbandImageResource = setImageResource(item.emotionType)
+        id = item.id
 
         binding.apply {
 
@@ -27,6 +44,8 @@ class DailyRecordViewHolder(
 
             textDate.text = item.date
             dailyRecordText.text = item.content
+
+            if (UserInfo.info.genderType == GenderType.FEMALE) layoutBtnHusbandEmotion.visibility = View.GONE
         }
     }
 
