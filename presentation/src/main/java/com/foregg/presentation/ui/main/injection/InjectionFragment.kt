@@ -3,6 +3,7 @@ package com.foregg.presentation.ui.main.injection
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.foregg.domain.model.enums.GenderType
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
@@ -35,6 +36,11 @@ class InjectionFragment : BaseFragment<FragmentInjectionBinding, InjectionPageSt
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
+                viewModel.uiState.image.collect{
+                    loadImage(it)
+                }
+            }
+            launch {
                 viewModel.eventFlow.collect {
                     inspectEvent(it as InjectionEvent)
                 }
@@ -48,5 +54,12 @@ class InjectionFragment : BaseFragment<FragmentInjectionBinding, InjectionPageSt
             InjectionEvent.ErrorShareToast -> ForeggToast.createToast(requireContext(), R.string.toast_error_no_exist_spouse, Toast.LENGTH_SHORT).show()
             InjectionEvent.SuccessShareToast -> ForeggToast.createToast(requireContext(), R.string.toast_success_share_injection, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun loadImage(url : String){
+        if(url.isEmpty()) return
+        Glide.with(requireContext())
+            .load(url)
+            .into(binding.imgInjection)
     }
 }
