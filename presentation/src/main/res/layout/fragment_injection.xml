@@ -56,13 +56,13 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:gravity="center"
+            android:text="@string/injection_male_title"
             android:textAppearance="@style/h1"
             android:textColor="@color/black"
             android:visibility="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toTopOf="@id/img_injection"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="@string/injection_male_title" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
             android:id="@+id/img_injection"
