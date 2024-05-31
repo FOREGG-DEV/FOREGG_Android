@@ -8,6 +8,7 @@ import com.foregg.data.mapper.dailyRecord.SideEffectResponseMapper
 import com.foregg.domain.base.ApiState
 import com.foregg.domain.model.request.dailyRecord.CreateDailyRecordRequestVo
 import com.foregg.domain.model.request.dailyRecord.CreateSideEffectRequestVo
+import com.foregg.domain.model.request.dailyRecord.PutEmotionVo
 import com.foregg.domain.model.response.DailyRecordResponseVo
 import com.foregg.domain.model.response.SideEffectListItemVo
 import com.foregg.domain.repository.DailyRecordRepository
@@ -31,5 +32,9 @@ class DailyRecordRepositoryImpl @Inject constructor(
 
     override suspend fun getSideEffect(): Flow<ApiState<List<SideEffectListItemVo>>> {
         return apiLaunch(apiCall = { dailyRecordApi.getSideEffect() }, SideEffectResponseMapper)
+    }
+
+    override suspend fun putEmotion(request: PutEmotionVo): Flow<ApiState<Unit>> {
+        return apiLaunch(apiCall = { dailyRecordApi.putEmotion(request.id, request.request) }, UnitResponseMapper)
     }
 }
