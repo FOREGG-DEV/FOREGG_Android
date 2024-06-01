@@ -16,7 +16,8 @@ object HomeResponseMapper: Mapper.ResponseMapper<HomeResponse, HomeResponseVo> {
                 ssn = ssn,
                 dailyConditionType = dailyConditionType ?: DailyConditionType.DEFAULT,
                 dailyContent = dailyContent ?: "",
-                latestMedicalRecord = latestMedicalRecord ?: ""
+                latestMedicalRecord = latestMedicalRecord ?: "",
+                medicalRecordId = medicalRecordId
             )
         } ?: HomeResponseVo()
     }

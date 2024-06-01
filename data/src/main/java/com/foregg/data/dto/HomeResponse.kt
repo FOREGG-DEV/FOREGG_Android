@@ -21,5 +21,7 @@ data class HomeResponse(
     @SerializedName("dailyContent")
     val dailyContent: String? = "",
     @SerializedName("latestMedicalRecord")
-    val latestMedicalRecord: String? = ""
+    val latestMedicalRecord: String? = "",
+    @SerializedName("medicalRecordId")
+    val medicalRecordId: Long = -1
 ) : DataDto

@@ -11,5 +11,6 @@ data class HomeResponseVo (
     val ssn: String = "",
     val dailyConditionType: DailyConditionType = DailyConditionType.DEFAULT,
     val dailyContent: String = "",
-    val latestMedicalRecord: String = ""
+    val latestMedicalRecord: String = "",
+    val medicalRecordId: Long = -1
 ): DomainResponse
