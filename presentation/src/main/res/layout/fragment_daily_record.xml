@@ -7,6 +7,7 @@
 
     <data>
         <import type="android.view.View"/>
+        <import type="com.foregg.domain.model.enums.GenderType"/>
         <variable
             name="vm"
             type="com.foregg.presentation.ui.dailyRecord.DailyRecordViewModel" />
@@ -59,6 +60,7 @@
                 android:layout_height="24dp"
                 android:src="@drawable/ic_pencil"
                 android:onClick="@{()->vm.goToRecord()}"
+                android:visibility="@{vm.genderType == GenderType.MALE ? View.GONE : View.VISIBLE}"
                 android:background="@android:color/transparent"/>
 
         </LinearLayout>
@@ -69,6 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:paddingBottom="8dp"
+            android:visibility="@{vm.genderType == GenderType.MALE ? View.GONE : View.VISIBLE}"
             app:layout_constraintTop_toBottomOf="@id/include_top_bar"
             app:leftText="@string/daily_record_adverse_effect"
             app:rightText="@string/daily_record"

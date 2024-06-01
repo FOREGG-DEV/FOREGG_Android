@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.foregg.domain.model.enums.DailyRecordTabType
 import com.foregg.domain.model.enums.GenderType
 import com.foregg.domain.model.enums.NotificationType
+import com.foregg.domain.model.request.dailyRecord.PutEmotionVo
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentDailyRecordBinding
 import com.foregg.presentation.ui.dailyRecord.adapter.DailyRecordAdapter
@@ -13,6 +14,7 @@ import com.foregg.presentation.ui.dailyRecord.adapter.SideEffectAdapter
 import com.foregg.presentation.util.ForeggNotification
 import com.foregg.presentation.util.PendingExtraValue
 import com.foregg.presentation.util.UserInfo
+import com.kakao.sdk.user.model.User
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -20,15 +22,24 @@ import kotlinx.coroutines.launch
 class DailyRecordFragment : BaseFragment<FragmentDailyRecordBinding, DailyRecordPageState, DailyRecordViewModel>(
     FragmentDailyRecordBinding::inflate
 ) {
-    private val dailyRecordAdapter = DailyRecordAdapter()
+    private val dailyRecordAdapter : DailyRecordAdapter by lazy {
+        DailyRecordAdapter(object : DailyRecordAdapter.DailyRecordDelegate {
+            override fun onClickEmotion(request: PutEmotionVo) {
+                viewModel.putEmotion(request)
+            }
+        })
+    }
     private val sideEffectAdapter = SideEffectAdapter()
 
     override val viewModel: DailyRecordViewModel by viewModels()
     override fun initView() {
-        if(UserInfo.info.genderType == GenderType.MALE) ForeggNotification.updateNoty(requireContext(), NotificationType.TODAY_RECORD_MALE, false)
         binding.apply {
             vm = viewModel
-            recordRecyclerView.adapter = sideEffectAdapter
+            if (UserInfo.info.genderType == GenderType.FEMALE) { recordRecyclerView.adapter = sideEffectAdapter }
+            else {
+                ForeggNotification.updateNoty(requireContext(), NotificationType.TODAY_RECORD_MALE, false)
+                recordRecyclerView.adapter = dailyRecordAdapter
+            }
             recordRecyclerView.layoutManager = LinearLayoutManager(context)
         }
         viewModel.setView()

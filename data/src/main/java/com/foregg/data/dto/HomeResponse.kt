@@ -9,7 +9,7 @@ data class HomeResponse(
     @SerializedName("userName")
     val userName: String = "",
     @SerializedName("spouseName")
-    val spouseName: String = "",
+    val spouseName: String? = "",
     @SerializedName("todayDate")
     val todayDate: String = "",
     @SerializedName("homeRecordResponseDTO")
@@ -17,9 +17,9 @@ data class HomeResponse(
     @SerializedName("ssn")
     val ssn: String = "",
     @SerializedName("dailyConditionType")
-    val dailyConditionType: DailyConditionType = DailyConditionType.DEFAULT,
+    val dailyConditionType: DailyConditionType? = DailyConditionType.DEFAULT,
     @SerializedName("dailyContent")
-    val dailyContent: String = "",
+    val dailyContent: String? = "",
     @SerializedName("latestMedicalRecord")
-    val latestMedicalRecord: String = ""
+    val latestMedicalRecord: String? = ""
 ) : DataDto

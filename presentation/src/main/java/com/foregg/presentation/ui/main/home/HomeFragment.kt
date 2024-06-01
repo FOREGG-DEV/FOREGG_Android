@@ -5,6 +5,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.foregg.domain.model.enums.CalendarType
+import com.foregg.domain.model.enums.GenderType
 import com.foregg.domain.model.enums.RecordType
 import com.foregg.domain.model.response.HomeRecordResponseVo
 import com.foregg.presentation.R
@@ -14,6 +15,7 @@ import com.foregg.presentation.ui.common.CommonDialog
 import com.foregg.presentation.ui.main.home.adapter.HomeChallengeAdapter
 import com.foregg.presentation.ui.main.home.adapter.HomeIntroductionAdapter
 import com.foregg.presentation.ui.main.home.adapter.HomeTodayScheduleAdapter
+import com.foregg.presentation.util.UserInfo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
@@ -98,6 +100,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
         when(event) {
             HomeEvent.GoToChallengeEvent -> goToChallenge()
             HomeEvent.GoToDailyRecordEvent -> goToDailyRecord()
+            HomeEvent.GoToCalendarEvent -> goToCalendar()
         }
     }
 
@@ -126,6 +129,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
 
     private fun goToCreateEditSchedule(id: Long, recordType: RecordType) {
         val action = HomeFragmentDirections.actionHomeToCreateEditSchedule(id = id, type = CalendarType.EDIT, scheduleType = recordType, isHome = true)
+        findNavController().navigate(action)
+    }
+
+    private fun goToCalendar() {
+        val action = HomeFragmentDirections.actionHomeToCalendar()
         findNavController().navigate(action)
     }
 }

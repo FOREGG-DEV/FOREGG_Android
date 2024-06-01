@@ -9,6 +9,7 @@ import com.foregg.data.mapper.dailyRecord.SideEffectResponseMapper
 import com.foregg.domain.base.ApiState
 import com.foregg.domain.model.request.dailyRecord.CreateDailyRecordRequestVo
 import com.foregg.domain.model.request.dailyRecord.CreateSideEffectRequestVo
+import com.foregg.domain.model.request.dailyRecord.PutEmotionVo
 import com.foregg.domain.model.request.dailyRecord.InjectionAlarmRequestVo
 import com.foregg.domain.model.response.DailyRecordResponseVo
 import com.foregg.domain.model.response.SideEffectListItemVo
@@ -36,6 +37,12 @@ class DailyRecordRepositoryImpl @Inject constructor(
         return apiLaunch(apiCall = { dailyRecordApi.getSideEffect() }, SideEffectResponseMapper)
     }
 
+    override suspend fun putEmotion(request: PutEmotionVo): Flow<ApiState<Unit>> {
+        return apiLaunch(
+            apiCall = { dailyRecordApi.putEmotion(request.id, request.request) },
+            UnitResponseMapper
+        )
+    }
     override suspend fun postShareInjection(request : InjectionAlarmRequestVo): Flow<ApiState<Unit>> {
         return apiLaunch(apiCall = { dailyRecordApi.shareInjection(request.id, request.time) }, UnitResponseMapper)
     }

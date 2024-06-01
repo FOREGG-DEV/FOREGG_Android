@@ -80,7 +80,8 @@
                                 android:id="@+id/image_view_emotion_husband"
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
-                                android:src="@drawable/ic_heart"/>
+                                android:src="@drawable/ic_heart"
+                                android:background="@android:color/transparent"/>
 
                         </LinearLayout>
 
@@ -92,6 +93,62 @@
                             tools:text="dd\ndd\ndd\n\ddddddd\ndd"
                             android:textColor="@color/gs_80"
                             android:textAppearance="@style/p1"/>
+
+                        <LinearLayout
+                            android:id="@+id/layout_btn_husband_emotion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="14dp"
+                            android:layout_marginBottom="6dp"
+                            android:orientation="horizontal">
+
+                            <ImageButton
+                                android:id="@+id/btn_heart"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginEnd="20dp"
+                                android:src="@drawable/ic_heart"
+                                android:scaleType="fitCenter"
+                                android:background="@android:color/transparent"/>
+
+                            <ImageButton
+                                android:id="@+id/btn_thumbs_up"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginEnd="20dp"
+                                android:src="@drawable/ic_thumbs_up"
+                                android:scaleType="fitCenter"
+                                android:background="@android:color/transparent"/>
+
+                            <ImageButton
+                                android:id="@+id/btn_clap"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginEnd="20dp"
+                                android:src="@drawable/ic_clap"
+                                android:scaleType="fitCenter"
+                                android:background="@android:color/transparent"/>
+
+                            <ImageButton
+                                android:id="@+id/btn_sad"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginEnd="20dp"
+                                android:src="@drawable/ic_emotion_sad_selected"
+                                android:scaleType="fitCenter"
+                                android:background="@android:color/transparent"/>
+
+                            <ImageButton
+                                android:id="@+id/btn_perfect"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginEnd="20dp"
+                                android:src="@drawable/ic_emotion_perfect_selected"
+                                android:scaleType="fitCenter"
+                                android:background="@android:color/transparent"/>
+
+                        </LinearLayout>
 
                     </LinearLayout>
 

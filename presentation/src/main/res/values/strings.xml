@@ -85,8 +85,11 @@
     <string name="home_adv_text">광고배너 (자동 슬라이딩)</string>
     <string name="home_challenge_text">챌린지 참여하기</string>
     <string name="today_schedule_format">%1$s님의\n%2$s월 %3$s일 일정이예요.</string>
+    <string name="today_schedule_husband_format">%s, %s 님의 \n%s월 %s일 일정이에요.</string>
     <string name="today_schedule_empty_text">오늘은 일정이 없어요.</string>
     <string name="home_challenge_complete_dialog_text">오늘의 챌린지 성공하셨나요?</string>
+    <string name="home_medical_record">진료 내용</string>
+    <string name="home_empty_record">오늘은 기록이 없어요</string>
 
     <!-- account -->
     <string name="account_all">전체</string>
@@ -111,7 +114,7 @@
     <string name="account_bottom_sheet_custom_month">직접입력</string>
 
     <!--  dailyRecord  -->
-    <string name="daily_record">하루 기록</string>
+    <string name="daily_record">하루기록</string>
     <string name="daily_record_adverse_effect">부작용</string>
 
     <!--  CreateDailyRecord  -->
@@ -123,6 +126,7 @@
     <string name="create_adverse_effect_no_adverse_effect">부작용 없어요</string>
     <string name="create_adverse_effect_yes_adverse_effect">부작용 있어요</string>
     <string name="create_adverse_effect_edit_text_hint">어떤 부작용이 있는지 자세히 적어주세요</string>
+    <string name="create_adverse_effect_done">작성 완료</string>
 
     <!-- MyPage -->
     <string name="profile_nickname">%s님의 정보</string>
@@ -164,12 +168,14 @@
     <!-- challenge -->
     <string name="challenge_title">챌린지</string>
     <string name="challenge_my">나의 챌린지</string>
+    <string name="challege_all">모든 챌린지</string>
     <string name="challenge_item_count_slash">/</string>
-    <string name="challenge_participate">챌린지 참여하기</string>
+    <string name="challenge_participate">챌린지 참여</string>
     <string name="challenge_participate_already">참여중인 챌린지예요</string>
     <string name="challenge_participant_count_text">%d명이 함께하고 있어요</string>
     <string name="challenge_month_week">%d월 %d주차</string>
     <string name="challenge_stop">챌린지를 그만두시겠습니까?</string>
+    <string name="challenge_empty">참여 중인 챌린지가 없어요</string>
 
     <!--  Information  -->
     <string name="info_possible_subsidy">받을 수 있는 정부 지원금</string>
