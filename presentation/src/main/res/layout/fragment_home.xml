@@ -72,7 +72,7 @@
                 <TextView
                     android:id="@+id/text_today_schedule"
                     android:layout_width="wrap_content"
-                    android:layout_height="52dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
                     android:layout_marginBottom="12dp"
                     android:gravity="center|start"
@@ -339,6 +339,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="68dp"
                     android:layout_marginTop="12dp"
+                    android:layout_marginBottom="38dp"
                     android:padding="12dp"
                     android:background="@drawable/bg_rectangle_filled_white_radius_8">
 
