@@ -98,6 +98,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityPageState, Ma
             R.id.calendarFragment -> viewModel.updatePageType(BottomNavType.CALENDAR)
             R.id.profileFragment -> viewModel.updatePageType(BottomNavType.PROFILE)
             R.id.accountFragment -> viewModel.updatePageType(BottomNavType.ACCOUNT)
+            R.id.infoFragment -> viewModel.updatePageType(BottomNavType.INFO)
             else -> viewModel.updatePageType(BottomNavType.OTHER)
         }
     }
