@@ -31,6 +31,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
     lateinit var dialog: CommonDialog
 
     private val homeIntroductionAdapter = HomeIntroductionAdapter()
+    private var position = 0
 
     private val todayScheduleAdapter : HomeTodayScheduleAdapter by lazy {
         HomeTodayScheduleAdapter(object : HomeTodayScheduleAdapter.HomeTodayScheduleDelegate {
@@ -49,12 +50,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
     }
 
     override fun initView() {
-        val position = viewModel.uiState.scheduleStartPosition.value
         binding.apply {
             vm = viewModel
             todayScheduleViewPager.adapter = todayScheduleAdapter
             todayScheduleViewPager.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            if (position != 0) todayScheduleViewPager.scrollToPosition(position)
+            todayScheduleViewPager.addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
+                override fun onLayoutChange(
+                    v: View?,
+                    left: Int,
+                    top: Int,
+                    right: Int,
+                    bottom: Int,
+                    oldLeft: Int,
+                    oldTop: Int,
+                    oldRight: Int,
+                    oldBottom: Int
+                ) {
+                    updatePosition()
+                    todayScheduleViewPager.removeOnLayoutChangeListener(this)
+                }
+            })
             challengeRecyclerView.adapter = homeChallengeAdapter
             challengeRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             advertiseViewPager.adapter = homeIntroductionAdapter
@@ -69,16 +84,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
             launch {
                 viewModel.uiState.todayScheduleList.collect {
                     todayScheduleAdapter.submitList(it)
+                    updatePosition()
                 }
             }
             launch {
                 viewModel.uiState.challengeList.collect {
                     homeChallengeAdapter.submitList(it)
-                }
-            }
-            launch {
-                viewModel.uiState.scheduleStartPosition.collect {
-                    if (it != 0) binding.todayScheduleViewPager.scrollToPosition(it)
                 }
             }
             launch {
@@ -135,5 +146,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
     private fun goToCalendar() {
         val action = HomeFragmentDirections.actionHomeToCalendar()
         findNavController().navigate(action)
+    }
+
+    private fun calculatePosition(list: List<HomeRecordResponseVo>): Int {
+        var position = list.size - 1
+        val currentTime = org.threeten.bp.LocalTime.now().hour
+        for (i in list.indices) {
+            val time = list[i].times.first().split(":").first().toInt()
+            if (time > currentTime) {
+                position = i
+                break
+            }
+        }
+        return position
+    }
+
+    private fun updatePosition() {
+        position = calculatePosition(viewModel.uiState.todayScheduleList.value)
+        (binding.todayScheduleViewPager.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(position, 0)
     }
 }

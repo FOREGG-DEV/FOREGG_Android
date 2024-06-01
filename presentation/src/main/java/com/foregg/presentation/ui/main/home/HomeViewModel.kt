@@ -40,7 +40,6 @@ class HomeViewModel @Inject constructor(
     private val todayScheduleStateFlow: MutableStateFlow<List<HomeRecordResponseVo>> = MutableStateFlow(emptyList())
     private val formattedTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val challengeListStateFlow: MutableStateFlow<List<MyChallengeListItemVo>> = MutableStateFlow(emptyList())
-    private val scheduleStartPositionStateFlow: MutableStateFlow<Int> = MutableStateFlow(0)
     private val homeIntroductionItemListStateFlow: MutableStateFlow<List<Int>> = MutableStateFlow(listOf(R.drawable.ic_card_inrtoduction, R.drawable.ic_card_inrtoduction, R.drawable.ic_card_inrtoduction))
     private val dailyConditionTypeImageStateFlow: MutableStateFlow<Int> = MutableStateFlow(R.drawable.ic_emotion_perfect_selected)
     private val dailyContentStateFlow: MutableStateFlow<String> = MutableStateFlow("")
@@ -55,7 +54,6 @@ class HomeViewModel @Inject constructor(
         todayScheduleList = todayScheduleStateFlow.asStateFlow(),
         formattedText = formattedTextStateFlow.asStateFlow(),
         challengeList = challengeListStateFlow.asStateFlow(),
-        scheduleStartPosition = scheduleStartPositionStateFlow.asStateFlow(),
         homeIntroductionItemList = homeIntroductionItemListStateFlow.asStateFlow(),
         genderType = UserInfo.info.genderType,
         dailyConditionImage = dailyConditionTypeImageStateFlow.asStateFlow(),
@@ -95,21 +93,7 @@ class HomeViewModel @Inject constructor(
             medicalRecordStateFlow.update { result.latestMedicalRecord }
             if (UserInfo.info.genderType == GenderType.FEMALE) formattedTextStateFlow.update { resourceProvider.getString(R.string.today_schedule_format, userNameStateFlow.value, month, day) }
             else formattedTextStateFlow.update { resourceProvider.getString(R.string.today_schedule_husband_format, userNameStateFlow.value, husbandNameStateFlow.value, month, day) }
-            if (todayScheduleStateFlow.value.isNotEmpty()) scheduleStartPositionStateFlow.update { calculatePosition(todayScheduleStateFlow.value) }
         }
-    }
-
-    private fun calculatePosition(list: List<HomeRecordResponseVo>): Int {
-        var position = 0
-        val currentTime = org.threeten.bp.LocalTime.now().hour
-        for (i in list.indices) {
-            val time = list[i].times.first().split(":").first().toInt()
-            if (time > currentTime) {
-                position = i
-                break
-            }
-        }
-        return position
     }
 
     private fun updateChallengeList(newList: List<MyChallengeListItemVo>) {
