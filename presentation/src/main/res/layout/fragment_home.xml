@@ -339,7 +339,7 @@
                         android:textAppearance="@style/p3_l"
                         android:textColor="@color/black"
                         android:text="@{vm.uiState.medicalRecord}"
-                        android:visibility="@{vm.uiState.dailyContent.empty ? View.GONE : View.VISIBLE}"/>
+                        android:visibility="@{vm.uiState.medicalRecord.empty ? View.GONE : View.VISIBLE}"/>
 
                     <TextView
                         android:id="@+id/text_empty_husband_medical_record"
