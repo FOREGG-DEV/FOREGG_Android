@@ -87,18 +87,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
                 }
             }
             launch {
-                viewModel.uiState.dailyContent.collect {
-                    if (it.isEmpty()) binding.textHusbandDailyRecord.text = requireContext().getString(R.string.home_empty_record)
-                    else binding.textHusbandDailyRecord.text = it
-                }
-            }
-            launch {
-                viewModel.uiState.medicalRecord.collect {
-                    if (it.isEmpty()) binding.textHusbandMedicalRecord.text = requireContext().getString(R.string.home_empty_record)
-                    else binding.textHusbandMedicalRecord.text = it
-                }
-            }
-            launch {
                 viewModel.eventFlow.collect {
                     sortEvent(it as HomeEvent)
                 }

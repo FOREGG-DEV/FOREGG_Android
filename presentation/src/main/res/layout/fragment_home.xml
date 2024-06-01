@@ -337,7 +337,19 @@
                         android:layout_gravity="center|start"
                         android:maxLines="3"
                         android:textAppearance="@style/p3_l"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        android:text="@{vm.uiState.medicalRecord}"
+                        android:visibility="@{vm.uiState.dailyContent.empty ? View.GONE : View.VISIBLE}"/>
+
+                    <TextView
+                        android:id="@+id/text_empty_husband_medical_record"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|start"
+                        android:text="@string/home_empty_record"
+                        android:textAppearance="@style/h3"
+                        android:textColor="@color/black"
+                        android:visibility="@{vm.uiState.medicalRecord.empty ? View.VISIBLE : View.GONE}"/>
 
                 </FrameLayout>
 
