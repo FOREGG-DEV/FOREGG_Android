@@ -19,6 +19,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDate
+import org.threeten.bp.YearMonth
+import org.threeten.bp.format.DateTimeFormatter
 import java.text.NumberFormat
 import java.util.Locale
 import javax.inject.Inject
@@ -150,9 +153,18 @@ class AccountViewModel @Inject constructor(
             }
             AccountTabType.MONTH ->  {
                 getAccountByMonth()
+                setFilterDayByMonth()
                 updateSelectText(resourceProvider.getString(R.string.calendar_year_and_month, year, month))
             }
         }
+    }
+
+    private fun setFilterDayByMonth(){
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val yearMonth = YearMonth.of(year, month)
+        val startDate = yearMonth.atDay(1).format(formatter)
+        val endDate = yearMonth.atEndOfMonth().format(formatter)
+        initDay(startDate, endDate)
     }
 
     private fun updateSelectText(text : String){
