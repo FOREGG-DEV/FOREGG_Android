@@ -18,5 +18,6 @@ data class HomePageState (
     val genderType: GenderType,
     val dailyConditionImage: StateFlow<Int>,
     val dailyContent: StateFlow<String>,
-    val medicalRecord: StateFlow<String>
+    val medicalRecord: StateFlow<String>,
+    val medicalRecordId: StateFlow<Long>
 ) : PageState

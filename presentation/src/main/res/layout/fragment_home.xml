@@ -220,6 +220,10 @@
 
                 </FrameLayout>
 
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="10dp"/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -293,7 +297,7 @@
                         android:layout_gravity="center|start"
                         android:text="@string/home_empty_record"
                         android:textAppearance="@style/h3"
-                        android:textColor="@color/black"
+                        android:textColor="@color/gs_50"
                         android:visibility="@{vm.uiState.dailyContent.empty ? View.VISIBLE : View.GONE}"/>
 
                     <TextView
@@ -339,7 +343,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="68dp"
                     android:layout_marginTop="12dp"
-                    android:layout_marginBottom="38dp"
                     android:padding="12dp"
                     android:background="@drawable/bg_rectangle_filled_white_radius_8">
 
@@ -361,10 +364,14 @@
                         android:layout_gravity="center|start"
                         android:text="@string/home_empty_record"
                         android:textAppearance="@style/h3"
-                        android:textColor="@color/black"
+                        android:textColor="@color/gs_50"
                         android:visibility="@{vm.uiState.medicalRecord.empty ? View.VISIBLE : View.GONE}"/>
 
                 </FrameLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="38dp"/>
 
             </LinearLayout>
 

@@ -6,4 +6,5 @@ sealed class HomeEvent: Event {
     object GoToDailyRecordEvent : HomeEvent()
     object GoToChallengeEvent: HomeEvent()
     object GoToCalendarEvent: HomeEvent()
+    object GoToCreateEditScheduleEvent: HomeEvent()
 }
