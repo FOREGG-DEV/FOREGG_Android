@@ -36,7 +36,7 @@ class DailyRecordFragment : BaseFragment<FragmentDailyRecordBinding, DailyRecord
         if(UserInfo.info.genderType == GenderType.MALE) ForeggNotification.updateNoty(requireContext(), NotificationType.TODAY_RECORD_MALE, false)
         binding.apply {
             vm = viewModel
-            if (viewModel.genderType == GenderType.FEMALE) { recordRecyclerView.adapter = sideEffectAdapter }
+            if (UserInfo.info.genderType == GenderType.FEMALE) { recordRecyclerView.adapter = sideEffectAdapter }
             else { recordRecyclerView.adapter = dailyRecordAdapter }
             recordRecyclerView.layoutManager = LinearLayoutManager(context)
         }
