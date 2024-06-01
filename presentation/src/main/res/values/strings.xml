@@ -180,7 +180,7 @@
     <!-- injection -->
     <string name="injection_female_title">오늘 맞을 주사예요\n안내받은 가이드에 따라 투여해주세요</string>
     <string name="injection_male_title">오늘 %s님이 맞으신 주사예요</string>
-    <string name="injection_go_home">홈으로</string>
-    <string name="injection_share_husband">남편에게 공유하기</string>
+    <string name="injection_share_husband">남편에게 공유</string>
     <string name="injection_share_hint">주사 기록을 남편에게 공유할 수 있어요</string>
+    <string name="injection_explain">주사 설명</string>
 </resources>
