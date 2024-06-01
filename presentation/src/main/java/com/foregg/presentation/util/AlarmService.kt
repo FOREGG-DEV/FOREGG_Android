@@ -44,6 +44,7 @@ class AlarmService : Service() {
         val title = intent?.getStringExtra(FcmNotification.TITLE) ?: ""
         val body = intent?.getStringExtra(FcmNotification.BODY) ?: ""
         val targetId = intent?.getLongExtra(FcmNotification.TARGET_ID, -1) ?: 0
+        val time = intent?.getStringExtra(FcmNotification.TIME) ?: ""
 
         createNotificationChannel()
 
@@ -51,6 +52,7 @@ class AlarmService : Service() {
             putExtra(STOP_ALARM, true)
             putExtra(PendingExtraValue.KEY, PendingExtraValue.INJECTION)
             putExtra(PendingExtraValue.TARGET_ID_KEY, targetId)
+            putExtra(PendingExtraValue.INJECTION_TIME_KEY, time)
         }
         val pendingIntent = PendingIntent.getActivity(this, 0, mainIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
@@ -79,6 +81,8 @@ class AlarmService : Service() {
             .build()
 
         checkPermission()
+        startForeground(1, notificationBuilder)
+
         notificationManager.notify(1, notificationBuilder)
         startAlarm()
         return START_STICKY

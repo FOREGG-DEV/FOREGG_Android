@@ -3,9 +3,14 @@ package com.foregg.domain.repository
 import com.foregg.domain.base.ApiState
 import com.foregg.domain.model.request.dailyRecord.CreateDailyRecordRequestVo
 import com.foregg.domain.model.request.dailyRecord.CreateSideEffectRequestVo
+<<<<<<< HEAD
 import com.foregg.domain.model.request.dailyRecord.PutEmotionVo
+=======
+import com.foregg.domain.model.request.dailyRecord.InjectionAlarmRequestVo
+>>>>>>> c184d59644f26d315fa6b96bbb3c7a8ba116523a
 import com.foregg.domain.model.response.DailyRecordResponseVo
 import com.foregg.domain.model.response.SideEffectListItemVo
+import com.foregg.domain.model.response.daily.InjectionInfoResponseVo
 import kotlinx.coroutines.flow.Flow
 
 interface DailyRecordRepository {
@@ -14,4 +19,6 @@ interface DailyRecordRepository {
     suspend fun createSideEffect(request: CreateSideEffectRequestVo): Flow<ApiState<Unit>>
     suspend fun getSideEffect(): Flow<ApiState<List<SideEffectListItemVo>>>
     suspend fun putEmotion(request: PutEmotionVo): Flow<ApiState<Unit>>
+    suspend fun postShareInjection(request : InjectionAlarmRequestVo) : Flow<ApiState<Unit>>
+    suspend fun getInjectionInfo(request : InjectionAlarmRequestVo) : Flow<ApiState<InjectionInfoResponseVo>>
 }

@@ -7,4 +7,5 @@ data class InjectionPageState(
     val date : StateFlow<String>,
     val time : StateFlow<String>,
     val injection : StateFlow<String>,
+    val image : StateFlow<String>
 ) : PageState

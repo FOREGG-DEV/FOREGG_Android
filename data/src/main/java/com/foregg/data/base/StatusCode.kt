@@ -17,4 +17,8 @@ object StatusCode {
     object LEDGER {
         const val NO_EXIST_LEDGER = "LEDGER4001"
     }
+
+    object DAILY {
+        const val SPOUSE_NOT_FOUND = "USER4005"
+    }
 }
