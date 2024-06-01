@@ -49,12 +49,14 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"/>
 
-                <ImageButton
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@{ForeggNotification.INSTANCE.todayRecordNotificationStateFlow.booleanValue() == true ? @drawable/ic_daily_record_noti : @drawable/ic_daily_record}"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="80dp"
+                    android:layout_height="32dp"
                     android:layout_gravity="center"
-                    android:background="@android:color/transparent"
+                    android:background="@drawable/bg_rectangle_filled_main_radius_8"
+                    android:text="@string/daily_record"
+                    android:textAppearance="@style/h4"
+                    android:textColor="@color/white"
                     android:onClick="@{()->vm.onClickDailyRecord()}"/>
 
             </LinearLayout>
@@ -70,12 +72,14 @@
                 <TextView
                     android:id="@+id/text_today_schedule"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="35dp"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="40dp"
                     android:layout_marginBottom="12dp"
+                    android:gravity="center|start"
                     android:text="@{vm.uiState.formattedText}"
                     android:textColor="@color/black"
-                    android:textAppearance="@style/h2"/>
+                    android:textAppearance="@style/h2"
+                    android:lineSpacingExtra="-4dp"/>
 
                 <FrameLayout
                     android:layout_width="match_parent"
