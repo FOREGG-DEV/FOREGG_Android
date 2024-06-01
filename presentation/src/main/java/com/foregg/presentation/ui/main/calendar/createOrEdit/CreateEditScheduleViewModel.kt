@@ -274,7 +274,7 @@ class CreateEditScheduleViewModel @Inject constructor(
         val request = getModifyDetailRequest()
         viewModelScope.launch {
             putModifyScheduleUseCase(request).collect{
-                resultResponse(it, { onClickBack() }, ::handleGetDetailError, needLoading = true)
+                resultResponse(it, { getScheduleDetail(id) }, ::handleGetDetailError, needLoading = true)
             }
         }
     }
