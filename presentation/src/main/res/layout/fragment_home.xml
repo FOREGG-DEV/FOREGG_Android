@@ -281,8 +281,20 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:maxLines="3"
+                        android:text="@{vm.uiState.dailyContent}"
                         android:textAppearance="@style/p3_l"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        android:visibility="@{vm.uiState.dailyContent.empty ? View.GONE : View.VISIBLE}"/>
+
+                    <TextView
+                        android:id="@+id/text_empty_husband_daily_record"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|start"
+                        android:text="@string/home_empty_record"
+                        android:textAppearance="@style/h3"
+                        android:textColor="@color/black"
+                        android:visibility="@{vm.uiState.dailyContent.empty ? View.VISIBLE : View.GONE}"/>
 
                     <TextView
                         android:layout_width="wrap_content"
