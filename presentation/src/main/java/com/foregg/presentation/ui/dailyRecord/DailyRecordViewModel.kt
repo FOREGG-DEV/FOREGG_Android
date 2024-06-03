@@ -38,8 +38,7 @@ class DailyRecordViewModel @Inject constructor(
     )
 
     fun setView() {
-        if (genderType == GenderType.FEMALE) getSideEffect()
-        else getDailyRecord()
+        getDailyRecord()
     }
 
     private fun getSideEffect() {
@@ -73,7 +72,10 @@ class DailyRecordViewModel @Inject constructor(
     fun updateTabType(tabType: DailyRecordTabType) {
         viewModelScope.launch {
             dailyRecordTabTypeStateFlow.update { tabType }
-            getDailyRecord()
+            when (tabType) {
+                DailyRecordTabType.ADVERSE_EFFECT -> getSideEffect()
+                DailyRecordTabType.DAILY_RECORD -> getDailyRecord()
+            }
         }
     }
 

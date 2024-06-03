@@ -58,7 +58,7 @@
                 android:id="@+id/btn_go_to_record"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_pencil"
+                android:src="@drawable/ic_btn_add_filled_main"
                 android:onClick="@{()->vm.goToRecord()}"
                 android:visibility="@{vm.genderType == GenderType.MALE ? View.GONE : View.VISIBLE}"
                 android:background="@android:color/transparent"/>
@@ -73,8 +73,8 @@
             android:paddingBottom="8dp"
             android:visibility="@{vm.genderType == GenderType.MALE ? View.GONE : View.VISIBLE}"
             app:layout_constraintTop_toBottomOf="@id/include_top_bar"
-            app:leftText="@string/daily_record_adverse_effect"
-            app:rightText="@string/daily_record"
+            app:leftText="@string/daily_record"
+            app:rightText="@string/daily_record_adverse_effect"
             app:tabCount="2">
 
         </com.foregg.presentation.ui.common.CustomTabBar>
