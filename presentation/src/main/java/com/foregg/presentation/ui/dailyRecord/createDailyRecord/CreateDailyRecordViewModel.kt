@@ -1,6 +1,7 @@
 package com.foregg.presentation.ui.dailyRecord.createDailyRecord
 
 import androidx.lifecycle.viewModelScope
+import com.foregg.data.base.StatusCode
 import com.foregg.domain.model.enums.DailyConditionType
 import com.foregg.domain.model.enums.DailyRecordTabType
 import com.foregg.domain.model.enums.EmotionType
@@ -67,9 +68,15 @@ class CreateDailyRecordViewModel @Inject constructor(
         } else {
             viewModelScope.launch {
                 postDailyRecordUseCase(request = CreateDailyRecordRequestVo(isSelectedEmotionStateFlow.value, content)).collect {
-                    resultResponse(it, { emitEventFlow(CreateDailyRecordEvent.GoToCreateSideEffectEvent) })
+                    resultResponse(it, { emitEventFlow(CreateDailyRecordEvent.GoToCreateSideEffectEvent) }, ::handleCreateDailyRecordError)
                 }
             }
+        }
+    }
+
+    private fun handleCreateDailyRecordError(error: String) {
+        when (error) {
+            StatusCode.DAILY_RECORD.EXIST_DAILY_RECORD -> emitEventFlow(CreateDailyRecordEvent.ExistDailyRecordEvent)
         }
     }
 

@@ -7,4 +7,5 @@ sealed class CreateDailyRecordEvent: Event {
     object InsufficientEmotionDataEvent: CreateDailyRecordEvent()
     object InsufficientTextDataEvent: CreateDailyRecordEvent()
     object OnClickBtnClose: CreateDailyRecordEvent()
+    object ExistDailyRecordEvent: CreateDailyRecordEvent()
 }

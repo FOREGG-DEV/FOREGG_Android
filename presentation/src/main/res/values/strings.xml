@@ -120,6 +120,7 @@
     <!--  CreateDailyRecord  -->
     <string name="create_daily_record_text">%s님\n오늘 하루 어떠셨나요?</string>
     <string name="create_daily_record_edit_text_hint">오늘의 컨디션과 감정에 대해 기록해주세요</string>
+    <string name="create_daily_record_error">오늘의 하루기록이 이미 존재합니다</string>
     
     <!--  createAdverseEffect  -->
     <string name="create_adverse_effect_text">%s님\n오늘 주사, 약 부작용은 없으셨나요?</string>

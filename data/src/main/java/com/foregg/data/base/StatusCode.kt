@@ -21,4 +21,8 @@ object StatusCode {
     object DAILY {
         const val SPOUSE_NOT_FOUND = "USER4005"
     }
+
+    object DAILY_RECORD {
+        const val EXIST_DAILY_RECORD = "DAILY4001"
+    }
 }
