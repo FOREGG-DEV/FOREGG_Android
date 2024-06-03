@@ -88,7 +88,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.todayScheduleList.collect {
-                    todayScheduleAdapter.submitList(it)
+                    if (it.isNotEmpty()) todayScheduleAdapter.submitList(it as MutableList<HomeRecordResponseVo>?)
                     updatePosition()
                 }
             }
