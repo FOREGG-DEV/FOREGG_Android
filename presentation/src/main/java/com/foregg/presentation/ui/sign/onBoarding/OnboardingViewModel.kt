@@ -60,17 +60,17 @@ class OnboardingViewModel @Inject constructor(
             OnboardingTutorialVo(
                 title = resourceProvider.getString(R.string.onboarding_title_2),
                 content = resourceProvider.getString(R.string.onboarding_content_2),
-                img = R.drawable.onboarding_first
+                img = R.drawable.onboarding_second
             ),
             OnboardingTutorialVo(
                 title = resourceProvider.getString(R.string.onboarding_title_3),
                 content = resourceProvider.getString(R.string.onboarding_content_3),
-                img = R.drawable.onboarding_first
+                img = R.drawable.onboarding_third
             ),
             OnboardingTutorialVo(
                 title = resourceProvider.getString(R.string.onboarding_title_4),
                 content = resourceProvider.getString(R.string.onboarding_content_4),
-                img = R.drawable.onboarding_first
+                img = R.drawable.onboarding_fourth
             )
         )
     }

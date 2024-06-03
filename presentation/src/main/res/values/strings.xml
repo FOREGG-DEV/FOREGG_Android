@@ -35,14 +35,14 @@
     <string name="onboarding_skip">skip</string>
 
     <string name="onboarding_title_1">주사 맞을 시간엔 알람이 울려요</string>
-    <string name="onboarding_title_2">여보, 오늘 약 바뀌었다며?</string>
-    <string name="onboarding_title_3">가계부</string>
-    <string name="onboarding_title_4">챌린지</string>
+    <string name="onboarding_title_2">여보, 우리 내일부터 과배란 주사지?</string>
+    <string name="onboarding_title_3">총 얼마 썼는지 궁금할 땐?</string>
+    <string name="onboarding_title_4">생활습관 챌린지로 나도, 난자도 건강하게.</string>
 
-    <string name="onboarding_content_1">정확한 시간에 맞아야 하는 주사,\n이제 포슬이가 챙겨줄게요.</string>
-    <string name="onboarding_content_2">진료 내용, 복약 스케줄, 하루 동안 느낀 감정까지\n남편과 공유해요.</string>
-    <string name="onboarding_content_3">회차별로, 정부지원금과 개인 지출을\n구분하여 확인할 수 있어요.</string>
-    <string name="onboarding_content_4">난자는 스트레스, 영양 상태, 호르몬 변화 등에 큰 영향을 받아요.\n오늘 하루, 챌린지를 통해 나도, 난자도 건강하게.</string>
+    <string name="onboarding_content_1">정확한 시간에 맞아야 하는 주사,\n포슬이가 챙길 테니 안심하세요.</string>
+    <string name="onboarding_content_2">진료 내용, 복약 스케줄, 하루 동안 느낀 감정까지.\n모든 과정을 남편과 공유해요.</string>
+    <string name="onboarding_content_3">가계부 기능을 통해, 정부지원금과 개인 지출을\n구분하여 확인할 수 있어요.</string>
+    <string name="onboarding_content_4">난자는 스트레스, 영양 상태, 호르몬 변화에 큰 영향을 받아요.\n챌린지를 통해 건강한 생활습관을 지켜나가요.</string>
 
     <!-- Sign -->
     <string name="sign_up">회원가입</string>
@@ -186,7 +186,7 @@
     <!-- injection -->
     <string name="injection_female_title">오늘 맞을 주사예요\n안내받은 가이드에 따라 투여해주세요</string>
     <string name="injection_male_title">오늘 %s님이 맞으신 주사예요</string>
-    <string name="injection_go_home">홈으로</string>
-    <string name="injection_share_husband">남편에게 공유하기</string>
+    <string name="injection_share_husband">남편에게 공유</string>
     <string name="injection_share_hint">주사 기록을 남편에게 공유할 수 있어요</string>
+    <string name="injection_explain">주사 설명</string>
 </resources>

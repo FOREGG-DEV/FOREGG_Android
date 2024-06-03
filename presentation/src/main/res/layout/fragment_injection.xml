@@ -156,6 +156,31 @@
                 app:layout_constraintTop_toBottomOf="@id/text_time"
                 tools:text="주사 이름" />
 
+            <TextView
+                android:id="@+id/text_injection_explain_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/injection_explain"
+                android:textAppearance="@style/h4"
+                android:textColor="@color/gs_70"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_injection_title" />
+
+            <TextView
+                android:id="@+id/text_injection_explain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:text="@{vm.uiState.explain}"
+                android:textAppearance="@style/p2"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_injection"
+                tools:text="주사 이름" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -166,7 +191,7 @@
             android:layout_marginBottom="32dp"
             android:background="@drawable/bg_rectangle_filled_white_stroke_main_radius_8"
             android:onClick="@{()->vm.onClickHome()}"
-            android:text="@string/injection_go_home"
+            android:text="@string/word_main"
             android:textAppearance="@style/btn"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"

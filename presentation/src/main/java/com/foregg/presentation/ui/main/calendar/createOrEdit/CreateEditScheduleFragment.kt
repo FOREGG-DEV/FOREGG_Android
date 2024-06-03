@@ -33,6 +33,7 @@ class CreateEditScheduleFragment : BaseFragment<FragmentCreateEditScheduleBindin
 
     @Inject
     lateinit var createScheduleDialog: CreateScheduleDialog
+
     @Inject
     lateinit var commonDialog: CommonDialog
 
