@@ -4,4 +4,5 @@ import com.foregg.presentation.Event
 
 sealed class InformationEvent: Event {
     object GoToSubsidyDetailEvent: InformationEvent()
+    object GoBackEvent: InformationEvent()
 }

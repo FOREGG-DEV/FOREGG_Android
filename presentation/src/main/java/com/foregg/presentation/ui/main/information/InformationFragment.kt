@@ -61,11 +61,16 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
     private fun sortEvent(event: InformationEvent) {
         when(event) {
             InformationEvent.GoToSubsidyDetailEvent -> goToSubsidyDetail()
+            InformationEvent.GoBackEvent -> goToBack()
         }
     }
 
     private fun goToSubsidyDetail() {
         val action = InformationFragmentDirections.actionInformationToSubsidyDetail()
         findNavController().navigate(action)
+    }
+
+    private fun goToBack() {
+        findNavController().popBackStack()
     }
 }

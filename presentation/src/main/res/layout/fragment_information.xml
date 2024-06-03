@@ -18,6 +18,17 @@
         <include
             android:id="@+id/include_top_bar"
             layout="@layout/include_top_bar" />
+        
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="28dp"
+            android:src="@drawable/ic_back_arrow_gs_50"
+            android:background="@android:color/transparent"
+            android:onClick="@{()->vm.onClickBtnBack()}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/include_top_bar"/>
 
         <TextView
             android:layout_width="wrap_content"

@@ -30,4 +30,8 @@ class InformationViewModel @Inject constructor(
     fun onClickBtnSubsidyDetail() {
         emitEventFlow(InformationEvent.GoToSubsidyDetailEvent)
     }
+
+    fun onClickBtnBack() {
+        emitEventFlow(InformationEvent.GoBackEvent)
+    }
 }
