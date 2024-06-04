@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <import type="com.foregg.presentation.util.UserInfo" />
+        <import type="com.foregg.domain.model.enums.GenderType" />
         <import type="android.view.View" />
 
         <variable
@@ -38,6 +39,8 @@
             android:hint="@string/calendar_create_edit_medical_record_hint"
             android:paddingHorizontal="12dp"
             android:paddingVertical="9dp"
+            android:clickable="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? false : true}"
+            android:enabled="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? false : true}"
             android:afterTextChanged="@{()->vm.updateChangedOrigin()}"
             android:text="@={vm.uiState.medicalRecord.medicalRecord}"
             android:textAppearance="@style/p1"
