@@ -9,6 +9,7 @@ import com.foregg.domain.model.enums.CalendarType
 import com.foregg.domain.model.enums.RecordType
 import com.foregg.domain.model.response.HomeRecordResponseVo
 import com.foregg.presentation.databinding.ItemTodayScheduleBinding
+import com.foregg.presentation.util.ForeggLog
 
 
 class HomeTodayScheduleAdapter(
@@ -16,20 +17,27 @@ class HomeTodayScheduleAdapter(
 ) : ListAdapter<HomeRecordResponseVo, RecyclerView.ViewHolder>(
     HomeTodayScheduleDiffUtilCallBack()
 ) {
+    private var nearestSchedulePosition: Int = -1
 
     interface HomeTodayScheduleDelegate {
         fun onClickRecordTreatment(id: Long, recordType: RecordType)
+        fun calculateNearestSchedulePosition(list: List<HomeRecordResponseVo>): Int
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is HomeTodayScheduleViewHolder -> holder.bind(currentList[position])
+            is HomeTodayScheduleViewHolder -> holder.bind(currentList[position], position == nearestSchedulePosition)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = ItemTodayScheduleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return HomeTodayScheduleViewHolder(binding, listener)
+    }
+
+    override fun submitList(list: MutableList<HomeRecordResponseVo>?) {
+        super.submitList(list)
+        list?.let { nearestSchedulePosition = listener.calculateNearestSchedulePosition(list) }
     }
 }
 

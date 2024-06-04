@@ -18,7 +18,6 @@ class HomeTodayScheduleViewHolder(
 
     private var id: Long? = null
     private var recordType: RecordType = RecordType.ETC
-    private val currentTime = LocalTime.now().hour
 
     init {
         binding.btnRecordTreatment.setOnClickListener {
@@ -34,10 +33,15 @@ class HomeTodayScheduleViewHolder(
         }
     }
 
-    fun bind(item: HomeRecordResponseVo) {
+    fun bind(item: HomeRecordResponseVo, isNearestSchedule: Boolean) {
         binding.apply {
             id = item.id
             recordType = item.recordType
+
+            if (isNearestSchedule) {
+                cardView.strokeWidth = 2
+                cardView.elevation = 2F
+            }
 
             val recordType = item.recordType
 
@@ -69,8 +73,6 @@ class HomeTodayScheduleViewHolder(
                     btnRecordTreatment.visibility = View.GONE
                 }
             }
-
-            if (item.times.first().split(':').first().toInt() >= currentTime) cardView.strokeWidth = 2
         }
     }
 }

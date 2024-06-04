@@ -23,6 +23,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.threeten.bp.LocalTime
 import org.threeten.bp.format.DateTimeFormatter
 import javax.inject.Inject
 
@@ -44,6 +45,7 @@ class HomeViewModel @Inject constructor(
     private val dailyConditionTypeImageStateFlow: MutableStateFlow<Int> = MutableStateFlow(R.drawable.ic_emotion_perfect_selected)
     private val dailyContentStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val medicalRecordStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private val medicalRecordIdStateFlow: MutableStateFlow<Long> = MutableStateFlow(-1)
     val month = org.threeten.bp.LocalDate.now().monthValue
     val day = org.threeten.bp.LocalDate.now().dayOfMonth
 
@@ -58,7 +60,8 @@ class HomeViewModel @Inject constructor(
         genderType = UserInfo.info.genderType,
         dailyConditionImage = dailyConditionTypeImageStateFlow.asStateFlow(),
         dailyContent = dailyContentStateFlow.asStateFlow(),
-        medicalRecord = medicalRecordStateFlow.asStateFlow()
+        medicalRecord = medicalRecordStateFlow.asStateFlow(),
+        medicalRecordId = medicalRecordIdStateFlow.asStateFlow()
     )
 
     fun initScheduleStates() {
@@ -91,6 +94,7 @@ class HomeViewModel @Inject constructor(
             dailyConditionTypeImageStateFlow.update { getDailyConditionTypeImage(result.dailyConditionType) }
             dailyContentStateFlow.update { result.dailyContent }
             medicalRecordStateFlow.update { result.latestMedicalRecord }
+            medicalRecordIdStateFlow.update { result.medicalRecordId }
             if (UserInfo.info.genderType == GenderType.FEMALE) formattedTextStateFlow.update { resourceProvider.getString(R.string.today_schedule_format, userNameStateFlow.value, month, day) }
             else formattedTextStateFlow.update { resourceProvider.getString(R.string.today_schedule_husband_format, userNameStateFlow.value, husbandNameStateFlow.value, month, day) }
         }
@@ -149,5 +153,22 @@ class HomeViewModel @Inject constructor(
 
     fun onClickBtnMedicalRecord() {
         if (medicalRecordStateFlow.value.isEmpty()) emitEventFlow(HomeEvent.GoToCalendarEvent)
+        else emitEventFlow(HomeEvent.GoToCreateEditScheduleEvent)
+    }
+
+    fun calculatePosition(list: List<HomeRecordResponseVo>): Int {
+        var position = - 1
+        val currentHour = LocalTime.now().hour
+        val currentMinute = LocalTime.now().minute
+        for (i in list.indices) {
+            val timeParts = list[i].times.first().split(":")
+            val hour = timeParts[0].toInt()
+            val minute = timeParts[1].toInt()
+            if (hour > currentHour || (hour == currentHour && minute >= currentMinute)) {
+                position = i
+                break
+            }
+        }
+        return position
     }
 }

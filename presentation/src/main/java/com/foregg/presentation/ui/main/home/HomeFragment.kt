@@ -15,6 +15,7 @@ import com.foregg.presentation.ui.common.CommonDialog
 import com.foregg.presentation.ui.main.home.adapter.HomeChallengeAdapter
 import com.foregg.presentation.ui.main.home.adapter.HomeIntroductionAdapter
 import com.foregg.presentation.ui.main.home.adapter.HomeTodayScheduleAdapter
+import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.UserInfo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -37,6 +38,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
         HomeTodayScheduleAdapter(object : HomeTodayScheduleAdapter.HomeTodayScheduleDelegate {
             override fun onClickRecordTreatment(id: Long, recordType: RecordType) {
                 goToCreateEditSchedule(id, recordType)
+            }
+
+            override fun calculateNearestSchedulePosition(list: List<HomeRecordResponseVo>): Int {
+                return viewModel.calculatePosition(list)
             }
         })
     }
@@ -83,7 +88,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.todayScheduleList.collect {
-                    todayScheduleAdapter.submitList(it)
+                    if (it.isNotEmpty()) todayScheduleAdapter.submitList(it as MutableList<HomeRecordResponseVo>?)
                     updatePosition()
                 }
             }
@@ -112,6 +117,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
             HomeEvent.GoToChallengeEvent -> goToChallenge()
             HomeEvent.GoToDailyRecordEvent -> goToDailyRecord()
             HomeEvent.GoToCalendarEvent -> goToCalendar()
+            HomeEvent.GoToCreateEditScheduleEvent -> goToCreateEditSchedule(viewModel.uiState.medicalRecordId.value, RecordType.HOSPITAL)
         }
     }
 
@@ -148,21 +154,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
         findNavController().navigate(action)
     }
 
-    private fun calculatePosition(list: List<HomeRecordResponseVo>): Int {
-        var position = list.size - 1
-        val currentTime = org.threeten.bp.LocalTime.now().hour
-        for (i in list.indices) {
-            val time = list[i].times.first().split(":").first().toInt()
-            if (time > currentTime) {
-                position = i
-                break
-            }
-        }
-        return position
-    }
-
     private fun updatePosition() {
-        position = calculatePosition(viewModel.uiState.todayScheduleList.value)
+        position = viewModel.calculatePosition(viewModel.uiState.todayScheduleList.value)
+        if (position == -1) position = viewModel.uiState.todayScheduleList.value.size - 1
         (binding.todayScheduleViewPager.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(position, 0)
     }
 }

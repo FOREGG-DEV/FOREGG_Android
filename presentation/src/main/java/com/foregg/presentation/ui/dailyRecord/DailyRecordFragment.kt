@@ -35,7 +35,7 @@ class DailyRecordFragment : BaseFragment<FragmentDailyRecordBinding, DailyRecord
     override fun initView() {
         binding.apply {
             vm = viewModel
-            if (UserInfo.info.genderType == GenderType.FEMALE) { recordRecyclerView.adapter = sideEffectAdapter }
+            if (UserInfo.info.genderType == GenderType.FEMALE) { recordRecyclerView.adapter = dailyRecordAdapter }
             else {
                 ForeggNotification.updateNoty(requireContext(), NotificationType.TODAY_RECORD_MALE, false)
                 recordRecyclerView.adapter = dailyRecordAdapter
@@ -74,12 +74,12 @@ class DailyRecordFragment : BaseFragment<FragmentDailyRecordBinding, DailyRecord
     private fun bindTab() {
         binding.apply {
             customTabBar.leftBtnClicked {
-                viewModel.updateTabType(DailyRecordTabType.ADVERSE_EFFECT)
-                recordRecyclerView.adapter = sideEffectAdapter
-            }
-            customTabBar.rightBtnClicked {
                 viewModel.updateTabType(DailyRecordTabType.DAILY_RECORD)
                 recordRecyclerView.adapter = dailyRecordAdapter
+            }
+            customTabBar.rightBtnClicked {
+                viewModel.updateTabType(DailyRecordTabType.ADVERSE_EFFECT)
+                recordRecyclerView.adapter = sideEffectAdapter
             }
         }
     }
