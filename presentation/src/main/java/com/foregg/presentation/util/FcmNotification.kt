@@ -49,11 +49,8 @@ class FcmNotification : FirebaseMessagingService() {
         when(type){
             NotificationType.INJECTION_FEMALE -> setAlarm(message.data)
             NotificationType.INJECTION_MALE,
-            NotificationType.TODAY_RECORD_FEMALE -> sendNotification(message.data)
-            NotificationType.TODAY_RECORD_MALE -> {
-                sendNotification(message.data)
-                saveFlags(PreferenceKeys.KEY_TODAY_RECORD, type)
-            }
+            NotificationType.TODAY_RECORD_FEMALE,
+            NotificationType.TODAY_RECORD_MALE -> sendNotification(message.data)
             NotificationType.CALENDAR -> saveFlags(PreferenceKeys.KEY_CALENDAR, type)
             NotificationType.LEDGER -> saveFlags(PreferenceKeys.KEY_LEDGER, type)
         }
