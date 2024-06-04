@@ -21,9 +21,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:text="@string/calendar_create_edit_medical_record"
+            android:layout_marginTop="9dp"
             android:textAppearance="@style/p1"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="@id/edit_text_record"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/edit_text_record" />
 

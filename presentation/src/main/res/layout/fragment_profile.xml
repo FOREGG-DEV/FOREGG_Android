@@ -138,7 +138,7 @@
                     android:textAppearance="@style/p1"
                     android:textColor="@color/gs_90"
                     app:layout_constraintStart_toStartOf="@id/text_name"
-                    app:layout_constraintTop_toBottomOf="@id/text_surgery_count" />
+                    app:layout_constraintTop_toBottomOf="@id/text_title_surgery_count" />
 
                 <TextView
                     android:id="@+id/text_surgery_start_date"

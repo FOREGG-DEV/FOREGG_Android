@@ -26,12 +26,14 @@ class InjectionViewModel @Inject constructor(
     private val timeStateFlow : MutableStateFlow<String> = MutableStateFlow("")
     private val injectionStateFlow : MutableStateFlow<String> = MutableStateFlow("")
     private val imageStateFlow : MutableStateFlow<String> = MutableStateFlow("")
+    private val explainStateFlow : MutableStateFlow<String> = MutableStateFlow("")
 
     override val uiState: InjectionPageState = InjectionPageState(
         date = dateStateFlow.asStateFlow(),
         time = timeStateFlow.asStateFlow(),
         injection = injectionStateFlow.asStateFlow(),
-        image = imageStateFlow.asStateFlow()
+        image = imageStateFlow.asStateFlow(),
+        explain = explainStateFlow.asStateFlow()
     )
 
     private var id by Delegates.notNull<Long>()
@@ -55,6 +57,7 @@ class InjectionViewModel @Inject constructor(
             timeStateFlow.update { result.time }
             injectionStateFlow.update { result.name }
             result.image?.let { imageStateFlow.update { it } }
+            explainStateFlow.update { result.description }
         }
     }
 

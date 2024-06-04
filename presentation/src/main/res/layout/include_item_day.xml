@@ -14,19 +14,21 @@
             android:id="@+id/view_clicked"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="@id/text_day"
+            android:layout_marginHorizontal="4dp"
+            android:background="@drawable/bg_rectangle_filled_gs_10_radius_4"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@id/text_day"
-            android:background="@drawable/bg_rectangle_filled_gs_10_radius_4" />
+            app:layout_constraintTop_toTopOf="@id/text_day" />
 
         <View
             android:id="@+id/view_today"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="@id/text_day"
+            android:layout_marginHorizontal="4dp"
+            android:background="@drawable/bg_rectangle_filled_main_radius_4"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@id/text_day"
-            android:background="@drawable/bg_rectangle_filled_main_radius_4" />
+            app:layout_constraintTop_toTopOf="@id/text_day" />
 
         <TextView
             android:id="@+id/text_day"
@@ -44,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:layout_marginTop="1dp"
-            android:background="@drawable/bg_rectangle_filled_medicine_radius_1"
+            android:background="@color/medicine"
             android:visibility="invisible"
             app:layout_constraintTop_toBottomOf="@id/text_day" />
 
@@ -53,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:layout_marginTop="2dp"
-            android:background="@drawable/bg_rectangle_filled_injection_radius_1"
+            android:background="@color/injection"
             android:visibility="invisible"
             app:layout_constraintTop_toBottomOf="@id/view_medicine_line" />
 
@@ -62,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:layout_marginTop="2dp"
-            android:background="@drawable/bg_rectangle_filled_hospital_radius_1"
+            android:background="@color/hospital"
             android:visibility="invisible"
             app:layout_constraintTop_toBottomOf="@id/view_injection_line" />
 
@@ -71,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:layout_marginTop="1dp"
-            android:background="@drawable/bg_rectangle_filled_etc_radius_1"
+            android:background="@color/etc"
             android:visibility="invisible"
             app:layout_constraintTop_toBottomOf="@id/view_hospital_line" />
 
