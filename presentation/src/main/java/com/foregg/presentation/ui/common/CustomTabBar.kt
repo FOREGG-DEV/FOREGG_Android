@@ -67,9 +67,6 @@ class CustomTabBar @JvmOverloads constructor(
         leftTab.setOnClickListener {
             if(isLeftTabClicked) return@setOnClickListener
             setLeftBtnClickedBackground()
-            isLeftTabClicked = true
-            isMiddleTabClicked = false
-            isRightTabClicked = false
             onClickListener(it)
         }
     }
@@ -78,9 +75,6 @@ class CustomTabBar @JvmOverloads constructor(
         middleTab.setOnClickListener {
             if(isMiddleTabClicked) return@setOnClickListener
             setMiddleBtnClickedBackground()
-            isLeftTabClicked = false
-            isMiddleTabClicked = true
-            isRightTabClicked = false
             onClickListener(it)
         }
     }
@@ -89,9 +83,6 @@ class CustomTabBar @JvmOverloads constructor(
         rightTab.setOnClickListener {
             if(isRightTabClicked) return@setOnClickListener
             setRightBtnClickedBackground()
-            isLeftTabClicked = false
-            isMiddleTabClicked = false
-            isRightTabClicked = true
             onClickListener(it)
         }
     }
@@ -109,6 +100,9 @@ class CustomTabBar @JvmOverloads constructor(
             setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
             setTextColor(ContextCompat.getColor(context, R.color.gs_50))
         }
+        isLeftTabClicked = true
+        isMiddleTabClicked = false
+        isRightTabClicked = false
     }
 
     fun setMiddleBtnClickedBackground(){
@@ -124,6 +118,9 @@ class CustomTabBar @JvmOverloads constructor(
             setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
             setTextColor(ContextCompat.getColor(context, R.color.gs_50))
         }
+        isLeftTabClicked = false
+        isMiddleTabClicked = true
+        isRightTabClicked = false
     }
 
     fun setRightBtnClickedBackground(){
@@ -139,5 +136,8 @@ class CustomTabBar @JvmOverloads constructor(
             setBackgroundResource(R.drawable.bg_rectangle_filled_main_radius_8)
             setTextColor(ContextCompat.getColor(context, R.color.white))
         }
+        isLeftTabClicked = false
+        isMiddleTabClicked = false
+        isRightTabClicked = true
     }
 }
