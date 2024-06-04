@@ -2,9 +2,8 @@ package com.foregg.presentation.ui.main.home.challenge
 
 import android.graphics.Rect
 import android.view.View
-import androidx.core.view.children
+import androidx.core.view.ViewCompat
 import androidx.core.view.marginStart
-import androidx.core.view.setPadding
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +19,7 @@ import com.foregg.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.math.abs
 
 @AndroidEntryPoint
 class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageState, ChallengeViewModel> (
@@ -40,9 +40,44 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
     }
 
     override fun initView() {
+        bindTab()
+        viewModel.setView()
+
         binding.apply {
             vm = viewModel
             viewPagerChallenge.apply {
+                clipToPadding = false
+                clipChildren = false
+                offscreenPageLimit = 3
+                getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+
+                val pageMarginPx = 10.px
+                val offsetPx = 6.px
+
+                setPageTransformer { page, position ->
+                    val viewPager = page.parent.parent as ViewPager2
+                    val offset = position * -(2 * offsetPx + pageMarginPx)
+                    if (viewPager.orientation == ViewPager2.ORIENTATION_HORIZONTAL) {
+                        if (ViewCompat.getLayoutDirection(viewPager) == ViewCompat.LAYOUT_DIRECTION_RTL) {
+                            page.translationX = -offset
+                        } else {
+                            page.translationX = offset
+                        }
+                    } else {
+                        page.translationY = offset
+                    }
+
+                    val scale = 1 - abs(position)
+                    page.scaleY = 0.85f + scale * 0.15f
+                }
+
+                addItemDecoration(object : RecyclerView.ItemDecoration() {
+                    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+                        outRect.right = 15.px
+                        outRect.left = 15.px
+                    }
+                })
+
                 adapter = challengeListAdapter
                 registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                     private var previousPosition = viewPagerChallenge.currentItem
@@ -52,13 +87,9 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
                         previousPosition = position
                     }
                 })
-                setPadding(10, 0, 10, 0)
-                clipToPadding = false
-                offscreenPageLimit = 2
+
             }
         }
-        bindTab()
-        viewModel.setView()
     }
 
     override fun initStates() {
