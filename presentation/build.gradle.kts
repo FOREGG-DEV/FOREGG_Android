@@ -80,4 +80,6 @@ dependencies {
 
     //Lottie
     implementation(Libraries.LOTTIE)
+    implementation(Libraries.COIL_SVG)
+    implementation(Libraries.COIL)
 }

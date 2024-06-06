@@ -42,6 +42,8 @@ object Libraries {
         "com.squareup.okhttp3:logging-interceptor:${Versions.OKHTTP}"
     const val VIEWPAGER_INDICATOR = "com.tbuonomo:dotsindicator:${Versions.VIEW_PAGER_INDICATOR}"
     const val LOTTIE = "com.airbnb.android:lottie:${Versions.LOTTIE}"
+    const val COIL = "io.coil-kt:coil:${Versions.COIL}"
+    const val COIL_SVG = "io.coil-kt:coil-svg:${Versions.COIL}"
 }
 
 object KAKAO{
