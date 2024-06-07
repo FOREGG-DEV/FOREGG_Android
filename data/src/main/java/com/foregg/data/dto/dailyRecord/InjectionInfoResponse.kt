@@ -7,7 +7,7 @@ data class InjectionInfoResponse(
     @SerializedName("name")
     val name : String = "",
     @SerializedName("description")
-    val description : String = "",
+    val description : String?  = "",
     @SerializedName("image")
     val image : String? = "",
     @SerializedName("time")

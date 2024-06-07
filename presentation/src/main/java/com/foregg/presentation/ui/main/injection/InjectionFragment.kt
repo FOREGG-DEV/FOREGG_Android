@@ -58,7 +58,6 @@ class InjectionFragment : BaseFragment<FragmentInjectionBinding, InjectionPageSt
     }
 
     private fun loadImage(url : String){
-        if(url.isEmpty()) return
-        SvgImageUtil.loadImageFromUrl(binding.imgInjection, url, requireContext())
+        SvgImageUtil.loadImageFromUrl(binding.imgInjection, url, requireContext(), loadingDrawable = R.drawable.img_injection_loading, errorDrawable = R.drawable.img_injection_loading)
     }
 }

@@ -9,7 +9,7 @@ object InjectionInfoResponseMapper: Mapper.ResponseMapper<InjectionInfoResponse,
         return type?.run {
             InjectionInfoResponseVo(
                 name = name,
-                description = description,
+                description = description ?: "",
                 image = image ?: "",
                 time = time
             )

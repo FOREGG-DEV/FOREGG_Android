@@ -8,18 +8,31 @@ import coil.request.ImageRequest
 
 object SvgImageUtil {
 
-    fun loadImageFromUrl(imageView : ImageView, imageUrl: String, context : Context) {
+    fun loadImageFromUrl(
+        imageView : ImageView,
+        imageUrl: String,
+        context : Context,
+        loadingDrawable : Int? = null,
+        errorDrawable: Int? = null
+    ) {
         val imageLoader = ImageLoader.Builder(context)
             .components {
                 add(SvgDecoder.Factory())
             }
             .build()
 
-        val request = ImageRequest.Builder(context)
-            .data(imageUrl) // SVG 이미지 URL
+        val requestBuilder = ImageRequest.Builder(context)
+            .data(imageUrl)
             .target(imageView)
-            .build()
 
-        imageLoader.enqueue(request)
+        loadingDrawable?.let {
+            requestBuilder.placeholder(it)
+        }
+
+        errorDrawable?.let {
+            requestBuilder.error(it)
+        }
+
+        imageLoader.enqueue(requestBuilder.build())
     }
 }
