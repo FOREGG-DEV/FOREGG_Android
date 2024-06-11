@@ -2,11 +2,11 @@ package com.foregg.presentation.ui.dailyRecord
 
 import androidx.lifecycle.viewModelScope
 import com.foregg.domain.model.enums.DailyRecordTabType
-import com.foregg.domain.model.enums.GenderType
 import com.foregg.domain.model.request.dailyRecord.PutEmotionVo
 import com.foregg.domain.model.response.DailyRecordResponseVo
 import com.foregg.domain.model.response.SideEffectListItemVo
 import com.foregg.domain.model.vo.DailyRecordResponseItemVo
+import com.foregg.domain.usecase.dailyRecord.DeleteDailyRecordUseCase
 import com.foregg.domain.usecase.dailyRecord.GetDailyRecordUseCase
 import com.foregg.domain.usecase.dailyRecord.GetSideEffectUseCase
 import com.foregg.domain.usecase.dailyRecord.PutEmotionUseCase
@@ -24,7 +24,8 @@ import javax.inject.Inject
 class DailyRecordViewModel @Inject constructor(
     private val getDailyRecordUseCase: GetDailyRecordUseCase,
     private val getSideEffectUseCase: GetSideEffectUseCase,
-    private val putEmotionUseCase: PutEmotionUseCase
+    private val putEmotionUseCase: PutEmotionUseCase,
+    private val deleteDailyRecordUseCase: DeleteDailyRecordUseCase
 ) : BaseViewModel<DailyRecordPageState>() {
     private val dailyRecordListStateFlow: MutableStateFlow<List<DailyRecordResponseItemVo>> = MutableStateFlow( emptyList() )
     private val sideEffectListStateFlow: MutableStateFlow<List<SideEffectListItemVo>> = MutableStateFlow(emptyList())
@@ -90,6 +91,14 @@ class DailyRecordViewModel @Inject constructor(
     fun putEmotion(request: PutEmotionVo) {
         viewModelScope.launch(Dispatchers.Main) {
             putEmotionUseCase.invoke(request).collect {
+                resultResponse(it, { getDailyRecord() })
+            }
+        }
+    }
+
+    fun deleteDailyRecord(id: Long) {
+        viewModelScope.launch {
+            deleteDailyRecordUseCase.invoke(id).collect {
                 resultResponse(it, { getDailyRecord() })
             }
         }

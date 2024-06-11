@@ -6,6 +6,8 @@ import com.foregg.domain.model.enums.DailyConditionType
 import com.foregg.domain.model.enums.DailyRecordTabType
 import com.foregg.domain.model.enums.EmotionType
 import com.foregg.domain.model.request.dailyRecord.CreateDailyRecordRequestVo
+import com.foregg.domain.model.request.dailyRecord.EditDailyRecordRequestVo
+import com.foregg.domain.usecase.dailyRecord.EditDailyRecordUseCase
 import com.foregg.domain.usecase.dailyRecord.PostDailyRecordUseCase
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseViewModel
@@ -23,12 +25,14 @@ import javax.inject.Inject
 @HiltViewModel
 class CreateDailyRecordViewModel @Inject constructor(
     private val resourceProvider: ResourceProvider,
-    private val postDailyRecordUseCase: PostDailyRecordUseCase
+    private val postDailyRecordUseCase: PostDailyRecordUseCase,
+    private val editDailyRecordUseCase: EditDailyRecordUseCase
 ): BaseViewModel<CreateDailyRecordPageState>() {
     private val dailyRecordTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val isSelectedEmotionStateFlow: MutableStateFlow<DailyConditionType> = MutableStateFlow(DailyConditionType.DEFAULT)
     private val questionTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private var contentTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private val dailyRecordIdStateFlow: MutableStateFlow<Long> = MutableStateFlow(-1L)
 
     override val uiState: CreateDailyRecordPageState = CreateDailyRecordPageState(
         dailyRecordText = dailyRecordTextStateFlow.asStateFlow(),
@@ -45,8 +49,15 @@ class CreateDailyRecordViewModel @Inject constructor(
         }
     }
 
+    fun setDailyRecordEditData(id: Long, content: String) {
+        if (id == -1L) return
+        viewModelScope.launch {
+            contentTextStateFlow.update { content }
+            dailyRecordIdStateFlow.update { id }
+        }
+    }
+
     fun onTextChanged(input: CharSequence) {
-        ForeggLog.D(input.toString())
         contentTextStateFlow.update { input.toString() }
     }
 
@@ -58,7 +69,13 @@ class CreateDailyRecordViewModel @Inject constructor(
 
     fun onClickBtnNext() {
         if (contentTextStateFlow.value.isEmpty()) emitEventFlow(CreateDailyRecordEvent.InsufficientTextDataEvent)
-        else createDailyRecord(contentTextStateFlow.value)
+        else {
+            if (dailyRecordIdStateFlow.value == -1L) {
+                createDailyRecord(contentTextStateFlow.value)
+            } else {
+                editDailyRecord(contentTextStateFlow.value, dailyRecordIdStateFlow.value)
+            }
+        }
     }
 
     private fun createDailyRecord(content: String) {
@@ -77,6 +94,19 @@ class CreateDailyRecordViewModel @Inject constructor(
     private fun handleCreateDailyRecordError(error: String) {
         when (error) {
             StatusCode.DAILY_RECORD.EXIST_DAILY_RECORD -> emitEventFlow(CreateDailyRecordEvent.ExistDailyRecordEvent)
+        }
+    }
+
+    private fun editDailyRecord(content: String, id: Long) {
+        if (isSelectedEmotionStateFlow.value == DailyConditionType.DEFAULT) {
+            emitEventFlow(CreateDailyRecordEvent.InsufficientEmotionDataEvent)
+            return
+        } else {
+            viewModelScope.launch {
+                editDailyRecordUseCase.invoke(request = EditDailyRecordRequestVo(id,  CreateDailyRecordRequestVo(isSelectedEmotionStateFlow.value, content))).collect {
+                    resultResponse(it, { emitEventFlow(CreateDailyRecordEvent.SuccessEditDailyRecordEvent) } )
+                }
+            }
         }
     }
 

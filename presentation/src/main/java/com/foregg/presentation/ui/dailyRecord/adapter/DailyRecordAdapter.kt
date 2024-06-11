@@ -17,6 +17,7 @@ class DailyRecordAdapter(
 
     interface DailyRecordDelegate {
         fun onClickEmotion(request: PutEmotionVo)
+        fun onClickDailyRecord(item: DailyRecordResponseItemVo)
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder) {

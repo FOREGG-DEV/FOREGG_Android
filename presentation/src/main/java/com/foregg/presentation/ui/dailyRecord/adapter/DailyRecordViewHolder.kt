@@ -18,6 +18,7 @@ class DailyRecordViewHolder(
     private val listener: DailyRecordAdapter.DailyRecordDelegate
 ) : RecyclerView.ViewHolder(binding.root) {
     var id: Long? = null
+    var dailyRecordItem: DailyRecordResponseItemVo? = null
     init {
         binding.apply {
             btnHeart.setOnClickListener { id?.let { listener.onClickEmotion(PutEmotionVo(it, EmotionVo(EmotionType.HEART))) } }
@@ -25,6 +26,7 @@ class DailyRecordViewHolder(
             btnClap.setOnClickListener { id?.let { listener.onClickEmotion(PutEmotionVo(it, EmotionVo(EmotionType.CLAP))) } }
             btnSad.setOnClickListener { id?.let { listener.onClickEmotion(PutEmotionVo(it, EmotionVo(EmotionType.SAD))) } }
             btnPerfect.setOnClickListener { id?.let { listener.onClickEmotion(PutEmotionVo(it, EmotionVo(EmotionType.SMILE))) } }
+            if (UserInfo.info.genderType == GenderType.FEMALE) dailyRecordLayout.setOnClickListener { dailyRecordItem?.let { listener.onClickDailyRecord(it) } }
         }
     }
 
@@ -32,6 +34,7 @@ class DailyRecordViewHolder(
         val imageResource = setImageResource(item.dailyConditionType)
         val husbandImageResource = setImageResource(item.emotionType)
         id = item.id
+        dailyRecordItem = item
 
         binding.apply {
 
