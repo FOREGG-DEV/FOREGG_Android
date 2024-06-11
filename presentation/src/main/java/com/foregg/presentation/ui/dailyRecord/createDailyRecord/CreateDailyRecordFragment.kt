@@ -4,6 +4,7 @@ import androidx.fragment.app.viewModels
 import android.widget.Toast
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentCreateDailyRecordBinding
@@ -25,9 +26,10 @@ class CreateDailyRecordFragment : BaseFragment<FragmentCreateDailyRecordBinding,
 
     override fun initView() {
         binding.apply {
-            val index = arguments?.getLong("index") ?: 0L
-            val content = arguments?.getString("content") ?: ""
-            val id = arguments?.getLong("id") ?: -1L
+            val arg : CreateDailyRecordFragmentArgs by navArgs()
+            val index = arg.index
+            val content = arg.content
+            val id = arg.id
             viewModel.setDailyRecordEditData(id = id, content = content)
             vm = viewModel
         }
