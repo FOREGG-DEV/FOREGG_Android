@@ -17,6 +17,7 @@ class DailyRecordAdapter(
 
     interface DailyRecordDelegate {
         fun onClickEmotion(request: PutEmotionVo)
+        fun onClickDailyRecord(item: DailyRecordResponseItemVo)
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder) {
@@ -27,6 +28,10 @@ class DailyRecordAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = ItemDailyRecordBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return DailyRecordViewHolder(binding, listener)
+    }
+
+    fun getItemPosition(item: DailyRecordResponseItemVo): Int {
+        return currentList.indexOf(item)
     }
 }
 

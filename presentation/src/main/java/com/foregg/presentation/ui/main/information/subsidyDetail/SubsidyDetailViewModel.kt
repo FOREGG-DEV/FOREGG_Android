@@ -11,7 +11,11 @@ import javax.inject.Inject
 @HiltViewModel
 class SubsidyDetailViewModel @Inject constructor() : BaseViewModel<SubsidyDetailPageState>() {
     private val subsidyListStateFlow: MutableStateFlow<List<InfoItemVo>> = MutableStateFlow(listOf(
-        InfoItemVo("서울시"), InfoItemVo("서울시"), InfoItemVo("서울시"), InfoItemVo("서울시"), InfoItemVo("서울시"), InfoItemVo("서울시")
+        InfoItemVo("#태아위협 #미세플라스틱\n#줄이는법"),
+        InfoItemVo("#태아위협 #미세플라스틱\n#줄이는법"),
+        InfoItemVo("#태아위협 #미세플라스틱\n#줄이는법"),
+        InfoItemVo("#태아위협 #미세플라스틱\n#줄이는법"),
+        InfoItemVo("#태아위협 #미세플라스틱\n#줄이는법")
     ))
 
     override val uiState: SubsidyDetailPageState = SubsidyDetailPageState(

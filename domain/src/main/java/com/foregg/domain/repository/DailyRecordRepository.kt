@@ -3,6 +3,7 @@ package com.foregg.domain.repository
 import com.foregg.domain.base.ApiState
 import com.foregg.domain.model.request.dailyRecord.CreateDailyRecordRequestVo
 import com.foregg.domain.model.request.dailyRecord.CreateSideEffectRequestVo
+import com.foregg.domain.model.request.dailyRecord.EditDailyRecordRequestVo
 import com.foregg.domain.model.request.dailyRecord.PutEmotionVo
 import com.foregg.domain.model.request.dailyRecord.InjectionAlarmRequestVo
 import com.foregg.domain.model.response.DailyRecordResponseVo
@@ -18,4 +19,6 @@ interface DailyRecordRepository {
     suspend fun putEmotion(request: PutEmotionVo): Flow<ApiState<Unit>>
     suspend fun postShareInjection(request : InjectionAlarmRequestVo) : Flow<ApiState<Unit>>
     suspend fun getInjectionInfo(request : InjectionAlarmRequestVo) : Flow<ApiState<InjectionInfoResponseVo>>
+    suspend fun deleteDailyRecord(id: Long): Flow<ApiState<Unit>>
+    suspend fun editDailyRecord(request: EditDailyRecordRequestVo): Flow<ApiState<Unit>>
 }

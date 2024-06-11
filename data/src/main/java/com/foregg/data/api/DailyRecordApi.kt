@@ -10,6 +10,7 @@ import com.foregg.domain.model.request.dailyRecord.EmotionVo
 import com.foregg.domain.model.request.dailyRecord.PutEmotionVo
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -47,4 +48,14 @@ interface DailyRecordApi {
         @Path(PATH_ID) id : Long,
         @Query(QUERY_TIME) time : String,
     ): Response<ApiResponse<InjectionInfoResponse>>
+    @DELETE(Endpoints.DailyRecord.ID)
+    suspend fun deleteDailyRecord(
+        @Path(PATH_ID) id: Long
+    ): Response<ApiResponse<Unit>>
+
+    @PUT(Endpoints.DailyRecord.ID)
+    suspend fun editDailyRecord(
+        @Path(PATH_ID) id: Long,
+        @Body request: CreateDailyRecordRequestVo
+    ): Response<ApiResponse<Unit>>
 }

@@ -9,6 +9,7 @@ import com.foregg.data.mapper.dailyRecord.SideEffectResponseMapper
 import com.foregg.domain.base.ApiState
 import com.foregg.domain.model.request.dailyRecord.CreateDailyRecordRequestVo
 import com.foregg.domain.model.request.dailyRecord.CreateSideEffectRequestVo
+import com.foregg.domain.model.request.dailyRecord.EditDailyRecordRequestVo
 import com.foregg.domain.model.request.dailyRecord.PutEmotionVo
 import com.foregg.domain.model.request.dailyRecord.InjectionAlarmRequestVo
 import com.foregg.domain.model.response.DailyRecordResponseVo
@@ -49,5 +50,13 @@ class DailyRecordRepositoryImpl @Inject constructor(
 
     override suspend fun getInjectionInfo(request: InjectionAlarmRequestVo): Flow<ApiState<InjectionInfoResponseVo>> {
         return apiLaunch(apiCall = { dailyRecordApi.getInjectionInfo(request.id, request.time) }, InjectionInfoResponseMapper)
+    }
+
+    override suspend fun deleteDailyRecord(id: Long): Flow<ApiState<Unit>> {
+        return apiLaunch(apiCall = { dailyRecordApi.deleteDailyRecord(id) }, UnitResponseMapper)
+    }
+
+    override suspend fun editDailyRecord(request: EditDailyRecordRequestVo): Flow<ApiState<Unit>> {
+        return apiLaunch(apiCall = { dailyRecordApi.editDailyRecord(id = request.id, request = request.request) }, UnitResponseMapper)
     }
 }

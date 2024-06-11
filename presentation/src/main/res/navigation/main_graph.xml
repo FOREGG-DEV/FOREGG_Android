@@ -46,6 +46,18 @@
         android:label="fragment_create_daily_record"
         tools:layout="@layout/fragment_create_daily_record">
 
+        <argument
+            android:name="id"
+            app:argType="long"/>
+
+        <argument
+            android:name="index"
+            app:argType="long"/>
+
+        <argument
+            android:name="content"
+            app:argType="string"/>
+
         <action
             android:id="@+id/create_daily_record_to_create_side_effect"
             app:destination="@id/createSideEffectFragment"/>
@@ -208,6 +220,11 @@
         android:name="com.foregg.presentation.ui.main.information.subsidyDetail.SubsidyDetailFragment"
         android:label="fragment_subsidy_detail"
         tools:layout="@layout/fragment_subsidy_detail">
+
+        <argument
+            android:name="position"
+            app:argType="long"/>
+
     </fragment>
 
     <fragment

@@ -4,10 +4,12 @@ import androidx.fragment.app.viewModels
 import android.widget.Toast
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentCreateDailyRecordBinding
 import com.foregg.presentation.ui.common.CommonDialog
+import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.ForeggToast
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -24,6 +26,11 @@ class CreateDailyRecordFragment : BaseFragment<FragmentCreateDailyRecordBinding,
 
     override fun initView() {
         binding.apply {
+            val arg : CreateDailyRecordFragmentArgs by navArgs()
+            val index = arg.index
+            val content = arg.content
+            val id = arg.id
+            viewModel.setDailyRecordEditData(id = id, content = content)
             vm = viewModel
         }
     }
@@ -45,6 +52,7 @@ class CreateDailyRecordFragment : BaseFragment<FragmentCreateDailyRecordBinding,
             CreateDailyRecordEvent.OnClickBtnClose -> findNavController().popBackStack()
             CreateDailyRecordEvent.InsufficientTextDataEvent -> ForeggToast.createToast(requireContext(), "오늘의 컨디션을 입력해주세요.", Toast.LENGTH_SHORT).show()
             CreateDailyRecordEvent.ExistDailyRecordEvent -> showExistDailyRecordDialog()
+            CreateDailyRecordEvent.SuccessEditDailyRecordEvent -> findNavController().popBackStack()
         }
     }
 

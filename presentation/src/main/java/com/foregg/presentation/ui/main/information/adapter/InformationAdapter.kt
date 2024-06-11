@@ -14,7 +14,7 @@ class InformationAdapter(
 ): RecyclerView.Adapter<InformationViewHolder>() {
 
     interface InformationAdapterDelegate {
-        fun onClickBtnSubsidyDetail()
+        fun onClickBtnDetail(position: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InformationViewHolder {
@@ -25,7 +25,7 @@ class InformationAdapter(
     override fun onBindViewHolder(holder: InformationViewHolder, position: Int) {
         val title = data.keys.toList() [position]
         val items = data[title] ?: emptyList()
-        holder.bind(title, items)
+        holder.bind(title, items, position)
     }
 
     override fun getItemCount(): Int {

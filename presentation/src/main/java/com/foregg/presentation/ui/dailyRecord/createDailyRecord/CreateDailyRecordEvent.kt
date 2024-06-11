@@ -8,4 +8,5 @@ sealed class CreateDailyRecordEvent: Event {
     object InsufficientTextDataEvent: CreateDailyRecordEvent()
     object OnClickBtnClose: CreateDailyRecordEvent()
     object ExistDailyRecordEvent: CreateDailyRecordEvent()
+    object SuccessEditDailyRecordEvent: CreateDailyRecordEvent()
 }
