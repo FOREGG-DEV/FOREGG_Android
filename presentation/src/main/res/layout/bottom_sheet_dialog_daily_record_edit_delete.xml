@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="50dp"
+        android:background="@drawable/bg_rectangle_filled_white_top_radius_16">
+
+        <LinearLayout
+            android:id="@+id/frame_layout_delete"
+            android:layout_width="160dp"
+            android:layout_height="65dp"
+            android:gravity="center"
+            android:background="@drawable/bg_rectangle_filled_background_radius_15">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_btn_delete"
+                app:tint="@color/main"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/daily_record_delete"
+                android:textAppearance="@style/h3"
+                android:textColor="@color/gs_80"/>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:id="@+id/frame_layout_edit"
+            android:layout_width="160dp"
+            android:layout_height="65dp"
+            android:gravity="center"
+            android:background="@drawable/bg_rectangle_filled_background_radius_15">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_btn_delete"
+                app:tint="@color/main"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/daily_record_edit"
+                android:textAppearance="@style/h3"
+                android:textColor="@color/gs_80"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>
