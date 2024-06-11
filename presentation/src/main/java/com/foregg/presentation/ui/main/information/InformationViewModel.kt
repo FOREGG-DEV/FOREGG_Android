@@ -1,6 +1,5 @@
 package com.foregg.presentation.ui.main.information
 
-import androidx.lifecycle.ViewModel
 import com.foregg.domain.model.vo.InfoItemVo
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseViewModel
@@ -16,10 +15,8 @@ class InformationViewModel @Inject constructor(
 ) : BaseViewModel<InformationPageState>() {
     private val infoListStateFlow: MutableStateFlow<Map<String, List<InfoItemVo>>> = MutableStateFlow(
         mapOf(
-            resourceProvider.getString(R.string.info_possible_subsidy) to listOf(InfoItemVo("서울시"), InfoItemVo("서울시"), InfoItemVo("서울시")),
-            resourceProvider.getString(R.string.info_essential) to listOf(InfoItemVo("서울시"), InfoItemVo("서울시"), InfoItemVo("서울시")),
-            resourceProvider.getString(R.string.info_woman_contents) to listOf(InfoItemVo("서울시"), InfoItemVo("서울시"), InfoItemVo("서울시")),
-            resourceProvider.getString(R.string.info_husband_contents) to listOf(InfoItemVo("서울시"), InfoItemVo("서울시"), InfoItemVo("서울시"))
+            resourceProvider.getString(R.string.info_pregnancy) to listOf(InfoItemVo("#태아위협 #미세플라스틱\n#줄이는법"), InfoItemVo("#태아위협 #미세플라스틱\n#줄이는법"), InfoItemVo("#태아위협 #미세플라스틱\n#줄이는법")),
+            resourceProvider.getString(R.string.info_infertility) to listOf(InfoItemVo("#태아위협 #미세플라스틱\n#줄이는법"), InfoItemVo("#태아위협 #미세플라스틱\n#줄이는법"), InfoItemVo("#태아위협 #미세플라스틱\n#줄이는법"))
         )
     )
 
@@ -27,8 +24,12 @@ class InformationViewModel @Inject constructor(
         infoList = infoListStateFlow.asStateFlow()
     )
 
-    fun onClickBtnSubsidyDetail() {
-        emitEventFlow(InformationEvent.GoToSubsidyDetailEvent)
+    fun onClickBtnDetail(position: Int) {
+        when(position) {
+            0 -> emitEventFlow(InformationEvent.GoToPregnancyDetailEvent)
+            1 -> emitEventFlow(InformationEvent.GoToInfertilityDetailEvent)
+        }
+
     }
 
     fun onClickBtnBack() {

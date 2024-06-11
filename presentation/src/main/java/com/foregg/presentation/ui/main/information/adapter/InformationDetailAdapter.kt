@@ -10,20 +10,32 @@ import androidx.recyclerview.widget.RecyclerView
 import com.foregg.domain.model.vo.InfoItemVo
 import com.foregg.presentation.databinding.ItemInfoBinding
 import com.foregg.presentation.databinding.ItemInfoCategoryBinding
+import com.foregg.presentation.databinding.ItemInfoCategoryDetailBinding
 
-class InformationDetailAdapter: ListAdapter<InfoItemVo, RecyclerView.ViewHolder>(
+class InformationDetailAdapter(
+    private val isDetail: Boolean
+): ListAdapter<InfoItemVo, RecyclerView.ViewHolder>(
     InformationDiffUtilCallBack()
 ) {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is InformationDetailViewHolder -> holder.bind(currentList[position])
+            is InformationCategoryDetailViewHolder -> holder.bind(currentList[position])
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding = ItemInfoCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return InformationDetailViewHolder(binding)
+        return when(isDetail) {
+            false -> {
+                val binding = ItemInfoCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                InformationDetailViewHolder(binding)
+            }
+            true -> {
+                val binding = ItemInfoCategoryDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                InformationCategoryDetailViewHolder(binding)
+            }
+        }
     }
 }
 

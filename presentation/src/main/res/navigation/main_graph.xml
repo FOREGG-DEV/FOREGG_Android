@@ -208,6 +208,11 @@
         android:name="com.foregg.presentation.ui.main.information.subsidyDetail.SubsidyDetailFragment"
         android:label="fragment_subsidy_detail"
         tools:layout="@layout/fragment_subsidy_detail">
+
+        <argument
+            android:name="position"
+            app:argType="long"/>
+
     </fragment>
 
     <fragment

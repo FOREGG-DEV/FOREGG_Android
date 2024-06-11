@@ -1,21 +1,12 @@
 package com.foregg.presentation.ui.main.information
 
 import androidx.fragment.app.viewModels
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentInformationBinding
 import com.foregg.presentation.ui.main.information.adapter.InformationAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -26,8 +17,8 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
 
     private val informationAdapter: InformationAdapter by lazy {
         InformationAdapter(mapOf(), requireContext(), object : InformationAdapter.InformationAdapterDelegate {
-            override fun onClickBtnSubsidyDetail() {
-                viewModel.onClickBtnSubsidyDetail()
+            override fun onClickBtnDetail(position: Int) {
+                viewModel.onClickBtnDetail(position)
             }
         })
     }
@@ -60,13 +51,19 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
 
     private fun sortEvent(event: InformationEvent) {
         when(event) {
-            InformationEvent.GoToSubsidyDetailEvent -> goToSubsidyDetail()
+            InformationEvent.GoToPregnancyDetailEvent -> goToSubsidyDetail()
+            InformationEvent.GoToInfertilityDetailEvent -> goToInfertilityDetail()
             InformationEvent.GoBackEvent -> goToBack()
         }
     }
 
     private fun goToSubsidyDetail() {
-        val action = InformationFragmentDirections.actionInformationToSubsidyDetail()
+        val action = InformationFragmentDirections.actionInformationToSubsidyDetail(0)
+        findNavController().navigate(action)
+    }
+
+    private fun goToInfertilityDetail() {
+        val action = InformationFragmentDirections.actionInformationToSubsidyDetail(1)
         findNavController().navigate(action)
     }
 

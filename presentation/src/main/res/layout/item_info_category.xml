@@ -4,25 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:id="@+id/item_view"
+        android:layout_width="226dp"
+        android:layout_height="120dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/bg_circle_filled_grey">
+        android:background="@drawable/bg_rectangle_filled_white_radius_8">
 
         <ImageButton
             android:id="@+id/btn_info"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:scaleType="fitCenter"
-            android:background="@drawable/bg_circle_filled_grey"/>
+            android:background="@android:color/transparent"/>
 
         <TextView
             android:id="@+id/info_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            tools:text="서울시"
-            android:textAppearance="@style/p1_l"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="8dp"
+            tools:text="#태아위협 #미세플라스틱\n#줄이는법"
+            android:textAppearance="@style/h2"
             android:textColor="@color/white"/>
 
     </RelativeLayout>
