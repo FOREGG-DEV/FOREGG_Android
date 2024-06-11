@@ -105,7 +105,7 @@
                 android:layout_width="13dp"
                 android:layout_height="13dp"
                 android:layout_marginHorizontal="13dp"
-                android:src="@drawable/ic_spinner_inactive"
+                android:src="@{vm.uiState.isSpinnerExpand() ? @drawable/ic_spinner_active : @drawable/ic_spinner_inactive}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

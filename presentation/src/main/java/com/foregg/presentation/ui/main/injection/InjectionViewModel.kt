@@ -56,7 +56,7 @@ class InjectionViewModel @Inject constructor(
             dateStateFlow.update { TimeFormatter.getDotsDate(today) }
             timeStateFlow.update { result.time }
             injectionStateFlow.update { result.name }
-            result.image?.let { imageStateFlow.update { it } }
+            imageStateFlow.update { result.image }
             explainStateFlow.update { result.description }
         }
     }

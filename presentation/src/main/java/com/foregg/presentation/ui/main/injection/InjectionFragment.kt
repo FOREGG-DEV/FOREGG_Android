@@ -10,6 +10,7 @@ import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentInjectionBinding
 import com.foregg.presentation.util.ForeggToast
 import com.foregg.presentation.util.PendingExtraValue
+import com.foregg.presentation.util.SvgImageUtil
 import com.foregg.presentation.util.UserInfo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -57,9 +58,6 @@ class InjectionFragment : BaseFragment<FragmentInjectionBinding, InjectionPageSt
     }
 
     private fun loadImage(url : String){
-        if(url.isEmpty()) return
-        Glide.with(requireContext())
-            .load(url)
-            .into(binding.imgInjection)
+        SvgImageUtil.loadImageFromUrl(binding.imgInjection, url, requireContext(), loadingDrawable = R.drawable.img_injection_loading, errorDrawable = R.drawable.img_injection_loading)
     }
 }
