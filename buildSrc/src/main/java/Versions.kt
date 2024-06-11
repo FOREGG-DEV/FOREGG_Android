@@ -30,6 +30,7 @@ object Versions {
     const val OKHTTP = "4.10.0"
     const val VIEW_PAGER_INDICATOR = "5.0"
     const val LOTTIE = "3.7.0"
+    const val COIL = "2.3.0"
 
     /* [ Kakao ] */
     const val KAKAO = "2.11.2"
