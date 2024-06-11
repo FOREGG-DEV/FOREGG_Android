@@ -13,6 +13,7 @@ import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentDailyRecordBinding
 import com.foregg.presentation.ui.common.CommonDialog
 import com.foregg.presentation.ui.dailyRecord.adapter.DailyRecordAdapter
+import com.foregg.presentation.ui.dailyRecord.adapter.DailyRecordViewHolder
 import com.foregg.presentation.ui.dailyRecord.adapter.SideEffectAdapter
 import com.foregg.presentation.ui.dailyRecord.bottomSheet.DailyRecordEditDeleteBottomSheet
 import com.foregg.presentation.util.ForeggNotification
@@ -140,5 +141,11 @@ class DailyRecordFragment : BaseFragment<FragmentDailyRecordBinding, DailyRecord
         }
         val bottomSheet = DailyRecordEditDeleteBottomSheet(onClickBtnDelete = onClickBtnDelete, onClickBtnEdit = onClickBtnEdit)
         bottomSheet.show(parentFragmentManager, "")
+
+        bottomSheet.setOnDismissListener {
+            val position = dailyRecordAdapter.getItemPosition(item)
+            val viewHolder = binding.recordRecyclerView.findViewHolderForAdapterPosition(position) as? DailyRecordViewHolder
+            viewHolder?.binding?.dailyRecordLayout?.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
+        }
     }
 }

@@ -34,12 +34,12 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/daily_record_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <FrameLayout
+                    android:id="@+id/daily_record_layout"
                     android:layout_width="284dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_rectangle_filled_white_radius_8">

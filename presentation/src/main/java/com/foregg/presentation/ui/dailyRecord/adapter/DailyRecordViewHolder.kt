@@ -14,7 +14,7 @@ import com.foregg.presentation.util.TimeFormatter
 import com.foregg.presentation.util.UserInfo
 
 class DailyRecordViewHolder(
-    private val binding: ItemDailyRecordBinding,
+    val binding: ItemDailyRecordBinding,
     private val listener: DailyRecordAdapter.DailyRecordDelegate
 ) : RecyclerView.ViewHolder(binding.root) {
     var id: Long? = null
@@ -26,7 +26,14 @@ class DailyRecordViewHolder(
             btnClap.setOnClickListener { id?.let { listener.onClickEmotion(PutEmotionVo(it, EmotionVo(EmotionType.CLAP))) } }
             btnSad.setOnClickListener { id?.let { listener.onClickEmotion(PutEmotionVo(it, EmotionVo(EmotionType.SAD))) } }
             btnPerfect.setOnClickListener { id?.let { listener.onClickEmotion(PutEmotionVo(it, EmotionVo(EmotionType.SMILE))) } }
-            if (UserInfo.info.genderType == GenderType.FEMALE) dailyRecordLayout.setOnClickListener { dailyRecordItem?.let { listener.onClickDailyRecord(it) } }
+            if (UserInfo.info.genderType == GenderType.FEMALE) {
+                dailyRecordLayout.setOnClickListener {
+                    dailyRecordItem?.let {
+                        listener.onClickDailyRecord(it)
+                        dailyRecordLayout.setBackgroundResource(R.drawable.bg_rectangle_filled_gs_10_radius_8)
+                    }
+                }
+            }
         }
     }
 
@@ -49,6 +56,8 @@ class DailyRecordViewHolder(
             dailyRecordText.text = item.content
 
             if (UserInfo.info.genderType == GenderType.FEMALE) layoutBtnHusbandEmotion.visibility = View.GONE
+
+            dailyRecordLayout.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
         }
     }
 

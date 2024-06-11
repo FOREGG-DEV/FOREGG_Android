@@ -29,6 +29,10 @@ class DailyRecordAdapter(
         val binding = ItemDailyRecordBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return DailyRecordViewHolder(binding, listener)
     }
+
+    fun getItemPosition(item: DailyRecordResponseItemVo): Int {
+        return currentList.indexOf(item)
+    }
 }
 
 class DailyRecordListDiffCallBack : DiffUtil.ItemCallback<DailyRecordResponseItemVo>() {

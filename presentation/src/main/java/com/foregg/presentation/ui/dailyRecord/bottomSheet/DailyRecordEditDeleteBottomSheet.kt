@@ -1,5 +1,6 @@
 package com.foregg.presentation.ui.dailyRecord.bottomSheet
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ class DailyRecordEditDeleteBottomSheet(
     private val binding: BottomSheetDialogDailyRecordEditDeleteBinding by lazy {
         BottomSheetDialogDailyRecordEditDeleteBinding.inflate(layoutInflater)
     }
+    private var dismissListener: (() -> Unit)? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,5 +35,14 @@ class DailyRecordEditDeleteBottomSheet(
                 dismiss()
             }
         }
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        dismissListener?.invoke()
+    }
+
+    fun setOnDismissListener(listener: () -> Unit) {
+        dismissListener = listener
     }
 }
