@@ -19,6 +19,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="80dp"
             android:background="@color/background">
 
             <include
@@ -155,6 +156,7 @@
                 android:background="@drawable/bg_rectangle_filled_white_stroke_main_radius_8"
                 android:text="@string/word_next"
                 android:textAppearance="@style/h1"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:onClick="@{()->vm.onClickBtnNext()}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
