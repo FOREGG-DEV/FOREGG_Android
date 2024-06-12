@@ -28,17 +28,20 @@ class CreateDailyRecordViewModel @Inject constructor(
     private val postDailyRecordUseCase: PostDailyRecordUseCase,
     private val editDailyRecordUseCase: EditDailyRecordUseCase
 ): BaseViewModel<CreateDailyRecordPageState>() {
+
     private val dailyRecordTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val isSelectedEmotionStateFlow: MutableStateFlow<DailyConditionType> = MutableStateFlow(DailyConditionType.DEFAULT)
     private val questionTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private var contentTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val dailyRecordIdStateFlow: MutableStateFlow<Long> = MutableStateFlow(-1L)
+    private val isEditModeStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     override val uiState: CreateDailyRecordPageState = CreateDailyRecordPageState(
         dailyRecordText = dailyRecordTextStateFlow.asStateFlow(),
         questionText = questionTextStateFlow.asStateFlow(),
         isSelectedEmotion = isSelectedEmotionStateFlow.asStateFlow(),
-        contentText = contentTextStateFlow
+        contentText = contentTextStateFlow,
+        isEditMode = isEditModeStateFlow.asStateFlow(),
     )
 
     init {
@@ -55,6 +58,7 @@ class CreateDailyRecordViewModel @Inject constructor(
             contentTextStateFlow.update { content }
             dailyRecordIdStateFlow.update { id }
             onClickBtnDailyCondition(dailyConditionType)
+            isEditModeStateFlow.update { true }
         }
     }
 

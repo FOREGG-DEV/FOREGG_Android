@@ -9,5 +9,6 @@ data class CreateDailyRecordPageState (
     val dailyRecordText: StateFlow<String>,
     val questionText: StateFlow<String>,
     val isSelectedEmotion: StateFlow<DailyConditionType>,
-    var contentText: MutableStateFlow<String>
+    var contentText: MutableStateFlow<String>,
+    val isEditMode : StateFlow<Boolean>,
 ): PageState
