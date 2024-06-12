@@ -3,62 +3,88 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="16dp"
         android:paddingVertical="50dp"
         android:background="@drawable/bg_rectangle_filled_white_top_radius_16">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/frame_layout_delete"
-            android:layout_width="160dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/frame_layout_edit"
+            android:layout_width="0dp"
             android:layout_height="65dp"
             android:gravity="center"
             android:background="@drawable/bg_rectangle_filled_background_radius_15">
 
             <ImageView
+                android:id="@+id/img_delete"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/text_delete"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:src="@drawable/ic_btn_delete"
                 app:tint="@color/main"/>
 
             <TextView
+                android:id="@+id/text_delete"
                 android:layout_width="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_delete"
                 android:layout_height="wrap_content"
                 android:text="@string/daily_record_delete"
                 android:textAppearance="@style/h3"
                 android:textColor="@color/gs_80"/>
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/frame_layout_edit"
-            android:layout_width="160dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/frame_layout_delete"
+            android:layout_width="0dp"
+            android:layout_marginStart="8dp"
             android:layout_height="65dp"
             android:gravity="center"
             android:background="@drawable/bg_rectangle_filled_background_radius_15">
 
             <ImageView
+                android:id="@+id/img_edit"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/text_edit"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_btn_delete"
+                android:src="@drawable/ic_edit"
                 app:tint="@color/main"/>
 
             <TextView
+                android:id="@+id/text_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_edit"
                 android:text="@string/daily_record_edit"
                 android:textAppearance="@style/h3"
                 android:textColor="@color/gs_80"/>
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

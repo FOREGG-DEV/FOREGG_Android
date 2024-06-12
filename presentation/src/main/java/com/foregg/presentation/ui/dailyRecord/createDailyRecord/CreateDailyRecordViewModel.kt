@@ -49,11 +49,12 @@ class CreateDailyRecordViewModel @Inject constructor(
         }
     }
 
-    fun setDailyRecordEditData(id: Long, content: String) {
+    fun setDailyRecordEditData(id: Long, content: String, dailyConditionType: DailyConditionType) {
         if (id == -1L) return
         viewModelScope.launch {
             contentTextStateFlow.update { content }
             dailyRecordIdStateFlow.update { id }
+            onClickBtnDailyCondition(dailyConditionType)
         }
     }
 

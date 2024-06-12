@@ -3,7 +3,9 @@ package com.foregg.presentation.ui.dailyRecord
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.foregg.domain.model.enums.DailyConditionType
 import com.foregg.domain.model.enums.DailyRecordTabType
+import com.foregg.domain.model.enums.EmotionType
 import com.foregg.domain.model.enums.GenderType
 import com.foregg.domain.model.enums.NotificationType
 import com.foregg.domain.model.request.dailyRecord.PutEmotionVo
@@ -100,18 +102,13 @@ class DailyRecordFragment : BaseFragment<FragmentDailyRecordBinding, DailyRecord
 
     private fun sortEvent(event: DailyRecordEvent) {
         when(event) {
-            DailyRecordEvent.GoToCreateDailyRecordEvent -> goToCreateDailyRecord()
+            DailyRecordEvent.GoToCreateDailyRecordEvent -> goToCreateOrEditDailyRecord(id = -1L)
             DailyRecordEvent.OnClickBtnClose -> findNavController().popBackStack()
         }
     }
 
-    private fun goToCreateDailyRecord() {
-        val action = DailyRecordFragmentDirections.actionDailyRecordToCreateDailyRecord(id = -1L, index = 3, content = "")
-        findNavController().navigate(action)
-    }
-
-    private fun goToEditDailyRecord(id: Long, index: Long, content: String) {
-        val action = DailyRecordFragmentDirections.actionDailyRecordToCreateDailyRecord(id = id, index = index, content = content)
+    private fun goToCreateOrEditDailyRecord(id: Long, content: String = "", dailyCondition : DailyConditionType = DailyConditionType.DEFAULT) {
+        val action = DailyRecordFragmentDirections.actionDailyRecordToCreateDailyRecord(id = id, content = content, dailyCondition = dailyCondition)
         findNavController().navigate(action)
     }
 
@@ -137,7 +134,7 @@ class DailyRecordFragment : BaseFragment<FragmentDailyRecordBinding, DailyRecord
                 .show()
         }
         val onClickBtnEdit = {
-            goToEditDailyRecord(id = item.id, index = 3, content = item.content)
+            goToCreateOrEditDailyRecord(id = item.id, content = item.content, dailyCondition = item.dailyConditionType)
         }
         val bottomSheet = DailyRecordEditDeleteBottomSheet(onClickBtnDelete = onClickBtnDelete, onClickBtnEdit = onClickBtnEdit)
         bottomSheet.show(parentFragmentManager, "")

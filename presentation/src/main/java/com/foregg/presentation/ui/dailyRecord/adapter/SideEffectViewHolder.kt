@@ -1,9 +1,7 @@
 package com.foregg.presentation.ui.dailyRecord.adapter
 
-import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import com.foregg.domain.model.response.SideEffectListItemVo
-import com.foregg.presentation.databinding.ItemDailyRecordBinding
 import com.foregg.presentation.databinding.ItemSideEffectBinding
 
 class SideEffectViewHolder(

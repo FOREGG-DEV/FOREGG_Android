@@ -21,16 +21,14 @@ class CreateDailyRecordFragment : BaseFragment<FragmentCreateDailyRecordBinding,
 
     override val viewModel: CreateDailyRecordViewModel by viewModels()
 
+    private val arg : CreateDailyRecordFragmentArgs by navArgs()
+
     @Inject
     lateinit var dialog: CommonDialog
 
     override fun initView() {
         binding.apply {
-            val arg : CreateDailyRecordFragmentArgs by navArgs()
-            val index = arg.index
-            val content = arg.content
-            val id = arg.id
-            viewModel.setDailyRecordEditData(id = id, content = content)
+            viewModel.setDailyRecordEditData(id = arg.id, content = arg.content, dailyConditionType = arg.dailyCondition)
             vm = viewModel
         }
     }

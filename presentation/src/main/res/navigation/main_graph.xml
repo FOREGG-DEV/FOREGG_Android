@@ -51,12 +51,14 @@
             app:argType="long"/>
 
         <argument
-            android:name="index"
-            app:argType="long"/>
+            android:name="content"
+            android:defaultValue=""
+            app:argType="string"/>
 
         <argument
-            android:name="content"
-            app:argType="string"/>
+            android:name="dailyCondition"
+            android:defaultValue="DEFAULT"
+            app:argType="com.foregg.domain.model.enums.DailyConditionType"/>
 
         <action
             android:id="@+id/create_daily_record_to_create_side_effect"
