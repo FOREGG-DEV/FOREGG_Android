@@ -51,12 +51,11 @@ class DailyRecordFragment : BaseFragment<FragmentDailyRecordBinding, DailyRecord
     override fun initView() {
         binding.apply {
             vm = viewModel
-            if (UserInfo.info.genderType == GenderType.FEMALE) { recordRecyclerView.adapter = dailyRecordAdapter }
-            else {
-                ForeggNotification.updateNoty(requireContext(), NotificationType.TODAY_RECORD_MALE, false)
-                recordRecyclerView.adapter = dailyRecordAdapter
+            recordRecyclerView.apply {
+                adapter = dailyRecordAdapter
+                layoutManager = LinearLayoutManager(context)
+                itemAnimator = null
             }
-            recordRecyclerView.layoutManager = LinearLayoutManager(context)
         }
         viewModel.setView()
         bindTab()

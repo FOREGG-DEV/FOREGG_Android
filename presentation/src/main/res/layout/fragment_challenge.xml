@@ -179,9 +179,10 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_challenge_participate"
-                android:layout_width="343dp"
+                android:layout_width="0dp"
                 android:layout_height="56dp"
                 android:layout_marginBottom="80dp"
+                android:layout_marginHorizontal="16dp"
                 android:text="@{vm.uiState.isParticipate ? @string/challenge_participate_already : @string/challenge_participate}"
                 android:textColor="@{vm.uiState.isParticipate ? @color/gs_70 : @color/white}"
                 android:textSize="24sp"

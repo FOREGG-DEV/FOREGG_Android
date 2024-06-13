@@ -3,16 +3,12 @@ package com.foregg.presentation.ui.dailyRecord.createDailyRecord
 import androidx.lifecycle.viewModelScope
 import com.foregg.data.base.StatusCode
 import com.foregg.domain.model.enums.DailyConditionType
-import com.foregg.domain.model.enums.DailyRecordTabType
-import com.foregg.domain.model.enums.EmotionType
 import com.foregg.domain.model.request.dailyRecord.CreateDailyRecordRequestVo
 import com.foregg.domain.model.request.dailyRecord.EditDailyRecordRequestVo
 import com.foregg.domain.usecase.dailyRecord.EditDailyRecordUseCase
 import com.foregg.domain.usecase.dailyRecord.PostDailyRecordUseCase
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseViewModel
-import com.foregg.presentation.util.ForeggLog
-import com.foregg.presentation.util.ForeggToast
 import com.foregg.presentation.util.ResourceProvider
 import com.foregg.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
