@@ -8,6 +8,7 @@ import com.foregg.presentation.PageState
 import com.foregg.presentation.base.BaseViewModel
 import com.foregg.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,6 +21,7 @@ class SplashViewModel @Inject constructor(
 
     fun checkLogin(){
         viewModelScope.launch {
+            delay(1000)
             getMyInfoUseCase(Unit).collect{
                 resultResponse(it, ::handleSuccessGetMyInfo, { goToSign() }, false)
             }

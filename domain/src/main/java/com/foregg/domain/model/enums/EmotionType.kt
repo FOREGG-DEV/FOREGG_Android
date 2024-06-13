@@ -1,5 +1,5 @@
 package com.foregg.domain.model.enums
 
 enum class EmotionType {
-    HEART, THUMBS_UP, CLAP, SAD, SMILE, DEFAULT
+    CHECK, CLAP, FINGER_HEART, HEART, SAD, DEFAULT
 }

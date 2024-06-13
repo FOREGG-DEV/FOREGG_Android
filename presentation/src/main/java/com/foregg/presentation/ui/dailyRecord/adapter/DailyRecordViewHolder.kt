@@ -27,7 +27,7 @@ class DailyRecordViewHolder(
                     listener.onClickEmotion(
                         PutEmotionVo(
                             it,
-                            EmotionVo(EmotionType.SMILE)
+                            EmotionVo(EmotionType.CHECK)
                         )
                     )
                 }
@@ -47,7 +47,7 @@ class DailyRecordViewHolder(
                     listener.onClickEmotion(
                         PutEmotionVo(
                             it,
-                            EmotionVo(EmotionType.THUMBS_UP)
+                            EmotionVo(EmotionType.FINGER_HEART)
                         )
                     )
                 }
@@ -116,12 +116,12 @@ class DailyRecordViewHolder(
 
     private fun setImageResource(type: EmotionType) {
         when (type) {
-            EmotionType.SMILE -> selectCheck()
+            EmotionType.CHECK -> selectCheck()
             EmotionType.CLAP -> selectClap()
-            EmotionType.THUMBS_UP -> selectFingerHeart()
+            EmotionType.FINGER_HEART -> selectFingerHeart()
             EmotionType.HEART -> selectHeart()
             EmotionType.SAD -> selectSad()
-            EmotionType.DEFAULT -> binding.imageViewEmotionHusband.visibility = View.GONE
+            EmotionType.DEFAULT -> unSelectAll()
         }
     }
 
@@ -149,8 +149,8 @@ class DailyRecordViewHolder(
 
     private fun selectFingerHeart(){
         binding.apply {
-            imageViewEmotionHusband.setImageResource(R.drawable.ic_finger_heart)
-            btnFingerHeart.setImageResource(R.drawable.ic_finger_heart)
+            imageViewEmotionHusband.setImageResource(R.drawable.ic_finger_heart_selected)
+            btnFingerHeart.setImageResource(R.drawable.ic_finger_heart_selected)
             btnCheck.setImageResource(R.drawable.ic_check_unselected)
             btnClap.setImageResource(R.drawable.ic_clap_unselected)
             btnHeart.setImageResource(R.drawable.ic_heart_unselected)
@@ -177,6 +177,17 @@ class DailyRecordViewHolder(
             btnClap.setImageResource(R.drawable.ic_clap_unselected)
             btnFingerHeart.setImageResource(R.drawable.ic_finger_heart_unselected)
             btnHeart.setImageResource(R.drawable.ic_heart_unselected)
+        }
+    }
+
+    private fun unSelectAll(){
+        binding.apply {
+            imageViewEmotionHusband.visibility = View.GONE
+            btnCheck.setImageResource(R.drawable.ic_check_unselected)
+            btnClap.setImageResource(R.drawable.ic_clap_unselected)
+            btnFingerHeart.setImageResource(R.drawable.ic_finger_heart_unselected)
+            btnHeart.setImageResource(R.drawable.ic_heart_unselected)
+            btnSad.setImageResource(R.drawable.ic_sad_unselected)
         }
     }
 }
