@@ -48,4 +48,5 @@ object Libraries {
 
 object KAKAO{
     const val AUTH = "com.kakao.sdk:v2-user:${Versions.KAKAO}"
+    const val SHARE = "com.kakao.sdk:v2-share:${Versions.KAKAO}"
 }

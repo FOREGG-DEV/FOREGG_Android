@@ -33,5 +33,5 @@ object Versions {
     const val COIL = "2.3.0"
 
     /* [ Kakao ] */
-    const val KAKAO = "2.11.2"
+    const val KAKAO = "2.20.1"
 }
