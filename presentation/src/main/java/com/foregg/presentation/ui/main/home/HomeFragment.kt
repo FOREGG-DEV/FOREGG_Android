@@ -15,11 +15,8 @@ import com.foregg.presentation.ui.common.CommonDialog
 import com.foregg.presentation.ui.main.home.adapter.HomeChallengeAdapter
 import com.foregg.presentation.ui.main.home.adapter.HomeIntroductionAdapter
 import com.foregg.presentation.ui.main.home.adapter.HomeTodayScheduleAdapter
-import com.foregg.presentation.util.ForeggLog
-import com.foregg.presentation.util.UserInfo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.threeten.bp.LocalDate
 import javax.inject.Inject
 
 @AndroidEntryPoint

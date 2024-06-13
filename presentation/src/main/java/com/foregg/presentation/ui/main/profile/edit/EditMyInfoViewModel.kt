@@ -5,11 +5,9 @@ import com.foregg.domain.model.enums.SurgeryType
 import com.foregg.domain.model.request.profile.EditMyInfoRequestVo
 import com.foregg.domain.model.response.ShareCodeResponseVo
 import com.foregg.domain.model.response.profile.ProfileDetailResponseVo
-import com.foregg.domain.usecase.auth.GetShareCodeUseCase
 import com.foregg.domain.usecase.profile.GetMyInfoUseCase
 import com.foregg.domain.usecase.profile.PutEditMyInfoUseCase
 import com.foregg.presentation.base.BaseViewModel
-import com.foregg.presentation.util.ForeggLog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

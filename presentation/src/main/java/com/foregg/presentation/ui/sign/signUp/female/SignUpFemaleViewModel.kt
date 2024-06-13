@@ -12,7 +12,6 @@ import com.foregg.domain.usecase.auth.PostJoinUseCase
 import com.foregg.domain.usecase.jwtToken.SaveForeggAccessTokenAndRefreshTokenUseCase
 import com.foregg.domain.usecase.profile.GetMyInfoUseCase
 import com.foregg.presentation.base.BaseViewModel
-import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.UserInfo
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -117,7 +116,7 @@ class SignUpFemaleViewModel @Inject constructor(
             val request = getRequest(token)
             viewModelScope.launch {
                 postJoinUseCase(request).collect{
-                    resultResponse(it, ::handleLoginSuccess, { ForeggLog.D("실패") })
+                    resultResponse(it, ::handleLoginSuccess)
                 }
             }
         }
@@ -127,7 +126,7 @@ class SignUpFemaleViewModel @Inject constructor(
         val request = SaveForeggJwtRequestVo(accessToken = result.accessToken, refreshToken = result.refreshToken)
         viewModelScope.launch {
             saveForeggAccessTokenAndRefreshTokenUseCase(request).collect{
-                if(it) getMyInfo() else ForeggLog.D("저장 실패")
+                if(it) getMyInfo()
             }
         }
     }
@@ -135,7 +134,7 @@ class SignUpFemaleViewModel @Inject constructor(
     private fun getMyInfo(){
         viewModelScope.launch {
             getMyInfoUseCase(Unit).collect{
-                resultResponse(it, ::handleSuccessGetMyInfo, {ForeggLog.D("오류")})
+                resultResponse(it, ::handleSuccessGetMyInfo)
             }
         }
     }

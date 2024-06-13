@@ -13,7 +13,6 @@ import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentAccountBinding
 import com.foregg.presentation.ui.main.account.adapter.AccountCardAdapter
 import com.foregg.presentation.ui.main.account.bottomSheet.AccountDatePickBottomSheet
-import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.ForeggNotification
 import com.foregg.presentation.util.ForeggToast
 import dagger.hilt.android.AndroidEntryPoint

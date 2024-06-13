@@ -24,7 +24,6 @@ import com.foregg.domain.usecase.schedule.PostAddScheduleUseCase
 import com.foregg.domain.usecase.schedule.PostUpdateSideEffectUseCase
 import com.foregg.domain.usecase.schedule.PutModifyScheduleUseCase
 import com.foregg.presentation.base.BaseViewModel
-import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.TimeFormatter
 import com.foregg.presentation.util.toList
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -283,7 +282,7 @@ class CreateEditScheduleViewModel @Inject constructor(
         val request = AddMedicalRecordRequestVo(id = id, request = AddMedicalRecordRequest(medicalRecord = medicalRecordStateFlow.value.medicalRecord))
         viewModelScope.launch {
             postUpdateSideEffectUseCase(request).collect{
-                resultResponse(it, {}, { ForeggLog.D("에러") })
+                resultResponse(it, {})
             }
         }
     }
@@ -395,7 +394,7 @@ class CreateEditScheduleViewModel @Inject constructor(
     private fun getMedicalRecord(){
         viewModelScope.launch {
             getScheduleSideEffectUseCase(id).collect{
-                resultResponse(it, ::handleGetSideEffectSuccess, { ForeggLog.D("ERROR")})
+                resultResponse(it, ::handleGetSideEffectSuccess)
             }
         }
     }

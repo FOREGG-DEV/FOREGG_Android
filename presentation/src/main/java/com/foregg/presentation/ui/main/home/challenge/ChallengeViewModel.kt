@@ -1,6 +1,5 @@
 package com.foregg.presentation.ui.main.home.challenge
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.foregg.domain.model.enums.ChallengeStatusType
 import com.foregg.domain.model.enums.ChallengeTapType
@@ -11,9 +10,7 @@ import com.foregg.domain.usecase.home.challenge.GetAllChallengeUseCase
 import com.foregg.domain.usecase.home.challenge.GetMyChallengeUseCase
 import com.foregg.domain.usecase.home.challenge.ParticipateChallengeUseCase
 import com.foregg.domain.usecase.home.challenge.QuitChallengeUseCase
-import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseViewModel
-import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.ResourceProvider
 import com.foregg.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,7 +20,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
-import java.sql.Time
 import javax.inject.Inject
 
 @HiltViewModel

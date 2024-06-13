@@ -12,19 +12,14 @@ import com.foregg.domain.usecase.home.challenge.CompleteChallengeUseCase
 import com.foregg.domain.usecase.home.challenge.GetMyChallengeUseCase
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseViewModel
-import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.ResourceProvider
 import com.foregg.presentation.util.UserInfo
-import com.kakao.sdk.user.model.User
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalTime
-import org.threeten.bp.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -72,7 +67,7 @@ class HomeViewModel @Inject constructor(
     private fun getTodaySchedule() {
         viewModelScope.launch {
             getHomeUseCase(Unit).collect {
-                resultResponse(it, ::handleInitScheduleStatesSuccess, { ForeggLog.D("실패") })
+                resultResponse(it, ::handleInitScheduleStatesSuccess)
             }
         }
     }

@@ -14,13 +14,13 @@ import com.foregg.domain.usecase.jwtToken.SaveForeggAccessTokenAndRefreshTokenUs
 import com.foregg.domain.usecase.profile.GetMyInfoUseCase
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseViewModel
-import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.ResourceProvider
 import com.foregg.presentation.util.UserInfo
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -110,7 +110,7 @@ class OnboardingViewModel @Inject constructor(
         val request = SaveForeggJwtRequestVo(accessToken = result.accessToken, refreshToken = result.refreshToken)
         viewModelScope.launch {
             saveForeggAccessTokenAndRefreshTokenUseCase(request).collect{
-                if(it) handleSaveTokenSuccess() else ForeggLog.D("저장 실패")
+                if(it) handleSaveTokenSuccess()
             }
         }
     }
@@ -124,9 +124,7 @@ class OnboardingViewModel @Inject constructor(
         FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
             val request = RenewalFcmRequestVo(token)
             viewModelScope.launch {
-                postRenewalFcmUseCase(request).collect{
-                    resultResponse(it, {ForeggLog.D("Fcm 토큰 갱신 성공")}, {ForeggLog.D("Fcm 토큰 갱신 실패")})
-                }
+                postRenewalFcmUseCase(request).collect()
             }
         }
     }
@@ -134,7 +132,7 @@ class OnboardingViewModel @Inject constructor(
     private fun getMyInfo(){
         viewModelScope.launch {
             getMyInfoUseCase(Unit).collect{
-                resultResponse(it, ::handleSuccessGetMyInfo, {ForeggLog.D("오류")})
+                resultResponse(it, ::handleSuccessGetMyInfo)
             }
         }
     }
@@ -148,7 +146,6 @@ class OnboardingViewModel @Inject constructor(
     private fun handleLoginError(error : String){
         when(error){
             StatusCode.AUTH.USER_NEED_JOIN -> goToSignUp()
-            else -> ForeggLog.D("알 수 없는 오류")
         }
     }
 

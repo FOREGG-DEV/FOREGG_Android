@@ -9,7 +9,6 @@ import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentCreateDailyRecordBinding
 import com.foregg.presentation.ui.common.CommonDialog
-import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.ForeggToast
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

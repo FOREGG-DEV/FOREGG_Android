@@ -9,16 +9,13 @@ import com.foregg.domain.usecase.schedule.DeleteScheduleUseCase
 import com.foregg.domain.usecase.schedule.GetScheduleListUseCase
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseViewModel
-import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.ResourceProvider
 import com.foregg.presentation.util.TimeFormatter
-import com.foregg.presentation.util.toList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -64,7 +61,7 @@ class CalendarViewModel @Inject constructor(
     private fun getScheduleList(){
         viewModelScope.launch {
             getScheduleListUseCase(getRequest()).collect{
-                resultResponse(it, ::updateCalendar, { ForeggLog.D("에러") }, true)
+                resultResponse(it, ::updateCalendar, needLoading = true)
             }
         }
     }

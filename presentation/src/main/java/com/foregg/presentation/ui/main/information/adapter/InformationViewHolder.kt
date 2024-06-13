@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.foregg.domain.model.vo.InfoItemVo
 import com.foregg.presentation.databinding.ItemInfoBinding
-import com.foregg.presentation.util.ForeggLog
 
 class InformationViewHolder(
     private val binding: ItemInfoBinding,

@@ -5,11 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.foregg.domain.model.enums.CalendarType
 import com.foregg.domain.model.enums.RecordType
 import com.foregg.domain.model.response.HomeRecordResponseVo
 import com.foregg.presentation.databinding.ItemTodayScheduleBinding
-import com.foregg.presentation.util.ForeggLog
 
 
 class HomeTodayScheduleAdapter(
