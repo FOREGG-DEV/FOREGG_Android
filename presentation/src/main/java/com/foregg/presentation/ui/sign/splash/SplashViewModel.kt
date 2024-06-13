@@ -1,7 +1,6 @@
 package com.foregg.presentation.ui.sign.splash
 
 import androidx.lifecycle.viewModelScope
-import com.foregg.domain.model.enums.GenderType
 import com.foregg.domain.model.response.profile.ProfileDetailResponseVo
 import com.foregg.domain.model.vo.UserVo
 import com.foregg.domain.usecase.profile.GetMyInfoUseCase
@@ -28,7 +27,7 @@ class SplashViewModel @Inject constructor(
     }
 
     private fun handleSuccessGetMyInfo(result : ProfileDetailResponseVo){
-        val vo = UserVo(name = result.nickName, ssn = result.ssn, genderType = GenderType.MALE, spouse = result.spouse)
+        val vo = UserVo(name = result.nickName, ssn = result.ssn, genderType = result.genderType, spouse = result.spouse)
         UserInfo.updateInfo(vo)
         goToMain()
     }
