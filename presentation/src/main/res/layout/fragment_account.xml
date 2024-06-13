@@ -45,7 +45,7 @@
                 android:layout_height="32dp"
                 android:layout_marginEnd="24dp"
                 android:background="@android:color/transparent"
-                android:src="@drawable/ic_add_calendar"
+                android:src="@drawable/ic_btn_add_filled_main"
                 android:onClick="@{()->vm.onClickCreateOrDeleteBtn()}"
                 app:layout_constraintBottom_toBottomOf="@id/include_top_bar"
                 app:layout_constraintEnd_toEndOf="@id/include_top_bar"
