@@ -168,6 +168,9 @@
     <string name="toast_error_no_exist_ledger">존재하지 않는 가계부입니다.</string>
     <string name="toast_error_no_exist_spouse">배우자가 존재하지 않습니다.</string>
     <string name="toast_success_share_injection">성공적으로 알림을 전송했어요!</string>
+    <string name="toast_error_empty_side_effect">부작용을 입력해주세요.</string>
+    <string name="toast_error_choice_today_emotion">오늘의 감정을 선택해주세요.</string>
+    <string name="toast_error_choice_today_condition">오늘의 컨디션을 입력해주세요.</string>
 
     <!-- challenge -->
     <string name="challenge_title">챌린지</string>

@@ -45,9 +45,9 @@ class CreateDailyRecordFragment : BaseFragment<FragmentCreateDailyRecordBinding,
     private fun sortEvent(event: CreateDailyRecordEvent) {
         when(event) {
             CreateDailyRecordEvent.GoToCreateSideEffectEvent -> goToCreateSideEffect()
-            CreateDailyRecordEvent.InsufficientEmotionDataEvent -> ForeggToast.createToast(requireContext(), "오늘의 감정을 선택해주세요.",Toast.LENGTH_SHORT).show()
+            CreateDailyRecordEvent.InsufficientEmotionDataEvent -> ForeggToast.createToast(requireContext(), R.string.toast_error_choice_today_emotion,Toast.LENGTH_SHORT).show()
             CreateDailyRecordEvent.OnClickBtnClose -> findNavController().popBackStack()
-            CreateDailyRecordEvent.InsufficientTextDataEvent -> ForeggToast.createToast(requireContext(), "오늘의 컨디션을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            CreateDailyRecordEvent.InsufficientTextDataEvent -> ForeggToast.createToast(requireContext(), R.string.toast_error_choice_today_condition, Toast.LENGTH_SHORT).show()
             CreateDailyRecordEvent.ExistDailyRecordEvent -> showExistDailyRecordDialog()
             CreateDailyRecordEvent.SuccessEditDailyRecordEvent -> findNavController().popBackStack()
         }

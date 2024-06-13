@@ -38,7 +38,7 @@ class CreateSideEffectFragment : BaseFragment<FragmentCreateSideEffectBinding, C
     private fun sortEvent(event: CreateSideEffectEvent) {
         when(event) {
             CreateSideEffectEvent.PopCreateSideFragment -> findNavController().popBackStack(R.id.dailyRecordFragment, false)
-            CreateSideEffectEvent.InSufficientTextEvent -> ForeggToast.createToast(requireContext(), "부작용을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            CreateSideEffectEvent.InSufficientTextEvent -> ForeggToast.createToast(requireContext(), R.string.toast_error_empty_side_effect, Toast.LENGTH_SHORT).show()
         }
     }
 }
