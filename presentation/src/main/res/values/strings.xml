@@ -198,4 +198,10 @@
     <string name="injection_share_husband">남편에게 공유</string>
     <string name="injection_share_hint">주사 기록을 남편에게 공유할 수 있어요</string>
     <string name="injection_explain">주사 설명</string>
+    
+    <!-- kakao_share-->
+    <string name="kakao_share_title">여보, 오늘 주사 잘 맞았어?</string>
+    <string name="kakao_share_content">진료 내용, 복약 스케줄, 하루 동안 느낀 감정까지, 허그에서 서로 공유해보세요!</string>
+    <string name="kakao_share_button">허그 다운로드 하기</string>
+    <string name="kakao_share_url">https://play.google.com/store/apps/details?id=com.kakao.talk</string>
 </resources>
