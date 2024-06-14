@@ -171,6 +171,8 @@
     <string name="toast_error_empty_side_effect">부작용을 입력해주세요.</string>
     <string name="toast_error_choice_today_emotion">오늘의 감정을 선택해주세요.</string>
     <string name="toast_error_choice_today_condition">오늘의 컨디션을 입력해주세요.</string>
+    <string name="toast_error_kakao_share_fail">공유에 실패했습니다.</string>
+    <string name="toast_error_kakao_share_web_fail">웹 브라우저를 설치해주세요.</string>
 
     <!-- challenge -->
     <string name="challenge_title">챌린지</string>
@@ -203,5 +205,5 @@
     <string name="kakao_share_title">여보, 오늘 주사 잘 맞았어?</string>
     <string name="kakao_share_content">진료 내용, 복약 스케줄, 하루 동안 느낀 감정까지, 허그에서 서로 공유해보세요!</string>
     <string name="kakao_share_button">허그 다운로드 하기</string>
-    <string name="kakao_share_url">https://play.google.com/store/apps/details?id=com.kakao.talk</string>
+    <string name="kakao_share_url">https://play.google.com/store/apps/details?id=com.foregg.presentation</string>
 </resources>

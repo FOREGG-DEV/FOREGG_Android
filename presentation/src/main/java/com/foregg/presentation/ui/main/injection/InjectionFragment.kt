@@ -1,6 +1,8 @@
 package com.foregg.presentation.ui.main.injection
 
 import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -75,7 +77,7 @@ class InjectionFragment : BaseFragment<FragmentInjectionBinding, InjectionPageSt
         if (ShareClient.instance.isKakaoTalkSharingAvailable(requireContext())) {
             ShareClient.instance.shareDefault(requireContext(), feed) { sharingResult, error ->
                 if (error != null) {
-                    ForeggLog.D("카카오톡 공유 실패")
+                    ForeggToast.createToast(requireContext(), R.string.toast_error_kakao_share_fail, Toast.LENGTH_SHORT).show()
                 }
                 else if (sharingResult != null) {
                     startActivity(sharingResult.intent)
@@ -86,12 +88,12 @@ class InjectionFragment : BaseFragment<FragmentInjectionBinding, InjectionPageSt
             try {
                 KakaoCustomTabsClient.openWithDefault(requireContext(), sharerUrl)
             } catch(e: UnsupportedOperationException) {
-                ForeggLog.D("CustomTabsServiceConnection 지원 브라우저가 없을 때 예외처리")
+                ForeggToast.createToast(requireContext(), R.string.toast_error_kakao_share_web_fail, Toast.LENGTH_SHORT).show()
             }
             try {
                 KakaoCustomTabsClient.open(requireContext(), sharerUrl)
             } catch (e: ActivityNotFoundException) {
-                ForeggLog.D("디바이스에 설치된 인터넷 브라우저가 없을 때 예외처리")
+                ForeggToast.createToast(requireContext(), R.string.toast_error_kakao_share_web_fail, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -103,7 +105,8 @@ class InjectionFragment : BaseFragment<FragmentInjectionBinding, InjectionPageSt
                 description = getString(R.string.kakao_share_content),
                 imageUrl = "https://drive.google.com/uc?export=download&id=1gOKA4dUyoZPayh5re4Gx9gISK0PyJUTj",
                 link = Link(
-                    mobileWebUrl = getString(R.string.kakao_share_url)
+                    webUrl = getString(R.string.kakao_share_url),
+                    mobileWebUrl = getString(R.string.kakao_share_url),
                 )
             ),
             buttons = listOf(
