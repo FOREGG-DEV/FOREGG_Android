@@ -1,12 +1,14 @@
 package com.foregg.presentation.ui.main.information.subsidyDetail
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentSubsidyDetailBinding
 import com.foregg.presentation.ui.main.information.adapter.InformationDetailAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -35,6 +37,11 @@ class SubsidyDetailFragment : BaseFragment<FragmentSubsidyDetailBinding, Subsidy
                     infoAdapter.submitList(it)
                 }
             }
+            launch {
+                viewModel.eventFlow.collect{
+                    inspectEvent(it as SubsidyDetailEvent)
+                }
+            }
         }
     }
 
@@ -42,6 +49,12 @@ class SubsidyDetailFragment : BaseFragment<FragmentSubsidyDetailBinding, Subsidy
         when(position) {
             0L -> binding.textTitle.text = getString(R.string.info_pregnancy)
             1L -> binding.textTitle.text = getString(R.string.info_infertility)
+        }
+    }
+
+    private fun inspectEvent(event : SubsidyDetailEvent){
+        when(event){
+            SubsidyDetailEvent.OnClickBack -> findNavController().popBackStack()
         }
     }
 }

@@ -77,11 +77,13 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="12dp"
+            android:scaleType="fitCenter"
+            android:padding="10dp"
+            android:background="@android:color/transparent"
             android:visibility="@{UserInfo.INSTANCE.info.genderType == GenderType.MALE ? View.GONE : View.VISIBLE}"
-            android:background="@drawable/ic_delete"
-            android:layout_width="20dp"
-            android:layout_height="20dp"/>
+            android:src="@drawable/ic_delete"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

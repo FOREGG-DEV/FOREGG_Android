@@ -24,15 +24,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_marginHorizontal="16dp"
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageButton
                 android:id="@+id/btn_back"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:scaleType="fitCenter"
+                android:padding="12dp"
                 android:onClick="@{()->vm.onClickBtnClose()}"
                 android:src="@drawable/ic_back_arrow_gs_50"
                 android:background="@android:color/transparent"/>
@@ -56,8 +58,11 @@
 
             <ImageButton
                 android:id="@+id/btn_go_to_record"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:padding="8dp"
+                android:scaleType="fitCenter"
+                android:layout_marginEnd="16dp"
                 android:src="@drawable/ic_btn_add_filled_main"
                 android:onClick="@{()->vm.goToRecord()}"
                 android:visibility="@{vm.genderType == GenderType.MALE ? View.GONE : View.VISIBLE}"

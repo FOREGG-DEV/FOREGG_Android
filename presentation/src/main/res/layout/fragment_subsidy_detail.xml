@@ -18,6 +18,20 @@
             android:id="@+id/include_top_bar"
             layout="@layout/include_top_bar" />
 
+        <ImageButton
+            android:id="@+id/img_btn_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:onClick="@{()->vm.onClickBack()}"
+            android:layout_marginStart="16dp"
+            android:scaleType="fitCenter"
+            android:padding="12dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_back_arrow_gs_60"
+            app:layout_constraintBottom_toBottomOf="@id/include_top_bar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/include_top_bar" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

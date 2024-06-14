@@ -1,6 +1,5 @@
 package com.foregg.presentation.ui.main.home.adapter
 
-import android.graphics.BitmapFactory
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.foregg.domain.model.response.MyChallengeListItemVo

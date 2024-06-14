@@ -41,9 +41,11 @@
 
             <ImageButton
                 android:id="@+id/img_btn_add_account"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginEnd="24dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="16dp"
+                android:scaleType="fitCenter"
+                android:padding="8dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_btn_add_filled_main"
                 android:onClick="@{()->vm.onClickCreateOrDeleteBtn()}"
@@ -134,10 +136,11 @@
 
                 <ImageButton
                     android:id="@+id/img_btn_filter"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="12dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:scaleType="fitCenter"
+                    android:padding="12dp"
+                    android:visibility="@{vm.uiState.tabType == AccountTabType.ALL ? View.VISIBLE : View.GONE}"
                     android:onClick="@{()->vm.onClickChangeDate()}"
                     android:background="@android:color/transparent"
                     android:src="@drawable/ic_account_filter"

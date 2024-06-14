@@ -21,4 +21,8 @@ class SubsidyDetailViewModel @Inject constructor() : BaseViewModel<SubsidyDetail
     override val uiState: SubsidyDetailPageState = SubsidyDetailPageState(
         subsidyList = subsidyListStateFlow.asStateFlow()
     )
+
+    fun onClickBack(){
+        emitEventFlow(SubsidyDetailEvent.OnClickBack)
+    }
 }

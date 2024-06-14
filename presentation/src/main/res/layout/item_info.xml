@@ -30,9 +30,11 @@
             
             <ImageButton
                 android:id="@+id/btn_subsidy_detail"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginEnd="28dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="16dp"
+                android:scaleType="fitCenter"
+                android:padding="12dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_right_arrow_gs_50"
                 android:background="@android:color/transparent"/>
