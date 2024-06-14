@@ -43,19 +43,17 @@ class HomeTodayScheduleViewHolder(
                 cardView.elevation = 2F
             }
 
-            val recordType = item.recordType
-
-            scheduleTextContent.text = recordType.type
+            scheduleTextContent.text = item.recordType.type
             scheduleNameText.text = item.name
             scheduleTimeText.text = item.times.first()
 
-            if (item.memo.isBlank()) {
+            if (item.memo.isBlank() || item.recordType == RecordType.HOSPITAL) {
                 scheduleMemoText.visibility = View.GONE
             } else {
                 scheduleMemoText.text = item.memo
             }
 
-            when(recordType) {
+            when(item.recordType) {
                 RecordType.MEDICINE -> {
                     scheduleContentLayout.setBackgroundResource(R.drawable.bg_rectangle_filled_medicine_radius_4)
                     btnRecordTreatment.visibility = View.GONE

@@ -90,6 +90,7 @@
     <string name="home_challenge_complete_dialog_text">오늘의 챌린지 성공하셨나요?</string>
     <string name="home_medical_record">진료 내용</string>
     <string name="home_empty_record">오늘은 기록이 없어요</string>
+    <string name="home_record_card">진료 내용 기록하기</string>
 
     <!-- account -->
     <string name="account_all">전체</string>
