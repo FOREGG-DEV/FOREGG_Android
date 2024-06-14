@@ -9,6 +9,7 @@ import com.foregg.domain.model.response.HomeResponseVo
 import com.foregg.domain.model.response.MyChallengeListItemVo
 import com.foregg.domain.usecase.home.GetHomeUseCase
 import com.foregg.domain.usecase.home.challenge.CompleteChallengeUseCase
+import com.foregg.domain.usecase.home.challenge.DeleteCompleteChallengeUseCase
 import com.foregg.domain.usecase.home.challenge.GetMyChallengeUseCase
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseViewModel
@@ -27,6 +28,7 @@ class HomeViewModel @Inject constructor(
     private val getHomeUseCase: GetHomeUseCase,
     private val getMyChallengeUseCase: GetMyChallengeUseCase,
     private val completeChallengeUseCase: CompleteChallengeUseCase,
+    private val deleteCompleteChallengeUseCase: DeleteCompleteChallengeUseCase,
     private val resourceProvider: ResourceProvider
 ) : BaseViewModel<HomePageState>() {
     private val hasDailyRecordStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
@@ -119,6 +121,14 @@ class HomeViewModel @Inject constructor(
     fun completeChallenge(id: Long) {
         viewModelScope.launch {
             completeChallengeUseCase(id).collect {
+                resultResponse(it, { getMyChallenge() })
+            }
+        }
+    }
+
+    fun deleteCompleteChallenge(id : Long){
+        viewModelScope.launch {
+            deleteCompleteChallengeUseCase(id).collect {
                 resultResponse(it, { getMyChallenge() })
             }
         }

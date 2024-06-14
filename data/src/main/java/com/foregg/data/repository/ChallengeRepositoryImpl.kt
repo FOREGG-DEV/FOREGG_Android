@@ -34,4 +34,8 @@ class ChallengeRepositoryImpl @Inject constructor(
     override suspend fun completeChallenge(request: Long): Flow<ApiState<Unit>> {
         return apiLaunch(apiCall = { challengeApi.completeChallenge(request) }, UnitResponseMapper)
     }
+
+    override suspend fun deleteCompleteChallenge(request: Long): Flow<ApiState<Unit>> {
+        return apiLaunch(apiCall = { challengeApi.deleteCompleteChallenge(request) }, UnitResponseMapper)
+    }
 }

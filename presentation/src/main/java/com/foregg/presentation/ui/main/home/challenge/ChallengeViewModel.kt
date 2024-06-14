@@ -6,11 +6,13 @@ import com.foregg.domain.model.enums.ChallengeTapType
 import com.foregg.domain.model.response.ChallengeCardVo
 import com.foregg.domain.model.response.MyChallengeListItemVo
 import com.foregg.domain.usecase.home.challenge.CompleteChallengeUseCase
+import com.foregg.domain.usecase.home.challenge.DeleteCompleteChallengeUseCase
 import com.foregg.domain.usecase.home.challenge.GetAllChallengeUseCase
 import com.foregg.domain.usecase.home.challenge.GetMyChallengeUseCase
 import com.foregg.domain.usecase.home.challenge.ParticipateChallengeUseCase
 import com.foregg.domain.usecase.home.challenge.QuitChallengeUseCase
 import com.foregg.presentation.base.BaseViewModel
+import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.ResourceProvider
 import com.foregg.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,7 +31,8 @@ class ChallengeViewModel @Inject constructor(
     private val participateChallengeUseCase: ParticipateChallengeUseCase,
     private val quitChallengeUseCase: QuitChallengeUseCase,
     private val completeChallengeUseCase: CompleteChallengeUseCase,
-    private val getMyChallengeUseCase: GetMyChallengeUseCase
+    private val getMyChallengeUseCase: GetMyChallengeUseCase,
+    private val deleteCompleteChallengeUseCase: DeleteCompleteChallengeUseCase
 ): BaseViewModel<ChallengePageState>() {
     private val challengeTapTypeStateFlow: MutableStateFlow<ChallengeTapType> = MutableStateFlow(ChallengeTapType.ALL)
     private val allItemCountStateFlow: MutableStateFlow<Int> = MutableStateFlow(-1)
@@ -53,9 +56,8 @@ class ChallengeViewModel @Inject constructor(
         btnDayState = btnDayStateFlow.asStateFlow()
     )
 
-    fun setView() {
-        getAllChallenge()
-    }
+    private val todayOfWeek = TimeFormatter.getKoreanDayOfWeek(LocalDate.now().dayOfWeek)
+    private var position = 0
 
     fun onClickParticipateBtn() {
         participateChallenge()
@@ -87,7 +89,7 @@ class ChallengeViewModel @Inject constructor(
     fun getMyChallenge() {
         viewModelScope.launch {
             getMyChallengeUseCase(request = Unit).collect {
-                resultResponse(it, ::handleGetSuccessMyChallenge)
+                resultResponse(it, ::handleGetSuccessMyChallenge, needLoading = true)
             }
         }
     }
@@ -99,7 +101,7 @@ class ChallengeViewModel @Inject constructor(
             if (allItemCountStateFlow.value != 0) {
                 if (currentItemCountStateFlow.value == -1) { currentItemCountStateFlow.update { 1 } }
                 weekOfMonthStateFlow.update { myChallengeListStateFlow.value[0].weekOfMonth }
-                updateBtnDayState(0)
+                updateBtnDayState(position)
             }
             else if (allItemCountStateFlow.value == 0) { currentItemCountStateFlow.update { 0 } }
         }
@@ -142,6 +144,7 @@ class ChallengeViewModel @Inject constructor(
     }
 
     fun swipeItem(position: Int, previousPosition: Int) {
+        this.position = position
         if (position > previousPosition) {
             swipeNextItem()
         }
@@ -201,14 +204,24 @@ class ChallengeViewModel @Inject constructor(
         }
     }
 
-    fun onClickBtnComplete() {
-        emitEventFlow(ChallengeEvent.OnClickBtnComplete)
+    fun onClickBtnComplete(index : Int) {
+        if(index == dayToIndex(todayOfWeek) && btnDayStateFlow.value[index] == ChallengeStatusType.SUCCESS) deleteCompleteChallenge()
+        else if(index == dayToIndex(todayOfWeek)) emitEventFlow(ChallengeEvent.OnClickBtnComplete)
     }
 
     fun completeChallenge() {
         val currentItemId = myChallengeListStateFlow.value[currentItemCountStateFlow.value - 1].id
         viewModelScope.launch {
             completeChallengeUseCase(request = currentItemId).collect {
+                resultResponse(it, { getMyChallenge() }, needLoading = true)
+            }
+        }
+    }
+
+    private fun deleteCompleteChallenge(){
+        val currentItemId = myChallengeListStateFlow.value[currentItemCountStateFlow.value - 1].id
+        viewModelScope.launch {
+            deleteCompleteChallengeUseCase(request = currentItemId).collect {
                 resultResponse(it, { getMyChallenge() }, needLoading = true)
             }
         }

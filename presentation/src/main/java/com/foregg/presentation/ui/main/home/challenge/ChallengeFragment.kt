@@ -15,6 +15,7 @@ import com.foregg.presentation.databinding.FragmentChallengeBinding
 import com.foregg.presentation.ui.common.CommonDialog
 import com.foregg.presentation.ui.main.home.challenge.adapter.ChallengeListAdapter
 import com.foregg.presentation.ui.main.home.challenge.adapter.MyChallengeListAdapter
+import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -41,7 +42,7 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
 
     override fun initView() {
         bindTab()
-        viewModel.setView()
+        viewModel.getAllChallenge()
 
         binding.apply {
             vm = viewModel

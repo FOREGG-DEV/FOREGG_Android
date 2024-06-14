@@ -33,6 +33,11 @@ interface ChallengeApi {
         @Path(PATH_ID) id: Long
     ): Response<ApiResponse<Unit>>
 
+    @DELETE(Endpoints.Challenge.DELETE_COMPLETE)
+    suspend fun deleteCompleteChallenge(
+        @Path(PATH_ID) id: Long
+    ): Response<ApiResponse<Unit>>
+
     @GET(Endpoints.Challenge.MY)
     suspend fun getMyChallenge(): Response<ApiResponse<List<MyChallengeResponseListItem>>>
 }

@@ -48,6 +48,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
             override fun showDialog(id: Long) {
                 showCompleteDialog(id)
             }
+
+            override fun deleteComplete(id: Long) {
+                viewModel.deleteCompleteChallenge(id)
+            }
         })
     }
 

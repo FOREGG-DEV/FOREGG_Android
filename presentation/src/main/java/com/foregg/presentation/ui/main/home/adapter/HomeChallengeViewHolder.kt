@@ -14,11 +14,12 @@ class HomeChallengeViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
     private val today = TimeFormatter.getKoreanDayOfWeek(LocalDate.now().dayOfWeek)
     private var itemId: Long? = null
+    private var isSuccess : Boolean = false
 
     init {
         binding.btnCompleteChallenge.setOnClickListener {
             itemId?.let { id ->
-                listener.showDialog(id)
+                if(isSuccess) listener.deleteComplete(id) else listener.showDialog(id)
             }
         }
     }
@@ -27,12 +28,11 @@ class HomeChallengeViewHolder(
         itemId = item.id
         binding.apply {
             textChallengeName.text = item.name
-            item.successDays?.forEach { day ->
-                if (day == today) {
-                    btnCompleteChallenge.setImageResource(R.drawable.ic_btn_complete_challenge_already)
-                    btnCompleteChallenge.isClickable = false
-                }
-            }
+            isSuccess = if(item.successDays?.any { it == today } == true){
+                btnCompleteChallenge.setImageResource(R.drawable.ic_btn_complete_challenge_already)
+                true
+            } else false
+
             Glide.with(binding.root)
                 .load(item.image)
                 .into(challengeImage)
