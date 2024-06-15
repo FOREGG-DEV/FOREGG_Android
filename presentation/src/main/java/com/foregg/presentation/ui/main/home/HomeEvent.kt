@@ -7,4 +7,5 @@ sealed class HomeEvent: Event {
     object GoToChallengeEvent: HomeEvent()
     object GoToCalendarEvent: HomeEvent()
     object GoToCreateEditScheduleEvent: HomeEvent()
+    data class ShowWeekEndDialog(val isSuccess : Boolean) : HomeEvent()
 }

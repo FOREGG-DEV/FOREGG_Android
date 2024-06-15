@@ -3,12 +3,16 @@ package com.foregg.presentation.ui.main.home.challenge
 import androidx.lifecycle.viewModelScope
 import com.foregg.domain.model.enums.ChallengeStatusType
 import com.foregg.domain.model.enums.ChallengeTapType
+import com.foregg.domain.model.request.challenge.MarkChallengeVisitRequestVo
 import com.foregg.domain.model.response.ChallengeCardVo
 import com.foregg.domain.model.response.MyChallengeListItemVo
 import com.foregg.domain.usecase.home.challenge.CompleteChallengeUseCase
+import com.foregg.domain.usecase.home.challenge.DeleteChallengeVisitUseCase
 import com.foregg.domain.usecase.home.challenge.DeleteCompleteChallengeUseCase
 import com.foregg.domain.usecase.home.challenge.GetAllChallengeUseCase
 import com.foregg.domain.usecase.home.challenge.GetMyChallengeUseCase
+import com.foregg.domain.usecase.home.challenge.GetVisitWeekChallengeUseCase
+import com.foregg.domain.usecase.home.challenge.MarkChallengeVisitUseCase
 import com.foregg.domain.usecase.home.challenge.ParticipateChallengeUseCase
 import com.foregg.domain.usecase.home.challenge.QuitChallengeUseCase
 import com.foregg.presentation.base.BaseViewModel
@@ -19,6 +23,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
@@ -32,7 +37,10 @@ class ChallengeViewModel @Inject constructor(
     private val quitChallengeUseCase: QuitChallengeUseCase,
     private val completeChallengeUseCase: CompleteChallengeUseCase,
     private val getMyChallengeUseCase: GetMyChallengeUseCase,
-    private val deleteCompleteChallengeUseCase: DeleteCompleteChallengeUseCase
+    private val deleteCompleteChallengeUseCase: DeleteCompleteChallengeUseCase,
+    private val markChallengeVisitUseCase: MarkChallengeVisitUseCase,
+    private val getVisitWeekChallengeUseCase: GetVisitWeekChallengeUseCase,
+    private val deleteChallengeVisitUseCase: DeleteChallengeVisitUseCase
 ): BaseViewModel<ChallengePageState>() {
     private val challengeTapTypeStateFlow: MutableStateFlow<ChallengeTapType> = MutableStateFlow(ChallengeTapType.ALL)
     private val allItemCountStateFlow: MutableStateFlow<Int> = MutableStateFlow(-1)
@@ -155,11 +163,24 @@ class ChallengeViewModel @Inject constructor(
 
     fun swipeItem(position: Int, previousPosition: Int) {
         this.position = position
+        if(challengeTapTypeStateFlow.value == ChallengeTapType.MY) getAndMarkVisitChallenge()
         if (position > previousPosition) {
             swipeNextItem()
         }
         else if (position < previousPosition) {
             swipePreviousItem()
+        }
+    }
+
+    private fun getAndMarkVisitChallenge() {
+        val request = MarkChallengeVisitRequestVo(
+            myChallengeListStateFlow.value[position].id,
+            myChallengeListStateFlow.value[position].weekOfMonth,
+        )
+        viewModelScope.launch {
+            val result = getVisitWeekChallengeUseCase(request.id).first()
+            markChallengeVisitUseCase(request).first()
+            //if(result != request.time && 저번 주 토요일 실패) emitEventFlow(ChallengeEvent.ShowWeekEndDialog(false))
         }
     }
 
@@ -209,9 +230,16 @@ class ChallengeViewModel @Inject constructor(
     fun quitChallenge(id: Long) {
         viewModelScope.launch {
             quitChallengeUseCase(request = id).collect {
-                resultResponse(it, { getMyChallenge() })
+                resultResponse(it, { handleSuccessQuitChallenge(id) })
             }
         }
+    }
+
+    private fun handleSuccessQuitChallenge(id : Long){
+        viewModelScope.launch {
+            deleteChallengeVisitUseCase(id).first()
+        }
+        getMyChallenge()
     }
 
     fun onClickBtnComplete(index : Int) {

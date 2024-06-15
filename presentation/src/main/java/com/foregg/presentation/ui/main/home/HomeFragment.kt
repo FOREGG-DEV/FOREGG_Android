@@ -5,7 +5,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.foregg.domain.model.enums.CalendarType
-import com.foregg.domain.model.enums.GenderType
 import com.foregg.domain.model.enums.RecordType
 import com.foregg.domain.model.response.HomeRecordResponseVo
 import com.foregg.presentation.R
@@ -45,8 +44,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
 
     private val homeChallengeAdapter: HomeChallengeAdapter by lazy {
         HomeChallengeAdapter( object : HomeChallengeAdapter.HomeChallengeDelegate {
-            override fun showDialog(id: Long) {
-                showCompleteDialog(id)
+            override fun showDialog(id: Long, successDaysCount : Int) {
+                showCompleteDialog(id, successDaysCount)
             }
 
             override fun deleteComplete(id: Long) {
@@ -119,6 +118,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
             HomeEvent.GoToDailyRecordEvent -> goToDailyRecord()
             HomeEvent.GoToCalendarEvent -> goToCalendar()
             HomeEvent.GoToCreateEditScheduleEvent -> goToCreateEditSchedule(viewModel.uiState.medicalRecordId.value, RecordType.HOSPITAL)
+            is HomeEvent.ShowWeekEndDialog -> if(event.isSuccess) showSuccessChallengeDialog() else showFailChallengeDialog()
         }
     }
 
@@ -132,14 +132,34 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
         findNavController().navigate(action)
     }
 
-    private fun showCompleteDialog(id: Long) {
+    private fun showCompleteDialog(id: Long, successDaysCount : Int) {
         dialog
             .setTitle(R.string.home_challenge_complete_dialog_text)
             .setPositiveButton(R.string.word_yes) {
-                viewModel.completeChallenge(id)
+                viewModel.completeChallenge(id, successDaysCount)
                 dialog.dismiss()
             }
             .setNegativeButton(R.string.word_no) {
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun showFailChallengeDialog() {
+        dialog
+            .showOnlyPositiveBtn()
+            .setTitle(R.string.challenge_fail_dialog)
+            .setPositiveButton(R.string.challenge_dialog_positive_btn) {
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun showSuccessChallengeDialog() {
+        dialog
+            .showOnlyPositiveBtn()
+            .setTitle(R.string.challenge_success_dialog)
+            .setPositiveButton(R.string.challenge_dialog_positive_btn) {
                 dialog.dismiss()
             }
             .show()
