@@ -56,6 +56,16 @@ class ChallengeViewModel @Inject constructor(
         btnDayState = btnDayStateFlow.asStateFlow()
     )
 
+    companion object {
+        const val SUN = 0
+        const val MON = 1
+        const val TUE = 2
+        const val WED = 3
+        const val THU = 4
+        const val FRI = 5
+        const val SAT = 6
+    }
+
     private val todayOfWeek = TimeFormatter.getKoreanDayOfWeek(LocalDate.now().dayOfWeek)
     private var position = 0
 
@@ -132,13 +142,13 @@ class ChallengeViewModel @Inject constructor(
 
     private fun dayToIndex(day: String): Int {
         return when (day) {
-            "일" -> 0
-            "월" -> 1
-            "화" -> 2
-            "수" -> 3
-            "목" -> 4
-            "금" -> 5
-            "토" -> 6
+            "일" -> SUN
+            "월" -> MON
+            "화" -> TUE
+            "수" -> WED
+            "목" -> THU
+            "금" -> FRI
+            "토" -> SAT
             else -> -1
         }
     }
@@ -213,9 +223,17 @@ class ChallengeViewModel @Inject constructor(
         val currentItemId = myChallengeListStateFlow.value[currentItemCountStateFlow.value - 1].id
         viewModelScope.launch {
             completeChallengeUseCase(request = currentItemId).collect {
-                resultResponse(it, { getMyChallenge() }, needLoading = true)
+                resultResponse(it, { handleSuccessCompleteChallenge() }, needLoading = true)
             }
         }
+    }
+
+    private fun handleSuccessCompleteChallenge() {
+        if(dayToIndex(todayOfWeek) == SAT) {
+            val isSuccess = !btnDayStateFlow.value.any { it == ChallengeStatusType.FAIL }
+            emitEventFlow(ChallengeEvent.ShowWeekEndDialog(isSuccess))
+        }
+        getMyChallenge()
     }
 
     private fun deleteCompleteChallenge(){

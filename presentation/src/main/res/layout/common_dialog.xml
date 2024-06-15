@@ -15,6 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:gravity="center"
             android:textAppearance="@style/h2"
             android:textColor="@color/black"
             app:layout_constraintTop_toTopOf="parent"

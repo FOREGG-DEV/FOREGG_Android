@@ -3,7 +3,6 @@ package com.foregg.presentation.ui.main.home.challenge
 import android.graphics.Rect
 import android.view.View
 import androidx.core.view.ViewCompat
-import androidx.core.view.marginStart
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +14,6 @@ import com.foregg.presentation.databinding.FragmentChallengeBinding
 import com.foregg.presentation.ui.common.CommonDialog
 import com.foregg.presentation.ui.main.home.challenge.adapter.ChallengeListAdapter
 import com.foregg.presentation.ui.main.home.challenge.adapter.MyChallengeListAdapter
-import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -121,6 +119,7 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
         when(event) {
             ChallengeEvent.OnClickBtnBack -> findNavController().popBackStack()
             ChallengeEvent.OnClickBtnComplete -> showCompleteDialog()
+            is ChallengeEvent.ShowWeekEndDialog -> if(event.isSuccess) showSuccessChallengeDialog() else showFailChallengeDialog()
         }
     }
 
@@ -160,6 +159,26 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
                 dialog.dismiss()
             }
             .setNegativeButton(R.string.word_no) {
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun showFailChallengeDialog() {
+        dialog
+            .showOnlyPositiveBtn()
+            .setTitle(R.string.challenge_fail_dialog)
+            .setPositiveButton(R.string.challenge_dialog_positive_btn) {
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun showSuccessChallengeDialog() {
+        dialog
+            .showOnlyPositiveBtn()
+            .setTitle(R.string.challenge_success_dialog)
+            .setPositiveButton(R.string.challenge_dialog_positive_btn) {
                 dialog.dismiss()
             }
             .show()
