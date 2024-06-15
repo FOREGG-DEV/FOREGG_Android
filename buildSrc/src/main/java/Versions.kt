@@ -31,6 +31,7 @@ object Versions {
     const val VIEW_PAGER_INDICATOR = "5.0"
     const val LOTTIE = "3.7.0"
     const val COIL = "2.3.0"
+    const val FLEX_BOX = "3.0.0"
 
     /* [ Kakao ] */
     const val KAKAO = "2.20.1"

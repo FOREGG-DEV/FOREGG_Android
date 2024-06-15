@@ -1,5 +1,7 @@
 package com.foregg.presentation.ui.main.information
 
+import android.content.Intent
+import android.net.Uri
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,7 +25,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
             }
 
             override fun onClickUrl(url: String) {
-                //URL로 이동
+                goToWebLink(url)
             }
         })
     }
@@ -31,8 +33,12 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
     override fun initView() {
         binding.apply {
             vm = viewModel
-            infoRecyclerView.adapter = informationAdapter
-            infoRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+            infoRecyclerView.apply {
+                adapter = informationAdapter
+                layoutManager = LinearLayoutManager(context)
+            }
+
+            viewModel.getInformation()
         }
     }
 
@@ -51,5 +57,12 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
     private fun goToSubsidyDetail(type : InfoCategoryType) {
         val action = InformationFragmentDirections.actionInformationToSubsidyDetail(type)
         findNavController().navigate(action)
+    }
+
+    private fun goToWebLink(url : String){
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse(url)
+        }
+        startActivity(intent)
     }
 }

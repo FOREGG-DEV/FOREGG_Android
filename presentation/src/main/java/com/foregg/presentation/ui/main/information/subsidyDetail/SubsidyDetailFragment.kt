@@ -1,5 +1,7 @@
 package com.foregg.presentation.ui.main.information.subsidyDetail
 
+import android.content.Intent
+import android.net.Uri
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -23,7 +25,7 @@ class SubsidyDetailFragment : BaseFragment<FragmentSubsidyDetailBinding, Subsidy
     private val infoAdapter: InformationDetailAdapter by lazy {
         InformationDetailAdapter(true, object : InformationDetailAdapter.InformationDetailAdapterDelegate {
             override fun onClickCard(url: String) {
-
+                goToWebLink(url)
             }
         })
     }
@@ -31,9 +33,13 @@ class SubsidyDetailFragment : BaseFragment<FragmentSubsidyDetailBinding, Subsidy
     override fun initView() {
         binding.apply {
             setTitle()
-            gridRecyclerView.adapter = infoAdapter
-            gridRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+            gridRecyclerView.apply {
+                adapter = infoAdapter
+                layoutManager = LinearLayoutManager(context)
+            }
         }
+
+        viewModel.getDetailList(arg.type)
     }
 
     override fun initStates() {
@@ -65,5 +71,12 @@ class SubsidyDetailFragment : BaseFragment<FragmentSubsidyDetailBinding, Subsidy
         when(event){
             SubsidyDetailEvent.OnClickBack -> findNavController().popBackStack()
         }
+    }
+
+    private fun goToWebLink(url : String){
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse(url)
+        }
+        startActivity(intent)
     }
 }
