@@ -1,7 +1,6 @@
 package com.foregg.presentation.ui.main.information.subsidyDetail
 
-import androidx.lifecycle.ViewModel
-import com.foregg.domain.model.vo.InfoItemVo
+import com.foregg.domain.model.vo.info.InfoItemVo
 import com.foregg.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

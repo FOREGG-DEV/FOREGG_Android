@@ -1,34 +1,46 @@
 package com.foregg.presentation.ui.main.information.adapter
 
-import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.foregg.domain.model.vo.InfoItemVo
+import com.foregg.domain.model.enums.InfoCategoryType
+import com.foregg.domain.model.vo.info.InfoCategoryListVo
+import com.foregg.presentation.R
 import com.foregg.presentation.databinding.ItemInfoBinding
 
 class InformationViewHolder(
     private val binding: ItemInfoBinding,
-    private val context: Context,
     private val listener: InformationAdapter.InformationAdapterDelegate
 ): RecyclerView.ViewHolder(binding.root) {
-    var position: Int? = null
 
-    init {
-        binding.btnSubsidyDetail.setOnClickListener {
-            position?.let {
-                listener.onClickBtnDetail(it)
+    private lateinit var type : InfoCategoryType
+
+    private val informationDetailAdapter: InformationDetailAdapter by lazy {
+        InformationDetailAdapter(false, object : InformationDetailAdapter.InformationDetailAdapterDelegate {
+            override fun onClickCard(url: String) {
+                listener.onClickUrl(url)
             }
+        })
+    }
+    init {
+        binding.infoCategoryRecyclerView.apply {
+            adapter = informationDetailAdapter
+            layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
+        }
+
+        binding.btnSubsidyDetail.setOnClickListener {
+            listener.onClickBtnDetail(type)
         }
     }
 
-    fun bind(title: String, items: List<InfoItemVo>, position: Int) {
-        this.position = position
-        val informationDetailAdapter = InformationDetailAdapter(false)
+    fun bind(item : InfoCategoryListVo) {
+        type = item.type
         binding.apply {
-            textTitle.text = title
-            infoCategoryRecyclerView.adapter = informationDetailAdapter
-            infoCategoryRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            informationDetailAdapter.submitList(items)
+            textTitle.text = when(item.type){
+                InfoCategoryType.ESSENTIAL -> root.context.getString(R.string.info_pregnancy)
+                InfoCategoryType.HUGG_PICK -> root.context.getString(R.string.info_infertility)
+                InfoCategoryType.NOTHING -> ""
+            }
+            informationDetailAdapter.submitList(item.list)
         }
     }
 }
