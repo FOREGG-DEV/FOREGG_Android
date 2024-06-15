@@ -1,18 +1,23 @@
 package com.foregg.presentation.ui.main.information.subsidyDetail
 
 import androidx.lifecycle.viewModelScope
-import com.foregg.domain.model.enums.InfoCategoryType
+import com.foregg.domain.model.enums.InformationType
+import com.foregg.domain.model.response.information.InformationResponseVo
 import com.foregg.domain.model.vo.info.InfoItemVo
+import com.foregg.domain.usecase.information.GetAllInformationByTypeUseCase
 import com.foregg.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SubsidyDetailViewModel @Inject constructor() : BaseViewModel<SubsidyDetailPageState>() {
+class SubsidyDetailViewModel @Inject constructor(
+    private val getAllInformationByTypeUseCase: GetAllInformationByTypeUseCase
+) : BaseViewModel<SubsidyDetailPageState>() {
 
     private val subsidyListStateFlow: MutableStateFlow<List<InfoItemVo>> = MutableStateFlow(
         emptyList()
@@ -22,11 +27,35 @@ class SubsidyDetailViewModel @Inject constructor() : BaseViewModel<SubsidyDetail
         subsidyList = subsidyListStateFlow.asStateFlow()
     )
 
-    fun getDetailList(type : InfoCategoryType){
+    fun getDetailList(type : InformationType){
         when(type){
-            InfoCategoryType.ESSENTIAL -> getEssentialList()
-            InfoCategoryType.HUGG_PICK -> getHuggPickList()
-            InfoCategoryType.NOTHING -> {}
+            InformationType.ESSENTIAL -> getEssentialList()
+            InformationType.HUGG_PICK -> getHuggPickList()
+            InformationType.NOTHING -> {}
+        }
+    }
+
+    private fun getInformationListByType(type: InformationType){
+        viewModelScope.launch {
+            getAllInformationByTypeUseCase(type).collect{
+                resultResponse(it, {})
+            }
+        }
+    }
+
+    private fun handleSuccessGetInformationList(result : List<InformationResponseVo>){
+        viewModelScope.launch {
+            subsidyListStateFlow.update { getItemList(result) }
+        }
+    }
+
+    private fun getItemList(list : List<InformationResponseVo>) : List<InfoItemVo>{
+        return list.map {
+            InfoItemVo(
+                url = it.url,
+                tags = it.tag,
+                image = it.image
+            )
         }
     }
 

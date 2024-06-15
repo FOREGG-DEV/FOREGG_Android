@@ -13,9 +13,11 @@ import com.foregg.domain.repository.ForeggJwtRepository
 import com.foregg.domain.repository.ProfileRepository
 import com.foregg.domain.repository.ScheduleRepository
 import com.foregg.data.repository.HomeRepositoryImpl
+import com.foregg.data.repository.InformationRepositoryImpl
 import com.foregg.domain.repository.ChallengeRepository
 import com.foregg.domain.repository.DailyRecordRepository
 import com.foregg.domain.repository.HomeRepository
+import com.foregg.domain.repository.InformationRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -57,4 +59,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesDailyRecordRepository(repositoryImpl: DailyRecordRepositoryImpl): DailyRecordRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesInformationRepository(repositoryImpl: InformationRepositoryImpl): InformationRepository
 }

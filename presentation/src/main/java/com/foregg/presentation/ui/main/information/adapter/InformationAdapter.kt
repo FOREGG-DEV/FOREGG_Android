@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.foregg.domain.model.enums.InfoCategoryType
+import com.foregg.domain.model.enums.InformationType
 import com.foregg.domain.model.vo.info.InfoCategoryListVo
 import com.foregg.presentation.databinding.ItemInfoBinding
 
@@ -14,7 +14,7 @@ class InformationAdapter(
 ) : ListAdapter<InfoCategoryListVo, RecyclerView.ViewHolder>(InformationDiffCallBack()) {
 
     interface InformationAdapterDelegate {
-        fun onClickBtnDetail(type : InfoCategoryType)
+        fun onClickBtnDetail(type : InformationType)
         fun onClickUrl(url : String)
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

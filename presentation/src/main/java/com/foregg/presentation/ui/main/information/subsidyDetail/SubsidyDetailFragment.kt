@@ -6,7 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.foregg.domain.model.enums.InfoCategoryType
+import com.foregg.domain.model.enums.InformationType
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentSubsidyDetailBinding
@@ -61,9 +61,9 @@ class SubsidyDetailFragment : BaseFragment<FragmentSubsidyDetailBinding, Subsidy
 
     private fun setTitle() {
         binding.textTitle.text = when(arg.type) {
-            InfoCategoryType.ESSENTIAL -> getString(R.string.info_pregnancy)
-            InfoCategoryType.HUGG_PICK -> getString(R.string.info_infertility)
-            InfoCategoryType.NOTHING -> ""
+            InformationType.ESSENTIAL -> getString(R.string.info_pregnancy)
+            InformationType.HUGG_PICK -> getString(R.string.info_infertility)
+            InformationType.NOTHING -> ""
         }
     }
 

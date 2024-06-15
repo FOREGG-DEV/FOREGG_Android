@@ -5,7 +5,7 @@ import android.net.Uri
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.foregg.domain.model.enums.InfoCategoryType
+import com.foregg.domain.model.enums.InformationType
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentInformationBinding
 import com.foregg.presentation.ui.main.information.adapter.InformationAdapter
@@ -20,7 +20,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
 
     private val informationAdapter: InformationAdapter by lazy {
         InformationAdapter(object : InformationAdapter.InformationAdapterDelegate {
-            override fun onClickBtnDetail(type : InfoCategoryType) {
+            override fun onClickBtnDetail(type : InformationType) {
                 goToSubsidyDetail(type)
             }
 
@@ -54,7 +54,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
         }
     }
 
-    private fun goToSubsidyDetail(type : InfoCategoryType) {
+    private fun goToSubsidyDetail(type : InformationType) {
         val action = InformationFragmentDirections.actionInformationToSubsidyDetail(type)
         findNavController().navigate(action)
     }

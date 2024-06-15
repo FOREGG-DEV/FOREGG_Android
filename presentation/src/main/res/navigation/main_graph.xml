@@ -225,7 +225,7 @@
 
         <argument
             android:name="type"
-            app:argType="com.foregg.domain.model.enums.InfoCategoryType"/>
+            app:argType="com.foregg.domain.model.enums.InformationType"/>
 
     </fragment>
 

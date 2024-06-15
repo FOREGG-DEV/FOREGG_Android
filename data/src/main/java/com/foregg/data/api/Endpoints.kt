@@ -66,4 +66,9 @@ object Endpoints {
         const val MODIFY = "$MY_INFO/modifySurgery"
         const val GET_MEDICAL = "$MY_INFO/medicalInfo"
     }
+
+    object INFORMATION{
+        const val ALL = "/information"
+        const val BY_TYPE = "$ALL/bySort"
+    }
 }
