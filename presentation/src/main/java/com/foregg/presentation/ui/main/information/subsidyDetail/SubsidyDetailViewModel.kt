@@ -29,8 +29,8 @@ class SubsidyDetailViewModel @Inject constructor(
 
     fun getDetailList(type : InformationType){
         when(type){
-            InformationType.ESSENTIAL -> getEssentialList()
-            InformationType.HUGG_PICK -> getHuggPickList()
+            InformationType.ESSENTIAL -> getInformationListByType(InformationType.ESSENTIAL)
+            InformationType.HUGG_PICK -> getInformationListByType(InformationType.HUGG_PICK)
             InformationType.NOTHING -> {}
         }
     }
@@ -38,7 +38,7 @@ class SubsidyDetailViewModel @Inject constructor(
     private fun getInformationListByType(type: InformationType){
         viewModelScope.launch {
             getAllInformationByTypeUseCase(type).collect{
-                resultResponse(it, {})
+                resultResponse(it, ::handleSuccessGetInformationList)
             }
         }
     }
@@ -59,74 +59,7 @@ class SubsidyDetailViewModel @Inject constructor(
         }
     }
 
-    private fun getEssentialList(){
-        viewModelScope.launch {
-            subsidyListStateFlow.update { getEssentialDummy() }
-        }
-    }
-
-    private fun getHuggPickList(){
-        viewModelScope.launch {
-            subsidyListStateFlow.update { getHuggPickDummy() }
-        }
-    }
-
     fun onClickBack(){
         emitEventFlow(SubsidyDetailEvent.OnClickBack)
-    }
-
-    private fun getEssentialDummy() : List<InfoItemVo>{
-        return listOf(
-            InfoItemVo(
-                url = "https://blog.naver.com/foregg-/223471809266",
-                tags = listOf("#한큐주스","#건강주스","#난소질개선"),
-                image = "https://drive.google.com/uc?export=download&id=1ptFXoNGNd6Y-jzNb1JplZcvJMhc63s4q"
-            ),
-            InfoItemVo(
-                url = "https://blog.naver.com/foregg-/223461185285",
-                tags = listOf("#난임공감","#난임전자책","#난임일기"),
-                image = "https://drive.google.com/uc?export=download&id=1Zpsxcb_Frw83cG_vXqDd0_RQXbUDWvLF"
-            ),
-            InfoItemVo(
-                url = "https://blog.naver.com/foregg-/223456196365",
-                tags = listOf("#난임공감","#난임소설책","#난임일기"),
-                image = "https://drive.google.com/uc?export=download&id=1ZRbbbdMxgVnTw1JqOtGdgalw53KEaMnX"
-            )
-        )
-    }
-
-    private fun getHuggPickDummy() : List<InfoItemVo>{
-        return listOf(
-            InfoItemVo(
-                url = "https://blog.naver.com/foregg-/223473055862",
-                tags = listOf("#난임과 음주","#시험관 음주","#남편 술"),
-                image = "https://drive.google.com/uc?export=download&id=1-P1Ar5YxxJZknazDoPVUA0OMImOrSZAX"
-            ),
-            InfoItemVo(
-                url = "https://m.blog.naver.com/foregg-/223448519504",
-                tags = listOf("#난임에 좋은 음식","#식단관리","#항산화음식"),
-                image = "https://drive.google.com/uc?export=download&id=1HSz85v1Ld78-KJV8v9m_nQ6Xq3TIX2Le"
-            ),
-            InfoItemVo(
-                url = "https://m.blog.naver.com/foregg-/223449818880",
-                tags = listOf("#난임영앙제추천","#코엔자임","#코큐텐"),
-                image = "https://drive.google.com/uc?export=download&id=1s-5e0PkwHegOQfCAGcsDz0Y-mnxA6nTR"
-            ),
-            InfoItemVo(
-                url = "https://m.blog.naver.com/foregg-/223451740757",
-                tags = listOf("#난임스트레스","#스트레스관리법"),
-                image = "https://drive.google.com/uc?export=download&id=1eUKl0TQD3r-13U0418d3yV-ivmIiZpcA"
-            ),
-            InfoItemVo(
-                url = "https://m.blog.naver.com/foregg-/223465584034",
-                tags = listOf("#태아위협","#미세플라스틱","#줄이는 방법"),
-                image = "https://drive.google.com/uc?export=download&id=1heBmhRSK0gXBN7ZfYA9QqOMcsB3ZQ4v3"
-            ),
-            InfoItemVo(
-                url = "https://m.blog.naver.com/foregg-/223452355860",
-                tags = listOf("#난임영양제","#비타민D"),
-                image = "https://drive.google.com/uc?export=download&id=1h3hwq4uhgDOdwwhkoA1MKQSbzYGMn428"
-            )
-        )
     }
 }

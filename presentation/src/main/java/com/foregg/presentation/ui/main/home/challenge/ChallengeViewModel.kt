@@ -180,7 +180,7 @@ class ChallengeViewModel @Inject constructor(
         viewModelScope.launch {
             val result = getVisitWeekChallengeUseCase(request.id).first()
             markChallengeVisitUseCase(request).first()
-            //if(result != request.time && 저번 주 토요일 실패) emitEventFlow(ChallengeEvent.ShowWeekEndDialog(false))
+            if(result != request.time && result.isNotBlank() && !myChallengeListStateFlow.value[position].lastSaturday) emitEventFlow(ChallengeEvent.ShowWeekEndDialog(false))
         }
     }
 

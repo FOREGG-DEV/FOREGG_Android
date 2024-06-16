@@ -17,5 +17,7 @@ data class MyChallengeResponseListItem(
     @SerializedName("successDays")
     val successDays: List<String> = emptyList(),
     @SerializedName("weekOfMonth")
-    val weekOfMonth: String = ""
+    val weekOfMonth: String = "",
+    @SerializedName("lastSaturday")
+    val lastSaturday : Boolean = false
 ): DataDto
