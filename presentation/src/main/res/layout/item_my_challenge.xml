@@ -54,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="19dp"
                 android:layout_gravity="center"
+                android:gravity="center"
                 tools:text="하루 1000보 이상 걷기"
                 android:textColor="@color/gs_black"
                 android:textAppearance="@style/p3_l"/>
