@@ -15,17 +15,19 @@ class HomeChallengeViewHolder(
     private val today = TimeFormatter.getKoreanDayOfWeek(LocalDate.now().dayOfWeek)
     private var itemId: Long? = null
     private var isSuccess : Boolean = false
+    private var successDaysCount : Int = 0
 
     init {
         binding.btnCompleteChallenge.setOnClickListener {
             itemId?.let { id ->
-                if(isSuccess) listener.deleteComplete(id) else listener.showDialog(id)
+                if(isSuccess) listener.deleteComplete(id) else listener.showDialog(id, successDaysCount)
             }
         }
     }
 
     fun bind(item: MyChallengeListItemVo) {
         itemId = item.id
+        successDaysCount = item.successDays?.size ?: 0
         binding.apply {
             textChallengeName.text = item.name
             isSuccess = if(item.successDays?.any { it == today } == true){

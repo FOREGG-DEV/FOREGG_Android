@@ -1,8 +1,11 @@
 package com.foregg.presentation.ui.main.information
 
+import android.content.Intent
+import android.net.Uri
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.foregg.domain.model.enums.InformationType
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentInformationBinding
 import com.foregg.presentation.ui.main.information.adapter.InformationAdapter
@@ -16,9 +19,13 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
     override val viewModel: InformationViewModel by viewModels()
 
     private val informationAdapter: InformationAdapter by lazy {
-        InformationAdapter(mapOf(), requireContext(), object : InformationAdapter.InformationAdapterDelegate {
-            override fun onClickBtnDetail(position: Int) {
-                viewModel.onClickBtnDetail(position)
+        InformationAdapter(object : InformationAdapter.InformationAdapterDelegate {
+            override fun onClickBtnDetail(type : InformationType) {
+                goToSubsidyDetail(type)
+            }
+
+            override fun onClickUrl(url: String) {
+                goToWebLink(url)
             }
         })
     }
@@ -26,8 +33,12 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
     override fun initView() {
         binding.apply {
             vm = viewModel
-            infoRecyclerView.adapter = informationAdapter
-            infoRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+            infoRecyclerView.apply {
+                adapter = informationAdapter
+                layoutManager = LinearLayoutManager(context)
+            }
+
+            viewModel.getInformation()
         }
     }
 
@@ -37,37 +48,21 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.infoList.collect {
-                    informationAdapter.updateData(it)
-                }
-            }
-
-            launch {
-                viewModel.eventFlow.collect {
-                    sortEvent(it as InformationEvent)
+                    informationAdapter.submitList(it)
                 }
             }
         }
     }
 
-    private fun sortEvent(event: InformationEvent) {
-        when(event) {
-            InformationEvent.GoToPregnancyDetailEvent -> goToSubsidyDetail()
-            InformationEvent.GoToInfertilityDetailEvent -> goToInfertilityDetail()
-            InformationEvent.GoBackEvent -> goToBack()
+    private fun goToSubsidyDetail(type : InformationType) {
+        val action = InformationFragmentDirections.actionInformationToSubsidyDetail(type)
+        findNavController().navigate(action)
+    }
+
+    private fun goToWebLink(url : String){
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse(url)
         }
-    }
-
-    private fun goToSubsidyDetail() {
-        val action = InformationFragmentDirections.actionInformationToSubsidyDetail(0)
-        findNavController().navigate(action)
-    }
-
-    private fun goToInfertilityDetail() {
-        val action = InformationFragmentDirections.actionInformationToSubsidyDetail(1)
-        findNavController().navigate(action)
-    }
-
-    private fun goToBack() {
-        findNavController().popBackStack()
+        startActivity(intent)
     }
 }

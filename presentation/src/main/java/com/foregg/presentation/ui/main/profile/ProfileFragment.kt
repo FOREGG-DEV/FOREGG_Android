@@ -1,5 +1,7 @@
 package com.foregg.presentation.ui.main.profile
 
+import android.content.Intent
+import android.net.Uri
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.foregg.domain.model.enums.GenderType
@@ -47,9 +49,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfilePageState, P
             ProfileEvent.GoToEditProfileEvent -> goToEdit()
             ProfileEvent.GoToMyMedicineInjectionEvent -> goToMyMedicineInjection()
             ProfileEvent.GoToAskEvent -> goToAsk()
-            ProfileEvent.GoToFAQEvent -> {}
-            ProfileEvent.GoToNoticeEvent -> {}
-            ProfileEvent.GoToPolicyEvent -> {}
+            is ProfileEvent.GoToFAQEvent -> goToWebLink(event.url)
+            is ProfileEvent.GoToNoticeEvent -> goToWebLink(event.url)
+            is ProfileEvent.GoToPolicyEvent -> goToWebLink(event.url)
             ProfileEvent.GoToAccountSettingEvent -> goToAccount()
         }
     }
@@ -78,5 +80,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfilePageState, P
         binding.apply {
             btnMyMedicineInjection.text = getString(R.string.profile_spouse_medicine_injection, spouse)
         }
+    }
+
+    private fun goToWebLink(url : String){
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse(url)
+        }
+        startActivity(intent)
     }
 }

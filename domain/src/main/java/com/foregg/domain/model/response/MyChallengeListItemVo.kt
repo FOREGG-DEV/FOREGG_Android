@@ -10,5 +10,6 @@ data class MyChallengeListItemVo (
     val name: String = "",
     val participants: Int = 0,
     val successDays: List<String>? = emptyList(),
-    val weekOfMonth: String = ""
+    val weekOfMonth: String = "",
+    val lastSaturday : Boolean = false
 ): DomainResponse

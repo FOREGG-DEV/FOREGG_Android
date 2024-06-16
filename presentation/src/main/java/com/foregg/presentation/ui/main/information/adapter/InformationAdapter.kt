@@ -1,40 +1,38 @@
 package com.foregg.presentation.ui.main.information.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.foregg.domain.model.vo.InfoItemVo
+import com.foregg.domain.model.enums.InformationType
+import com.foregg.domain.model.vo.info.InfoCategoryListVo
 import com.foregg.presentation.databinding.ItemInfoBinding
 
 class InformationAdapter(
-    private var data: Map<String, List<InfoItemVo>>,
-    private val context: Context,
-    private val listener: InformationAdapterDelegate
-): RecyclerView.Adapter<InformationViewHolder>() {
+    private val listener : InformationAdapterDelegate
+) : ListAdapter<InfoCategoryListVo, RecyclerView.ViewHolder>(InformationDiffCallBack()) {
 
     interface InformationAdapterDelegate {
-        fun onClickBtnDetail(position: Int)
+        fun onClickBtnDetail(type : InformationType)
+        fun onClickUrl(url : String)
+    }
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is InformationViewHolder -> holder.bind(currentList[position])
+        }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InformationViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = ItemInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return InformationViewHolder(binding, context, listener)
+        return InformationViewHolder(binding, listener)
     }
+}
 
-    override fun onBindViewHolder(holder: InformationViewHolder, position: Int) {
-        val title = data.keys.toList() [position]
-        val items = data[title] ?: emptyList()
-        holder.bind(title, items, position)
+class InformationDiffCallBack : DiffUtil.ItemCallback<InfoCategoryListVo>() {
+    override fun areItemsTheSame(oldItem: InfoCategoryListVo, newItem: InfoCategoryListVo): Boolean {
+        return oldItem.type == newItem.type
     }
-
-    override fun getItemCount(): Int {
-        return data.size
-    }
-
-    fun updateData(newData: Map<String, List<InfoItemVo>>) {
-        this.data = newData
-        notifyDataSetChanged()
-    }
+    override fun areContentsTheSame(oldItem: InfoCategoryListVo, newItem: InfoCategoryListVo): Boolean = oldItem == newItem
 }
 

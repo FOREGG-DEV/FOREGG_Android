@@ -224,8 +224,8 @@
         tools:layout="@layout/fragment_subsidy_detail">
 
         <argument
-            android:name="position"
-            app:argType="long"/>
+            android:name="type"
+            app:argType="com.foregg.domain.model.enums.InformationType"/>
 
     </fragment>
 

@@ -1,6 +1,5 @@
 package com.foregg.presentation.ui.main.home
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.foregg.domain.model.enums.DailyConditionType
 import com.foregg.domain.model.enums.GenderType
@@ -61,6 +60,10 @@ class HomeViewModel @Inject constructor(
         medicalRecordId = medicalRecordIdStateFlow.asStateFlow()
     )
 
+    companion object{
+        const val ALL_CLEAR_CHALLENGE_COUNT = 6
+    }
+
     fun initScheduleStates() {
         getTodaySchedule()
         if (UserInfo.info.genderType == GenderType.FEMALE) getMyChallenge()
@@ -118,12 +121,18 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun completeChallenge(id: Long) {
+    fun completeChallenge(id: Long, successDaysCount : Int) {
         viewModelScope.launch {
             completeChallengeUseCase(id).collect {
-                resultResponse(it, { getMyChallenge() })
+                resultResponse(it, { handleSuccessCompleteChallenge(successDaysCount) })
             }
         }
+    }
+
+    private fun handleSuccessCompleteChallenge(successDaysCount: Int) {
+        val isSuccess = successDaysCount == ALL_CLEAR_CHALLENGE_COUNT
+        emitEventFlow(HomeEvent.ShowWeekEndDialog(isSuccess))
+        getMyChallenge()
     }
 
     fun deleteCompleteChallenge(id : Long){

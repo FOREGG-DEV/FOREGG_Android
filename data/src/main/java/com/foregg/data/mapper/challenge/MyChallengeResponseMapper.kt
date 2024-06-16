@@ -14,7 +14,8 @@ object MyChallengeResponseMapper: Mapper.ResponseMapper<List<MyChallengeResponse
                 name = it.name,
                 participants = it.participants,
                 successDays = it.successDays,
-                weekOfMonth = it.weekOfMonth
+                weekOfMonth = it.weekOfMonth,
+                lastSaturday = it.lastSaturday
             )
         } ?: emptyList()
     }

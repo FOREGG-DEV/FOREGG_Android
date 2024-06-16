@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Hugg</string>
-    <string name="kakao_native_key">kakaoa3cef69597083c1fbb5c163132cf83a4</string>
     <string name="hugg_email">for.egg0302@gmail.com</string>
 
     <!-- Words -->
@@ -91,6 +90,9 @@
     <string name="home_medical_record">진료 내용</string>
     <string name="home_empty_record">오늘은 기록이 없어요</string>
     <string name="home_record_card">진료 내용 기록하기</string>
+    <string name="challenge_fail_dialog">한 주간 고생 많으셨습니다.\n다음 주도 함께해요!</string>
+    <string name="challenge_success_dialog">이번주 챌린지 성공하셨어요!\n다음주도 힘차게 해내보세요</string>
+    <string name="challenge_dialog_positive_btn">네!</string>
 
     <!-- account -->
     <string name="account_all">전체</string>
@@ -156,6 +158,9 @@
     <string name="profile_unregister_dialog">Hugg에서 탈퇴 하시겠습니까?</string>
     <string name="profile_logout_complete_dialog">로그아웃이 완료되었습니다.</string>
     <string name="profile_unregister_complete_dialog">탈퇴가 완료되었습니다.</string>
+    <string name="profile_notion_notice_link">https://abouthugg.notion.site/Hugg-c673654437704c938ec5d7762ca338a0?pvs=4</string>
+    <string name="profile_notion_faq_link">https://abouthugg.notion.site/Hugg-Q-A-1d703027d86d4dd2abafce3ad594927e?pvs=4</string>
+    <string name="profile_notion_policy_link">https://abouthugg.notion.site/9f6d826b7f354ec8af9a2832ad34310d?pvs=4</string>
 
     <!-- toast -->
     <string name="toast_clip_share_code">클립보드에 배우자 코드가 복사되었어요!</string>
