@@ -61,11 +61,13 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun onClickNotice(){
-        emitEventFlow(ProfileEvent.GoToNoticeEvent)
+        val url = resourceProvider.getString(R.string.profile_notion_notice_link)
+        emitEventFlow(ProfileEvent.GoToNoticeEvent(url))
     }
 
     fun onClickFAQ(){
-        emitEventFlow(ProfileEvent.GoToFAQEvent)
+        val url = resourceProvider.getString(R.string.profile_notion_faq_link)
+        emitEventFlow(ProfileEvent.GoToFAQEvent(url))
     }
 
     fun onClickAsk(){
@@ -73,7 +75,8 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun onClickPolicy(){
-        emitEventFlow(ProfileEvent.GoToPolicyEvent)
+        val url = resourceProvider.getString(R.string.profile_notion_policy_link)
+        emitEventFlow(ProfileEvent.GoToPolicyEvent(url))
     }
 
     fun onClickAccount(){

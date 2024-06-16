@@ -32,6 +32,7 @@ class SubsidyDetailFragment : BaseFragment<FragmentSubsidyDetailBinding, Subsidy
 
     override fun initView() {
         binding.apply {
+            vm = viewModel
             setTitle()
             gridRecyclerView.apply {
                 adapter = infoAdapter

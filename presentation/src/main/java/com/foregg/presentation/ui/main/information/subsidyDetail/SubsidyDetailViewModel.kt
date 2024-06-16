@@ -6,6 +6,7 @@ import com.foregg.domain.model.response.information.InformationResponseVo
 import com.foregg.domain.model.vo.info.InfoItemVo
 import com.foregg.domain.usecase.information.GetAllInformationByTypeUseCase
 import com.foregg.presentation.base.BaseViewModel
+import com.foregg.presentation.util.ForeggLog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -60,6 +61,7 @@ class SubsidyDetailViewModel @Inject constructor(
     }
 
     fun onClickBack(){
+        ForeggLog.D("나 클릭")
         emitEventFlow(SubsidyDetailEvent.OnClickBack)
     }
 }

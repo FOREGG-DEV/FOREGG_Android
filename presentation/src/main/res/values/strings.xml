@@ -158,6 +158,9 @@
     <string name="profile_unregister_dialog">Hugg에서 탈퇴 하시겠습니까?</string>
     <string name="profile_logout_complete_dialog">로그아웃이 완료되었습니다.</string>
     <string name="profile_unregister_complete_dialog">탈퇴가 완료되었습니다.</string>
+    <string name="profile_notion_notice_link">https://abouthugg.notion.site/Hugg-c673654437704c938ec5d7762ca338a0?pvs=4</string>
+    <string name="profile_notion_faq_link">https://abouthugg.notion.site/Hugg-Q-A-1d703027d86d4dd2abafce3ad594927e?pvs=4</string>
+    <string name="profile_notion_policy_link">https://abouthugg.notion.site/9f6d826b7f354ec8af9a2832ad34310d?pvs=4</string>
 
     <!-- toast -->
     <string name="toast_clip_share_code">클립보드에 배우자 코드가 복사되었어요!</string>
