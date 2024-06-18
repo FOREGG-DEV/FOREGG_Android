@@ -1,6 +1,7 @@
 package com.foregg.presentation.ui.main.profile.account
 
 import android.content.Intent
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.foregg.presentation.PageState
@@ -9,6 +10,9 @@ import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentProfileAccountBinding
 import com.foregg.presentation.ui.common.CommonDialog
 import com.foregg.presentation.ui.sign.SignActivity
+import com.foregg.presentation.util.ForeggLog
+import com.foregg.presentation.util.ForeggToast
+import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -55,6 +59,7 @@ class ProfileAccountFragment : BaseFragment<FragmentProfileAccountBinding, PageS
         commonDialog
             .setTitle(R.string.profile_logout_dialog)
             .setNegativeButton(R.string.word_yes){
+                kakaoLogout()
                 viewModel.logout()
                 commonDialog.dismiss()
             }
@@ -68,6 +73,7 @@ class ProfileAccountFragment : BaseFragment<FragmentProfileAccountBinding, PageS
         commonDialog
             .setTitle(R.string.profile_unregister_dialog)
             .setNegativeButton(R.string.word_yes){
+                kakaoUnregister()
                 viewModel.unregister()
                 commonDialog.dismiss()
             }
@@ -99,5 +105,21 @@ class ProfileAccountFragment : BaseFragment<FragmentProfileAccountBinding, PageS
             }
             .showOnlyPositiveBtn()
             .show()
+    }
+
+    private fun kakaoLogout(){
+        UserApiClient.instance.logout { error ->
+            if (error != null) {
+                ForeggToast.createToast(requireContext(), R.string.toast_error_kakao_logout, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun kakaoUnregister(){
+        UserApiClient.instance.unlink { error ->
+            if (error != null) {
+                ForeggToast.createToast(requireContext(), R.string.toast_error_kakao_unregister, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
