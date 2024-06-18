@@ -179,6 +179,8 @@
     <string name="toast_error_choice_today_condition">오늘의 컨디션을 입력해주세요.</string>
     <string name="toast_error_kakao_share_fail">공유에 실패했습니다.</string>
     <string name="toast_error_kakao_share_web_fail">웹 브라우저를 설치해주세요.</string>
+    <string name="toast_error_kakao_logout">로그아웃에 실패했습니다.</string>
+    <string name="toast_error_kakao_unregister">카카오에서 연결끊기에 실패했습니다.</string>
 
     <!-- challenge -->
     <string name="challenge_title">챌린지</string>
