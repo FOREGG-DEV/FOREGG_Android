@@ -5,11 +5,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.foregg.domain.model.enums.HomeAdCardType
+import com.foregg.domain.model.vo.home.HomeAdCardVo
 import com.foregg.presentation.databinding.ItemHomeIntroductionBinding
 
-class HomeIntroductionAdapter: ListAdapter<Int, RecyclerView.ViewHolder>(
+class HomeIntroductionAdapter(
+    private val listener : HomeIntroductionDelegate
+): ListAdapter<HomeAdCardVo, RecyclerView.ViewHolder>(
     HomeIntroductionDiffUtilCallback()
 ) {
+
+    interface HomeIntroductionDelegate {
+        fun onClickCard(type : HomeAdCardType)
+    }
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder) {
             is HomeIntroductionViewHolder -> holder.bind(currentList[position])
@@ -18,16 +27,16 @@ class HomeIntroductionAdapter: ListAdapter<Int, RecyclerView.ViewHolder>(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = ItemHomeIntroductionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return HomeIntroductionViewHolder(binding)
+        return HomeIntroductionViewHolder(binding, listener)
     }
 }
 
-class HomeIntroductionDiffUtilCallback: DiffUtil.ItemCallback<Int>() {
-    override fun areContentsTheSame(oldItem: Int, newItem: Int): Boolean {
+class HomeIntroductionDiffUtilCallback: DiffUtil.ItemCallback<HomeAdCardVo>() {
+    override fun areContentsTheSame(oldItem: HomeAdCardVo, newItem: HomeAdCardVo): Boolean {
         return oldItem == newItem
     }
 
-    override fun areItemsTheSame(oldItem: Int, newItem: Int): Boolean {
-        return oldItem == newItem
+    override fun areItemsTheSame(oldItem: HomeAdCardVo, newItem: HomeAdCardVo): Boolean {
+        return oldItem.type == newItem.type
     }
 }

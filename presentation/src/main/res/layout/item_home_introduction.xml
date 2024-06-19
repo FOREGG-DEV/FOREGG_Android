@@ -11,10 +11,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/bg_rectangle_filled_white_radius_8"
+            android:clipToOutline="true"
+            android:layout_marginHorizontal="16dp"
             android:scaleType="fitXY"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_card_inrtoduction"/>
+            android:layout_height="wrap_content" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
