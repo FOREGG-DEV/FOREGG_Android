@@ -3,9 +3,11 @@ package com.foregg.presentation.ui.main.home
 import androidx.lifecycle.viewModelScope
 import com.foregg.domain.model.enums.DailyConditionType
 import com.foregg.domain.model.enums.GenderType
+import com.foregg.domain.model.enums.HomeAdCardType
 import com.foregg.domain.model.response.HomeRecordResponseVo
 import com.foregg.domain.model.response.HomeResponseVo
 import com.foregg.domain.model.response.MyChallengeListItemVo
+import com.foregg.domain.model.vo.home.HomeAdCardVo
 import com.foregg.domain.usecase.home.GetHomeUseCase
 import com.foregg.domain.usecase.home.challenge.CompleteChallengeUseCase
 import com.foregg.domain.usecase.home.challenge.DeleteCompleteChallengeUseCase
@@ -37,7 +39,20 @@ class HomeViewModel @Inject constructor(
     private val todayScheduleStateFlow: MutableStateFlow<List<HomeRecordResponseVo>> = MutableStateFlow(emptyList())
     private val formattedTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val challengeListStateFlow: MutableStateFlow<List<MyChallengeListItemVo>> = MutableStateFlow(emptyList())
-    private val homeIntroductionItemListStateFlow: MutableStateFlow<List<Int>> = MutableStateFlow(listOf(R.drawable.ic_card_inrtoduction, R.drawable.ic_card_inrtoduction, R.drawable.ic_card_inrtoduction))
+    private val homeIntroductionItemListStateFlow: MutableStateFlow<List<HomeAdCardVo>> = MutableStateFlow(listOf(
+        HomeAdCardVo(
+            image = R.drawable.ic_ad_card_daily,
+            type = HomeAdCardType.DAILY
+        ),
+        HomeAdCardVo(
+            image = R.drawable.ic_ad_card_share,
+            type = HomeAdCardType.SHARE
+        ),
+        HomeAdCardVo(
+            image = R.drawable.ic_ad_card_foregg,
+            type = HomeAdCardType.BLOG
+        )
+    ))
     private val dailyConditionTypeImageStateFlow: MutableStateFlow<Int> = MutableStateFlow(R.drawable.ic_emotion_perfect_selected)
     private val dailyContentStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val medicalRecordStateFlow: MutableStateFlow<String> = MutableStateFlow("")

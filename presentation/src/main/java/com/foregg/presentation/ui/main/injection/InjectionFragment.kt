@@ -103,7 +103,7 @@ class InjectionFragment : BaseFragment<FragmentInjectionBinding, InjectionPageSt
             content = Content(
                 title = getString(R.string.kakao_share_title),
                 description = getString(R.string.kakao_share_content),
-                imageUrl = "https://drive.google.com/uc?export=download&id=1gOKA4dUyoZPayh5re4Gx9gISK0PyJUTj",
+                imageUrl = getString(R.string.kakao_share_image),
                 link = Link(
                     webUrl = getString(R.string.kakao_share_url),
                     mobileWebUrl = getString(R.string.kakao_share_url),

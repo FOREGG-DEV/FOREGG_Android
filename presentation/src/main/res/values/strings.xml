@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Hugg</string>
     <string name="hugg_email">for.egg0302@gmail.com</string>
+    <string name="foregg_blog">https://blog.naver.com/foregg-</string>
 
     <!-- Words -->
     <string name="word_next">다음</string>
@@ -214,4 +215,5 @@
     <string name="kakao_share_content">진료 내용, 복약 스케줄, 하루 동안 느낀 감정까지, 허그에서 서로 공유해보세요!</string>
     <string name="kakao_share_button">허그 다운로드 하기</string>
     <string name="kakao_share_url">https://play.google.com/store/apps/details?id=com.foregg.presentation</string>
+    <string name="kakao_share_image">https://drive.google.com/uc?export=download&amp;id=1gOKA4dUyoZPayh5re4Gx9gISK0PyJUTj</string>
 </resources>
