@@ -144,7 +144,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
             HomeEvent.GoToDailyRecordEvent -> goToDailyRecord()
             HomeEvent.GoToCalendarEvent -> goToCalendar()
             HomeEvent.GoToCreateEditScheduleEvent -> goToCreateEditSchedule(viewModel.uiState.medicalRecordId.value, RecordType.HOSPITAL)
-            is HomeEvent.ShowWeekEndDialog -> if(event.isSuccess) showSuccessChallengeDialog() else showFailChallengeDialog()
+            is HomeEvent.ShowWeekEndDialog -> showCompleteChallengeDialog(event.isSuccess)
         }
     }
 
@@ -171,20 +171,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
             .show()
     }
 
-    private fun showFailChallengeDialog() {
+    private fun showCompleteChallengeDialog(isSuccess : Boolean){
+        val content = if(isSuccess) R.string.challenge_success_dialog else R.string.challenge_fail_dialog
         dialog
             .showOnlyPositiveBtn()
-            .setTitle(R.string.challenge_fail_dialog)
-            .setPositiveButton(R.string.challenge_dialog_positive_btn) {
-                dialog.dismiss()
-            }
-            .show()
-    }
-
-    private fun showSuccessChallengeDialog() {
-        dialog
-            .showOnlyPositiveBtn()
-            .setTitle(R.string.challenge_success_dialog)
+            .setTitle(content)
             .setPositiveButton(R.string.challenge_dialog_positive_btn) {
                 dialog.dismiss()
             }

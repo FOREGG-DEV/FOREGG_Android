@@ -119,7 +119,7 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
         when(event) {
             ChallengeEvent.OnClickBtnBack -> findNavController().popBackStack()
             ChallengeEvent.OnClickBtnComplete -> showCompleteDialog()
-            is ChallengeEvent.ShowWeekEndDialog -> if(event.isSuccess) showSuccessChallengeDialog() else showFailChallengeDialog()
+            is ChallengeEvent.ShowWeekEndDialog -> showCompleteChallengeDialog(event.isSuccess)
         }
     }
 
@@ -136,6 +136,17 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
                 binding.viewPagerChallenge.adapter = myChallengeListAdapter
             }
         }
+    }
+
+    private fun showCompleteChallengeDialog(isSuccess : Boolean){
+        val content = if(isSuccess) R.string.challenge_success_dialog else R.string.challenge_fail_dialog
+        dialog
+            .showOnlyPositiveBtn()
+            .setTitle(content)
+            .setPositiveButton(R.string.challenge_dialog_positive_btn) {
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun showDeleteDialog(id: Long) {
@@ -159,26 +170,6 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
                 dialog.dismiss()
             }
             .setNegativeButton(R.string.word_no) {
-                dialog.dismiss()
-            }
-            .show()
-    }
-
-    private fun showFailChallengeDialog() {
-        dialog
-            .showOnlyPositiveBtn()
-            .setTitle(R.string.challenge_fail_dialog)
-            .setPositiveButton(R.string.challenge_dialog_positive_btn) {
-                dialog.dismiss()
-            }
-            .show()
-    }
-
-    private fun showSuccessChallengeDialog() {
-        dialog
-            .showOnlyPositiveBtn()
-            .setTitle(R.string.challenge_success_dialog)
-            .setPositiveButton(R.string.challenge_dialog_positive_btn) {
                 dialog.dismiss()
             }
             .show()
