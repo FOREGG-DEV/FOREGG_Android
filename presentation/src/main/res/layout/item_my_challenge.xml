@@ -11,10 +11,10 @@
 
         <ImageButton
             android:id="@+id/btnDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:layout_marginTop="12dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:scaleType="fitCenter"
+            android:padding="12dp"
             android:src="@drawable/ic_btn_delete"
             android:background="@android:color/transparent"
             app:layout_constraintTop_toTopOf="parent"
@@ -54,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="19dp"
                 android:layout_gravity="center"
+                android:gravity="center"
                 tools:text="하루 1000보 이상 걷기"
                 android:textColor="@color/gs_black"
                 android:textAppearance="@style/p3_l"/>

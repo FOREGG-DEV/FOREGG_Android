@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.foregg.presentation">
 
+    <queries>
+        <package android:name="com.kakao.talk" />
+    </queries>
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
@@ -30,6 +34,7 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <receiver android:name=".util.AlarmReceiver" android:exported="true" />
         <service android:name=".util.AlarmService" android:exported="true"
             android:foregroundServiceType="mediaPlayback" />
@@ -49,6 +54,13 @@
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:host="kakaolink"
+                    android:scheme="${KAKAO_AOUTH_HOST_SCHEME}" />
+            </intent-filter>
         </activity>
 
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
@@ -59,7 +71,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
                     android:host="oauth"
-                    android:scheme="@string/kakao_native_key" />
+                    android:scheme="${KAKAO_AOUTH_HOST_SCHEME}" />
             </intent-filter>
         </activity>
 

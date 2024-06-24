@@ -41,12 +41,14 @@
 
             <ImageButton
                 android:id="@+id/img_btn_add_account"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginEnd="24dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="16dp"
                 android:background="@android:color/transparent"
-                android:src="@drawable/ic_btn_add_filled_main"
                 android:onClick="@{()->vm.onClickCreateOrDeleteBtn()}"
+                android:padding="8dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_btn_add_filled_main"
                 app:layout_constraintBottom_toBottomOf="@id/include_top_bar"
                 app:layout_constraintEnd_toEndOf="@id/include_top_bar"
                 app:layout_constraintTop_toTopOf="@id/include_top_bar" />
@@ -134,90 +136,120 @@
 
                 <ImageButton
                     android:id="@+id/img_btn_filter"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="12dp"
-                    android:onClick="@{()->vm.onClickChangeDate()}"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:background="@android:color/transparent"
+                    android:onClick="@{()->vm.onClickChangeDate()}"
+                    android:padding="12dp"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/ic_account_filter"
+                    android:visibility="@{vm.uiState.tabType == AccountTabType.ALL ? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/view_personal"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="27dp"
+                    android:background="@drawable/bg_rectangle_filled_medicine_radius_3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_start_end_date" />
+
+                <TextView
+                    android:id="@+id/text_personal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/account_personal"
+                    android:textAppearance="@style/p1"
+                    android:textColor="@color/gs_80"
+                    app:layout_constraintBottom_toBottomOf="@id/view_personal"
+                    app:layout_constraintStart_toEndOf="@id/view_personal"
+                    app:layout_constraintTop_toTopOf="@id/view_personal" />
+
+                <TextView
+                    android:id="@+id/text_personal_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:text="@{vm.uiState.personal}"
+                    android:textAppearance="@style/p1"
+                    android:textColor="@color/gs_80"
+                    app:layout_constraintBottom_toBottomOf="@id/text_personal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/text_personal"
+                    tools:text="63,000원" />
+
+                <View
+                    android:id="@+id/view_subsidy"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="18dp"
+                    android:background="@drawable/bg_rectangle_filled_injection_radius_3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_personal" />
+
+                <TextView
+                    android:id="@+id/text_subsidy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/account_subsidy"
+                    android:textAppearance="@style/p1"
+                    android:textColor="@color/gs_80"
+                    app:layout_constraintBottom_toBottomOf="@id/view_subsidy"
+                    app:layout_constraintStart_toEndOf="@id/view_subsidy"
+                    app:layout_constraintTop_toTopOf="@id/view_subsidy" />
+
+                <TextView
+                    android:id="@+id/text_subsidy_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:text="@{vm.uiState.subsidy}"
+                    android:textAppearance="@style/p1"
+                    android:textColor="@color/gs_80"
+                    app:layout_constraintBottom_toBottomOf="@id/text_subsidy"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/text_subsidy"
+                    tools:text="78,000원" />
+
+                <ImageView
+                    android:id="@+id/img_divide_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/ic_account_divide_line"
+                    app:layout_constraintTop_toBottomOf="@id/text_subsidy" />
 
                 <TextView
                     android:id="@+id/text_all_expend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
-                    android:layout_marginTop="22dp"
+                    android:layout_marginTop="12dp"
                     android:text="@string/account_all_expend"
                     android:textAppearance="@style/h2"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/text_start_end_date" />
+                    app:layout_constraintTop_toBottomOf="@id/img_divide_line" />
 
                 <TextView
                     android:id="@+id/text_all_expend_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="22dp"
+                    android:layout_marginTop="12dp"
                     android:layout_marginEnd="12dp"
                     android:text="@{vm.uiState.allExpend}"
                     android:textAppearance="@style/h2"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/text_start_end_date"
+                    app:layout_constraintTop_toBottomOf="@id/img_divide_line"
                     tools:text="141,000원" />
-
-                <TextView
-                    android:id="@+id/text_subsidy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/account_subsidy"
-                    android:textAppearance="@style/h2"
-                    android:textColor="@color/black"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/text_all_expend_money" />
-
-                <TextView
-                    android:id="@+id/text_subsidy_money"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="12dp"
-                    android:text="@{vm.uiState.subsidy}"
-                    android:textAppearance="@style/h2"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/text_all_expend_money"
-                    tools:text="78,000원" />
-
-                <TextView
-                    android:id="@+id/text_personal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/account_personal"
-                    android:textAppearance="@style/h2"
-                    android:textColor="@color/black"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/text_subsidy" />
-
-                <TextView
-                    android:id="@+id/text_personal_money"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="12dp"
-                    android:text="@{vm.uiState.personal}"
-                    android:textAppearance="@style/h2"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/text_subsidy"
-                    tools:text="63,000원" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

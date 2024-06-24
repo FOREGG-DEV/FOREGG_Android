@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Hugg</string>
-    <string name="kakao_native_key">kakaoa3cef69597083c1fbb5c163132cf83a4</string>
     <string name="hugg_email">for.egg0302@gmail.com</string>
+    <string name="foregg_blog">https://blog.naver.com/foregg-</string>
 
     <!-- Words -->
     <string name="word_next">다음</string>
@@ -39,7 +39,7 @@
     <string name="onboarding_title_3">총 얼마 썼는지 궁금할 땐?</string>
     <string name="onboarding_title_4">생활습관 챌린지로 건강하게</string>
 
-    <string name="onboarding_content_1">정확한 시간에 맞아야 하는 주사,\n포슬이가 챙길 테니 안심하세요.</string>
+    <string name="onboarding_content_1">정확한 시간에 맞아야 하는 주사,\n허그가 챙길 테니 안심하세요.</string>
     <string name="onboarding_content_2">진료 내용, 복약 스케줄, 하루 동안 느낀 감정까지.\n모든 과정을 남편과 공유해요.</string>
     <string name="onboarding_content_3">가계부 기능을 통해, 정부지원금과 개인 지출을\n구분하여 확인할 수 있어요.</string>
     <string name="onboarding_content_4">난자는 영양 상태, 호르몬 변화에 큰 영향을 받아요.\n챌린지를 통해 건강한 생활습관을 지켜나가요.</string>
@@ -90,6 +90,10 @@
     <string name="home_challenge_complete_dialog_text">오늘의 챌린지 성공하셨나요?</string>
     <string name="home_medical_record">진료 내용</string>
     <string name="home_empty_record">오늘은 기록이 없어요</string>
+    <string name="home_record_card">진료 내용 기록하기</string>
+    <string name="challenge_fail_dialog">한 주간 고생 많으셨습니다.\n다음 주도 함께해요!</string>
+    <string name="challenge_success_dialog">이번주 챌린지 성공하셨어요!\n다음주도 힘차게 해내보세요</string>
+    <string name="challenge_dialog_positive_btn">네!</string>
 
     <!-- account -->
     <string name="account_all">전체</string>
@@ -155,6 +159,9 @@
     <string name="profile_unregister_dialog">Hugg에서 탈퇴 하시겠습니까?</string>
     <string name="profile_logout_complete_dialog">로그아웃이 완료되었습니다.</string>
     <string name="profile_unregister_complete_dialog">탈퇴가 완료되었습니다.</string>
+    <string name="profile_notion_notice_link">https://abouthugg.notion.site/Hugg-c673654437704c938ec5d7762ca338a0?pvs=4</string>
+    <string name="profile_notion_faq_link">https://abouthugg.notion.site/Hugg-Q-A-1d703027d86d4dd2abafce3ad594927e?pvs=4</string>
+    <string name="profile_notion_policy_link">https://abouthugg.notion.site/9f6d826b7f354ec8af9a2832ad34310d?pvs=4</string>
 
     <!-- toast -->
     <string name="toast_clip_share_code">클립보드에 배우자 코드가 복사되었어요!</string>
@@ -171,6 +178,10 @@
     <string name="toast_error_empty_side_effect">부작용을 입력해주세요.</string>
     <string name="toast_error_choice_today_emotion">오늘의 감정을 선택해주세요.</string>
     <string name="toast_error_choice_today_condition">오늘의 컨디션을 입력해주세요.</string>
+    <string name="toast_error_kakao_share_fail">공유에 실패했습니다.</string>
+    <string name="toast_error_kakao_share_web_fail">웹 브라우저를 설치해주세요.</string>
+    <string name="toast_error_kakao_logout">로그아웃에 실패했습니다.</string>
+    <string name="toast_error_kakao_unregister">카카오에서 연결끊기에 실패했습니다.</string>
 
     <!-- challenge -->
     <string name="challenge_title">챌린지</string>
@@ -198,4 +209,11 @@
     <string name="injection_share_husband">남편에게 공유</string>
     <string name="injection_share_hint">주사 기록을 남편에게 공유할 수 있어요</string>
     <string name="injection_explain">주사 설명</string>
+    
+    <!-- kakao_share-->
+    <string name="kakao_share_title">여보, 오늘 주사 잘 맞았어?</string>
+    <string name="kakao_share_content">진료 내용, 복약 스케줄, 하루 동안 느낀 감정까지, 허그에서 서로 공유해보세요!</string>
+    <string name="kakao_share_button">허그 다운로드 하기</string>
+    <string name="kakao_share_url">https://play.google.com/store/apps/details?id=com.foregg.presentation</string>
+    <string name="kakao_share_image">https://drive.google.com/uc?export=download&amp;id=1gOKA4dUyoZPayh5re4Gx9gISK0PyJUTj</string>
 </resources>

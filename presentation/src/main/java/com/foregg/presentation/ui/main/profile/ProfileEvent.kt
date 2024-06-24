@@ -5,9 +5,9 @@ import com.foregg.presentation.Event
 sealed class ProfileEvent : Event {
     object GoToEditProfileEvent : ProfileEvent()
     object GoToMyMedicineInjectionEvent : ProfileEvent()
-    object GoToNoticeEvent : ProfileEvent()
-    object GoToFAQEvent : ProfileEvent()
+    data class GoToNoticeEvent(val url : String) : ProfileEvent()
+    data class GoToFAQEvent(val url : String) : ProfileEvent()
     object GoToAskEvent : ProfileEvent()
-    object GoToPolicyEvent : ProfileEvent()
+    data class GoToPolicyEvent(val url : String) : ProfileEvent()
     object GoToAccountSettingEvent : ProfileEvent()
 }

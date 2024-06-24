@@ -14,7 +14,8 @@ class HomeChallengeAdapter(
     HomeChallengeDiffUtilCallBack()
 ) {
     interface HomeChallengeDelegate {
-        fun showDialog(id: Long)
+        fun showDialog(id: Long, successDaysCount : Int)
+        fun deleteComplete(id : Long)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

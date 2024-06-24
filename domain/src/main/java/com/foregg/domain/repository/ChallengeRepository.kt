@@ -11,4 +11,8 @@ interface ChallengeRepository {
     suspend fun getMyChallenge(): Flow<ApiState<List<MyChallengeListItemVo>>>
     suspend fun deleteChallenge(request: Long) : Flow<ApiState<Unit>>
     suspend fun completeChallenge(request: Long) : Flow<ApiState<Unit>>
+    suspend fun deleteCompleteChallenge(request: Long) : Flow<ApiState<Unit>>
+    suspend fun markVisit(id : Long, time : String) : Flow<Boolean>
+    suspend fun getVisitWeek(id : Long) : Flow<String>
+    suspend fun removeVisitId(id : Long) : Flow<Boolean>
 }

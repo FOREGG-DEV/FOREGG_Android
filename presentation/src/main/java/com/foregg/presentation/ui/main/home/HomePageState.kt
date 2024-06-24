@@ -4,6 +4,7 @@ import com.foregg.domain.model.enums.DailyConditionType
 import com.foregg.domain.model.enums.GenderType
 import com.foregg.domain.model.response.HomeRecordResponseVo
 import com.foregg.domain.model.response.MyChallengeListItemVo
+import com.foregg.domain.model.vo.home.HomeAdCardVo
 import com.foregg.presentation.PageState
 import kotlinx.coroutines.flow.StateFlow
 
@@ -14,7 +15,7 @@ data class HomePageState (
     val todayScheduleList: StateFlow<List<HomeRecordResponseVo>>,
     val formattedText: StateFlow<String>,
     val challengeList: StateFlow<List<MyChallengeListItemVo>>,
-    val homeIntroductionItemList: StateFlow<List<Int>>,
+    val homeIntroductionItemList: StateFlow<List<HomeAdCardVo>>,
     val genderType: GenderType,
     val dailyConditionImage: StateFlow<Int>,
     val dailyContent: StateFlow<String>,

@@ -1,6 +1,5 @@
 package com.foregg.presentation.ui.main.home.adapter
 
-import android.graphics.BitmapFactory
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.foregg.domain.model.response.MyChallengeListItemVo
@@ -15,25 +14,27 @@ class HomeChallengeViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
     private val today = TimeFormatter.getKoreanDayOfWeek(LocalDate.now().dayOfWeek)
     private var itemId: Long? = null
+    private var isSuccess : Boolean = false
+    private var successDaysCount : Int = 0
 
     init {
         binding.btnCompleteChallenge.setOnClickListener {
             itemId?.let { id ->
-                listener.showDialog(id)
+                if(isSuccess) listener.deleteComplete(id) else listener.showDialog(id, successDaysCount)
             }
         }
     }
 
     fun bind(item: MyChallengeListItemVo) {
         itemId = item.id
+        successDaysCount = item.successDays?.size ?: 0
         binding.apply {
             textChallengeName.text = item.name
-            item.successDays?.forEach { day ->
-                if (day == today) {
-                    btnCompleteChallenge.setImageResource(R.drawable.ic_btn_complete_challenge_already)
-                    btnCompleteChallenge.isClickable = false
-                }
-            }
+            isSuccess = if(item.successDays?.any { it == today } == true){
+                btnCompleteChallenge.setImageResource(R.drawable.ic_btn_complete_challenge_already)
+                true
+            } else false
+
             Glide.with(binding.root)
                 .load(item.image)
                 .into(challengeImage)

@@ -46,6 +46,7 @@ object Endpoints {
         const val PARTICIPATION = "$CHALLENGE/participation/{id}"
         const val QUIT = "$CHALLENGE/quit/{id}"
         const val COMPLETE = "$CHALLENGE/complete/{id}"
+        const val DELETE_COMPLETE = "$CHALLENGE/deleteTodayComplete/{id}"
         const val MY = "$CHALLENGE/my"
     }
 
@@ -64,5 +65,10 @@ object Endpoints {
         const val MY_INFO = "/myPage"
         const val MODIFY = "$MY_INFO/modifySurgery"
         const val GET_MEDICAL = "$MY_INFO/medicalInfo"
+    }
+
+    object INFORMATION{
+        const val ALL = "/information"
+        const val BY_TYPE = "$ALL/bySort"
     }
 }

@@ -3,7 +3,6 @@ package com.foregg.presentation.ui.main.home.challenge
 import android.graphics.Rect
 import android.view.View
 import androidx.core.view.ViewCompat
-import androidx.core.view.marginStart
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -41,7 +40,7 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
 
     override fun initView() {
         bindTab()
-        viewModel.setView()
+        viewModel.getAllChallenge()
 
         binding.apply {
             vm = viewModel
@@ -120,6 +119,7 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
         when(event) {
             ChallengeEvent.OnClickBtnBack -> findNavController().popBackStack()
             ChallengeEvent.OnClickBtnComplete -> showCompleteDialog()
+            is ChallengeEvent.ShowWeekEndDialog -> showCompleteChallengeDialog(event.isSuccess)
         }
     }
 
@@ -136,6 +136,17 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
                 binding.viewPagerChallenge.adapter = myChallengeListAdapter
             }
         }
+    }
+
+    private fun showCompleteChallengeDialog(isSuccess : Boolean){
+        val content = if(isSuccess) R.string.challenge_success_dialog else R.string.challenge_fail_dialog
+        dialog
+            .showOnlyPositiveBtn()
+            .setTitle(content)
+            .setPositiveButton(R.string.challenge_dialog_positive_btn) {
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun showDeleteDialog(id: Long) {

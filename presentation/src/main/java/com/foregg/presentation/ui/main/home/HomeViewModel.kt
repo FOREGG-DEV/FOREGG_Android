@@ -1,14 +1,16 @@
 package com.foregg.presentation.ui.main.home
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.foregg.domain.model.enums.DailyConditionType
 import com.foregg.domain.model.enums.GenderType
+import com.foregg.domain.model.enums.HomeAdCardType
 import com.foregg.domain.model.response.HomeRecordResponseVo
 import com.foregg.domain.model.response.HomeResponseVo
 import com.foregg.domain.model.response.MyChallengeListItemVo
+import com.foregg.domain.model.vo.home.HomeAdCardVo
 import com.foregg.domain.usecase.home.GetHomeUseCase
 import com.foregg.domain.usecase.home.challenge.CompleteChallengeUseCase
+import com.foregg.domain.usecase.home.challenge.DeleteCompleteChallengeUseCase
 import com.foregg.domain.usecase.home.challenge.GetMyChallengeUseCase
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseViewModel
@@ -27,6 +29,7 @@ class HomeViewModel @Inject constructor(
     private val getHomeUseCase: GetHomeUseCase,
     private val getMyChallengeUseCase: GetMyChallengeUseCase,
     private val completeChallengeUseCase: CompleteChallengeUseCase,
+    private val deleteCompleteChallengeUseCase: DeleteCompleteChallengeUseCase,
     private val resourceProvider: ResourceProvider
 ) : BaseViewModel<HomePageState>() {
     private val hasDailyRecordStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
@@ -36,7 +39,20 @@ class HomeViewModel @Inject constructor(
     private val todayScheduleStateFlow: MutableStateFlow<List<HomeRecordResponseVo>> = MutableStateFlow(emptyList())
     private val formattedTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val challengeListStateFlow: MutableStateFlow<List<MyChallengeListItemVo>> = MutableStateFlow(emptyList())
-    private val homeIntroductionItemListStateFlow: MutableStateFlow<List<Int>> = MutableStateFlow(listOf(R.drawable.ic_card_inrtoduction, R.drawable.ic_card_inrtoduction, R.drawable.ic_card_inrtoduction))
+    private val homeIntroductionItemListStateFlow: MutableStateFlow<List<HomeAdCardVo>> = MutableStateFlow(listOf(
+        HomeAdCardVo(
+            image = R.drawable.ic_ad_card_daily,
+            type = HomeAdCardType.DAILY
+        ),
+        HomeAdCardVo(
+            image = R.drawable.ic_ad_card_share,
+            type = HomeAdCardType.SHARE
+        ),
+        HomeAdCardVo(
+            image = R.drawable.ic_ad_card_foregg,
+            type = HomeAdCardType.BLOG
+        )
+    ))
     private val dailyConditionTypeImageStateFlow: MutableStateFlow<Int> = MutableStateFlow(R.drawable.ic_emotion_perfect_selected)
     private val dailyContentStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val medicalRecordStateFlow: MutableStateFlow<String> = MutableStateFlow("")
@@ -58,6 +74,10 @@ class HomeViewModel @Inject constructor(
         medicalRecord = medicalRecordStateFlow.asStateFlow(),
         medicalRecordId = medicalRecordIdStateFlow.asStateFlow()
     )
+
+    companion object{
+        const val ALL_CLEAR_CHALLENGE_COUNT = 6
+    }
 
     fun initScheduleStates() {
         getTodaySchedule()
@@ -116,9 +136,23 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun completeChallenge(id: Long) {
+    fun completeChallenge(id: Long, successDaysCount : Int) {
         viewModelScope.launch {
             completeChallengeUseCase(id).collect {
+                resultResponse(it, { handleSuccessCompleteChallenge(successDaysCount) })
+            }
+        }
+    }
+
+    private fun handleSuccessCompleteChallenge(successDaysCount: Int) {
+        val isSuccess = successDaysCount == ALL_CLEAR_CHALLENGE_COUNT
+        emitEventFlow(HomeEvent.ShowWeekEndDialog(isSuccess))
+        getMyChallenge()
+    }
+
+    fun deleteCompleteChallenge(id : Long){
+        viewModelScope.launch {
+            deleteCompleteChallengeUseCase(id).collect {
                 resultResponse(it, { getMyChallenge() })
             }
         }
