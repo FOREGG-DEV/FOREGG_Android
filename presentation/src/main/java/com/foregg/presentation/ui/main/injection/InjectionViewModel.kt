@@ -7,6 +7,7 @@ import com.foregg.domain.model.response.daily.InjectionInfoResponseVo
 import com.foregg.domain.usecase.dailyRecord.GetInjectionInfoUseCase
 import com.foregg.domain.usecase.dailyRecord.PostShareInjectionUseCase
 import com.foregg.presentation.base.BaseViewModel
+import com.foregg.presentation.util.ForeggAnalytics
 import com.foregg.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -40,6 +41,7 @@ class InjectionViewModel @Inject constructor(
     private lateinit var time : String
 
     fun initView(id : Long, time : String){
+        ForeggAnalytics.logEvent("injection_alarm", "InjectionFragment")
         this.id = id
         this.time = time
         val request = InjectionAlarmRequestVo(id = id, time = time)
