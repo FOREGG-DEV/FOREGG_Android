@@ -68,6 +68,7 @@ class InjectionViewModel @Inject constructor(
     }
 
     fun onClickShare(){
+        ForeggAnalytics.logEvent("injection_share", "InjectionFragment")
         val request = InjectionAlarmRequestVo(id = id, time = time)
         viewModelScope.launch {
             shareInjectionUseCase(request).collect{
