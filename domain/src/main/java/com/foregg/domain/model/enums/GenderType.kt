@@ -1,5 +1,5 @@
 package com.foregg.domain.model.enums
 
-enum class GenderType {
-    MALE, FEMALE
+enum class GenderType(val type : String) {
+    MALE("male"), FEMALE("female")
 }

@@ -11,6 +11,8 @@ import com.foregg.domain.usecase.account.GetAccountDetailUseCase
 import com.foregg.domain.usecase.account.PostCreateAccountUseCase
 import com.foregg.domain.usecase.account.PutEditAccountUseCase
 import com.foregg.presentation.base.BaseViewModel
+import com.foregg.presentation.util.ForeggAnalytics
+import com.foregg.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -166,9 +168,14 @@ class AccountCreateEditViewModel @Inject constructor(
         val request = getCreateRequest()
         viewModelScope.launch {
             postCreateAccountUseCase(request).collect{
-                resultResponse(it, { onClickBack() })
+                resultResponse(it, { handleSuccessCreateAccount() })
             }
         }
+    }
+
+    private fun handleSuccessCreateAccount(){
+        onClickBack()
+        ForeggAnalytics.logEvent("account_${UserInfo.info.genderType.type}_add", "AccountCreateEditFragment")
     }
 
     private fun editAccount(){

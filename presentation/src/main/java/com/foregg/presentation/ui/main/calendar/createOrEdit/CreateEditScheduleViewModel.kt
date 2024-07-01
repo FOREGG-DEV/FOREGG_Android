@@ -24,6 +24,7 @@ import com.foregg.domain.usecase.schedule.PostAddScheduleUseCase
 import com.foregg.domain.usecase.schedule.PostUpdateSideEffectUseCase
 import com.foregg.domain.usecase.schedule.PutModifyScheduleUseCase
 import com.foregg.presentation.base.BaseViewModel
+import com.foregg.presentation.util.ForeggAnalytics.logEvent
 import com.foregg.presentation.util.TimeFormatter
 import com.foregg.presentation.util.toList
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -263,9 +264,14 @@ class CreateEditScheduleViewModel @Inject constructor(
         val request = getDetailRequest()
         viewModelScope.launch {
             postAddScheduleUseCase(request).collect{
-                resultResponse(it, { onClickBack() }, needLoading = true)
+                resultResponse(it, { handleSuccessCreateSchedule() }, needLoading = true)
             }
         }
+    }
+
+    private fun handleSuccessCreateSchedule(){
+        onClickBack()
+        logEvent("calendar_add", "CreateEditScheduleFragment")
     }
 
     private fun modifySchedule(){

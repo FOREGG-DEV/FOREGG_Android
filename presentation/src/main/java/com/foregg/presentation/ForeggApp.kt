@@ -1,6 +1,7 @@
 package com.foregg.presentation
 
 import android.app.Application
+import com.foregg.presentation.util.ForeggAnalytics
 import com.foregg.presentation.util.ForeggNotification
 import com.google.firebase.FirebaseApp
 import com.jakewharton.threetenabp.AndroidThreeTen
@@ -17,6 +18,7 @@ class ForeggApp : Application() {
         AndroidThreeTen.init(this)
         KakaoSdk.init(this, BuildConfig.KAKAO_NATIVE_KEY)
         CoroutineScope(Dispatchers.IO).launch {
+            ForeggAnalytics.init(applicationContext)
             ForeggNotification.init(applicationContext)
         }
         FirebaseApp.initializeApp(this);

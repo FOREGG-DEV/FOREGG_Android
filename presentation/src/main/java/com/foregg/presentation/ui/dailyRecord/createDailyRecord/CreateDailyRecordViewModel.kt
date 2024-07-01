@@ -9,6 +9,7 @@ import com.foregg.domain.usecase.dailyRecord.EditDailyRecordUseCase
 import com.foregg.domain.usecase.dailyRecord.PostDailyRecordUseCase
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseViewModel
+import com.foregg.presentation.util.ForeggAnalytics
 import com.foregg.presentation.util.ResourceProvider
 import com.foregg.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -86,10 +87,15 @@ class CreateDailyRecordViewModel @Inject constructor(
         } else {
             viewModelScope.launch {
                 postDailyRecordUseCase(request = CreateDailyRecordRequestVo(isSelectedEmotionStateFlow.value, content)).collect {
-                    resultResponse(it, { emitEventFlow(CreateDailyRecordEvent.GoToCreateSideEffectEvent) }, ::handleCreateDailyRecordError)
+                    resultResponse(it, { handleSuccessCreateDailyRecord() }, ::handleCreateDailyRecordError)
                 }
             }
         }
+    }
+
+    private fun handleSuccessCreateDailyRecord(){
+        ForeggAnalytics.logEvent("daily_add", "CreateDailyRecordFragment")
+        emitEventFlow(CreateDailyRecordEvent.GoToCreateSideEffectEvent)
     }
 
     private fun handleCreateDailyRecordError(error: String) {

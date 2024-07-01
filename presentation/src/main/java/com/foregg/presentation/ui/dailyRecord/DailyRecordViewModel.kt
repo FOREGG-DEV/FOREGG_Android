@@ -11,6 +11,7 @@ import com.foregg.domain.usecase.dailyRecord.GetDailyRecordUseCase
 import com.foregg.domain.usecase.dailyRecord.GetSideEffectUseCase
 import com.foregg.domain.usecase.dailyRecord.PutEmotionUseCase
 import com.foregg.presentation.base.BaseViewModel
+import com.foregg.presentation.util.ForeggAnalytics
 import com.foregg.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -89,11 +90,16 @@ class DailyRecordViewModel @Inject constructor(
     }
 
     fun putEmotion(request: PutEmotionVo) {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch {
             putEmotionUseCase.invoke(request).collect {
-                resultResponse(it, { getDailyRecord() })
+                resultResponse(it, { handleSuccessPutEmotion() })
             }
         }
+    }
+
+    private fun handleSuccessPutEmotion(){
+        ForeggAnalytics.logEvent("daily_reaction", "DailyRecordFragment")
+        getDailyRecord()
     }
 
     fun deleteDailyRecord(id: Long) {
