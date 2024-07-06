@@ -69,6 +69,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
             override fun deleteComplete(id: Long) {
                 viewModel.deleteCompleteChallenge(id)
             }
+
+            override fun onClickMyChallenge(id: Long) {
+                goToChallenge(id)
+            }
         })
     }
 
@@ -147,8 +151,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
         }
     }
 
-    private fun goToChallenge() {
-        val action = HomeFragmentDirections.actionHomeToChallege()
+    private fun goToChallenge(id : Long = -1) {
+        val action = HomeFragmentDirections.actionHomeToChallege(id)
         findNavController().navigate(action)
     }
 

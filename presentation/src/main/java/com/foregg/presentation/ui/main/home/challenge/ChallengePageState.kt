@@ -13,8 +13,13 @@ data class ChallengePageState (
     val currentItemCount: StateFlow<Int>,
     val challengeList: StateFlow<List<ChallengeCardVo>>,
     val challengeMonthWeek: StateFlow<String>,
-    val myChallengeList: StateFlow<List<MyChallengeListItemVo>>,
+    val myChallengeList: StateFlow<MyChallengeListState>,
     val weekOfMonth: StateFlow<String>,
     val isParticipate: StateFlow<Boolean>,
     val btnDayState: StateFlow<List<ChallengeStatusType>>
 ): PageState
+
+data class MyChallengeListState(
+    val isLoaded: Boolean = false,
+    val data: List<MyChallengeListItemVo> = emptyList()
+)

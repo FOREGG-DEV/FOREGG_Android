@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:orientation="vertical"
-                android:visibility="@{vm.uiState.challengeTapType == ChallengeTapType.MY &amp;&amp; vm.uiState.myChallengeList.empty ? View.VISIBLE : View.GONE}"
+                android:visibility="@{vm.uiState.challengeTapType == ChallengeTapType.MY &amp;&amp; vm.uiState.myChallengeList.data.empty ? View.VISIBLE : View.GONE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/custom_tab_bar">
@@ -131,7 +131,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="178dp"
                 android:background="@drawable/bg_rectangle_filled_white_radius_12"
-                android:visibility="@{vm.uiState.myChallengeList.empty &amp;&amp; vm.uiState.challengeTapType == ChallengeTapType.MY ? View.GONE : View.VISIBLE}"
+                android:visibility="@{vm.uiState.myChallengeList.data.empty &amp;&amp; vm.uiState.challengeTapType == ChallengeTapType.MY ? View.GONE : View.VISIBLE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view_pager_frame"
@@ -148,7 +148,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@{vm.uiState.challengeTapType == ChallengeTapType.ALL ? vm.uiState.currentItemCount.toString() : vm.uiState.currentItemCount.toString()}"
+                        android:text="@{vm.uiState.currentItemCount.toString()}"
                         android:textSize="16sp"
                         android:textColor="@color/gs_50"
                         android:fontFamily="@font/pretendard_regular"/>
@@ -207,7 +207,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:text="@{vm.uiState.weekOfMonth}"
-                    android:visibility="@{vm.uiState.myChallengeList.empty &amp;&amp; vm.uiState.challengeTapType == ChallengeTapType.MY ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{vm.uiState.myChallengeList.data.empty &amp;&amp; vm.uiState.challengeTapType == ChallengeTapType.MY ? View.GONE : View.VISIBLE}"
                     android:textColor="@color/gs_80"
                     android:textSize="16sp"
                     android:fontFamily="@font/pretendard_regular"/>
@@ -215,7 +215,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="@{vm.uiState.myChallengeList.empty ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{vm.uiState.myChallengeList.data.empty ? View.GONE : View.VISIBLE}"
                     android:orientation="horizontal">
 
                     <FrameLayout

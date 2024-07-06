@@ -23,6 +23,10 @@ class HomeChallengeViewHolder(
                 if(isSuccess) listener.deleteComplete(id) else listener.showDialog(id, successDaysCount)
             }
         }
+
+        binding.root.setOnClickListener {
+            itemId?.let { listener.onClickMyChallenge(it) }
+        }
     }
 
     fun bind(item: MyChallengeListItemVo) {

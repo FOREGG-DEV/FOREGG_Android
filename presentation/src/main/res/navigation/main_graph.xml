@@ -80,6 +80,10 @@
         android:label="fragment_challenge"
         tools:layout="@layout/fragment_challenge">
 
+        <argument
+            android:name="id"
+            app:argType="long" />
+
     </fragment>
 
     <fragment

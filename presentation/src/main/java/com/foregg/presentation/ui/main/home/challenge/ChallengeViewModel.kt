@@ -47,7 +47,7 @@ class ChallengeViewModel @Inject constructor(
     private val currentItemCountStateFlow: MutableStateFlow<Int> = MutableStateFlow(-1)
     private val challengeItemListStateFlow: MutableStateFlow<List<ChallengeCardVo>> = MutableStateFlow(emptyList())
     private val challengeMonthWeekStateFlow: MutableStateFlow<String> = MutableStateFlow("")
-    private val myChallengeListStateFlow: MutableStateFlow<List<MyChallengeListItemVo>> = MutableStateFlow(emptyList())
+    private val myChallengeListStateFlow: MutableStateFlow<MyChallengeListState> = MutableStateFlow(MyChallengeListState())
     private val weekOfMonthStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val isParticipateStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val btnDayStateFlow: MutableStateFlow<List<ChallengeStatusType>> = MutableStateFlow(List(7) { ChallengeStatusType.DEFAULT })
@@ -81,10 +81,14 @@ class ChallengeViewModel @Inject constructor(
         participateChallenge()
     }
 
+    fun getChallengeList(id : Long){
+        if(id != (-1).toLong()) getMyChallenge() else getAllChallenge()
+    }
+
     fun getAllChallenge() {
         viewModelScope.launch(Dispatchers.Main) {
             getAllChallengeUseCase(request = Unit).collect{
-                resultResponse(it, ::handleGetSuccessChallenge)
+                resultResponse(it, ::handleGetSuccessChallenge, needLoading = true)
             }
         }
     }
@@ -114,11 +118,11 @@ class ChallengeViewModel @Inject constructor(
 
     private fun handleGetSuccessMyChallenge(result: List<MyChallengeListItemVo>) {
         viewModelScope.launch {
-            myChallengeListStateFlow.update { result }
+            myChallengeListStateFlow.update { MyChallengeListState(isLoaded = true, data = result) }
             allItemCountStateFlow.update { result.size }
             if (allItemCountStateFlow.value != 0) {
                 if (currentItemCountStateFlow.value == -1) { currentItemCountStateFlow.update { 1 } }
-                weekOfMonthStateFlow.update { myChallengeListStateFlow.value[0].weekOfMonth }
+                weekOfMonthStateFlow.update { myChallengeListStateFlow.value.data[0].weekOfMonth }
                 updateBtnDayState(position)
             }
             else if (allItemCountStateFlow.value == 0) { currentItemCountStateFlow.update { 0 } }
@@ -134,7 +138,7 @@ class ChallengeViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            myChallengeListStateFlow.value[index].successDays?.let { successDays ->
+            myChallengeListStateFlow.value.data[index].successDays?.let { successDays ->
                 for (day in successDays) {
                     val dayIndex = dayToIndex(day)
                     if (dayIndex > todayIndex) break
@@ -174,21 +178,19 @@ class ChallengeViewModel @Inject constructor(
 
     private fun getAndMarkVisitChallenge() {
         val request = MarkChallengeVisitRequestVo(
-            myChallengeListStateFlow.value[position].id,
-            myChallengeListStateFlow.value[position].weekOfMonth,
+            myChallengeListStateFlow.value.data[position].id,
+            myChallengeListStateFlow.value.data[position].weekOfMonth,
         )
         viewModelScope.launch {
             val result = getVisitWeekChallengeUseCase(request.id).first()
             markChallengeVisitUseCase(request).first()
-            if(result != request.time && result.isNotBlank() && !myChallengeListStateFlow.value[position].lastSaturday) emitEventFlow(ChallengeEvent.ShowWeekEndDialog(false))
+            if(result != request.time && result.isNotBlank() && !myChallengeListStateFlow.value.data[position].lastSaturday) emitEventFlow(ChallengeEvent.ShowWeekEndDialog(false))
         }
     }
 
     private fun swipeNextItem() {
         viewModelScope.launch {
-            currentItemCountStateFlow.update {
-                if (currentItemCountStateFlow.value < allItemCountStateFlow.value) currentItemCountStateFlow.value + 1 else return@launch
-            }
+            if (currentItemCountStateFlow.value < allItemCountStateFlow.value)  updateCurrentItemCount(currentItemCountStateFlow.value + 1) else return@launch
             if(challengeTapTypeStateFlow.value == ChallengeTapType.ALL) isParticipateStateFlow.update { challengeItemListStateFlow.value[currentItemCountStateFlow.value - 1].ifMine }
             else if (challengeTapTypeStateFlow.value == ChallengeTapType.MY) updateBtnDayState(currentItemCountStateFlow.value - 1)
         }
@@ -196,11 +198,15 @@ class ChallengeViewModel @Inject constructor(
 
     private fun swipePreviousItem() {
         viewModelScope.launch {
-            currentItemCountStateFlow.update {
-                if (currentItemCountStateFlow.value > 1) currentItemCountStateFlow.value - 1 else return@launch
-            }
+            if (currentItemCountStateFlow.value > 1)  updateCurrentItemCount(currentItemCountStateFlow.value - 1) else return@launch
             if(challengeTapTypeStateFlow.value == ChallengeTapType.ALL) isParticipateStateFlow.update { challengeItemListStateFlow.value[currentItemCountStateFlow.value - 1].ifMine }
             else if (challengeTapTypeStateFlow.value == ChallengeTapType.MY) updateBtnDayState(currentItemCountStateFlow.value - 1)
+        }
+    }
+
+    fun updateCurrentItemCount(position: Int){
+        viewModelScope.launch {
+            currentItemCountStateFlow.update { position }
         }
     }
 
@@ -248,7 +254,7 @@ class ChallengeViewModel @Inject constructor(
     }
 
     fun completeChallenge() {
-        val currentItemId = myChallengeListStateFlow.value[currentItemCountStateFlow.value - 1].id
+        val currentItemId = myChallengeListStateFlow.value.data[currentItemCountStateFlow.value - 1].id
         viewModelScope.launch {
             completeChallengeUseCase(request = currentItemId).collect {
                 resultResponse(it, { handleSuccessCompleteChallenge() }, needLoading = true)
@@ -265,7 +271,7 @@ class ChallengeViewModel @Inject constructor(
     }
 
     private fun deleteCompleteChallenge(){
-        val currentItemId = myChallengeListStateFlow.value[currentItemCountStateFlow.value - 1].id
+        val currentItemId = myChallengeListStateFlow.value.data[currentItemCountStateFlow.value - 1].id
         viewModelScope.launch {
             deleteCompleteChallengeUseCase(request = currentItemId).collect {
                 resultResponse(it, { getMyChallenge() }, needLoading = true)
@@ -275,5 +281,10 @@ class ChallengeViewModel @Inject constructor(
 
     fun onClickBtnBack() {
         emitEventFlow(ChallengeEvent.OnClickBtnBack)
+    }
+
+    fun getItemPosition(id : Long) : Int {
+        val item = myChallengeListStateFlow.value.data.find { it.id == id }
+        return myChallengeListStateFlow.value.data.indexOf(item)
     }
 }

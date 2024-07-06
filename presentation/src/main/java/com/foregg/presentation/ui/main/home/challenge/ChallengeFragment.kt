@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.foregg.domain.model.enums.ChallengeTapType
@@ -29,6 +30,7 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
     @Inject
     lateinit var dialog: CommonDialog
 
+    private val args : ChallengeFragmentArgs by navArgs()
     private val challengeListAdapter = ChallengeListAdapter()
     private val myChallengeListAdapter : MyChallengeListAdapter by lazy {
         MyChallengeListAdapter(object : MyChallengeListAdapter.DeleteMyChallengeDelegate {
@@ -40,54 +42,10 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
 
     override fun initView() {
         bindTab()
-        viewModel.getAllChallenge()
-
+        viewModel.getChallengeList(args.id)
         binding.apply {
             vm = viewModel
-            viewPagerChallenge.apply {
-                clipToPadding = false
-                clipChildren = false
-                offscreenPageLimit = 3
-                getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-
-                val pageMarginPx = 10.px
-                val offsetPx = 6.px
-
-                setPageTransformer { page, position ->
-                    val viewPager = page.parent.parent as ViewPager2
-                    val offset = position * -(2 * offsetPx + pageMarginPx)
-                    if (viewPager.orientation == ViewPager2.ORIENTATION_HORIZONTAL) {
-                        if (ViewCompat.getLayoutDirection(viewPager) == ViewCompat.LAYOUT_DIRECTION_RTL) {
-                            page.translationX = -offset
-                        } else {
-                            page.translationX = offset
-                        }
-                    } else {
-                        page.translationY = offset
-                    }
-
-                    val scale = 1 - abs(position)
-                    page.scaleY = 0.85f + scale * 0.15f
-                }
-
-                addItemDecoration(object : RecyclerView.ItemDecoration() {
-                    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-                        outRect.right = 15.px
-                        outRect.left = 15.px
-                    }
-                })
-
-                adapter = challengeListAdapter
-                registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                    private var previousPosition = viewPagerChallenge.currentItem
-                    override fun onPageSelected(position: Int) {
-                        super.onPageSelected(position)
-                        viewModel.swipeItem(position, previousPosition)
-                        previousPosition = position
-                    }
-                })
-
-            }
+            bindViewPager()
         }
     }
 
@@ -103,7 +61,10 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
 
             launch {
                 viewModel.uiState.myChallengeList.collect {
-                    myChallengeListAdapter.submitList(it)
+                    if(it.isLoaded) {
+                        myChallengeListAdapter.submitList(it.data)
+                        moveToPositionId()
+                    }
                 }
             }
 
@@ -124,6 +85,7 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
     }
 
     private fun bindTab(){
+        if(args.id != (-1).toLong()) setMyChallengeTab()
         binding.customTabBar.apply {
             leftBtnClicked {
                 viewModel.updateTabType(ChallengeTapType.ALL)
@@ -135,6 +97,14 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
                 viewModel.getMyChallenge()
                 binding.viewPagerChallenge.adapter = myChallengeListAdapter
             }
+        }
+    }
+
+    private fun setMyChallengeTab(){
+        binding.customTabBar.apply {
+            setRightBtnClickedBackground()
+            viewModel.updateTabType(ChallengeTapType.MY)
+            viewModel.getMyChallenge()
         }
     }
 
@@ -173,5 +143,61 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
                 dialog.dismiss()
             }
             .show()
+    }
+
+    private fun bindViewPager(){
+        binding.viewPagerChallenge.apply {
+            clipToPadding = false
+            clipChildren = false
+            offscreenPageLimit = 3
+            getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+
+            val pageMarginPx = 10.px
+            val offsetPx = 6.px
+
+            setPageTransformer { page, position ->
+                val viewPager = page.parent.parent as ViewPager2
+                val offset = position * -(2 * offsetPx + pageMarginPx)
+                if (viewPager.orientation == ViewPager2.ORIENTATION_HORIZONTAL) {
+                    if (ViewCompat.getLayoutDirection(viewPager) == ViewCompat.LAYOUT_DIRECTION_RTL) {
+                        page.translationX = -offset
+                    } else {
+                        page.translationX = offset
+                    }
+                } else {
+                    page.translationY = offset
+                }
+
+                val scale = 1 - abs(position)
+                page.scaleY = 0.85f + scale * 0.15f
+            }
+
+            addItemDecoration(object : RecyclerView.ItemDecoration() {
+                override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+                    outRect.right = 15.px
+                    outRect.left = 15.px
+                }
+            })
+
+            adapter = if(args.id != (-1).toLong()) myChallengeListAdapter else challengeListAdapter
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                private var previousPosition = binding.viewPagerChallenge.currentItem
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    viewModel.swipeItem(position, previousPosition)
+                    previousPosition = position
+                }
+            })
+        }
+    }
+
+    private fun moveToPositionId(){
+        binding.apply {
+            viewPagerChallenge.post {
+                val position = viewModel.getItemPosition(args.id)
+                viewPagerChallenge.setCurrentItem(position, true)
+                viewModel.updateCurrentItemCount(position + 1)
+            }
+        }
     }
 }
