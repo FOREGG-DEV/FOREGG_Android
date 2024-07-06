@@ -9,6 +9,7 @@
         <import type="com.foregg.presentation.util.ForeggNotification"/>
         <import type="com.foregg.domain.model.enums.GenderType"/>
         <import type="com.foregg.domain.model.enums.DailyConditionType"/>
+        <import type="com.foregg.domain.model.enums.HomeChallengeViewType"/>
         <variable
             name="vm"
             type="com.foregg.presentation.ui.main.home.HomeViewModel" />
@@ -191,7 +192,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="8dp"
-                    android:visibility="@{vm.uiState.challengeList.empty ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{vm.uiState.challengeViewType == HomeChallengeViewType.EMPTY  ? View.VISIBLE : View.GONE}"
                     android:background="@drawable/ic_empty_challenge">
 
                     <androidx.appcompat.widget.AppCompatButton
@@ -212,7 +213,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:visibility="@{vm.uiState.challengeList.empty ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{vm.uiState.challengeViewType == HomeChallengeViewType.LIST  ? View.VISIBLE : View.GONE}"
                     >
 
                     <androidx.recyclerview.widget.RecyclerView

@@ -105,6 +105,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
                 adapter = homeIntroductionAdapter
             }
             indicatorView.attachTo(advertiseViewPager)
+            viewModel.initScheduleStates()
         }
     }
 
@@ -134,8 +135,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeViewMo
                 }
             }
         }
-
-        viewModel.initScheduleStates()
     }
 
     private fun sortEvent(event: HomeEvent) {

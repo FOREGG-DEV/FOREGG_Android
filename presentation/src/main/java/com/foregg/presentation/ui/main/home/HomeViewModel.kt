@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.foregg.domain.model.enums.DailyConditionType
 import com.foregg.domain.model.enums.GenderType
 import com.foregg.domain.model.enums.HomeAdCardType
+import com.foregg.domain.model.enums.HomeChallengeViewType
 import com.foregg.domain.model.response.HomeRecordResponseVo
 import com.foregg.domain.model.response.HomeResponseVo
 import com.foregg.domain.model.response.MyChallengeListItemVo
@@ -39,6 +40,7 @@ class HomeViewModel @Inject constructor(
     private val todayScheduleStateFlow: MutableStateFlow<List<HomeRecordResponseVo>> = MutableStateFlow(emptyList())
     private val formattedTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val challengeListStateFlow: MutableStateFlow<List<MyChallengeListItemVo>> = MutableStateFlow(emptyList())
+    private val challengeViewTypeStateFlow: MutableStateFlow<HomeChallengeViewType> = MutableStateFlow(HomeChallengeViewType.DEFAULT)
     private val homeIntroductionItemListStateFlow: MutableStateFlow<List<HomeAdCardVo>> = MutableStateFlow(listOf(
         HomeAdCardVo(
             image = R.drawable.ic_ad_card_daily,
@@ -67,6 +69,7 @@ class HomeViewModel @Inject constructor(
         todayScheduleList = todayScheduleStateFlow.asStateFlow(),
         formattedText = formattedTextStateFlow.asStateFlow(),
         challengeList = challengeListStateFlow.asStateFlow(),
+        challengeViewType = challengeViewTypeStateFlow.asStateFlow(),
         homeIntroductionItemList = homeIntroductionItemListStateFlow.asStateFlow(),
         genderType = UserInfo.info.genderType,
         dailyConditionImage = dailyConditionTypeImageStateFlow.asStateFlow(),
@@ -118,6 +121,9 @@ class HomeViewModel @Inject constructor(
     private fun updateChallengeList(newList: List<MyChallengeListItemVo>) {
         viewModelScope.launch {
             challengeListStateFlow.update { newList }
+            challengeViewTypeStateFlow.update {
+                if(newList.isEmpty()) HomeChallengeViewType.EMPTY else HomeChallengeViewType.LIST
+            }
         }
     }
 
