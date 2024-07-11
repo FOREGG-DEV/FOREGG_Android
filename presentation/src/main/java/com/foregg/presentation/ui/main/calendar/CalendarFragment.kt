@@ -18,7 +18,6 @@ import com.foregg.presentation.ui.common.CommonDialog
 import com.foregg.presentation.ui.main.calendar.adapter.CalendarDayAdapter
 import com.foregg.presentation.ui.main.calendar.adapter.ScheduleAdapter
 import com.foregg.presentation.ui.main.calendar.dialog.CreateScheduleDialog
-import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.ForeggNotification
 import com.foregg.presentation.util.ForeggToast
 import com.foregg.presentation.util.px
