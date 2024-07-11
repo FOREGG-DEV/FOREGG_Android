@@ -1,5 +1,6 @@
 package com.foregg.presentation.ui.main.calendar
 
+import android.view.ViewTreeObserver
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
@@ -17,6 +18,7 @@ import com.foregg.presentation.ui.common.CommonDialog
 import com.foregg.presentation.ui.main.calendar.adapter.CalendarDayAdapter
 import com.foregg.presentation.ui.main.calendar.adapter.ScheduleAdapter
 import com.foregg.presentation.ui.main.calendar.dialog.CreateScheduleDialog
+import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.ForeggNotification
 import com.foregg.presentation.util.ForeggToast
 import com.foregg.presentation.util.px
@@ -98,12 +100,15 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding, CalendarPageState
     }
 
     private fun postLayoutRunnable() {
-        binding.includeLayoutCalendar.recyclerViewCalendar.post {
-            val parentHeight = resources.displayMetrics.heightPixels
-            val bottomY = binding.constraintLayoutCalendar.bottom
-            val peekHeight = parentHeight - bottomY - BOTTOM_NAV_HEIGHT.px - MARGIN_FROM_CALENDAR.px
-            bottomSheetBehavior.peekHeight = peekHeight
-        }
+        binding.includeLayoutCalendar.recyclerViewCalendar.viewTreeObserver.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout(){
+                val parentHeight = resources.displayMetrics.heightPixels
+                val bottomY = binding.constraintLayoutCalendar.bottom
+                val peekHeight = parentHeight - bottomY - BOTTOM_NAV_HEIGHT.px - MARGIN_FROM_CALENDAR.px
+                bottomSheetBehavior.peekHeight = peekHeight
+                binding.includeLayoutCalendar.recyclerViewCalendar.viewTreeObserver.removeOnGlobalLayoutListener(this)
+            }
+        })
     }
 
     override fun initStates() {
