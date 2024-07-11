@@ -16,7 +16,6 @@ import com.foregg.domain.usecase.home.challenge.MarkChallengeVisitUseCase
 import com.foregg.domain.usecase.home.challenge.ParticipateChallengeUseCase
 import com.foregg.domain.usecase.home.challenge.QuitChallengeUseCase
 import com.foregg.presentation.base.BaseViewModel
-import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.ResourceProvider
 import com.foregg.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -97,14 +96,8 @@ class ChallengeViewModel @Inject constructor(
         viewModelScope.launch {
             challengeItemListStateFlow.update { result }
             allItemCountStateFlow.update { result.size }
-            if (allItemCountStateFlow.value != 0 && currentItemCountStateFlow.value == -1) {
-                currentItemCountStateFlow.update { 1 }
-                isParticipateStateFlow.update { challengeItemListStateFlow.value[0].ifMine }
-            }
-            else if (allItemCountStateFlow.value == 0) { currentItemCountStateFlow.update { 0 } }
-            else if (allItemCountStateFlow.value != 0 && currentItemCountStateFlow.value != -1){
-                isParticipateStateFlow.update { challengeItemListStateFlow.value[currentItemCountStateFlow.value - 1].ifMine }
-            }
+            val index = if(currentItemCountStateFlow.value == -1) 0 else currentItemCountStateFlow.value
+            isParticipateStateFlow.update { challengeItemListStateFlow.value[index].ifMine }
         }
     }
 
@@ -120,12 +113,10 @@ class ChallengeViewModel @Inject constructor(
         viewModelScope.launch {
             myChallengeListStateFlow.update { MyChallengeListState(isLoaded = true, data = result) }
             allItemCountStateFlow.update { result.size }
-            if (allItemCountStateFlow.value != 0) {
-                if (currentItemCountStateFlow.value == -1) { currentItemCountStateFlow.update { 1 } }
+            if (result.isNotEmpty()) {
                 weekOfMonthStateFlow.update { myChallengeListStateFlow.value.data[0].weekOfMonth }
-                updateBtnDayState(position)
+                updateBtnDayState(0)
             }
-            else if (allItemCountStateFlow.value == 0) { currentItemCountStateFlow.update { 0 } }
         }
     }
 
@@ -165,15 +156,11 @@ class ChallengeViewModel @Inject constructor(
         }
     }
 
-    fun swipeItem(position: Int, previousPosition: Int) {
+    fun swipeItem(position: Int) {
         this.position = position
+        updateCurrentItemCount(position + 1)
         if(challengeTapTypeStateFlow.value == ChallengeTapType.MY) getAndMarkVisitChallenge()
-        if (position > previousPosition) {
-            swipeNextItem()
-        }
-        else if (position < previousPosition) {
-            swipePreviousItem()
-        }
+        updateAfterSwipeButtonState()
     }
 
     private fun getAndMarkVisitChallenge() {
@@ -188,35 +175,20 @@ class ChallengeViewModel @Inject constructor(
         }
     }
 
-    private fun swipeNextItem() {
-        viewModelScope.launch {
-            if (currentItemCountStateFlow.value < allItemCountStateFlow.value)  updateCurrentItemCount(currentItemCountStateFlow.value + 1) else return@launch
-            if(challengeTapTypeStateFlow.value == ChallengeTapType.ALL) isParticipateStateFlow.update { challengeItemListStateFlow.value[currentItemCountStateFlow.value - 1].ifMine }
-            else if (challengeTapTypeStateFlow.value == ChallengeTapType.MY) updateBtnDayState(currentItemCountStateFlow.value - 1)
-        }
+    private fun updateAfterSwipeButtonState(){
+        if(challengeTapTypeStateFlow.value == ChallengeTapType.ALL) isParticipateStateFlow.update { challengeItemListStateFlow.value[currentItemCountStateFlow.value - 1].ifMine }
+        else if (challengeTapTypeStateFlow.value == ChallengeTapType.MY) updateBtnDayState(currentItemCountStateFlow.value - 1)
     }
 
-    private fun swipePreviousItem() {
-        viewModelScope.launch {
-            if (currentItemCountStateFlow.value > 1)  updateCurrentItemCount(currentItemCountStateFlow.value - 1) else return@launch
-            if(challengeTapTypeStateFlow.value == ChallengeTapType.ALL) isParticipateStateFlow.update { challengeItemListStateFlow.value[currentItemCountStateFlow.value - 1].ifMine }
-            else if (challengeTapTypeStateFlow.value == ChallengeTapType.MY) updateBtnDayState(currentItemCountStateFlow.value - 1)
-        }
-    }
-
-    fun updateCurrentItemCount(position: Int){
+    private fun updateCurrentItemCount(position: Int){
         viewModelScope.launch {
             currentItemCountStateFlow.update { position }
         }
     }
 
     fun updateTabType(tapType: ChallengeTapType) {
-        if (challengeTapTypeStateFlow.value == tapType) return
         viewModelScope.launch {
-            challengeTapTypeStateFlow.update {
-                if (challengeTapTypeStateFlow.value == ChallengeTapType.ALL) ChallengeTapType.MY else ChallengeTapType.ALL
-            }
-            currentItemCountStateFlow.update { 1 }
+            challengeTapTypeStateFlow.update { tapType }
         }
     }
 
@@ -285,6 +257,8 @@ class ChallengeViewModel @Inject constructor(
 
     fun getItemPosition(id : Long) : Int {
         val item = myChallengeListStateFlow.value.data.find { it.id == id }
-        return myChallengeListStateFlow.value.data.indexOf(item)
+        val position = myChallengeListStateFlow.value.data.indexOf(item)
+        updateCurrentItemCount(position + 1)
+        return position
     }
 }
