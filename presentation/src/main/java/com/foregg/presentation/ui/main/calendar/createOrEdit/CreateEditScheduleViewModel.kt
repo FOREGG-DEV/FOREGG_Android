@@ -38,7 +38,7 @@ import kotlin.properties.Delegates
 @HiltViewModel
 class CreateEditScheduleViewModel @Inject constructor(
     private val postAddScheduleUseCase: PostAddScheduleUseCase,
-    private val getScheduleDetailUseCase: GetScheduleDetailUseCase, // (완)
+    private val getScheduleDetailUseCase: GetScheduleDetailUseCase,
     private val getScheduleSideEffectUseCase: GetScheduleSideEffectUseCase,
     private val putModifyScheduleUseCase: PutModifyScheduleUseCase,
     private val postUpdateSideEffectUseCase: PostUpdateSideEffectUseCase

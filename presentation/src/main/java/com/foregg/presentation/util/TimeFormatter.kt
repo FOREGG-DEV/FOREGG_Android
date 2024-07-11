@@ -68,7 +68,7 @@ object TimeFormatter {
     fun formatObjectTimeToStringTime(time : CreateScheduleTimeVo) : String{
         val timeText = "${time.amOrPm} ${time.hour}:${time.minute}"
         return try {
-            val inputFormat = SimpleDateFormat("a h:mm", Locale.getDefault())
+            val inputFormat = SimpleDateFormat("a h:mm", Locale.KOREAN)
             val date = inputFormat.parse(timeText)
             val outputFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
             outputFormat.format(date)
