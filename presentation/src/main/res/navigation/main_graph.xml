@@ -38,6 +38,10 @@
         <action
             android:id="@+id/action_daily_record_to_create_daily_record"
             app:destination="@id/createDailyRecordFragment"/>
+
+        <action
+            android:id="@+id/action_daily_record_to_create_side_effect"
+            app:destination="@id/createSideEffectFragment"/>
     </fragment>
 
     <fragment
@@ -59,10 +63,6 @@
             android:name="dailyCondition"
             android:defaultValue="DEFAULT"
             app:argType="com.foregg.domain.model.enums.DailyConditionType"/>
-
-        <action
-            android:id="@+id/create_daily_record_to_create_side_effect"
-            app:destination="@id/createSideEffectFragment"/>
 
     </fragment>
 

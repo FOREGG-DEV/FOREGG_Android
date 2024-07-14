@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.foregg.presentation.R
 import com.foregg.presentation.databinding.CustomTabBarBinding
+import com.foregg.presentation.util.ForeggLog
 
 
 class CustomTabBar @JvmOverloads constructor(

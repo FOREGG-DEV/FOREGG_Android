@@ -5,9 +5,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.foregg.domain.model.enums.DailyConditionType
 import com.foregg.domain.model.enums.DailyRecordTabType
-import com.foregg.domain.model.enums.EmotionType
-import com.foregg.domain.model.enums.GenderType
-import com.foregg.domain.model.enums.NotificationType
 import com.foregg.domain.model.request.dailyRecord.PutEmotionVo
 import com.foregg.domain.model.vo.DailyRecordResponseItemVo
 import com.foregg.presentation.R
@@ -18,10 +15,7 @@ import com.foregg.presentation.ui.dailyRecord.adapter.DailyRecordAdapter
 import com.foregg.presentation.ui.dailyRecord.adapter.DailyRecordViewHolder
 import com.foregg.presentation.ui.dailyRecord.adapter.SideEffectAdapter
 import com.foregg.presentation.ui.dailyRecord.bottomSheet.DailyRecordEditDeleteBottomSheet
-import com.foregg.presentation.util.ForeggNotification
 import com.foregg.presentation.util.PendingExtraValue
-import com.foregg.presentation.util.UserInfo
-import com.kakao.sdk.user.model.User
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -79,6 +73,12 @@ class DailyRecordFragment : BaseFragment<FragmentDailyRecordBinding, DailyRecord
             }
 
             launch {
+                viewModel.uiState.dailyRecordTabType.collect{
+                    initTab(it)
+                }
+            }
+
+            launch {
                 viewModel.eventFlow.collect {
                     sortEvent(it as DailyRecordEvent)
                 }
@@ -99,15 +99,34 @@ class DailyRecordFragment : BaseFragment<FragmentDailyRecordBinding, DailyRecord
         }
     }
 
+    private fun initTab(type : DailyRecordTabType){
+        when(type){
+            DailyRecordTabType.ADVERSE_EFFECT -> {
+                binding.customTabBar.setRightBtnClickedBackground()
+                binding.recordRecyclerView.adapter = sideEffectAdapter
+            }
+            DailyRecordTabType.DAILY_RECORD -> {
+                binding.customTabBar.setLeftBtnClickedBackground()
+                binding.recordRecyclerView.adapter = dailyRecordAdapter
+            }
+        }
+    }
+
     private fun sortEvent(event: DailyRecordEvent) {
         when(event) {
             DailyRecordEvent.GoToCreateDailyRecordEvent -> goToCreateOrEditDailyRecord(id = -1L)
             DailyRecordEvent.OnClickBtnClose -> findNavController().popBackStack()
+            DailyRecordEvent.GoToCreateSideEffectEvent -> goToCreateOrEditSideEffect()
         }
     }
 
     private fun goToCreateOrEditDailyRecord(id: Long, content: String = "", dailyCondition : DailyConditionType = DailyConditionType.DEFAULT) {
         val action = DailyRecordFragmentDirections.actionDailyRecordToCreateDailyRecord(id = id, content = content, dailyCondition = dailyCondition)
+        findNavController().navigate(action)
+    }
+
+    private fun goToCreateOrEditSideEffect() {
+        val action = DailyRecordFragmentDirections.actionDailyRecordToCreateSideEffect()
         findNavController().navigate(action)
     }
 

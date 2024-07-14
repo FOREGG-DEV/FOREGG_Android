@@ -95,7 +95,7 @@ class CreateDailyRecordViewModel @Inject constructor(
 
     private fun handleSuccessCreateDailyRecord(){
         ForeggAnalytics.logEvent("daily_add", "CreateDailyRecordFragment")
-        emitEventFlow(CreateDailyRecordEvent.GoToCreateSideEffectEvent)
+        emitEventFlow(CreateDailyRecordEvent.OnClickBtnClose)
     }
 
     private fun handleCreateDailyRecordError(error: String) {
