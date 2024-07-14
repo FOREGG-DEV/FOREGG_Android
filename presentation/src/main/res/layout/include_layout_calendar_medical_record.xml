@@ -61,10 +61,10 @@
             android:textColor="@color/black"
             android:visibility="@{vm.uiState.medicalRecord.medicalSideEffect.empty ? View.GONE : View.VISIBLE}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/recycler_view_time_setting" />
+            app:layout_constraintTop_toTopOf="@id/recycler_view_sideEffect" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_time_setting"
+            android:id="@+id/recycler_view_sideEffect"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="22dp"

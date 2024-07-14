@@ -10,6 +10,10 @@ data class ScheduleSideEffectResponse(
 )
 
 data class SideEffect(
+    @SerializedName("id")
+    val id : Long = -1,
+    @SerializedName("date")
+    val date : String = "",
     @SerializedName("content")
     val content : String = ""
 )

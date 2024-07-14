@@ -19,6 +19,7 @@ import com.foregg.presentation.databinding.FragmentCreateEditScheduleBinding
 import com.foregg.presentation.ui.common.CommonDialog
 import com.foregg.presentation.ui.common.spinner.CommonSpinnerAdapter
 import com.foregg.presentation.ui.main.calendar.createOrEdit.adapter.SettingTimeAdapter
+import com.foregg.presentation.ui.main.calendar.createOrEdit.adapter.SideEffectAdapter
 import com.foregg.presentation.ui.main.calendar.dialog.CreateScheduleDialog
 import com.foregg.presentation.util.ForeggToast
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,6 +50,8 @@ class CreateEditScheduleFragment : BaseFragment<FragmentCreateEditScheduleBindin
         })
     }
 
+    private val sideEffectAdapter : SideEffectAdapter by lazy { SideEffectAdapter() }
+
     private val spinnerAdapter : CommonSpinnerAdapter by lazy {
         CommonSpinnerAdapter(object : CommonSpinnerAdapter.CommonSpinnerDelegate{
             override fun onClickType(type: String) {
@@ -78,6 +81,12 @@ class CreateEditScheduleFragment : BaseFragment<FragmentCreateEditScheduleBindin
                 adapter = settingTimeAdapter
             }
 
+            includeLayoutCalendarMedicalRecord.recyclerViewSideEffect.apply {
+                layoutManager = LinearLayoutManager(context)
+                itemAnimator = null
+                adapter = sideEffectAdapter
+            }
+
             includeLayoutCalendarSchedule.recyclerSpinner.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = spinnerAdapter
@@ -98,6 +107,11 @@ class CreateEditScheduleFragment : BaseFragment<FragmentCreateEditScheduleBindin
                         settingTimeAdapter.setData(it)
                         canUpdateTime = false
                     }
+                }
+            }
+            launch {
+                viewModel.uiState.medicalRecord.collect {
+                    sideEffectAdapter.submitList(it.medicalSideEffect)
                 }
             }
             launch {
