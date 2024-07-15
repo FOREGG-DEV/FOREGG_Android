@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <import type="android.view.View"/>
@@ -149,26 +148,24 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@{vm.uiState.currentItemCount.toString()}"
-                        android:textSize="16sp"
-                        android:textColor="@color/gs_50"
-                        android:fontFamily="@font/pretendard_regular"/>
+                        android:textAppearance="@style/p1_l"
+                        android:textColor="@color/gs_50" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/challenge_item_count_slash"
-                        android:textSize="16sp"
+                        android:textAppearance="@style/p1_l"
                         android:textColor="@color/gs_50"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:fontFamily="@font/pretendard_regular"
                         android:text="@{vm.uiState.challengeTapType == ChallengeTapType.ALL ? vm.uiState.allItemCount.toString() : vm.uiState.allItemCount.toString()}"
                         android:textColor="@color/gs_50"
-                        android:textSize="16sp" />
+                        android:textAppearance="@style/p1_l" />
 
                 </LinearLayout>
 
@@ -182,8 +179,7 @@
                 android:layout_marginHorizontal="16dp"
                 android:text="@{vm.uiState.isParticipate ? @string/challenge_participate_already : @string/challenge_participate}"
                 android:textColor="@{vm.uiState.isParticipate ? @color/gs_70 : @color/white}"
-                android:textSize="24sp"
-                android:fontFamily="@font/pretendard_bold"
+                android:textAppearance="@style/btn"
                 android:background="@{vm.uiState.isParticipate ? @drawable/bg_rectangle_filled_white_stroke_main_radius_8 : @drawable/bg_rectangle_filled_main_radius_8}"
                 android:onClick="@{()->vm.onClickParticipateBtn()}"
                 android:visibility="@{vm.uiState.challengeTapType == ChallengeTapType.ALL ? View.VISIBLE : View.GONE}"

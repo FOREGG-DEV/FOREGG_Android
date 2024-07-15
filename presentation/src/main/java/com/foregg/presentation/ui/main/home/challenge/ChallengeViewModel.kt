@@ -16,7 +16,6 @@ import com.foregg.domain.usecase.home.challenge.MarkChallengeVisitUseCase
 import com.foregg.domain.usecase.home.challenge.ParticipateChallengeUseCase
 import com.foregg.domain.usecase.home.challenge.QuitChallengeUseCase
 import com.foregg.presentation.base.BaseViewModel
-import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.ResourceProvider
 import com.foregg.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -98,7 +97,6 @@ class ChallengeViewModel @Inject constructor(
             challengeItemListStateFlow.update { result }
             allItemCountStateFlow.update { result.size }
             val index = if(currentItemCountStateFlow.value == -1) 0 else currentItemCountStateFlow.value - 1
-            ForeggLog.D("하이 $index, ${result[index].ifMine}")
             isParticipateStateFlow.update { result[index].ifMine }
         }
     }
