@@ -127,7 +127,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="14dp"
-                    android:visibility="@{vm.uiState.tabType == AccountTabType.ROUND ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{vm.uiState.tabType == AccountTabType.ALL ? View.VISIBLE : View.GONE}"
                     android:text="@{vm.uiState.startAndEnd}"
                     android:textAppearance="@style/h4"
                     android:textColor="@color/gs_70"
