@@ -52,6 +52,7 @@
 
         <argument
             android:name="id"
+            android:defaultValue="-1L"
             app:argType="long"/>
 
         <argument
