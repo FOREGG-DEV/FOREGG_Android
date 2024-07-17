@@ -8,4 +8,5 @@ sealed class MainActivityEvent : Event {
     object GoToMain : MainActivityEvent()
     object GoToInfo : MainActivityEvent()
     object GoToProfile : MainActivityEvent()
+    object GoToCreateDailyRecord : MainActivityEvent()
 }

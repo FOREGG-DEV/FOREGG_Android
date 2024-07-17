@@ -58,7 +58,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityPageState, Ma
             PendingExtraValue.TODAY_RECORD_MALE-> navController.navigate(R.id.dailyRecordFragment)
             PendingExtraValue.TODAY_RECORD_FEMALE-> {
                 navController.navigate(R.id.dailyRecordFragment)
-                navController.navigate(R.id.createDailyRecordFragment)
+                viewModel.getDailyRecord()
             }
         }
     }
@@ -89,6 +89,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityPageState, Ma
             MainActivityEvent.GoToAccount -> navController.navigate(R.id.accountFragment)
             MainActivityEvent.GoToProfile -> navController.navigate(R.id.profileFragment)
             MainActivityEvent.GoToInfo -> navController.navigate(R.id.infoFragment)
+            MainActivityEvent.GoToCreateDailyRecord -> navController.navigate(R.id.createDailyRecordFragment)
         }
     }
 
