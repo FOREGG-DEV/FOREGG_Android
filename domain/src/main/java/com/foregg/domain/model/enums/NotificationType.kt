@@ -1,9 +1,9 @@
 package com.foregg.domain.model.enums
 
 enum class NotificationType(val type : String) {
-    INJECTION_FEMALE("INJECTION_FEMALE"), INJECTION_MALE("INJECTION_MALEe"),
-    TODAY_RECORD_FEMALE("TODAY_RECORD_FEMALE"), TODAY_RECORD_MALE("TODAY_RECORD_MALE"),
-    CALENDAR("CALENDAR"), LEDGER("LEDGER");
+    INJECTION_FEMALE("injection female"), INJECTION_MALE("injection male"),
+    TODAY_RECORD_FEMALE("today record female"), TODAY_RECORD_MALE("today record male"),
+    CALENDAR("calendar"), LEDGER("ledger");
 
     companion object {
         fun valuesOf(value: String): NotificationType {
