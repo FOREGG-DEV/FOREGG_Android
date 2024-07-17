@@ -15,6 +15,7 @@ import com.foregg.presentation.databinding.FragmentChallengeBinding
 import com.foregg.presentation.ui.common.CommonDialog
 import com.foregg.presentation.ui.main.home.challenge.adapter.ChallengeListAdapter
 import com.foregg.presentation.ui.main.home.challenge.adapter.MyChallengeListAdapter
+import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -63,7 +64,7 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
                 viewModel.uiState.myChallengeList.collect {
                     if(it.isLoaded) {
                         myChallengeListAdapter.submitList(it.data)
-                        moveToPositionId()
+                        if(args.id != (-1).toLong()) moveToPositionId()
                     }
                 }
             }
@@ -181,11 +182,9 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
 
             adapter = if(args.id != (-1).toLong()) myChallengeListAdapter else challengeListAdapter
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                private var previousPosition = binding.viewPagerChallenge.currentItem
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-                    viewModel.swipeItem(position, previousPosition)
-                    previousPosition = position
+                    viewModel.swipeItem(position)
                 }
             })
         }
@@ -196,7 +195,6 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding, ChallengePageSt
             viewPagerChallenge.post {
                 val position = viewModel.getItemPosition(args.id)
                 viewPagerChallenge.setCurrentItem(position, true)
-                viewModel.updateCurrentItemCount(position + 1)
             }
         }
     }

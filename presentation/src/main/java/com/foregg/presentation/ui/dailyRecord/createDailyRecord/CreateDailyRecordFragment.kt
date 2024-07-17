@@ -44,21 +44,12 @@ class CreateDailyRecordFragment : BaseFragment<FragmentCreateDailyRecordBinding,
 
     private fun sortEvent(event: CreateDailyRecordEvent) {
         when(event) {
-            CreateDailyRecordEvent.GoToCreateSideEffectEvent -> goToCreateSideEffect()
             CreateDailyRecordEvent.InsufficientEmotionDataEvent -> ForeggToast.createToast(requireContext(), R.string.toast_error_choice_today_emotion,Toast.LENGTH_SHORT).show()
             CreateDailyRecordEvent.OnClickBtnClose -> findNavController().popBackStack()
             CreateDailyRecordEvent.InsufficientTextDataEvent -> ForeggToast.createToast(requireContext(), R.string.toast_error_choice_today_condition, Toast.LENGTH_SHORT).show()
             CreateDailyRecordEvent.ExistDailyRecordEvent -> showExistDailyRecordDialog()
             CreateDailyRecordEvent.SuccessEditDailyRecordEvent -> findNavController().popBackStack()
         }
-    }
-
-    private fun goToCreateSideEffect() {
-        val action = CreateDailyRecordFragmentDirections.createDailyRecordToCreateSideEffect()
-        val navOptions = NavOptions.Builder()
-            .setPopUpTo(R.id.createDailyRecordFragment, true)
-            .build()
-        findNavController().navigate(action.actionId, null, navOptions)
     }
 
     private fun showExistDailyRecordDialog() {

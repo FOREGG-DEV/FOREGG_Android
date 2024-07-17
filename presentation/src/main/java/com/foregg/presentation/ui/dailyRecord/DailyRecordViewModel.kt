@@ -14,7 +14,6 @@ import com.foregg.presentation.base.BaseViewModel
 import com.foregg.presentation.util.ForeggAnalytics
 import com.foregg.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -30,7 +29,7 @@ class DailyRecordViewModel @Inject constructor(
 ) : BaseViewModel<DailyRecordPageState>() {
     private val dailyRecordListStateFlow: MutableStateFlow<List<DailyRecordResponseItemVo>> = MutableStateFlow( emptyList() )
     private val sideEffectListStateFlow: MutableStateFlow<List<SideEffectListItemVo>> = MutableStateFlow(emptyList())
-    private val dailyRecordTabTypeStateFlow: MutableStateFlow<DailyRecordTabType> = MutableStateFlow(DailyRecordTabType.ADVERSE_EFFECT)
+    private val dailyRecordTabTypeStateFlow: MutableStateFlow<DailyRecordTabType> = MutableStateFlow(DailyRecordTabType.DAILY_RECORD)
     val genderType = UserInfo.info.genderType
 
     override val uiState: DailyRecordPageState = DailyRecordPageState (
@@ -40,7 +39,10 @@ class DailyRecordViewModel @Inject constructor(
     )
 
     fun setView() {
-        getDailyRecord()
+        when(dailyRecordTabTypeStateFlow.value){
+            DailyRecordTabType.ADVERSE_EFFECT -> getSideEffect()
+            DailyRecordTabType.DAILY_RECORD -> getDailyRecord()
+        }
     }
 
     private fun getSideEffect() {
@@ -82,7 +84,10 @@ class DailyRecordViewModel @Inject constructor(
     }
 
     fun goToRecord() {
-        emitEventFlow(DailyRecordEvent.GoToCreateDailyRecordEvent)
+        when(dailyRecordTabTypeStateFlow.value){
+            DailyRecordTabType.ADVERSE_EFFECT -> emitEventFlow(DailyRecordEvent.GoToCreateSideEffectEvent)
+            DailyRecordTabType.DAILY_RECORD -> emitEventFlow(DailyRecordEvent.GoToCreateDailyRecordEvent)
+        }
     }
 
     fun onClickBtnClose() {

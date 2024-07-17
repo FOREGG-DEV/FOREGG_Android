@@ -1,11 +1,13 @@
 package com.foregg.presentation.ui.main.calendar
 
+import android.view.ViewTreeObserver
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.foregg.domain.model.enums.CalendarType
 import com.foregg.domain.model.enums.NotificationType
 import com.foregg.domain.model.enums.RecordType
@@ -18,6 +20,7 @@ import com.foregg.presentation.ui.main.calendar.adapter.ScheduleAdapter
 import com.foregg.presentation.ui.main.calendar.dialog.CreateScheduleDialog
 import com.foregg.presentation.util.ForeggNotification
 import com.foregg.presentation.util.ForeggToast
+import com.foregg.presentation.util.px
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -38,6 +41,8 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding, CalendarPageState
 
     companion object{
         const val ITEM_SPAN_COUNT = 7
+        const val BOTTOM_NAV_HEIGHT = 58
+        const val MARGIN_FROM_CALENDAR = 24
     }
 
     override val viewModel: CalendarViewModel by viewModels()
@@ -66,11 +71,21 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding, CalendarPageState
         ForeggNotification.updateNoty(requireContext(), NotificationType.CALENDAR, false)
         binding.apply {
             vm = viewModel
-
             includeLayoutCalendar.recyclerViewCalendar.apply {
                 layoutManager = GridLayoutManager(root.context, ITEM_SPAN_COUNT)
                 itemAnimator = null
                 adapter = calendarDayAdapter
+                adapter?.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+                    override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
+                        super.onItemRangeChanged(positionStart, itemCount)
+                        postLayoutRunnable()
+                    }
+
+                    override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                        super.onItemRangeInserted(positionStart, itemCount)
+                        postLayoutRunnable()
+                    }
+                })
             }
 
             recyclerViewSchedule.apply {
@@ -83,13 +98,27 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding, CalendarPageState
         }
     }
 
+    private fun postLayoutRunnable() {
+        binding.includeLayoutCalendar.recyclerViewCalendar.viewTreeObserver.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout(){
+                val parentHeight = resources.displayMetrics.heightPixels
+                val bottomY = binding.constraintLayoutCalendar.bottom
+                val peekHeight = parentHeight - bottomY - BOTTOM_NAV_HEIGHT.px - MARGIN_FROM_CALENDAR.px
+                bottomSheetBehavior.peekHeight = peekHeight
+                binding.includeLayoutCalendar.recyclerViewCalendar.viewTreeObserver.removeOnGlobalLayoutListener(this)
+            }
+        })
+    }
+
     override fun initStates() {
         super.initStates()
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.calendarDayList.collect {
-                    calendarDayAdapter.submitList(it)
+                    if(it.isNotEmpty()) {
+                        calendarDayAdapter.submitList(it)
+                    }
                 }
             }
             launch {

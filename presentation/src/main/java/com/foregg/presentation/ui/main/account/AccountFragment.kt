@@ -69,6 +69,11 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountPageState, A
                 }
             }
             launch {
+                viewModel.uiState.tabType.collect{
+                    initTab(it)
+                }
+            }
+            launch {
                 viewModel.eventFlow.collect {
                     inspectEvent(it as AccountEvent)
                 }
@@ -87,6 +92,14 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountPageState, A
             customTabBar.rightBtnClicked {
                 viewModel.updateTabType(AccountTabType.MONTH)
             }
+        }
+    }
+
+    private fun initTab(type: AccountTabType){
+        when(type){
+            AccountTabType.ALL -> binding.customTabBar.setLeftBtnClickedBackground()
+            AccountTabType.ROUND -> binding.customTabBar.setMiddleBtnClickedBackground()
+            AccountTabType.MONTH -> binding.customTabBar.setRightBtnClickedBackground()
         }
     }
 

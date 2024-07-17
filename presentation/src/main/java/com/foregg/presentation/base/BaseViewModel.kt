@@ -11,6 +11,7 @@ import com.foregg.domain.base.DomainResponse
 import com.foregg.presentation.PageState
 import com.foregg.presentation.Event
 import com.foregg.presentation.util.EventFlow
+import com.foregg.presentation.util.ForeggAnalytics
 import com.foregg.presentation.util.ForeggLog
 import com.foregg.presentation.util.MutableEventFlow
 import com.foregg.presentation.util.asEventFlow
@@ -48,7 +49,10 @@ abstract class BaseViewModel<STATE: PageState> : ViewModel() {
             is ApiState.Error -> {
                 if(response.errorCode == StatusCode.ERROR_404 ||
                     response.errorCode == StatusCode.ERROR ||
-                    response.errorCode == StatusCode.NETWORK_ERROR) _commonError.value = response.errorCode
+                    response.errorCode == StatusCode.NETWORK_ERROR) {
+                    ForeggAnalytics.logEvent("error_${response.errorCode}_${response.data.toString()}", "apiScreen")
+                    _commonError.value = response.errorCode
+                }
                 else errorCallback?.invoke(response.errorCode)
                 endLoading()
             }

@@ -65,17 +65,24 @@ class AccountViewModel @Inject constructor(
         const val DECEMBER = 12
     }
 
+    private val today = TimeFormatter.getToday()
     private var year by Delegates.notNull<Int>()
     private var month by Delegates.notNull<Int>()
     private var round by Delegates.notNull<Int>()
 
-    fun setView(){
-        val today = TimeFormatter.getToday()
+    init {
         year = TimeFormatter.getYear(today).toInt()
         month = TimeFormatter.getMonth(today).toInt()
         round = 1
-        initDay(TimeFormatter.getPreviousMonthDate(), today)
-        getAccountByCondition()
+    }
+
+    fun setView(){
+        if(startAndEndStateFlow.value.isEmpty()) initDay(TimeFormatter.getPreviousMonthDate(), today)
+        when(tabTypeStateFlow.value){
+            AccountTabType.ALL -> getAccountByCondition()
+            AccountTabType.ROUND -> getAccountByRound()
+            AccountTabType.MONTH -> getAccountByMonth()
+        }
     }
 
     fun initDay(start : String, end : String){

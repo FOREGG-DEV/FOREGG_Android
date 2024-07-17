@@ -83,11 +83,12 @@
 
     <!-- Home -->
     <string name="home_adv_text">광고배너 (자동 슬라이딩)</string>
+    <string name="home_empty_challenge">참여중인 챌린지가 없어요</string>
     <string name="home_challenge_text">챌린지 참여하기</string>
     <string name="today_schedule_format">%1$s님의\n%2$s월 %3$s일 일정이예요.</string>
     <string name="today_schedule_husband_format">%s, %s 님의 \n%s월 %s일 일정이에요.</string>
     <string name="today_schedule_empty_text">오늘은 일정이 없어요.</string>
-    <string name="home_challenge_complete_dialog_text">오늘의 챌린지 성공하셨나요?</string>
+    <string name="home_challenge_complete_dialog_text">오늘의 챌린지, 성공하셨나요?</string>
     <string name="home_medical_record">진료 내용</string>
     <string name="home_empty_record">오늘은 기록이 없어요</string>
     <string name="home_record_card">진료 내용 기록하기</string>
@@ -189,10 +190,10 @@
     <string name="challege_all">모든 챌린지</string>
     <string name="challenge_item_count_slash">/</string>
     <string name="challenge_participate">챌린지 참여</string>
-    <string name="challenge_participate_already">참여중인 챌린지예요</string>
+    <string name="challenge_participate_already">참여중인 챌린지</string>
     <string name="challenge_participant_count_text">%d명이 함께하고 있어요</string>
     <string name="challenge_month_week">%d월 %d주차</string>
-    <string name="challenge_stop">챌린지를 그만두시겠습니까?</string>
+    <string name="challenge_stop">챌린지를 멈추시겠습니까?</string>
     <string name="challenge_empty">참여 중인 챌린지가 없어요</string>
 
     <!--  Information  -->

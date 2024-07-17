@@ -10,7 +10,11 @@ object ScheduleSideEffectResponseMapper: Mapper.ResponseMapper<ScheduleSideEffec
         return type?.run {
             MedicalRecord(
                 medicalRecord = medicalRecord ?: "",
-                medicalSideEffect = sideEffects?.map { SideEffectVo(content = it.content) } ?: emptyList()
+                medicalSideEffect = sideEffects?.map { SideEffectVo(
+                    id = it.id,
+                    dateAndTime = it.date,
+                    content = it.content
+                ) } ?: emptyList()
             )
         }?: MedicalRecord()
     }

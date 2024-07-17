@@ -3,12 +3,10 @@ package com.foregg.presentation.ui.sign.splash
 import android.content.Intent
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.foregg.domain.model.enums.NotificationType
 import com.foregg.presentation.PageState
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentSplashBinding
 import com.foregg.presentation.ui.MainActivity
-import com.foregg.presentation.util.AlarmService
 import com.foregg.presentation.util.PendingExtraValue
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

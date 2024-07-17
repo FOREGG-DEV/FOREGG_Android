@@ -16,12 +16,14 @@ import com.foregg.domain.usecase.home.challenge.GetMyChallengeUseCase
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseViewModel
 import com.foregg.presentation.util.ResourceProvider
+import com.foregg.presentation.util.TimeFormatter
 import com.foregg.presentation.util.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
 import javax.inject.Inject
 
@@ -151,8 +153,10 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun handleSuccessCompleteChallenge(successDaysCount: Int) {
-        val isSuccess = successDaysCount == ALL_CLEAR_CHALLENGE_COUNT
-        emitEventFlow(HomeEvent.ShowWeekEndDialog(isSuccess))
+        if(TimeFormatter.getKoreanDayOfWeek(LocalDate.now().dayOfWeek) == "토"){
+            val isSuccess = successDaysCount == ALL_CLEAR_CHALLENGE_COUNT
+            emitEventFlow(HomeEvent.ShowWeekEndDialog(isSuccess))
+        }
         getMyChallenge()
     }
 

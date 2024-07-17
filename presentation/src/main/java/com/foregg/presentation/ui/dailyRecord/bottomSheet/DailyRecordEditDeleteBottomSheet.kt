@@ -29,7 +29,10 @@ class DailyRecordEditDeleteBottomSheet(
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            frameLayoutDelete.setOnClickListener { onClickBtnDelete() }
+            frameLayoutDelete.setOnClickListener {
+                onClickBtnDelete()
+                dismiss()
+            }
             frameLayoutEdit.setOnClickListener {
                 onClickBtnEdit()
                 dismiss()
