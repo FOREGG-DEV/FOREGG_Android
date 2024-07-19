@@ -124,6 +124,8 @@
     <string name="daily_record_delete">삭제하기</string>
     <string name="daily_record_edit">수정하기</string>
     <string name="daily_record_delete_text">하루기록을 삭제하시겠습니까?</string>
+    <string name="side_effect_delete_text">부작용을 삭제하시겠습니까?</string>
+
 
     <!--  CreateDailyRecord  -->
     <string name="create_daily_record_text">%s님\n오늘 하루 어떠셨나요?</string>

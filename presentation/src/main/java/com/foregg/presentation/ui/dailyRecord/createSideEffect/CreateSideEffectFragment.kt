@@ -3,6 +3,7 @@ package com.foregg.presentation.ui.dailyRecord.createSideEffect
 import androidx.fragment.app.viewModels
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
 import com.foregg.presentation.databinding.FragmentCreateSideEffectBinding
@@ -17,9 +18,12 @@ class CreateSideEffectFragment : BaseFragment<FragmentCreateSideEffectBinding, C
 
     override val viewModel: CreateSideEffectViewModel by viewModels()
 
+    private val arg : CreateSideEffectFragmentArgs by navArgs()
+
     override fun initView() {
         binding.apply {
             vm = viewModel
+            viewModel.initView(arg)
         }
     }
 

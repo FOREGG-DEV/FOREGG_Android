@@ -149,13 +149,12 @@
                 android:background="@drawable/bg_rectangle_filled_white_radius_8"
                 android:scrollHorizontally="false"
                 android:hint="@string/create_adverse_effect_edit_text_hint"
-                android:text="@{vm.uiState.contentText}"
+                android:text="@={vm.uiState.contentText}"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gs_50"
                 android:textAppearance="@style/p2"
                 android:gravity="top|start"
                 android:enabled="@{vm.uiState.hasSideEffect}"
-                android:onTextChanged="@{(s, start, before, count) -> vm.onTextChanged(s)}"
                 app:layout_constraintTop_toBottomOf="@id/btn_adverse_effect_layout"/>
 
             <androidx.appcompat.widget.AppCompatButton

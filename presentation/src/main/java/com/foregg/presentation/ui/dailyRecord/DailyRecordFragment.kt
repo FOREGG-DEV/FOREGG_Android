@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.foregg.domain.model.enums.DailyConditionType
 import com.foregg.domain.model.enums.DailyRecordTabType
 import com.foregg.domain.model.request.dailyRecord.PutEmotionVo
+import com.foregg.domain.model.response.SideEffectListItemVo
 import com.foregg.domain.model.vo.DailyRecordResponseItemVo
 import com.foregg.presentation.R
 import com.foregg.presentation.base.BaseFragment
@@ -14,6 +15,7 @@ import com.foregg.presentation.ui.common.CommonDialog
 import com.foregg.presentation.ui.dailyRecord.adapter.DailyRecordAdapter
 import com.foregg.presentation.ui.dailyRecord.adapter.DailyRecordViewHolder
 import com.foregg.presentation.ui.dailyRecord.adapter.SideEffectAdapter
+import com.foregg.presentation.ui.dailyRecord.adapter.SideEffectViewHolder
 import com.foregg.presentation.ui.dailyRecord.bottomSheet.DailyRecordEditDeleteBottomSheet
 import com.foregg.presentation.util.PendingExtraValue
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,11 +33,17 @@ class DailyRecordFragment : BaseFragment<FragmentDailyRecordBinding, DailyRecord
             }
 
             override fun onClickDailyRecord(item: DailyRecordResponseItemVo) {
-                showBottomSheet(item)
+                showDailyBottomSheet(item)
             }
         })
     }
-    private val sideEffectAdapter = SideEffectAdapter()
+    private val sideEffectAdapter : SideEffectAdapter by lazy {
+        SideEffectAdapter(object : SideEffectAdapter.SideEffectDelegate {
+            override fun onLongClickSideEffect(item: SideEffectListItemVo) {
+                showSideEffectBottomSheet(item)
+            }
+        })
+    }
 
     override val viewModel: DailyRecordViewModel by viewModels()
 
@@ -62,13 +70,15 @@ class DailyRecordFragment : BaseFragment<FragmentDailyRecordBinding, DailyRecord
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.dailyRecordList.collect {
-                    dailyRecordAdapter.submitList(it.reversed())
+                    dailyRecordAdapter.submitList(it)
+                    scrollToTop()
                 }
             }
 
             launch {
                 viewModel.uiState.sideEffectList.collect {
-                    sideEffectAdapter.submitList(it.reversed())
+                    sideEffectAdapter.submitList(it)
+                    scrollToTop()
                 }
             }
 
@@ -120,13 +130,13 @@ class DailyRecordFragment : BaseFragment<FragmentDailyRecordBinding, DailyRecord
         }
     }
 
-    private fun goToCreateOrEditDailyRecord(id: Long, content: String = "", dailyCondition : DailyConditionType = DailyConditionType.DEFAULT) {
+    private fun goToCreateOrEditDailyRecord(id: Long = -1L, content: String = "", dailyCondition : DailyConditionType = DailyConditionType.DEFAULT) {
         val action = DailyRecordFragmentDirections.actionDailyRecordToCreateDailyRecord(id = id, content = content, dailyCondition = dailyCondition)
         findNavController().navigate(action)
     }
 
-    private fun goToCreateOrEditSideEffect() {
-        val action = DailyRecordFragmentDirections.actionDailyRecordToCreateSideEffect()
+    private fun goToCreateOrEditSideEffect(id: Long = -1L, content: String = "") {
+        val action = DailyRecordFragmentDirections.actionDailyRecordToCreateSideEffect(id = id, content = content)
         findNavController().navigate(action)
     }
 
@@ -138,7 +148,7 @@ class DailyRecordFragment : BaseFragment<FragmentDailyRecordBinding, DailyRecord
         }
     }
 
-    private fun showBottomSheet(item: DailyRecordResponseItemVo) {
+    private fun showDailyBottomSheet(item: DailyRecordResponseItemVo, ) {
         val onClickBtnDelete = {
             dialog
                 .setTitle(R.string.daily_record_delete_text)
@@ -161,6 +171,40 @@ class DailyRecordFragment : BaseFragment<FragmentDailyRecordBinding, DailyRecord
             val position = dailyRecordAdapter.getItemPosition(item)
             val viewHolder = binding.recordRecyclerView.findViewHolderForAdapterPosition(position) as? DailyRecordViewHolder
             viewHolder?.binding?.dailyRecordLayout?.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
+        }
+    }
+
+    private fun showSideEffectBottomSheet(item: SideEffectListItemVo, ) {
+        val onClickBtnDelete = {
+            dialog
+                .setTitle(R.string.side_effect_delete_text)
+                .setPositiveButton(R.string.word_yes) {
+                    viewModel.deleteSideEffectRecord(item.id)
+                    dialog.dismiss()
+                }
+                .setNegativeButton(R.string.word_no) {
+                    dialog.dismiss()
+                }
+                .show()
+        }
+        val onClickBtnEdit = {
+            goToCreateOrEditSideEffect(id = item.id, content = item.content)
+        }
+        val bottomSheet = DailyRecordEditDeleteBottomSheet(onClickBtnDelete = onClickBtnDelete, onClickBtnEdit = onClickBtnEdit)
+        bottomSheet.show(parentFragmentManager, "")
+
+        bottomSheet.setOnDismissListener {
+            val position = sideEffectAdapter.getItemPosition(item)
+            val viewHolder = binding.recordRecyclerView.findViewHolderForAdapterPosition(position) as? SideEffectViewHolder
+            viewHolder?.binding?.layoutSideEffect?.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8)
+        }
+    }
+
+    private fun scrollToTop(){
+        binding.apply {
+            recordRecyclerView.post {
+                recordRecyclerView.scrollToPosition(0)
+            }
         }
     }
 }

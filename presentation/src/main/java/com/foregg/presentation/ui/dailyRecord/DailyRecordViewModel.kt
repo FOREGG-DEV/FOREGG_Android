@@ -7,6 +7,7 @@ import com.foregg.domain.model.response.DailyRecordResponseVo
 import com.foregg.domain.model.response.SideEffectListItemVo
 import com.foregg.domain.model.vo.DailyRecordResponseItemVo
 import com.foregg.domain.usecase.dailyRecord.DeleteDailyRecordUseCase
+import com.foregg.domain.usecase.dailyRecord.DeleteSideEffectUseCase
 import com.foregg.domain.usecase.dailyRecord.GetDailyRecordUseCase
 import com.foregg.domain.usecase.dailyRecord.GetSideEffectUseCase
 import com.foregg.domain.usecase.dailyRecord.PutEmotionUseCase
@@ -25,7 +26,8 @@ class DailyRecordViewModel @Inject constructor(
     private val getDailyRecordUseCase: GetDailyRecordUseCase,
     private val getSideEffectUseCase: GetSideEffectUseCase,
     private val putEmotionUseCase: PutEmotionUseCase,
-    private val deleteDailyRecordUseCase: DeleteDailyRecordUseCase
+    private val deleteDailyRecordUseCase: DeleteDailyRecordUseCase,
+    private val deleteSideEffectUseCase: DeleteSideEffectUseCase,
 ) : BaseViewModel<DailyRecordPageState>() {
     private val dailyRecordListStateFlow: MutableStateFlow<List<DailyRecordResponseItemVo>> = MutableStateFlow( emptyList() )
     private val sideEffectListStateFlow: MutableStateFlow<List<SideEffectListItemVo>> = MutableStateFlow(emptyList())
@@ -55,7 +57,7 @@ class DailyRecordViewModel @Inject constructor(
 
     private fun updateSideEffectList(list: List<SideEffectListItemVo>) {
         viewModelScope.launch {
-            sideEffectListStateFlow.update { list }
+            sideEffectListStateFlow.update { list.reversed() }
         }
     }
 
@@ -69,7 +71,7 @@ class DailyRecordViewModel @Inject constructor(
 
     private fun handleGetDailyRecordSuccess(result: DailyRecordResponseVo) {
         viewModelScope.launch {
-            dailyRecordListStateFlow.update { result.dailyResponseDto }
+            dailyRecordListStateFlow.update { result.dailyResponseDto.reversed() }
         }
     }
 
@@ -111,6 +113,14 @@ class DailyRecordViewModel @Inject constructor(
         viewModelScope.launch {
             deleteDailyRecordUseCase.invoke(id).collect {
                 resultResponse(it, { getDailyRecord() })
+            }
+        }
+    }
+
+    fun deleteSideEffectRecord(id: Long) {
+        viewModelScope.launch {
+            deleteSideEffectUseCase.invoke(id).collect {
+                resultResponse(it, { getSideEffect() })
             }
         }
     }

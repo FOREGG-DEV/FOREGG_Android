@@ -8,5 +8,5 @@ data class CreateSideEffectPageState (
     val hasSideEffect: StateFlow<Boolean>,
     val recordAdverseEffectText: StateFlow<String>,
     val questionText: StateFlow<String>,
-    val contentText: MutableStateFlow<String>
+    var contentText: MutableStateFlow<String>
 ): PageState

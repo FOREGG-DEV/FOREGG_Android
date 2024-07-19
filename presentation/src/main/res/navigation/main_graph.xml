@@ -73,6 +73,16 @@
         android:label="fragment_create_side_effect"
         tools:layout="@layout/fragment_create_side_effect">
 
+        <argument
+            android:name="id"
+            android:defaultValue="-1L"
+            app:argType="long"/>
+
+        <argument
+            android:name="content"
+            android:defaultValue=""
+            app:argType="string"/>
+
     </fragment>
 
     <fragment

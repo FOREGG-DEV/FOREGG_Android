@@ -34,6 +34,7 @@
                 android:orientation="vertical">
 
                 <FrameLayout
+                    android:id="@+id/layout_side_effect"
                     android:layout_width="284dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_rectangle_filled_white_radius_8">
