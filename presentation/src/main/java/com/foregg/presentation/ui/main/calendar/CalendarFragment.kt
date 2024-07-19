@@ -95,6 +95,7 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding, CalendarPageState
             }
             initializePersistentBottomSheet()
             viewModel.setCalendar()
+            postLayoutRunnable()
         }
     }
 
