@@ -33,6 +33,7 @@ object Endpoints {
         const val DAILY = "/daily"
         const val WRITE = "$DAILY/write"
         const val SIDEEFFECT = "$DAILY/sideEffect"
+        const val SIDE_EFFECT_EDIT = "$SIDEEFFECT/{id}"
         const val SIDEEFFECTLIST = "$DAILY/sideEffectList"
         const val EMOTION = "$DAILY/{id}/emotion"
         const val SHARE_INJECTION = "$DAILY/shareInjection/{id}"

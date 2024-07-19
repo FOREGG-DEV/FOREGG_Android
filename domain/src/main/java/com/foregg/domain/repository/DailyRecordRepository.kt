@@ -6,6 +6,7 @@ import com.foregg.domain.model.request.dailyRecord.CreateSideEffectRequestVo
 import com.foregg.domain.model.request.dailyRecord.EditDailyRecordRequestVo
 import com.foregg.domain.model.request.dailyRecord.PutEmotionVo
 import com.foregg.domain.model.request.dailyRecord.InjectionAlarmRequestVo
+import com.foregg.domain.model.request.dailyRecord.SideEffectEditRequestVo
 import com.foregg.domain.model.response.DailyRecordResponseVo
 import com.foregg.domain.model.response.SideEffectListItemVo
 import com.foregg.domain.model.response.daily.InjectionInfoResponseVo
@@ -16,6 +17,8 @@ interface DailyRecordRepository {
     suspend fun createDailyRecord(request: CreateDailyRecordRequestVo): Flow<ApiState<Unit>>
     suspend fun createSideEffect(request: CreateSideEffectRequestVo): Flow<ApiState<Unit>>
     suspend fun getSideEffect(): Flow<ApiState<List<SideEffectListItemVo>>>
+    suspend fun editSideEffect(request: SideEffectEditRequestVo): Flow<ApiState<Unit>>
+    suspend fun deleteSideEffect(request: Long): Flow<ApiState<Unit>>
     suspend fun putEmotion(request: PutEmotionVo): Flow<ApiState<Unit>>
     suspend fun postShareInjection(request : InjectionAlarmRequestVo) : Flow<ApiState<Unit>>
     suspend fun getInjectionInfo(request : InjectionAlarmRequestVo) : Flow<ApiState<InjectionInfoResponseVo>>

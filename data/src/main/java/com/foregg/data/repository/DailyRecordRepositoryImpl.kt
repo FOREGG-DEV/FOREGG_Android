@@ -12,6 +12,7 @@ import com.foregg.domain.model.request.dailyRecord.CreateSideEffectRequestVo
 import com.foregg.domain.model.request.dailyRecord.EditDailyRecordRequestVo
 import com.foregg.domain.model.request.dailyRecord.PutEmotionVo
 import com.foregg.domain.model.request.dailyRecord.InjectionAlarmRequestVo
+import com.foregg.domain.model.request.dailyRecord.SideEffectEditRequestVo
 import com.foregg.domain.model.response.DailyRecordResponseVo
 import com.foregg.domain.model.response.SideEffectListItemVo
 import com.foregg.domain.model.response.daily.InjectionInfoResponseVo
@@ -36,6 +37,14 @@ class DailyRecordRepositoryImpl @Inject constructor(
 
     override suspend fun getSideEffect(): Flow<ApiState<List<SideEffectListItemVo>>> {
         return apiLaunch(apiCall = { dailyRecordApi.getSideEffect() }, SideEffectResponseMapper)
+    }
+
+    override suspend fun editSideEffect(request: SideEffectEditRequestVo): Flow<ApiState<Unit>> {
+        return apiLaunch(apiCall = { dailyRecordApi.editSideEffect(request.id, request.body) }, UnitResponseMapper)
+    }
+
+    override suspend fun deleteSideEffect(request: Long): Flow<ApiState<Unit>> {
+        return apiLaunch(apiCall = { dailyRecordApi.deleteSideEffect(request) }, UnitResponseMapper)
     }
 
     override suspend fun putEmotion(request: PutEmotionVo): Flow<ApiState<Unit>> {

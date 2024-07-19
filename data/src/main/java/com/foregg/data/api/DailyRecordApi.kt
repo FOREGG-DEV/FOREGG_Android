@@ -33,6 +33,18 @@ interface DailyRecordApi {
     ): Response<ApiResponse<Unit>>
     @POST(Endpoints.DailyRecord.SIDEEFFECT)
     suspend fun createSideEffect(@Body content: CreateSideEffectRequestVo): Response<ApiResponse<Unit>>
+
+    @PUT(Endpoints.DailyRecord.SIDE_EFFECT_EDIT)
+    suspend fun editSideEffect(
+        @Path(PATH_ID) id : Long,
+        @Body content: CreateSideEffectRequestVo
+    ): Response<ApiResponse<Unit>>
+
+    @DELETE(Endpoints.DailyRecord.SIDE_EFFECT_EDIT)
+    suspend fun deleteSideEffect(
+        @Path(PATH_ID) id : Long,
+    ): Response<ApiResponse<Unit>>
+
     @PUT(Endpoints.DailyRecord.EMOTION)
     suspend fun putEmotion(
         @Path(PATH_ID) id: Long,
