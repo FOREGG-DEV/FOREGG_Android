@@ -35,7 +35,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountPageState, A
             }
 
             override fun changeMode(selectMode: Boolean) {
-                val res = if(selectMode) R.drawable.ic_delete_main else R.drawable.ic_btn_add_filled_main
+                val res = if(selectMode) R.drawable.ic_delete_delete else R.drawable.ic_btn_add_filled_main
                 binding.imgBtnAddAccount.setImageResource(res)
             }
         })

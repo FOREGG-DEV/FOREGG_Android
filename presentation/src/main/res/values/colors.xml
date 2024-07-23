@@ -21,4 +21,5 @@
     <color name="etc">#FEF7CE</color>
     <color name="personal">#FEF7CE</color>
     <color name="unregister">#FF7272</color>
+    <color name="delete">#FF786E</color>
 </resources>
