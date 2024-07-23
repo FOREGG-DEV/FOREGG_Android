@@ -1,5 +1,6 @@
 package com.foregg.presentation.util
 
+import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -7,6 +8,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.os.PowerManager
 import android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM
 import androidx.core.app.NotificationCompat
 import androidx.datastore.preferences.core.Preferences
@@ -56,6 +58,7 @@ class FcmNotification : FirebaseMessagingService() {
             NotificationType.LEDGER -> saveFlags(PreferenceKeys.KEY_LEDGER, type)
         }
     }
+    @SuppressLint("InvalidWakeLockTag")
     private fun sendNotification(data: Map<String, String>) {
         val title = data[TITLE] ?: ""
         val body = data[BODY] ?: ""
@@ -78,6 +81,11 @@ class FcmNotification : FirebaseMessagingService() {
             .setDefaults(NotificationCompat.DEFAULT_ALL)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
+
+        val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
+        val wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK or PowerManager.ACQUIRE_CAUSES_WAKEUP, "TAG")
+        wakeLock.acquire(3000)
+        wakeLock.release()
 
         notificationManager.notify(System.currentTimeMillis().toInt(), builder.build())
     }
@@ -127,7 +135,7 @@ class FcmNotification : FirebaseMessagingService() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pendingIntent)
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pendingIntent)
     }
 
     private fun getPendingIntent(type: NotificationType, targetId : Long?, time : String) : PendingIntent{

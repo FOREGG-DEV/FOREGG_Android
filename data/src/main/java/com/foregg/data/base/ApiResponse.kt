@@ -6,5 +6,7 @@ data class ApiResponse<Vo>(
     @SerializedName("data")
     val data : Vo? = null,
     @SerializedName("code")
-    val code : String = ""
+    val code : String = "",
+    @SerializedName("message")
+    val message : String = ""
 )

@@ -1,6 +1,7 @@
 package com.foregg.presentation.util
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -13,8 +14,8 @@ import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
 import android.os.IBinder
+import android.os.PowerManager
 import android.os.Vibrator
-import android.widget.RemoteViews
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -35,6 +36,7 @@ class AlarmService : Service() {
         }
     }
 
+    @SuppressLint("InvalidWakeLockTag")
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent?.action == STOP_ALARM) {
             stopAlarm()
@@ -83,6 +85,10 @@ class AlarmService : Service() {
         checkPermission()
         startForeground(1, notificationBuilder)
 
+        val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
+        val wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK or PowerManager.ACQUIRE_CAUSES_WAKEUP, "TAG")
+        wakeLock.acquire(3000)
+        wakeLock.release()
         notificationManager.notify(1, notificationBuilder)
         startAlarm()
         return START_STICKY

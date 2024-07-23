@@ -23,13 +23,12 @@ abstract class BaseRepository {
                 emit(apiSuccess)
             }
             false -> {
-                val apiResponse: ApiResponse<D> = fromGson(response.errorBody()?.charStream())
-                val data = responseMapper.mapDtoToModel(apiResponse.data)
+                val apiResponse: ApiResponse<String> = fromGson(response.errorBody()?.charStream())
                 val code = apiResponse.code.ifEmpty { response.code().toString() }
                 val apiError = when(response.code()){
-                    404 -> ApiState.Error(data, StatusCode.ERROR_404)
-                    500 -> ApiState.Error(data, StatusCode.NETWORK_ERROR)
-                    else -> ApiState.Error(data, code)
+                    404 -> ApiState.Error(apiResponse.data, StatusCode.ERROR_404, apiResponse.message)
+                    500 -> ApiState.Error(apiResponse.data, StatusCode.NETWORK_ERROR, apiResponse.message)
+                    else -> ApiState.Error(apiResponse.data, code, apiResponse.message)
                 }
 
                 emit(apiError)
@@ -37,7 +36,7 @@ abstract class BaseRepository {
         }
     }.onStart { emit(ApiState.Loading) }.catch { e: Throwable ->
         e.printStackTrace()
-        emit(ApiState.Error(null, StatusCode.ERROR))
+        emit(ApiState.Error(null, StatusCode.ERROR, null))
     }
 
     inline fun <reified T> fromGson(json: Reader?): ApiResponse<T> {

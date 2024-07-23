@@ -50,7 +50,7 @@ abstract class BaseViewModel<STATE: PageState> : ViewModel() {
                 if(response.errorCode == StatusCode.ERROR_404 ||
                     response.errorCode == StatusCode.ERROR ||
                     response.errorCode == StatusCode.NETWORK_ERROR) {
-                    ForeggAnalytics.logEvent("error_${response.errorCode}_${response.data.toString()}", "apiScreen")
+                    ForeggAnalytics.logEvent("error_${response.errorCode}_${response.data}_${response.message}", "apiScreen")
                     _commonError.value = response.errorCode
                 }
                 else errorCallback?.invoke(response.errorCode)
