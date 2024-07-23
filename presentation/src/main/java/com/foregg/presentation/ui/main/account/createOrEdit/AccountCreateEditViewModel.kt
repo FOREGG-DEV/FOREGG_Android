@@ -154,6 +154,10 @@ class AccountCreateEditViewModel @Inject constructor(
     }
 
     fun onClickUploadBtn(){
+        if(isEmpty()){
+            emitEventFlow(AccountCreateEditEvent.ErrorBlankContent)
+            return
+        }
         when(viewTypeStateFlow.value){
             CalendarType.CREATE -> createAccount()
             CalendarType.EDIT -> editAccount()
@@ -161,10 +165,6 @@ class AccountCreateEditViewModel @Inject constructor(
     }
 
     private fun createAccount(){
-        if(isEmpty()){
-            emitEventFlow(AccountCreateEditEvent.ErrorBlankContent)
-            return
-        }
         val request = getCreateRequest()
         viewModelScope.launch {
             postCreateAccountUseCase(request).collect{
