@@ -17,9 +17,7 @@ class SignActivity : BaseActivity<ActivitySignBinding, PageState.Default, SignVi
     private lateinit var navController: NavController
 
     override fun initView() {
-        if (intent.getBooleanExtra("STOP_ALARM", false)) {
-            AlarmService.stopAlarm()
-        }
+        AlarmService.stopAlarm()
         binding.apply {
             vm = viewModel
             initNavigation()

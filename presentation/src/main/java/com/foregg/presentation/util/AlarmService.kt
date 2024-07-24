@@ -63,13 +63,6 @@ class AlarmService : Service() {
 
         val notificationManager = NotificationManagerCompat.from(applicationContext)
 
-        // 커스텀 알림 뷰 설정
-//        val notificationLayout = RemoteViews(packageName, R.layout.custom_notification).apply {
-//            setTextViewText(R.id.title, title)
-//            setTextViewText(R.id.text, body)
-//            setOnClickPendingIntent(R.id.stop_alarm_button, stopPendingIntent)
-//        }
-
         val notificationBuilder = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
             .setStyle(NotificationCompat.DecoratedCustomViewStyle())
             .setContentTitle(title)
@@ -96,8 +89,8 @@ class AlarmService : Service() {
 
     private fun startAlarm(){
         vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        val pattern = longArrayOf(0, 1000, 1000)  // 대기, 진동, 대기
-        vibrator?.vibrate(pattern, 1)
+        val pattern = longArrayOf(0, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000) // 5번 반복
+        vibrator?.vibrate(pattern, -1)
 
         val alarmUri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
         ringtone = RingtoneManager.getRingtone(this, alarmUri)
