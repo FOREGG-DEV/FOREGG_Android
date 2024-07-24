@@ -4,6 +4,7 @@ import com.foregg.domain.model.vo.CreateScheduleTimeVo
 import com.foregg.domain.model.vo.ScheduleDetailVo
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalTime
 import org.threeten.bp.format.DateTimeFormatter
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -127,4 +128,13 @@ object TimeFormatter {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         return oneMonthAgo.format(formatter)
     }
+
+    fun isTimeMoreThanFiveMinutesAhead(timeString: String): Boolean {
+        val formatter = DateTimeFormatter.ofPattern("HH:mm")
+        val inputTime = LocalTime.parse(timeString, formatter)
+        val currentTime = LocalTime.now()
+        val twoMinutesAhead = currentTime.minusMinutes(5)
+        return inputTime.isBefore(twoMinutesAhead)
+    }
+
 }
