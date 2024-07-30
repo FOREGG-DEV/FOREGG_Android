@@ -48,7 +48,6 @@ class FcmNotification : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
         if(message.data.isEmpty()) return
-        if(!checkCorrectAlarm(message.data)) return
         val type = NotificationType.valuesOf(message.data[TYPE] ?: "")
         when(type){
             NotificationType.INJECTION_FEMALE -> setAlarm(message.data)
@@ -154,12 +153,5 @@ class FcmNotification : FirebaseMessagingService() {
             }
         }
         return PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-    }
-
-    private fun checkCorrectAlarm(data : Map<String, String>) : Boolean {
-        val type = NotificationType.valuesOf(data[TYPE] ?: "")
-        val time = data[TIME] ?: ""
-
-        return type == NotificationType.INJECTION_FEMALE && time.isNotEmpty() && !TimeFormatter.isTimeMoreThanFiveMinutesAhead(time)
     }
 }
