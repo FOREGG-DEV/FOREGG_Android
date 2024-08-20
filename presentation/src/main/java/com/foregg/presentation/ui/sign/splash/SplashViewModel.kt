@@ -16,6 +16,7 @@ import javax.inject.Inject
 class SplashViewModel @Inject constructor(
     private val getMyInfoUseCase: GetMyInfoUseCase
 ) : BaseViewModel<PageState.Default>() {
+
     override val uiState: PageState.Default
         get() = TODO("Not yet implemented")
 

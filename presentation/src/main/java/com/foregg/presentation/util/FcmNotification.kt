@@ -56,6 +56,7 @@ class FcmNotification : FirebaseMessagingService() {
             NotificationType.TODAY_RECORD_MALE -> sendNotification(message.data)
             NotificationType.CALENDAR -> saveFlags(PreferenceKeys.KEY_CALENDAR, type)
             NotificationType.LEDGER -> saveFlags(PreferenceKeys.KEY_LEDGER, type)
+            NotificationType.NOTHING -> {}
         }
     }
     @SuppressLint("InvalidWakeLockTag")
