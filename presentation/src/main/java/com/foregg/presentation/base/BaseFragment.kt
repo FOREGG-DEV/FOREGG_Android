@@ -119,8 +119,8 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
 
     private fun showCommonDialog(error : String){
         val title = when(error){
-            StatusCode.ERROR_404 -> "시스템 오류가 발생했어요"
-            StatusCode.NETWORK_ERROR -> "서버에 오류가 발생했습니다."
+            StatusCode.ERROR_404 -> "시스템 오류가 발생했습니다."
+            StatusCode.NETWORK_ERROR -> "인터넷이 연결되어 있지 않습니다."
             else -> {"알 수 없는 오류가 발생했습니다."}
         }
         val btnText =when(error){

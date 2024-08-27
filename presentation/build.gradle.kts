@@ -27,8 +27,8 @@ android {
         applicationId = "com.foregg.presentation"
         minSdk = 24
         targetSdk = 34
-        versionCode = 16
-        versionName = "1.1.12"
+        versionCode = 17
+        versionName = "1.1.13"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
