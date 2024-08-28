@@ -6,5 +6,6 @@ import kotlinx.coroutines.flow.StateFlow
 
 data class OnboardingPageState(
     val imageList : StateFlow<List<OnboardingTutorialVo>>,
-    val isLastPage : StateFlow<Boolean>
+    val isLastPage : StateFlow<Boolean>,
+    val isFirstPage : StateFlow<Boolean>
 ) : PageState

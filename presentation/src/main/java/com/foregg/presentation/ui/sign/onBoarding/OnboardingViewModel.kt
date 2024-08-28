@@ -36,10 +36,12 @@ class OnboardingViewModel @Inject constructor(
 
     private val imageListStateFlow : MutableStateFlow<List<OnboardingTutorialVo>> = MutableStateFlow(emptyList())
     private val isLastPageStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val isFirstPageStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     override val uiState: OnboardingPageState = OnboardingPageState(
         imageListStateFlow.asStateFlow(),
-        isLastPageStateFlow.asStateFlow()
+        isLastPageStateFlow.asStateFlow(),
+        isFirstPageStateFlow.asStateFlow()
     )
 
     private lateinit var accessToken : String
@@ -87,9 +89,10 @@ class OnboardingViewModel @Inject constructor(
         emitEventFlow(OnboardingEvent.MovePrevEvent)
     }
 
-    fun updateKaKaoLoginButton(value : Boolean){
+    fun updateTopButton(position : Int, isLastPage : Boolean){
         viewModelScope.launch {
-            isLastPageStateFlow.update { value }
+            isLastPageStateFlow.update { isLastPage }
+            isFirstPageStateFlow.update { position == 0 }
         }
     }
 

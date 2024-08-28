@@ -30,15 +30,7 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding, OnboardingPag
                 registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                     override fun onPageSelected(position: Int) {
                         super.onPageSelected(position)
-                        imgBtnBack.visibility = if(position == 0) View.GONE else View.VISIBLE
-                        if(position == adapter?.itemCount?.minus(1)) {
-                            textSkip.visibility = View.GONE
-                            viewModel.updateKaKaoLoginButton(true)
-                        }
-                        else {
-                            textSkip.visibility = View.VISIBLE
-                            viewModel.updateKaKaoLoginButton(false)
-                        }
+                        viewModel.updateTopButton(position, position == adapter?.itemCount?.minus(1))
                     }
                 })
             }
