@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.foregg.domain.model.enums.BottomNavType"/>
+        <import type="com.hugg.domain.model.enums.BottomNavType"/>
         <import type="android.view.View"/>
-        <import type="com.foregg.presentation.util.ForeggNotification"/>
+        <import type="com.hugg.presentation.util.ForeggNotification"/>
         <variable
             name="vm"
-            type="com.foregg.presentation.ui.MainActivityViewModel" />
+            type="com.hugg.presentation.ui.MainActivityViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

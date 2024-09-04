@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.foregg.presentation">
+    package="com.hugg.presentation">
 
     <queries>
         <package android:name="com.kakao.talk" />
@@ -17,7 +17,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
 
     <application
-        android:name=".ForeggApp"
+        android:name="com.hugg.presentation.ForeggApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -30,19 +30,19 @@
         tools:targetApi="31">
 
         <service
-            android:name=".util.FcmNotification"
+            android:name="com.hugg.presentation.util.FcmNotification"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <receiver android:name=".util.AlarmReceiver" android:exported="true" />
-        <service android:name=".util.AlarmService" android:exported="true"
+        <receiver android:name="com.hugg.presentation.util.AlarmReceiver" android:exported="true" />
+        <service android:name="com.hugg.presentation.util.AlarmService" android:exported="true"
             android:foregroundServiceType="mediaPlayback" />
 
         <activity
-            android:name=".ui.sign.SignActivity"
+            android:name="com.hugg.presentation.ui.sign.SignActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.App.RemoveSplash"
             android:windowSoftInputMode="adjustPan"
@@ -54,7 +54,7 @@
         </activity>
 
         <activity
-            android:name=".ui.MainActivity"
+            android:name="com.hugg.presentation.ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

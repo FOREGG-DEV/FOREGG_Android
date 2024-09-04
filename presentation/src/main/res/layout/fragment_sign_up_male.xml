@@ -5,7 +5,7 @@
     <data>
         <variable
             name="vm"
-            type="com.foregg.presentation.ui.sign.signUp.male.SignUpMaleViewModel" />
+            type="com.hugg.presentation.ui.sign.signUp.male.SignUpMaleViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

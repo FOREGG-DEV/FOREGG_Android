@@ -7,11 +7,11 @@
 
         <import type="android.view.View" />
 
-        <import type="com.foregg.domain.model.enums.SurgeryType" />
+        <import type="com.hugg.domain.model.enums.SurgeryType" />
 
         <variable
             name="vm"
-            type="com.foregg.presentation.ui.main.profile.edit.EditMyInfoViewModel" />
+            type="com.hugg.presentation.ui.main.profile.edit.EditMyInfoViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

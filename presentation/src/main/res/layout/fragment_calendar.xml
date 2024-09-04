@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.foregg.presentation.util.UserInfo"/>
-        <import type="com.foregg.domain.model.enums.GenderType"/>
+        <import type="com.hugg.presentation.util.UserInfo"/>
+        <import type="com.hugg.domain.model.enums.GenderType"/>
         <import type="android.view.View"/>
         <variable
             name="vm"
-            type="com.foregg.presentation.ui.main.calendar.CalendarViewModel" />
+            type="com.hugg.presentation.ui.main.calendar.CalendarViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

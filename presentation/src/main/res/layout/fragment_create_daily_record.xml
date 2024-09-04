@@ -6,10 +6,10 @@
 
     <data>
         <import type="android.view.View"/>
-        <import type="com.foregg.domain.model.enums.DailyConditionType"/>
+        <import type="com.hugg.domain.model.enums.DailyConditionType"/>
         <variable
             name="vm"
-            type="com.foregg.presentation.ui.dailyRecord.createDailyRecord.CreateDailyRecordViewModel"/>
+            type="com.hugg.presentation.ui.dailyRecord.createDailyRecord.CreateDailyRecordViewModel"/>
     </data>
 
     <androidx.core.widget.NestedScrollView

@@ -7,10 +7,10 @@
 
     <data>
         <import type="android.view.View"/>
-        <import type="com.foregg.domain.model.enums.GenderType"/>
+        <import type="com.hugg.domain.model.enums.GenderType"/>
         <variable
             name="vm"
-            type="com.foregg.presentation.ui.dailyRecord.DailyRecordViewModel" />
+            type="com.hugg.presentation.ui.dailyRecord.DailyRecordViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -70,7 +70,7 @@
 
         </LinearLayout>
 
-        <com.foregg.presentation.ui.common.CustomTabBar
+        <com.hugg.presentation.ui.common.CustomTabBar
             android:id="@+id/custom_tab_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
             app:rightText="@string/daily_record_adverse_effect"
             app:tabCount="2">
 
-        </com.foregg.presentation.ui.common.CustomTabBar>
+        </com.hugg.presentation.ui.common.CustomTabBar>
 
         <View
             android:layout_width="0.5dp"

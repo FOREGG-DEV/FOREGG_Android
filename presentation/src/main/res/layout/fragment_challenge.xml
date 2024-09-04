@@ -5,11 +5,11 @@
 
     <data>
         <import type="android.view.View"/>
-        <import type="com.foregg.domain.model.enums.ChallengeTapType"/>
-        <import type="com.foregg.domain.model.enums.ChallengeStatusType"/>
+        <import type="com.hugg.domain.model.enums.ChallengeTapType"/>
+        <import type="com.hugg.domain.model.enums.ChallengeStatusType"/>
         <variable
             name="vm"
-            type="com.foregg.presentation.ui.main.home.challenge.ChallengeViewModel" />
+            type="com.hugg.presentation.ui.main.home.challenge.ChallengeViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -62,7 +62,7 @@
                 android:visibility="gone"
                 />
 
-            <com.foregg.presentation.ui.common.CustomTabBar
+            <com.hugg.presentation.ui.common.CustomTabBar
                 android:id="@+id/custom_tab_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
                 app:rightText="@string/challenge_my"
                 app:tabCount="2">
 
-            </com.foregg.presentation.ui.common.CustomTabBar>
+            </com.hugg.presentation.ui.common.CustomTabBar>
 
             <LinearLayout
                 android:layout_width="wrap_content"

@@ -8,7 +8,7 @@
         <import type="android.view.View"/>
         <variable
             name="vm"
-            type="com.foregg.presentation.ui.dailyRecord.createSideEffect.CreateSideEffectViewModel" />
+            type="com.hugg.presentation.ui.dailyRecord.createSideEffect.CreateSideEffectViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView

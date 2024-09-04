@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.foregg.presentation.util.UserInfo"/>
-        <import type="com.foregg.domain.model.enums.GenderType"/>
-        <import type="com.foregg.domain.model.enums.RecordType" />
-        <import type="com.foregg.domain.model.enums.CalendarType" />
-        <import type="com.foregg.domain.model.enums.CalendarTabType" />
+        <import type="com.hugg.presentation.util.UserInfo"/>
+        <import type="com.hugg.domain.model.enums.GenderType"/>
+        <import type="com.hugg.domain.model.enums.RecordType" />
+        <import type="com.hugg.domain.model.enums.CalendarType" />
+        <import type="com.hugg.domain.model.enums.CalendarTabType" />
         <import type="android.view.View" />
         <variable
             name="vm"
-            type="com.foregg.presentation.ui.main.calendar.createOrEdit.CreateEditScheduleViewModel" />
+            type="com.hugg.presentation.ui.main.calendar.createOrEdit.CreateEditScheduleViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -80,7 +80,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.foregg.presentation.ui.common.CustomTabBar
+            <com.hugg.presentation.ui.common.CustomTabBar
                 android:id="@+id/custom_tab_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
                 app:tabCount="2"
                 tools:layout_height="40dp">
 
-            </com.foregg.presentation.ui.common.CustomTabBar>
+            </com.hugg.presentation.ui.common.CustomTabBar>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

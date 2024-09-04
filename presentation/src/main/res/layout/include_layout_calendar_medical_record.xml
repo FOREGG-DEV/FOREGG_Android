@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.foregg.presentation.util.UserInfo" />
-        <import type="com.foregg.domain.model.enums.GenderType" />
+        <import type="com.hugg.presentation.util.UserInfo" />
+        <import type="com.hugg.domain.model.enums.GenderType" />
         <import type="android.view.View" />
 
         <variable
             name="vm"
-            type="com.foregg.presentation.ui.main.calendar.createOrEdit.CreateEditScheduleViewModel" />
+            type="com.hugg.presentation.ui.main.calendar.createOrEdit.CreateEditScheduleViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

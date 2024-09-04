@@ -5,13 +5,13 @@
 
     <data>
         <import type="android.view.View"/>
-        <import type="com.foregg.presentation.util.ForeggNotification"/>
-        <import type="com.foregg.domain.model.enums.GenderType"/>
-        <import type="com.foregg.domain.model.enums.DailyConditionType"/>
-        <import type="com.foregg.domain.model.enums.HomeChallengeViewType"/>
+        <import type="com.hugg.presentation.util.ForeggNotification"/>
+        <import type="com.hugg.domain.model.enums.GenderType"/>
+        <import type="com.hugg.domain.model.enums.DailyConditionType"/>
+        <import type="com.hugg.domain.model.enums.HomeChallengeViewType"/>
         <variable
             name="vm"
-            type="com.foregg.presentation.ui.main.home.HomeViewModel" />
+            type="com.hugg.presentation.ui.main.home.HomeViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView

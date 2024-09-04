@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.foregg.presentation.util.UserInfo"/>
-        <import type="com.foregg.domain.model.enums.GenderType"/>
+        <import type="com.hugg.presentation.util.UserInfo"/>
+        <import type="com.hugg.domain.model.enums.GenderType"/>
         <import type="android.view.View"/>
     </data>
 

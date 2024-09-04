@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.foregg.data"
+    namespace = "com.hugg.data"
     compileSdk = 34
 
     defaultConfig {

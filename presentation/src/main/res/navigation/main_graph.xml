@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.foregg.presentation.ui.main.home.HomeFragment"
+        android:name="com.hugg.presentation.ui.main.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
 
@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/dailyRecordFragment"
-        android:name="com.foregg.presentation.ui.dailyRecord.DailyRecordFragment"
+        android:name="com.hugg.presentation.ui.dailyRecord.DailyRecordFragment"
         android:label="fragment_daily_record"
         tools:layout="@layout/fragment_daily_record">
 
@@ -46,7 +46,7 @@
 
     <fragment
         android:id="@+id/createDailyRecordFragment"
-        android:name="com.foregg.presentation.ui.dailyRecord.createDailyRecord.CreateDailyRecordFragment"
+        android:name="com.hugg.presentation.ui.dailyRecord.createDailyRecord.CreateDailyRecordFragment"
         android:label="fragment_create_daily_record"
         tools:layout="@layout/fragment_create_daily_record">
 
@@ -63,13 +63,13 @@
         <argument
             android:name="dailyCondition"
             android:defaultValue="DEFAULT"
-            app:argType="com.foregg.domain.model.enums.DailyConditionType"/>
+            app:argType="com.hugg.domain.model.enums.DailyConditionType"/>
 
     </fragment>
 
     <fragment
         android:id="@+id/createSideEffectFragment"
-        android:name="com.foregg.presentation.ui.dailyRecord.createSideEffect.CreateSideEffectFragment"
+        android:name="com.hugg.presentation.ui.dailyRecord.createSideEffect.CreateSideEffectFragment"
         android:label="fragment_create_side_effect"
         tools:layout="@layout/fragment_create_side_effect">
 
@@ -87,7 +87,7 @@
 
     <fragment
         android:id="@+id/challengeFragment"
-        android:name="com.foregg.presentation.ui.main.home.challenge.ChallengeFragment"
+        android:name="com.hugg.presentation.ui.main.home.challenge.ChallengeFragment"
         android:label="fragment_challenge"
         tools:layout="@layout/fragment_challenge">
 
@@ -99,7 +99,7 @@
 
     <fragment
         android:id="@+id/calendarFragment"
-        android:name="com.foregg.presentation.ui.main.calendar.CalendarFragment"
+        android:name="com.hugg.presentation.ui.main.calendar.CalendarFragment"
         android:label="fragment_calendar"
         tools:layout="@layout/fragment_calendar">
 
@@ -110,7 +110,7 @@
 
     <fragment
         android:id="@+id/createEditScheduleFragment"
-        android:name="com.foregg.presentation.ui.main.calendar.createOrEdit.CreateEditScheduleFragment"
+        android:name="com.hugg.presentation.ui.main.calendar.createOrEdit.CreateEditScheduleFragment"
         android:label="fragment_create_edit_schedule"
         tools:layout="@layout/fragment_create_edit_schedule">
 
@@ -120,11 +120,11 @@
 
         <argument
             android:name="type"
-            app:argType="com.foregg.domain.model.enums.CalendarType"/>
+            app:argType="com.hugg.domain.model.enums.CalendarType"/>
 
         <argument
             android:name="schedule_type"
-            app:argType="com.foregg.domain.model.enums.RecordType"/>
+            app:argType="com.hugg.domain.model.enums.RecordType"/>
 
         <argument
             android:name="isHome"
@@ -142,7 +142,7 @@
 
     <fragment
         android:id="@+id/accountFragment"
-        android:name="com.foregg.presentation.ui.main.account.AccountFragment"
+        android:name="com.hugg.presentation.ui.main.account.AccountFragment"
         android:label="fragment_account"
         tools:layout="@layout/fragment_account">
 
@@ -153,7 +153,7 @@
 
     <fragment
         android:id="@+id/accountCreateEditFragment"
-        android:name="com.foregg.presentation.ui.main.account.createOrEdit.AccountCreateEditFragment"
+        android:name="com.hugg.presentation.ui.main.account.createOrEdit.AccountCreateEditFragment"
         android:label="fragment_account_create_edit"
         tools:layout="@layout/fragment_create_edit_account">
 
@@ -163,12 +163,12 @@
 
         <argument
             android:name="type"
-            app:argType="com.foregg.domain.model.enums.CalendarType"/>
+            app:argType="com.hugg.domain.model.enums.CalendarType"/>
     </fragment>
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.foregg.presentation.ui.main.profile.ProfileFragment"
+        android:name="com.hugg.presentation.ui.main.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile">
 
@@ -191,14 +191,14 @@
 
     <fragment
         android:id="@+id/editMyInfoFragment"
-        android:name="com.foregg.presentation.ui.main.profile.edit.EditMyInfoFragment"
+        android:name="com.hugg.presentation.ui.main.profile.edit.EditMyInfoFragment"
         android:label="fragment_edit_my_info"
         tools:layout="@layout/fragment_edit_my_info">
     </fragment>
 
     <fragment
         android:id="@+id/myMedicineInjectionFragment"
-        android:name="com.foregg.presentation.ui.main.profile.myMedicineInjection.MedicineInjectionFragment"
+        android:name="com.hugg.presentation.ui.main.profile.myMedicineInjection.MedicineInjectionFragment"
         android:label="fragment_my_medicine_injection"
         tools:layout="@layout/fragment_my_medicine_injection">
 
@@ -209,21 +209,21 @@
 
     <fragment
         android:id="@+id/askFragment"
-        android:name="com.foregg.presentation.ui.main.profile.ask.AskFragment"
+        android:name="com.hugg.presentation.ui.main.profile.ask.AskFragment"
         android:label="fragment_profile_ask"
         tools:layout="@layout/fragment_profile_ask">
     </fragment>
 
     <fragment
         android:id="@+id/profileAccountFragment"
-        android:name="com.foregg.presentation.ui.main.profile.account.ProfileAccountFragment"
+        android:name="com.hugg.presentation.ui.main.profile.account.ProfileAccountFragment"
         android:label="fragment_profile_account"
         tools:layout="@layout/fragment_profile_account">
     </fragment>
 
     <fragment
         android:id="@+id/infoFragment"
-        android:name="com.foregg.presentation.ui.main.information.InformationFragment"
+        android:name="com.hugg.presentation.ui.main.information.InformationFragment"
         android:label="fragment_info"
         tools:layout="@layout/fragment_information">
 
@@ -234,19 +234,19 @@
 
     <fragment
         android:id="@+id/subsidyDetailFragment"
-        android:name="com.foregg.presentation.ui.main.information.subsidyDetail.SubsidyDetailFragment"
+        android:name="com.hugg.presentation.ui.main.information.subsidyDetail.SubsidyDetailFragment"
         android:label="fragment_subsidy_detail"
         tools:layout="@layout/fragment_subsidy_detail">
 
         <argument
             android:name="type"
-            app:argType="com.foregg.domain.model.enums.InformationType"/>
+            app:argType="com.hugg.domain.model.enums.InformationType"/>
 
     </fragment>
 
     <fragment
         android:id="@+id/injectionFragment"
-        android:name="com.foregg.presentation.ui.main.injection.InjectionFragment"
+        android:name="com.hugg.presentation.ui.main.injection.InjectionFragment"
         android:label="fragment_injection"
         tools:layout="@layout/fragment_injection">
 

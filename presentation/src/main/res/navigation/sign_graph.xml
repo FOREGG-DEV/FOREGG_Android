@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.foregg.presentation.ui.sign.splash.SplashFragment"
+        android:name="com.hugg.presentation.ui.sign.splash.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash">
 
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/onboardingFragment"
-        android:name="com.foregg.presentation.ui.sign.onBoarding.OnboardingFragment"
+        android:name="com.hugg.presentation.ui.sign.onBoarding.OnboardingFragment"
         android:label="fragment_onboarding"
         tools:layout="@layout/fragment_onboarding">
 
@@ -30,7 +30,7 @@
 
     <fragment
         android:id="@+id/chooseGenderFragment"
-        android:name="com.foregg.presentation.ui.sign.signUp.chooseGender.ChooseGenderFragment"
+        android:name="com.hugg.presentation.ui.sign.signUp.chooseGender.ChooseGenderFragment"
         android:label="fragment_sign_up_choose_gender"
         tools:layout="@layout/fragment_sign_up_choose_gender">
 
@@ -50,7 +50,7 @@
 
     <fragment
         android:id="@+id/signUpFemaleFragment"
-        android:name="com.foregg.presentation.ui.sign.signUp.female.SignUpFemaleFragment"
+        android:name="com.hugg.presentation.ui.sign.signUp.female.SignUpFemaleFragment"
         android:label="fragment_sign_up_female"
         tools:layout="@layout/fragment_sign_up_female">
 
@@ -72,7 +72,7 @@
 
     <fragment
         android:id="@+id/signUpMaleFragment"
-        android:name="com.foregg.presentation.ui.sign.signUp.male.SignUpMaleFragment"
+        android:name="com.hugg.presentation.ui.sign.signUp.male.SignUpMaleFragment"
         android:label="fragment_sign_up_male"
         tools:layout="@layout/fragment_sign_up_male">
 

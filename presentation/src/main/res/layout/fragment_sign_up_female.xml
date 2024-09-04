@@ -7,11 +7,11 @@
 
         <import type="android.view.View" />
 
-        <import type="com.foregg.domain.model.enums.SurgeryType" />
+        <import type="com.hugg.domain.model.enums.SurgeryType" />
 
         <variable
             name="vm"
-            type="com.foregg.presentation.ui.sign.signUp.female.SignUpFemaleViewModel" />
+            type="com.hugg.presentation.ui.sign.signUp.female.SignUpFemaleViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

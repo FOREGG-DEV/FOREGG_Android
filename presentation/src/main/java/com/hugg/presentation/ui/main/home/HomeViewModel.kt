@@ -1,0 +1,213 @@
+package com.hugg.presentation.ui.main.home
+
+import androidx.lifecycle.viewModelScope
+import com.hugg.domain.model.enums.DailyConditionType
+import com.hugg.domain.model.enums.GenderType
+import com.hugg.domain.model.enums.HomeAdCardType
+import com.hugg.domain.model.enums.HomeChallengeViewType
+import com.hugg.domain.model.response.HomeRecordResponseVo
+import com.hugg.domain.model.response.HomeResponseVo
+import com.hugg.domain.model.response.MyChallengeListItemVo
+import com.hugg.domain.model.vo.home.HomeAdCardVo
+import com.hugg.domain.usecase.home.GetHomeUseCase
+import com.hugg.domain.usecase.home.challenge.CompleteChallengeUseCase
+import com.hugg.domain.usecase.home.challenge.DeleteCompleteChallengeUseCase
+import com.hugg.domain.usecase.home.challenge.GetMyChallengeUseCase
+import com.hugg.presentation.R
+import com.hugg.presentation.base.BaseViewModel
+import com.hugg.presentation.util.ResourceProvider
+import com.hugg.presentation.util.TimeFormatter
+import com.hugg.presentation.util.UserInfo
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalTime
+import javax.inject.Inject
+
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val getHomeUseCase: GetHomeUseCase,
+    private val getMyChallengeUseCase: GetMyChallengeUseCase,
+    private val completeChallengeUseCase: CompleteChallengeUseCase,
+    private val deleteCompleteChallengeUseCase: DeleteCompleteChallengeUseCase,
+    private val resourceProvider: ResourceProvider
+) : BaseViewModel<HomePageState>() {
+    private val hasDailyRecordStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val userNameStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private val husbandNameStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private val todayDateStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private val todayScheduleStateFlow: MutableStateFlow<List<HomeRecordResponseVo>> = MutableStateFlow(emptyList())
+    private val formattedTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private val challengeListStateFlow: MutableStateFlow<List<MyChallengeListItemVo>> = MutableStateFlow(emptyList())
+    private val challengeViewTypeStateFlow: MutableStateFlow<HomeChallengeViewType> = MutableStateFlow(HomeChallengeViewType.DEFAULT)
+    private val homeIntroductionItemListStateFlow: MutableStateFlow<List<HomeAdCardVo>> = MutableStateFlow(listOf(
+        HomeAdCardVo(
+            image = R.drawable.ic_ad_card_daily,
+            type = HomeAdCardType.DAILY
+        ),
+        HomeAdCardVo(
+            image = R.drawable.ic_ad_card_share,
+            type = HomeAdCardType.SHARE
+        ),
+        HomeAdCardVo(
+            image = R.drawable.ic_ad_card_foregg,
+            type = HomeAdCardType.BLOG
+        )
+    ))
+    private val dailyConditionTypeImageStateFlow: MutableStateFlow<Int> = MutableStateFlow(R.drawable.ic_emotion_perfect_selected)
+    private val dailyContentStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private val medicalRecordStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private val medicalRecordIdStateFlow: MutableStateFlow<Long> = MutableStateFlow(-1)
+    val month = org.threeten.bp.LocalDate.now().monthValue
+    val day = org.threeten.bp.LocalDate.now().dayOfMonth
+
+    override val uiState: HomePageState = HomePageState(
+        hasDailyRecord = hasDailyRecordStateFlow.asStateFlow(),
+        userName = userNameStateFlow.asStateFlow(),
+        todayDate = todayDateStateFlow.asStateFlow(),
+        todayScheduleList = todayScheduleStateFlow.asStateFlow(),
+        formattedText = formattedTextStateFlow.asStateFlow(),
+        challengeList = challengeListStateFlow.asStateFlow(),
+        challengeViewType = challengeViewTypeStateFlow.asStateFlow(),
+        homeIntroductionItemList = homeIntroductionItemListStateFlow.asStateFlow(),
+        genderType = UserInfo.info.genderType,
+        dailyConditionImage = dailyConditionTypeImageStateFlow.asStateFlow(),
+        dailyContent = dailyContentStateFlow.asStateFlow(),
+        medicalRecord = medicalRecordStateFlow.asStateFlow(),
+        medicalRecordId = medicalRecordIdStateFlow.asStateFlow()
+    )
+
+    companion object{
+        const val ALL_CLEAR_CHALLENGE_COUNT = 6
+    }
+
+    fun initScheduleStates() {
+        getTodaySchedule()
+        if (UserInfo.info.genderType == GenderType.FEMALE) getMyChallenge()
+    }
+
+    private fun getTodaySchedule() {
+        viewModelScope.launch {
+            getHomeUseCase(Unit).collect {
+                resultResponse(it, ::handleInitScheduleStatesSuccess)
+            }
+        }
+    }
+
+    private fun getMyChallenge() {
+        viewModelScope.launch {
+            getMyChallengeUseCase(Unit).collect { it ->
+                resultResponse(it, { updateChallengeList(it) })
+            }
+        }
+    }
+
+    private fun handleInitScheduleStatesSuccess(result: HomeResponseVo) {
+        viewModelScope.launch {
+            userNameStateFlow.update { result.userName }
+            husbandNameStateFlow.update { result.spouseName }
+            todayDateStateFlow.update { result.todayDate }
+            todayScheduleStateFlow.update { splitTodayScheduleByRepeatedTime(result.homeRecordResponseVo) }
+            dailyConditionTypeImageStateFlow.update { getDailyConditionTypeImage(result.dailyConditionType) }
+            dailyContentStateFlow.update { result.dailyContent }
+            medicalRecordStateFlow.update { result.latestMedicalRecord }
+            medicalRecordIdStateFlow.update { result.medicalRecordId }
+            if (UserInfo.info.genderType == GenderType.FEMALE) formattedTextStateFlow.update { resourceProvider.getString(R.string.today_schedule_format, userNameStateFlow.value, month, day) }
+            else formattedTextStateFlow.update { resourceProvider.getString(R.string.today_schedule_husband_format, userNameStateFlow.value, husbandNameStateFlow.value, month, day) }
+        }
+    }
+
+    private fun updateChallengeList(newList: List<MyChallengeListItemVo>) {
+        viewModelScope.launch {
+            challengeListStateFlow.update { newList }
+            challengeViewTypeStateFlow.update {
+                if(newList.isEmpty()) HomeChallengeViewType.EMPTY else HomeChallengeViewType.LIST
+            }
+        }
+    }
+
+    private fun splitTodayScheduleByRepeatedTime(currentList: List<HomeRecordResponseVo>): List<HomeRecordResponseVo> {
+        val newList = mutableListOf<HomeRecordResponseVo>()
+        for(list in currentList) {
+            val subList = splitListItem(list)
+            newList.addAll(subList)
+        }
+        return newList.sortedBy { it.times.first() }
+    }
+
+    private fun splitListItem(list: HomeRecordResponseVo): List<HomeRecordResponseVo> {
+        return list.times.map { repeatTime ->
+            list.copy(times = listOf(repeatTime))
+        }
+    }
+
+    fun completeChallenge(id: Long, successDaysCount : Int) {
+        viewModelScope.launch {
+            completeChallengeUseCase(id).collect {
+                resultResponse(it, { handleSuccessCompleteChallenge(successDaysCount) })
+            }
+        }
+    }
+
+    private fun handleSuccessCompleteChallenge(successDaysCount: Int) {
+        if(TimeFormatter.getKoreanDayOfWeek(LocalDate.now().dayOfWeek) == "토"){
+            val isSuccess = successDaysCount == ALL_CLEAR_CHALLENGE_COUNT
+            emitEventFlow(HomeEvent.ShowWeekEndDialog(isSuccess))
+        }
+        getMyChallenge()
+    }
+
+    fun deleteCompleteChallenge(id : Long){
+        viewModelScope.launch {
+            deleteCompleteChallengeUseCase(id).collect {
+                resultResponse(it, { getMyChallenge() })
+            }
+        }
+    }
+
+    fun onClickDailyRecord() {
+        viewModelScope.launch {
+            hasDailyRecordStateFlow.update { false }
+        }
+        emitEventFlow(HomeEvent.GoToDailyRecordEvent)
+    }
+
+    fun onCLickGoToChallenge() {
+        emitEventFlow(HomeEvent.GoToChallengeEvent)
+    }
+
+    private fun getDailyConditionTypeImage(type: DailyConditionType): Int {
+        return when (type) {
+            DailyConditionType.WORST -> R.drawable.ic_emotion_worst_selected
+            DailyConditionType.BAD -> R.drawable.ic_emotion_bad_selected
+            DailyConditionType.SOSO -> R.drawable.ic_emotion_soso_selected
+            DailyConditionType.GOOD -> R.drawable.ic_emotion_smile_selected
+            DailyConditionType.PERFECT -> R.drawable.ic_emotion_perfect_selected
+            DailyConditionType.DEFAULT -> R.drawable.ic_emotion_perfect_selected
+        }
+    }
+
+    fun onClickBtnMedicalRecord() {
+        if (medicalRecordStateFlow.value.isEmpty()) emitEventFlow(HomeEvent.GoToCalendarEvent)
+        else emitEventFlow(HomeEvent.GoToCreateEditScheduleEvent)
+    }
+
+    fun calculatePosition(list: List<HomeRecordResponseVo>): Int {
+        var position = - 1
+        val currentHour = LocalTime.now().hour
+        val currentMinute = LocalTime.now().minute
+        for (i in list.indices) {
+            val timeParts = list[i].times.first().split(":")
+            val hour = timeParts[0].toInt()
+            val minute = timeParts[1].toInt()
+            if (hour > currentHour || (hour == currentHour && minute >= currentMinute)) {
+                position = i
+                break
+            }
+        }
+        return position
+    }
+}

@@ -5,13 +5,13 @@
 
     <data>
 
-        <import type="com.foregg.domain.model.enums.CalendarType" />
+        <import type="com.hugg.domain.model.enums.CalendarType" />
 
         <import type="android.view.View" />
 
         <variable
             name="vm"
-            type="com.foregg.presentation.ui.main.account.createOrEdit.AccountCreateEditViewModel" />
+            type="com.hugg.presentation.ui.main.account.createOrEdit.AccountCreateEditViewModel" />
     </data>
 
 
@@ -81,7 +81,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.foregg.presentation.ui.common.CustomTabBar
+            <com.hugg.presentation.ui.common.CustomTabBar
                 android:id="@+id/custom_tab_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
                 app:tabCount="2"
                 tools:layout_height="40dp">
 
-            </com.foregg.presentation.ui.common.CustomTabBar>
+            </com.hugg.presentation.ui.common.CustomTabBar>
 
             <TextView
                 android:id="@+id/text_date"

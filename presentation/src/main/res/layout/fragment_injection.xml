@@ -7,13 +7,13 @@
 
         <import type="android.view.View" />
 
-        <import type="com.foregg.domain.model.enums.GenderType" />
+        <import type="com.hugg.domain.model.enums.GenderType" />
 
-        <import type="com.foregg.presentation.util.UserInfo" />
+        <import type="com.hugg.presentation.util.UserInfo" />
 
         <variable
             name="vm"
-            type="com.foregg.presentation.ui.main.injection.InjectionViewModel" />
+            type="com.hugg.presentation.ui.main.injection.InjectionViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView

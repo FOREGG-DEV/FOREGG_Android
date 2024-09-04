@@ -1,0 +1,47 @@
+package com.hugg.presentation.ui.main.home.adapter
+
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.hugg.domain.model.response.MyChallengeListItemVo
+import com.hugg.presentation.R
+import com.hugg.presentation.databinding.ItemHomeMyChallengeBinding
+import com.hugg.presentation.util.TimeFormatter
+import org.threeten.bp.LocalDate
+
+class HomeChallengeViewHolder(
+    private val binding: ItemHomeMyChallengeBinding,
+    private val listener: HomeChallengeAdapter.HomeChallengeDelegate
+) : RecyclerView.ViewHolder(binding.root) {
+    private val today = TimeFormatter.getKoreanDayOfWeek(LocalDate.now().dayOfWeek)
+    private var itemId: Long? = null
+    private var isSuccess : Boolean = false
+    private var successDaysCount : Int = 0
+
+    init {
+        binding.btnCompleteChallenge.setOnClickListener {
+            itemId?.let { id ->
+                if(isSuccess) listener.deleteComplete(id) else listener.showDialog(id, successDaysCount)
+            }
+        }
+
+        binding.root.setOnClickListener {
+            itemId?.let { listener.onClickMyChallenge(it) }
+        }
+    }
+
+    fun bind(item: MyChallengeListItemVo) {
+        itemId = item.id
+        successDaysCount = item.successDays?.size ?: 0
+        binding.apply {
+            textChallengeName.text = item.name
+            isSuccess = if(item.successDays?.any { it == today } == true){
+                btnCompleteChallenge.setImageResource(R.drawable.ic_btn_complete_challenge_already)
+                true
+            } else false
+
+            Glide.with(binding.root)
+                .load(item.image)
+                .into(challengeImage)
+        }
+    }
+}

@@ -12,7 +12,7 @@ plugins {
 }
 
 android {
-    namespace = "com.foregg.presentation"
+    namespace = "com.hugg.presentation"
     compileSdk = 34
 
     val localPropsFile = rootProject.file("local.properties")

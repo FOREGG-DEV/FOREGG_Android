@@ -5,13 +5,13 @@
 
     <data>
 
-        <import type="com.foregg.domain.model.enums.AccountTabType" />
+        <import type="com.hugg.domain.model.enums.AccountTabType" />
 
         <import type="android.view.View" />
 
         <variable
             name="vm"
-            type="com.foregg.presentation.ui.main.account.AccountViewModel" />
+            type="com.hugg.presentation.ui.main.account.AccountViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -53,7 +53,7 @@
                 app:layout_constraintEnd_toEndOf="@id/include_top_bar"
                 app:layout_constraintTop_toTopOf="@id/include_top_bar" />
 
-            <com.foregg.presentation.ui.common.CustomTabBar
+            <com.hugg.presentation.ui.common.CustomTabBar
                 android:id="@+id/custom_tab_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                 app:rightText="@string/account_month"
                 app:tabCount="3">
 
-            </com.foregg.presentation.ui.common.CustomTabBar>
+            </com.hugg.presentation.ui.common.CustomTabBar>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_layout_remote"

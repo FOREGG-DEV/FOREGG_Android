@@ -5,7 +5,7 @@
     <data>
         <variable
             name="vm"
-            type="com.foregg.presentation.ui.main.profile.ask.AskViewModel" />
+            type="com.hugg.presentation.ui.main.profile.ask.AskViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

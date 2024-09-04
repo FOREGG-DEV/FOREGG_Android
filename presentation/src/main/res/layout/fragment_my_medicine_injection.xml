@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.foregg.presentation.ui.main.profile.myMedicineInjection.MedicineInjectionViewModel" />
+            type="com.hugg.presentation.ui.main.profile.myMedicineInjection.MedicineInjectionViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -46,7 +46,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/include_top_bar"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.foregg.presentation.ui.common.CustomTabBar
+            <com.hugg.presentation.ui.common.CustomTabBar
                 android:id="@+id/custom_tab_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                 app:leftText="@string/word_medicine"
                 app:rightText="@string/word_injection"
                 app:tabCount="2">
-            </com.foregg.presentation.ui.common.CustomTabBar>
+            </com.hugg.presentation.ui.common.CustomTabBar>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_medicine_injection"

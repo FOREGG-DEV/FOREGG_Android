@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.foregg.presentation.ui.main.information.subsidyDetail.SubsidyDetailViewModel"/>
+            type="com.hugg.presentation.ui.main.information.subsidyDetail.SubsidyDetailViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
