@@ -54,7 +54,7 @@
                     android:layout_height="32dp"
                     android:layout_gravity="center"
                     android:background="@drawable/bg_rectangle_filled_main_radius_8"
-                    android:onClick="@{()->vm.onClickDailyRecord()}"
+                    app:onThrottleClick="@{()->vm.onClickDailyRecord()}"
                     android:text="@string/daily_record"
                     android:textAppearance="@style/h4"
                     android:textColor="@color/white" />
@@ -181,7 +181,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
-                        android:onClick="@{()->vm.onCLickGoToChallenge()}"
+                        app:onThrottleClick="@{()->vm.onCLickGoToChallenge()}"
                         android:src="@drawable/ic_right_arrow_gs_50" />
 
                 </LinearLayout>
@@ -271,7 +271,7 @@
                         android:layout_marginBottom="15dp"
                         android:background="@drawable/bg_rectangle_filled_main_radius_8"
                         android:gravity="center"
-                        android:onClick="@{()->vm.onCLickGoToChallenge()}"
+                        app:onThrottleClick="@{()->vm.onCLickGoToChallenge()}"
                         android:text="@string/challenge_participate"
                         android:textAppearance="@style/h3"
                         android:textColor="@color/white"
@@ -332,7 +332,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
-                        android:onClick="@{()->vm.onClickDailyRecord()}"
+                        app:onThrottleClick="@{()->vm.onClickDailyRecord()}"
                         android:src="@drawable/ic_right_arrow_gs_50" />
 
                 </LinearLayout>
@@ -409,7 +409,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
-                        android:onClick="@{()->vm.onClickBtnMedicalRecord()}"
+                        app:onThrottleClick="@{()->vm.onClickBtnMedicalRecord()}"
                         android:src="@drawable/ic_right_arrow_gs_50" />
 
                 </LinearLayout>

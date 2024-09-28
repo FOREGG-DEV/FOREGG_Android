@@ -39,7 +39,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="16dp"
-                android:onClick="@{()->vm.onClickBack()}"
+                app:onThrottleClick="@{()->vm.onClickBack()}"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_back_arrow_gs_50"
                 app:layout_constraintStart_toStartOf="parent"

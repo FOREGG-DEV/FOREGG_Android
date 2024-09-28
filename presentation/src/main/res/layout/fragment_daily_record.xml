@@ -35,7 +35,7 @@
                 android:layout_marginStart="16dp"
                 android:scaleType="fitCenter"
                 android:padding="12dp"
-                android:onClick="@{()->vm.onClickBtnClose()}"
+                app:onThrottleClick="@{()->vm.onClickBtnClose()}"
                 android:src="@drawable/ic_back_arrow_gs_50"
                 android:background="@android:color/transparent"/>
 
@@ -64,7 +64,7 @@
                 android:scaleType="fitCenter"
                 android:layout_marginEnd="16dp"
                 android:src="@drawable/ic_btn_add_filled_main"
-                android:onClick="@{()->vm.goToRecord()}"
+                app:onThrottleClick="@{()->vm.goToRecord()}"
                 android:visibility="@{vm.genderType == GenderType.MALE ? View.GONE : View.VISIBLE}"
                 android:background="@android:color/transparent"/>
 

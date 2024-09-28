@@ -33,7 +33,7 @@
                 android:padding="12dp"
                 android:src="@drawable/ic_cancel"
                 android:background="@android:color/transparent"
-                android:onClick="@{()->vm.onClickBtnClose()}"
+                app:onThrottleClick="@{()->vm.onClickBtnClose()}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/include_top_bar"
                 app:layout_constraintBottom_toBottomOf="@id/include_top_bar"/>
@@ -74,7 +74,7 @@
                     android:layout_width="146dp"
                     android:layout_height="146dp"
                     android:layout_marginEnd="4dp"
-                    android:onClick="@{()->vm.updateHasSideEffectState(false)}"
+                    app:onThrottleClick="@{()->vm.updateHasSideEffectState(false)}"
                     android:background="@drawable/bg_rectangle_filled_white_radius_8">
 
                     <LinearLayout
@@ -88,7 +88,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:src="@{vm.uiState.hasSideEffect ? @drawable/ic_emotion_smile_unselected : @drawable/ic_emotion_smile_selected}"
-                            android:onClick="@{()->vm.updateHasSideEffectState(false)}"
+                            app:onThrottleClick="@{()->vm.updateHasSideEffectState(false)}"
                             android:background="@android:color/transparent" />
 
                         <TextView
@@ -107,7 +107,7 @@
                     android:layout_width="146dp"
                     android:layout_height="146dp"
                     android:layout_marginStart="4dp"
-                    android:onClick="@{()->vm.updateHasSideEffectState(true)}"
+                    app:onThrottleClick="@{()->vm.updateHasSideEffectState(true)}"
                     android:background="@drawable/bg_rectangle_filled_white_radius_8">
 
                     <LinearLayout
@@ -121,7 +121,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:src="@{vm.uiState.hasSideEffect ? @drawable/ic_emotion_bad_selected : @drawable/ic_emotion_bad_unselected}"
-                            android:onClick="@{()->vm.updateHasSideEffectState(true)}"
+                            app:onThrottleClick="@{()->vm.updateHasSideEffectState(true)}"
                             android:background="@android:color/transparent" />
 
                         <TextView
@@ -167,7 +167,7 @@
                 android:text="@{vm.uiState.contentText.empty ? @string/word_next : @string/create_adverse_effect_done}"
                 android:textAppearance="@style/h1"
                 android:textColor="@{vm.uiState.contentText.empty ? @color/black : @color/white}"
-                android:onClick="@{()->vm.onClickBtnNext()}"
+                app:onThrottleClick="@{()->vm.onClickBtnNext()}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_text_side_effect"/>

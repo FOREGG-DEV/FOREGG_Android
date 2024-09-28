@@ -24,7 +24,7 @@ android {
     defaultConfig {
         buildConfigField("String", "KAKAO_NATIVE_KEY", localProps.getProperty("kakao_native_key"))
         manifestPlaceholders["Key"]
-        applicationId = "com.foregg.presentation"
+        applicationId = "com.hugg.presentation"
         minSdk = 24
         targetSdk = 34
         versionCode = 18

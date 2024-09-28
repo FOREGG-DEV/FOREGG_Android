@@ -45,7 +45,7 @@
                 android:layout_height="48dp"
                 android:layout_marginEnd="16dp"
                 android:background="@android:color/transparent"
-                android:onClick="@{()->vm.onClickCreateOrDeleteBtn()}"
+                app:onThrottleClick="@{()->vm.onClickCreateOrDeleteBtn()}"
                 android:padding="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_btn_add_filled_main"
@@ -81,7 +81,7 @@
                     android:layout_height="48dp"
                     android:layout_marginEnd="9dp"
                     android:background="@drawable/ic_arrow_right"
-                    android:onClick="@{()->vm.onClickPrev()}"
+                    app:onThrottleClick="@{()->vm.onClickPrev()}"
                     android:scaleX="-1"
                     app:layout_constraintEnd_toStartOf="@id/text_date_or_round"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -105,7 +105,7 @@
                     android:layout_height="48dp"
                     android:layout_marginStart="9dp"
                     android:background="@drawable/ic_arrow_right"
-                    android:onClick="@{()->vm.onClickNext()}"
+                    app:onThrottleClick="@{()->vm.onClickNext()}"
                     app:layout_constraintStart_toEndOf="@id/text_date_or_round"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -140,7 +140,7 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:background="@android:color/transparent"
-                    android:onClick="@{()->vm.onClickChangeDate()}"
+                    app:onThrottleClick="@{()->vm.onClickChangeDate()}"
                     android:padding="12dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_account_filter"

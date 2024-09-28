@@ -29,7 +29,7 @@
             android:layout_height="48dp"
             android:layout_marginStart="16dp"
             android:background="@android:color/transparent"
-            android:onClick="@{()->vm.onClickBack()}"
+            app:onThrottleClick="@{()->vm.onClickBack()}"
             android:padding="12dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_back_arrow_gs_50"
@@ -43,7 +43,7 @@
             android:layout_height="48dp"
             android:layout_marginEnd="16dp"
             android:background="@android:color/transparent"
-            android:onClick="@{()->vm.onClickEdit()}"
+            app:onThrottleClick="@{()->vm.onClickEdit()}"
             android:padding="8dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_check_circle"
@@ -102,7 +102,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@drawable/bg_rectangle_filled_gs_10_right_radius_8"
-                android:onClick="@{()->vm.onClickSpinner()}"
+                app:onThrottleClick="@{()->vm.onClickSpinner()}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -154,7 +154,7 @@
             android:layout_height="0dp"
             android:background="@drawable/bg_rectangle_filled_gs_10_left_radius_8"
             android:clickable="@{vm.uiState.selectedSurgeryType == SurgeryType.THINK_SURGERY ? false : true}"
-            android:onClick="@{()->vm.onClickMinus()}"
+            app:onThrottleClick="@{()->vm.onClickMinus()}"
             app:layout_constraintBottom_toBottomOf="@id/text_progress_round"
             app:layout_constraintStart_toStartOf="@id/text_progress_round"
             app:layout_constraintTop_toTopOf="@id/text_progress_round">
@@ -178,7 +178,7 @@
             android:layout_height="0dp"
             android:background="@drawable/bg_rectangle_filled_gs_10_right_radius_8"
             android:clickable="@{vm.uiState.selectedSurgeryType == SurgeryType.THINK_SURGERY ? false : true}"
-            android:onClick="@{()->vm.onClickPlus()}"
+            app:onThrottleClick="@{()->vm.onClickPlus()}"
             app:layout_constraintBottom_toBottomOf="@id/text_progress_round"
             app:layout_constraintEnd_toEndOf="@id/text_progress_round"
             app:layout_constraintTop_toTopOf="@id/text_progress_round">
@@ -225,7 +225,7 @@
             android:layout_marginTop="2dp"
             android:background="@{vm.uiState.selectedSurgeryType == SurgeryType.THINK_SURGERY ? @drawable/bg_rectangle_filled_gs_10_radius_8 : @drawable/bg_rectangle_filled_white_radius_8}"
             android:clickable="@{vm.uiState.selectedSurgeryType == SurgeryType.THINK_SURGERY ? false : true}"
-            android:onClick="@{()->vm.onClickCalendar()}"
+            app:onThrottleClick="@{()->vm.onClickCalendar()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_start_treatment_day_hint">
@@ -237,7 +237,7 @@
                 android:layout_marginVertical="14dp"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/ic_calendar_gs_70"
-                android:onClick="@{()->vm.onClickCalendar()}"
+                app:onThrottleClick="@{()->vm.onClickCalendar()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -297,7 +297,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@drawable/bg_rectangle_filled_gs_10_right_radius_8"
-                android:onClick="@{()->vm.onClickCopy()}"
+                app:onThrottleClick="@{()->vm.onClickCopy()}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 

@@ -35,7 +35,7 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_cancel"
                 android:background="@android:color/transparent"
-                android:onClick="@{()->vm.onClickBtnClose()}"
+                app:onThrottleClick="@{()->vm.onClickBtnClose()}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/include_top_bar"
                 app:layout_constraintBottom_toBottomOf="@id/include_top_bar"/>
@@ -77,7 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:onClick="@{()->vm.onClickBtnDailyCondition(DailyConditionType.WORST)}"
+                    app:onThrottleClick="@{()->vm.onClickBtnDailyCondition(DailyConditionType.WORST)}"
                     android:src="@{vm.uiState.isSelectedEmotion != DailyConditionType.WORST ? @drawable/ic_emotion_worst_unselected : @drawable/ic_emotion_worst_selected}"/>
 
                 <Space
@@ -89,7 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:onClick="@{()->vm.onClickBtnDailyCondition(DailyConditionType.BAD)}"
+                    app:onThrottleClick="@{()->vm.onClickBtnDailyCondition(DailyConditionType.BAD)}"
                     android:src="@{vm.uiState.isSelectedEmotion != DailyConditionType.BAD ? @drawable/ic_emotion_bad_unselected : @drawable/ic_emotion_bad_selected}"/>
 
                 <Space
@@ -101,7 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:onClick="@{()->vm.onClickBtnDailyCondition(DailyConditionType.SOSO)}"
+                    app:onThrottleClick="@{()->vm.onClickBtnDailyCondition(DailyConditionType.SOSO)}"
                     android:src="@{vm.uiState.isSelectedEmotion != DailyConditionType.SOSO ? @drawable/ic_emotion_soso_unselected : @drawable/ic_emotion_soso_selected}"/>
 
                 <Space
@@ -113,7 +113,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:onClick="@{()->vm.onClickBtnDailyCondition(DailyConditionType.GOOD)}"
+                    app:onThrottleClick="@{()->vm.onClickBtnDailyCondition(DailyConditionType.GOOD)}"
                     android:src="@{vm.uiState.isSelectedEmotion != DailyConditionType.GOOD ? @drawable/ic_emotion_smile_unselected : @drawable/ic_emotion_smile_selected}"/>
 
                 <Space
@@ -125,7 +125,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:onClick="@{()->vm.onClickBtnDailyCondition(DailyConditionType.PERFECT)}"
+                    app:onThrottleClick="@{()->vm.onClickBtnDailyCondition(DailyConditionType.PERFECT)}"
                     android:src="@{vm.uiState.isSelectedEmotion != DailyConditionType.PERFECT ? @drawable/ic_emotion_perfect_unselected : @drawable/ic_emotion_perfect_selected}"/>
 
             </LinearLayout>
@@ -160,7 +160,7 @@
                 android:textColor="@{vm.uiState.isEditMode() ? @color/white : @color/black}"
                 android:textAppearance="@style/h1"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:onClick="@{()->vm.onClickBtnNext()}"
+                app:onThrottleClick="@{()->vm.onClickBtnNext()}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_text_daily_record"/>
